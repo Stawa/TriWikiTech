@@ -1,5 +1,5 @@
 import React from "react";
-import Image from 'next/image';
+import Image from "next/image";
 
 export type Language = "python" | "c" | "cpp" | "javascript";
 
@@ -63,7 +63,10 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
             <Image
               src={languageIcon}
               alt={language}
+              height={64}
+              width={64}
               className={`${paddingImage} h-full bg-neutral-800`}
+              style={{ objectFit: "contain" }}
             />
           </div>
         );

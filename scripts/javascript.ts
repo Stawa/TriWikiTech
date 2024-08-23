@@ -5,7 +5,7 @@ import { exec } from "child_process";
 
 export async function runJavaScriptCode(
   code: string,
-  tempDir: string
+  tempDir: string,
 ): Promise<{ output: string; runtime: string; error?: string }> {
   const fileName = `${uuidv4()}.js`;
   const filePath = join(tempDir, fileName);
@@ -32,7 +32,7 @@ export async function runJavaScriptCode(
 }
 
 async function runNodeCommand(
-  filePath: string
+  filePath: string,
 ): Promise<{ output: string; error: string }> {
   return new Promise((resolve) => {
     exec(`node ${filePath}`, (error, stdout, stderr) => {

@@ -120,7 +120,14 @@ export default function Home() {
                   key={key}
                   className="border border-neutral-600 bg-neutral-950 rounded-lg shadow-lg p-6 text-center"
                 >
-                  <Image src={icon} alt={title} className="h-12 mx-auto mb-4" />
+                  <Image
+                    src={icon}
+                    alt={title}
+                    height={48}
+                    width={48}
+                    layout="intrinsic"
+                    className="h-12 mx-auto mb-4"
+                  />
                   <h3 className="text-xl font-bold mb-2">{title}</h3>
                   <p className="text-neutral-400 mb-4">{description}</p>
                   <div className="flex flex-col md:flex-col justify-center space-y-4">

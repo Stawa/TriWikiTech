@@ -20,7 +20,7 @@ __builtins__.__import__ = restricted_import
 
 export async function runPythonCode(
   code: string,
-  TEMP_DIR: string
+  TEMP_DIR: string,
 ): Promise<{ output: string; runtime: string; error?: string }> {
   const fileName = `${uuidv4()}.py`;
   const filePath = join(TEMP_DIR, fileName);
@@ -53,7 +53,7 @@ export async function runPythonCode(
 }
 
 async function executePythonCommand(
-  filePath: string
+  filePath: string,
 ): Promise<{ output: string; error: string }> {
   return new Promise((resolve) => {
     exec(`python ${filePath}`, (error, stdout, stderr) => {

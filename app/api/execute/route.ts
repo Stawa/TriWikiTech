@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     string,
     (
       code: string,
-      TEMP_DIR: string
+      TEMP_DIR: string,
     ) => Promise<{ output: string; runtime: string; error?: string }>
   > = {
     javascript: runJavaScriptCode,
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
   if (!(language in availableLanguage)) {
     return NextResponse.json(
       { output: "Unsupported language" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
       error instanceof Error ? error.message : "Unknown error occurred";
     return NextResponse.json(
       { output: "Error executing code", error: errorMessage },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

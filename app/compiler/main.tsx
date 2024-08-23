@@ -46,7 +46,7 @@ export function Compiler() {
   const handleLanguageChange = (newLanguage: Language) => {
     if (newLanguage !== language && code !== defaultCode[language]) {
       const confirmChange = window.confirm(
-        "Changing the language will clear the current code. Are you sure?"
+        "Changing the language will clear the current code. Are you sure?",
       );
       if (!confirmChange) return;
     }

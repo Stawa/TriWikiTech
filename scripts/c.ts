@@ -4,7 +4,7 @@ import path from "path";
 
 export async function runCCode(
   code: string,
-  tempDir: string
+  tempDir: string,
 ): Promise<{ output: string; runtime: string; error?: string }> {
   const sourceFilePath = path.join(tempDir, "main.c");
   const binaryFilePath = path.join(tempDir, "main.exe");
@@ -13,7 +13,7 @@ export async function runCCode(
     await fs.writeFile(sourceFilePath, code);
 
     const compileResult = await execPromise(
-      `gcc ${sourceFilePath} -o ${binaryFilePath}`
+      `gcc ${sourceFilePath} -o ${binaryFilePath}`,
     );
 
     if (compileResult.stderr) {
@@ -53,15 +53,15 @@ async function cleanupFile(filePath: string): Promise<void> {
     console.error(
       `Failed to delete file: ${
         err instanceof Error ? err.message : "Unknown error"
-      }`
+      }`,
     );
   }
 }
 
 function execPromise(
-  command: string
+  command: string,
 ): Promise<{ stdout: string; stderr: string }> {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     exec(command, (_error, stdout, stderr) => {
       resolve({ stdout, stderr });
     });
