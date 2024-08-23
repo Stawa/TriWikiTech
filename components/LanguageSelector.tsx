@@ -1,4 +1,5 @@
 import React from "react";
+import Image from 'next/image';
 
 export type Language = "python" | "c" | "cpp" | "javascript";
 
@@ -59,7 +60,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
               !isAvailable ? "opacity-50 pointer-events-none" : ""
             }`}
           >
-            <img
+            <Image
               src={languageIcon}
               alt={language}
               className={`${paddingImage} h-full bg-neutral-800`}

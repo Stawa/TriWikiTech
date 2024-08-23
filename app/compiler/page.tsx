@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Compiler } from "./main";
 
 export const metadata = {
@@ -8,5 +8,9 @@ export const metadata = {
 };
 
 export default function CompilerPage() {
-  return <Compiler />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Compiler />
+    </Suspense>
+  );
 }

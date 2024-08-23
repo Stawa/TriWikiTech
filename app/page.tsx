@@ -1,6 +1,7 @@
 import Footer from "@default/components/Footer";
 import Navbar from "@default/components/Navbar";
 import React from "react";
+import Image from "next/image";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 interface LanguageItem {
@@ -119,7 +120,7 @@ export default function Home() {
                   key={key}
                   className="border border-neutral-600 bg-neutral-950 rounded-lg shadow-lg p-6 text-center"
                 >
-                  <img src={icon} alt={title} className="h-12 mx-auto mb-4" />
+                  <Image src={icon} alt={title} className="h-12 mx-auto mb-4" />
                   <h3 className="text-xl font-bold mb-2">{title}</h3>
                   <p className="text-neutral-400 mb-4">{description}</p>
                   <div className="flex flex-col md:flex-col justify-center space-y-4">
