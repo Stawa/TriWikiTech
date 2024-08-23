@@ -9,6 +9,7 @@ import { promises as fs } from "fs";
 import { join } from "path";
 
 const TEMP_DIR = join(process.cwd(), "tmp");
+export const runtime = "edge";
 
 async function ensureTempDir() {
   try {
