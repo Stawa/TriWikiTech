@@ -29,6 +29,9 @@ export async function runPythonCode(
   try {
     await fs.writeFile(filePath, safeCode);
 
+    // Check if Python is installed and install if not
+    await checkAndInstallPython();
+
     const start = Date.now();
     const result = await executePythonCommand(filePath);
     const end = Date.now();
@@ -58,7 +61,7 @@ async function executePythonCommand(
   filePath: string,
 ): Promise<{ output: string; error: string }> {
   return new Promise((resolve) => {
-    exec(`/usr/local/bin/python3 ${filePath}`, (error, stdout, stderr) => {
+    exec("/usr/local/bin/python3 " + filePath, (error, stdout, stderr) => {
       resolve({
         output: error ? stderr : stdout,
         error: error ? `Execution failed: ${error.message}` : stderr,
@@ -69,11 +72,35 @@ async function executePythonCommand(
 
 async function listExecutablesInUSRLIB(): Promise<string> {
   return new Promise((resolve) => {
-    exec("ls -l /usr/local/bin/python3", (error, stdout, stderr) => {
+    exec("ls -l /usr/local/bin", (error, stdout, stderr) => {
       if (error) {
         resolve(`Failed to list executables: ${stderr}`);
       } else {
         resolve(stdout);
+      }
+    });
+  });
+}
+
+async function checkAndInstallPython(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    exec("which python3", (error, stdout, stderr) => {
+      if (error) {
+        console.log("Python not found. Installing Python...");
+        exec(
+          "curl -fsSL https://www.python.org/ftp/python/3.12.0/Python-3.12.0.tar.xz | tar -xJf - -C /usr/local --strip-components=1 && ln -sf /usr/local/bin/python3 /usr/bin/python3",
+          (installError, installStdout, installStderr) => {
+            if (installError) {
+              reject(`Failed to install Python: ${installStderr}`);
+            } else {
+              console.log("Python installed successfully.");
+              resolve();
+            }
+          },
+        );
+      } else {
+        console.log(`Python found at ${stdout.trim()}`);
+        resolve();
       }
     });
   });
