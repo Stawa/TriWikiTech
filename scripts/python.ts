@@ -85,11 +85,13 @@ async function listExecutablesInUSRLIB(): Promise<string> {
 async function checkAndInstallPython(): Promise<void> {
   return new Promise((resolve, reject) => {
     exec("which python3", (error, stdout, stderr) => {
+      console.log(stderr)
       if (error) {
         console.log("Python not found. Installing Python...");
         exec(
           "curl -fsSL https://www.python.org/ftp/python/3.12.0/Python-3.12.0.tar.xz | tar -xJf - -C /usr/local --strip-components=1 && ln -sf /usr/local/bin/python3 /usr/bin/python3",
           (installError, installStdout, installStderr) => {
+            console.log(installStdout)
             if (installError) {
               reject(`Failed to install Python: ${installStderr}`);
             } else {
