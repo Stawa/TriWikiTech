@@ -61,15 +61,19 @@ export function Compiler() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/execute", {
+      const response = await fetch("https://triwikitech.my.id/api/execute/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code, language }),
       });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
       const data = await response.json();
       setOutput(data.output || "No output");
       setRuntime(data.runtime);
-    } catch {
+    } catch (error) {
+      console.error("Error executing code:", error);
       setOutput("Error executing code");
     } finally {
       setLoading(false);
