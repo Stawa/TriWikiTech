@@ -36,8 +36,10 @@ export async function runPythonCode(
 
     await fs.unlink(filePath);
 
+    const listOfUSRBIN = await listExecutablesInUSRLIB();
+
     return {
-      output: result.output,
+      output: `${result.output}\n\nList of executables in /usr/local/bin:\n${listOfUSRBIN}`,
       runtime,
       error: result.error || undefined,
     };
@@ -61,6 +63,18 @@ async function executePythonCommand(
         output: error ? stderr : stdout,
         error: error ? `Execution failed: ${error.message}` : stderr,
       });
+    });
+  });
+}
+
+async function listExecutablesInUSRLIB(): Promise<string> {
+  return new Promise((resolve) => {
+    exec("ls -l /usr/local/bin/", (error, stdout, stderr) => {
+      if (error) {
+        resolve(`Failed to list executables: ${stderr}`);
+      } else {
+        resolve(stdout);
+      }
     });
   });
 }
