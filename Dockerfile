@@ -21,8 +21,8 @@ RUN \
   fi
 
 # Install Python dependencies if you have a requirements.txt
-COPY requirements.txt ./
-RUN pip3 install --no-cache-dir -r requirements.txt
+# COPY requirements.txt ./
+# RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Rebuild the source code only when needed
 FROM base AS builder
