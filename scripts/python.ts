@@ -58,7 +58,7 @@ async function executePythonCommand(
   filePath: string,
 ): Promise<{ output: string; error: string }> {
   return new Promise((resolve) => {
-    exec(`/usr/local/bin/python3 ${filePath}`, (error, stdout, stderr) => {
+    exec(`/opt/python/bin/python3 ${filePath}`, (error, stdout, stderr) => {
       resolve({
         output: error ? stderr : stdout,
         error: error ? `Execution failed: ${error.message}` : stderr,
@@ -69,7 +69,7 @@ async function executePythonCommand(
 
 async function listExecutablesInUSRLIB(): Promise<string> {
   return new Promise((resolve) => {
-    exec("which python3", (error, stdout, stderr) => {
+    exec("ls -l /usr/local/bin | grep '^-rwx'", (error, stdout, stderr) => {
       if (error) {
         resolve(`Failed to list executables: ${stderr}`);
       } else {
