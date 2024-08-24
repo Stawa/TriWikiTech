@@ -61,7 +61,7 @@ export function Compiler() {
     setLoading(true);
 
     try {
-      const response = await fetch("https://triwikitech.my.id/api/execute/", {
+      const response = await fetch("/api/execute/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code, language }),
