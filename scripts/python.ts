@@ -56,7 +56,7 @@ async function executePythonCommand(
   filePath: string,
 ): Promise<{ output: string; error: string }> {
   return new Promise((resolve) => {
-    exec(`/usr/bin/python3 ${filePath}`, (error, stdout, stderr) => {
+    exec(`/usr/local/bin/python3 ${filePath}`, (error, stdout, stderr) => {
       resolve({
         output: error ? stderr : stdout,
         error: error ? `Execution failed: ${error.message}` : stderr,
