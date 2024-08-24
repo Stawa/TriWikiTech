@@ -6,9 +6,9 @@ import {
   runCppCode,
 } from "@default/scripts";
 import { promises as fs } from "fs";
-import { join } from "path";
+// import { join } from "path";
 
-const TEMP_DIR = join(process.cwd(), "tmp");
+const TEMP_DIR = "/tmp"
 export const runtime = "nodejs";
 
 async function ensureTempDir() {
