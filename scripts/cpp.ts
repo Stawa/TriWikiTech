@@ -35,7 +35,8 @@ export async function runCppCode(
     };
   } catch (error) {
     return {
-      output: "",
+      output:
+        error instanceof Error ? error.message : "An unknown error occurred",
       runtime: "",
       error:
         error instanceof Error ? error.message : "An unknown error occurred",
