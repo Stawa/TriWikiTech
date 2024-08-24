@@ -36,10 +36,8 @@ export async function runPythonCode(
 
     await fs.unlink(filePath);
 
-    const listOfUSRBIN = await listExecutablesInUSRLIB();
-
     return {
-      output: `${result.output}\n\nList of executables in /usr/local/bin:\n${listOfUSRBIN}`,
+      output: result.output,
       runtime,
       error: result.error || undefined,
     };
@@ -58,23 +56,11 @@ async function executePythonCommand(
   filePath: string,
 ): Promise<{ output: string; error: string }> {
   return new Promise((resolve) => {
-    exec(`/opt/python/bin/python3 ${filePath}`, (error, stdout, stderr) => {
+    exec(`python3 ${filePath}`, (error, stdout, stderr) => {
       resolve({
         output: error ? stderr : stdout,
         error: error ? `Execution failed: ${error.message}` : stderr,
       });
-    });
-  });
-}
-
-async function listExecutablesInUSRLIB(): Promise<string> {
-  return new Promise((resolve) => {
-    exec("ls -l /usr/local/bin | grep '^-rwx'", (error, stdout, stderr) => {
-      if (error) {
-        resolve(`Failed to list executables: ${stderr}`);
-      } else {
-        resolve(stdout);
-      }
     });
   });
 }

@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "prebuild": "bun run lint --fix",
-    "install-python": "sh ./install-python.sh",
-    "build": "bun run install-python && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint ."
   },
