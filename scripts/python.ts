@@ -69,7 +69,7 @@ async function executePythonCommand(
 
 async function listExecutablesInUSRLIB(): Promise<string> {
   return new Promise((resolve) => {
-    exec("ls -l /usr/local/bin/", (error, stdout, stderr) => {
+    exec("ls -l /usr/local/bin/python3", (error, stdout, stderr) => {
       if (error) {
         resolve(`Failed to list executables: ${stderr}`);
       } else {
