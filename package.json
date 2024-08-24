@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "prebuild": "bun run lint --fix",
-    "install-python": "/usr/local/bin/python3 --version",
+    "install-python": "sh ./install-python.sh",
     "build": "bun run install-python && next build",
     "start": "next start",
     "lint": "eslint ."
