@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "prebuild": "bun run lint --fix",
-    "build": "next build",
+    "install-python": "curl -fsSL https://www.python.org/ftp/python/3.10.4/python-3.10.4-linux-x86_64.tar.xz | tar -xJf - -C /usr/local --strip-components=1 && ln -s /usr/local/bin/python3 /usr/local/bin/python",
+    "build": "npm run install-python && next build",
     "start": "next start",
     "lint": "eslint ."
   },
