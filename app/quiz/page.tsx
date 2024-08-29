@@ -29,7 +29,7 @@ const Quiz = () => {
     ) {
       router.push(`/quiz/${language}`);
     }
-  }, [router]);
+  }, [router, languages]);
 
   const handleLanguageSelect = (language: Language) => {
     router.push(`/quiz/${language}`);

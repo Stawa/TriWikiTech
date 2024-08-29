@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@components/Navbar";
 import Footer from "@components/Footer";
@@ -30,18 +30,27 @@ const LanguageQuiz = ({ params }: { params: { language: string } }) => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showResults, setShowResults] = useState(false);
 
-  const languageMap: Record<string, Language> = {
-    python: "Python",
-    javascript: "JavaScript",
-    c: "C",
-    cpp: "CPP",
-  };
-  const questions: Questions = {
-    Python: PythonQuestions.questions as Question[],
-    JavaScript: JavaScriptQuestions.questions as Question[],
-    C: CQuestions.questions as Question[],
-    CPP: CPPQuestions.questions as Question[],
-  };
+  const languageMap = useMemo(
+    () =>
+      ({
+        python: "Python",
+        javascript: "JavaScript",
+        c: "C",
+        cpp: "CPP",
+      }) as Record<string, Language>,
+    [],
+  );
+
+  const questions = useMemo(
+    () =>
+      ({
+        Python: PythonQuestions.questions as Question[],
+        JavaScript: JavaScriptQuestions.questions as Question[],
+        C: CQuestions.questions as Question[],
+        CPP: CPPQuestions.questions as Question[],
+      }) as Questions,
+    [],
+  );
 
   useEffect(() => {
     const normalizedLanguage = params.language.toLowerCase();
@@ -50,7 +59,7 @@ const LanguageQuiz = ({ params }: { params: { language: string } }) => {
     }
     const currentQuestions = questions[languageMap[normalizedLanguage]];
     setSelectedAnswers(new Array(currentQuestions.length).fill(null));
-  }, [params.language, router]);
+  }, [params.language, router, languageMap, questions]);
 
   const handleAnswer = (selectedAnswer: number) => {
     if (quizCompleted || showResults) return;
