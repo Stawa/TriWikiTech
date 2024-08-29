@@ -1,0 +1,39 @@
+{
+  "questions": [
+    {
+      "question": "What is the correct way to include a header file in C?",
+      "options": [
+        "#include <header.h>",
+        "#include 'header.h'",
+        "#include header.h",
+        "#include <header>"
+      ],
+      "correctAnswer": 0
+    },
+    {
+      "question": "Which of the following is a valid variable declaration in C?",
+      "options": [
+        "int 1number;",
+        "int number1;",
+        "int number-1;",
+        "int number 1;"
+      ],
+      "correctAnswer": 1
+    },
+    {
+      "question": "What is the output of the following code: printf('%d', 5 + 2);?",
+      "options": ["5", "7", "52", "Error"],
+      "correctAnswer": 1
+    },
+    {
+      "question": "Which of the following is used to terminate a string in C?",
+      "options": ["'", "\"", "\\", "NULL"],
+      "correctAnswer": 3
+    },
+    {
+      "question": "What is the size of an int in C on a 32-bit system?",
+      "options": ["2 bytes", "4 bytes", "8 bytes", "16 bytes"],
+      "correctAnswer": 1
+    }
+  ]
+}

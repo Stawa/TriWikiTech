@@ -26,7 +26,7 @@ export default function Home() {
       icon: "/Python.png",
       learn: false,
       compiler_href: "/compiler?lang=python",
-      compiler: true,
+      compiler: false,
       color: "#4B8BBE",
     },
     JavaScript: {
@@ -35,7 +35,7 @@ export default function Home() {
       icon: "/Javascript.png",
       learn: false,
       compiler_href: "/compiler?lang=javascript",
-      compiler: true,
+      compiler: false,
       color: "#F7DF1E",
     },
     C: {
@@ -44,7 +44,7 @@ export default function Home() {
       icon: "/C.png",
       learn: false,
       compiler_href: "/compiler?lang=c",
-      compiler: true,
+      compiler: false,
       color: "#A8B9CC",
     },
     CPP: {
@@ -54,7 +54,7 @@ export default function Home() {
       icon: "/CPP.png",
       learn: false,
       compiler_href: "/compiler?lang=cpp",
-      compiler: true,
+      compiler: false,
       color: "#00599C",
     },
     NodeJS: {

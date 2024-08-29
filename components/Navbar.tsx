@@ -37,14 +37,14 @@ export default function Navbar() {
   const NavbarMenus: NavbarMenu = {
     Quiz: {
       title: "Quiz",
-      href: "#",
-      enabled: false,
+      href: "/quiz",
+      enabled: true,
       blank: true,
     },
     CodeCompilers: {
       title: "Code Compilers",
       href: "/compiler",
-      enabled: true,
+      enabled: false,
       blank: true,
     },
   };

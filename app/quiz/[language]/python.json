@@ -1,0 +1,29 @@
+{
+  "questions": [
+    {
+      "question": "What is the output of print(2 ** 3)?",
+      "options": ["6", "8", "9", "3"],
+      "correctAnswer": 1
+    },
+    {
+      "question": "Which of the following is a mutable data type in Python?",
+      "options": ["Tuple", "String", "List", "Integer"],
+      "correctAnswer": 2
+    },
+    {
+      "question": "What keyword is used to define a function in Python?",
+      "options": ["function", "def", "define", "func"],
+      "correctAnswer": 1
+    },
+    {
+      "question": "What is the correct way to create a set in Python?",
+      "options": ["set = {}", "set = []", "set = ()", "set = set()"],
+      "correctAnswer": 0
+    },
+    {
+      "question": "Which of the following is not a valid variable name in Python?",
+      "options": ["my_var", "myVar", "my-var", "myVar1"],
+      "correctAnswer": 2
+    }
+  ]
+}

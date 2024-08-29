@@ -1,0 +1,39 @@
+{
+  "questions": [
+    {
+      "question": "What is the output of typeof NaN?",
+      "options": ["'number'", "'undefined'", "'NaN'", "'object'"],
+      "correctAnswer": 0
+    },
+    {
+      "question": "Which method is used to convert a JSON string into a JavaScript object?",
+      "options": [
+        "JSON.parse()",
+        "JSON.stringify()",
+        "JSON.convert()",
+        "JSON.object()"
+      ],
+      "correctAnswer": 0
+    },
+    {
+      "question": "What will be the output of the following code: console.log(0.1 + 0.2 === 0.3)?",
+      "options": ["true", "false", "undefined", "NaN"],
+      "correctAnswer": 1
+    },
+    {
+      "question": "Which of the following is a way to create an object in JavaScript?",
+      "options": [
+        "var obj = {}",
+        "var obj = new Object()",
+        "var obj = Object.create()",
+        "All of the above"
+      ],
+      "correctAnswer": 3
+    },
+    {
+      "question": "What is the result of the expression '5' + 3?",
+      "options": ["8", "53", "Error", "NaN"],
+      "correctAnswer": 1
+    }
+  ]
+}
