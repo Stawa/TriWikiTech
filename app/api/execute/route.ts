@@ -6,9 +6,9 @@ import {
   runCppCode,
 } from "@default/scripts";
 import { promises as fs } from "fs";
-// import { join } from "path";
+import { join } from "path";
 
-const TEMP_DIR = "/tmp"
+const TEMP_DIR = join(process.cwd(), "tmp");
 export const runtime = "nodejs";
 
 async function ensureTempDir() {
@@ -46,6 +46,7 @@ export async function POST(request: NextRequest) {
 
   try {
     await ensureTempDir();
+
     const result = await availableLanguage[language](code, TEMP_DIR);
     return NextResponse.json(result);
   } catch (error) {

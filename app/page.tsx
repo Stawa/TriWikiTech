@@ -1,8 +1,8 @@
-import Footer from "@default/components/Footer";
-import Navbar from "@default/components/Navbar";
+import Footer from "@components/Footer";
+import Navbar from "@components/Navbar";
 import React from "react";
 import Image from "next/image";
-import { FaArrowRightLong } from "react-icons/fa6";
+import { FaCode, FaLaptopCode, FaRocket } from "react-icons/fa";
 
 interface LanguageItem {
   title: string;
@@ -11,6 +11,7 @@ interface LanguageItem {
   learn: boolean;
   compiler_href: string;
   compiler: boolean;
+  color: string;
 }
 
 interface LanguageContainer {
@@ -26,6 +27,7 @@ export default function Home() {
       learn: false,
       compiler_href: "/compiler?lang=python",
       compiler: true,
+      color: "#4B8BBE",
     },
     JavaScript: {
       title: "JavaScript",
@@ -34,6 +36,7 @@ export default function Home() {
       learn: false,
       compiler_href: "/compiler?lang=javascript",
       compiler: true,
+      color: "#F7DF1E",
     },
     C: {
       title: "C",
@@ -42,6 +45,7 @@ export default function Home() {
       learn: false,
       compiler_href: "/compiler?lang=c",
       compiler: true,
+      color: "#A8B9CC",
     },
     CPP: {
       title: "C++",
@@ -51,6 +55,7 @@ export default function Home() {
       learn: false,
       compiler_href: "/compiler?lang=cpp",
       compiler: true,
+      color: "#00599C",
     },
     NodeJS: {
       title: "NodeJS",
@@ -60,110 +65,98 @@ export default function Home() {
       learn: false,
       compiler_href: "#",
       compiler: false,
+      color: "#339933",
     },
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
       <Navbar />
 
-      <section className="space-y-6 pb-8 md:pb-12 lg:py-32 py-14">
-        <div className="container mx-auto px-6">
-          <div className="text-center">
-            <h2 className="mt-5 pt-4 font-bold text-3xl sm:text-4xl">
-              Learn Programming with TriWikiTech
-            </h2>
-            <h3 className="text-xl mb-4">
-              (Covers multiple programming languages with real-world examples)
-            </h3>
-            <p className="text-lg mb-4 text-neutral-400 max-w-3xl mx-auto">
-              We are a comprehensive platform dedicated to connecting
-              programmers with their learning goals and helping them master
-              programming languages.
-            </p>
-            <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
-              <a
-                href="#learn-compiler"
-                className="inline-block px-6 py-3 bg-white text-black hover:bg-neutral-300 rounded-md font-semibold transition duration-300 max-w-xs mx-auto"
+      <main className="container mx-auto px-4 py-16">
+        <section className="text-center mb-20 pt-8">
+          <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-500 to-purple-600 text-transparent bg-clip-text">
+            Learn Programming with TriWikiTech
+          </h1>
+          <p className="text-xl text-gray-700 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+            Master multiple programming languages with real-world examples on
+            our comprehensive platform.
+          </p>
+          <a
+            href="#learn-compiler"
+            className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full font-semibold transition duration-300 hover:shadow-lg hover:scale-105 transform"
+          >
+            <FaRocket className="mr-2" />
+            Start Your Journey
+          </a>
+        </section>
+
+        <section id="learn-compiler" className="mb-20 pb-8">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Choose Your Path & Start Coding
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {Object.entries(LanguageContainers).map(([key, lang]) => (
+              <div
+                key={key}
+                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 flex flex-col"
+                style={{ borderTop: `4px solid ${lang.color}` }}
               >
-                Start Now
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* New Section */}
-      <section id="learn-compiler" className="py-14 lg:py-32">
-        <div className="container mx-auto px-6">
-          <div className="text-center">
-            <h2 className="font-bold text-3xl sm:text-4xl">
-              Choose What to Learn & Start Coding
-            </h2>
-            <p className="text-lg mb-8 text-neutral-400">
-              Select a programming language and dive in.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {Object.keys(LanguageContainers).map((key) => {
-              const {
-                title,
-                description,
-                icon,
-                learn,
-                compiler_href,
-                compiler,
-              } = LanguageContainers[key as keyof LanguageContainer];
-              return (
-                <div
-                  key={key}
-                  className="border border-neutral-600 bg-neutral-950 rounded-lg shadow-lg p-6 text-center"
-                >
-                  <Image
-                    src={icon}
-                    alt={title}
-                    height={48}
-                    width={48}
-                    layout="intrinsic"
-                    className="h-12 mx-auto mb-4"
-                  />
-                  <h3 className="text-xl font-bold mb-2">{title}</h3>
-                  <p className="text-neutral-400 mb-4">{description}</p>
-                  <div className="flex flex-col md:flex-col justify-center space-y-4">
-                    <a
-                      href="#"
-                      className={`inline-block px-6 py-2 rounded-md font-semibold flex items-center justify-between transition duration-300 ${
-                        learn
-                          ? "bg-blue-600 text-white hover:bg-blue-700"
-                          : "bg-blue-600 text-white opacity-50 cursor-not-allowed"
-                      }`}
-                      aria-disabled={!learn}
-                    >
-                      <span>Learn now</span>
-                      <FaArrowRightLong className="ml-2" />
-                    </a>
-                    <a
-                      href={compiler_href}
-                      className={`inline-block px-6 py-2 rounded-md font-semibold flex items-center justify-between transition duration-300 ${
-                        compiler
-                          ? "bg-gray-700 text-white hover:bg-gray-800"
-                          : "bg-gray-600 text-white opacity-50 cursor-not-allowed"
-                      }`}
-                      aria-disabled={!compiler}
-                    >
-                      <span>Try Compiler</span>
-                      <FaArrowRightLong className="ml-2" />
-                    </a>
+                <div className="px-6 pt-6 flex-grow">
+                  <div
+                    className="mx-auto mb-4 text-center"
+                    style={{ color: lang.color }}
+                  >
+                    <div className="relative w-16 h-16 mx-auto">
+                      <Image
+                        src={lang.icon}
+                        alt={lang.title}
+                        width={64}
+                        height={64}
+                        style={{ objectFit: "contain" }}
+                        quality={100}
+                      />
+                    </div>
                   </div>
+                  <h3 className="text-2xl font-bold mb-2">{lang.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    {lang.description}
+                  </p>
                 </div>
-              );
-            })}
+                <div className="p-6 space-y-3">
+                  <a
+                    href="#"
+                    className={`flex items-center justify-center w-full py-2 rounded-md font-semibold text-center transition duration-300 ${
+                      lang.learn
+                        ? "bg-blue-600 hover:bg-blue-700 text-white"
+                        : "bg-gray-200 dark:bg-gray-700 cursor-not-allowed opacity-50 text-gray-700 dark:text-gray-300"
+                    }`}
+                    aria-disabled={!lang.learn}
+                  >
+                    <FaCode className="mr-2" />
+                    Learn now
+                  </a>
+                  <a
+                    href={lang.compiler_href}
+                    className={`flex items-center justify-center w-full py-2 rounded-md font-semibold text-center transition duration-300 ${
+                      lang.compiler
+                        ? "bg-purple-600 hover:bg-purple-700 text-white"
+                        : "bg-gray-200 dark:bg-gray-700 cursor-not-allowed opacity-50 text-gray-700 dark:text-gray-300"
+                    }`}
+                    aria-disabled={!lang.compiler}
+                  >
+                    <FaLaptopCode className="mr-2" />
+                    Try Compiler
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       <Footer />
-    </>
+    </div>
   );
 }

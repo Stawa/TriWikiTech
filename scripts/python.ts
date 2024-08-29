@@ -1,4 +1,4 @@
-import { exec } from "child_process";
+import { spawn } from "child_process";
 import { promises as fs } from "fs";
 import { join } from "path";
 import { v4 as uuidv4 } from "uuid";
@@ -14,14 +14,14 @@ def restricted_import(name, globals=None, locals=None, fromlist=(), level=0):
     return original_import(name, globals, locals, fromlist, level)
 
 # Override the built-in import function
-original_import = __builtins__.__import__
-__builtins__.__import__ = restricted_import
+original_import = builtins.__import__
+builtins.__import__ = restricted_import
 `;
 
 export async function runPythonCode(
   code: string,
   TEMP_DIR: string,
-): Promise<{ output: string; runtime: string; error?: string }> {
+): Promise<{ runtime: string; output: string; error?: string }> {
   const fileName = `${uuidv4()}.py`;
   const filePath = join(TEMP_DIR, fileName);
   const safeCode = SAFE_IMPORT_OVERRIDE + "\n\n" + code;
@@ -30,20 +30,15 @@ export async function runPythonCode(
     await fs.writeFile(filePath, safeCode);
 
     const start = Date.now();
-    const result = await executePythonCommand(filePath);
+    const output = await executePythonCommand(filePath);
     const end = Date.now();
     const runtime = `${(end - start) / 1000}s (${end - start}ms)`;
 
     await fs.unlink(filePath);
 
-    return {
-      output: result.output,
-      runtime,
-      error: result.error || undefined,
-    };
+    return { runtime, output };
   } catch (error) {
     console.error("Error executing Python code:", error);
-
     return {
       output: "",
       runtime: "",
@@ -52,15 +47,27 @@ export async function runPythonCode(
   }
 }
 
-async function executePythonCommand(
-  filePath: string,
-): Promise<{ output: string; error: string }> {
-  return new Promise((resolve) => {
-    exec(`python3 ${filePath}`, (error, stdout, stderr) => {
-      resolve({
-        output: error ? stderr : stdout,
-        error: error ? `Execution failed: ${error.message}` : stderr,
-      });
+async function executePythonCommand(filePath: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const pythonProcess = spawn("python", [filePath]);
+    let output = "";
+
+    pythonProcess.stdout.on("data", (data) => {
+      const dataString = data.toString();
+      output += dataString;
+    });
+
+    pythonProcess.stderr.on("data", (data) => {
+      const dataString = data.toString();
+      output += dataString;
+    });
+
+    pythonProcess.on("close", (code) => {
+      if (code === 0) {
+        resolve(output);
+      } else {
+        reject(new Error(`Python process exited with code ${code}`));
+      }
     });
   });
 }
