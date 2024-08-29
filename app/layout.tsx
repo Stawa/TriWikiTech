@@ -18,6 +18,22 @@ export const metadata: Metadata = {
     shortcut: ["/apple-touch-icon.png"],
   },
   manifest: "/site.webmanifest",
+  openGraph: {
+    type: "website",
+    url: "https://triwikitech.com",
+    title: "TriWikiTech - Program Wiki",
+    siteName: "TriWikiTech",
+    description:
+      "Interactive platform for learning programming languages and testing your knowledge.",
+    images: [
+      {
+        url: "/Icon.png",
+        width: 1200,
+        height: 630,
+        alt: "TriWikiTech Logo",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -27,6 +43,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system">
           {children}
