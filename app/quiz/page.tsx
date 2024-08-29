@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@components/Navbar";
 import Footer from "@components/Footer";
@@ -11,12 +11,16 @@ type Language = "Python" | "JavaScript" | "C" | "C++";
 const Quiz = () => {
   const router = useRouter();
 
-  const languages = [
-    { name: "Python", icon: "/Python.png" },
-    { name: "JavaScript", icon: "/Javascript.png" },
-    { name: "C", icon: "/C.png" },
-    { name: "C++", icon: "/CPP.png" },
-  ] as const;
+  const languages = useMemo(
+    () =>
+      [
+        { name: "Python", icon: "/Python.png" },
+        { name: "JavaScript", icon: "/Javascript.png" },
+        { name: "C", icon: "/C.png" },
+        { name: "C++", icon: "/CPP.png" },
+      ] as const,
+    [],
+  );
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
