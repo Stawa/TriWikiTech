@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s - TriWikiTech",
   },
   description:
-    "Join Asram Wojak's Minecraft server for fun adventures and a friendly community. Connect on Java or Bedrock!",
+    "TriWikiTech is an interactive platform for learning programming languages, taking quizzes to test your knowledge, and using online compilers for hands-on coding practice.",
   icons: {
     icon: ["/favicon.ico?v=4"],
     apple: ["/apple-touch-icon.png?v=4"],
