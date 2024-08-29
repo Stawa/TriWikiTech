@@ -27,9 +27,9 @@ export const metadata: Metadata = {
       "Interactive platform for learning programming languages and testing your knowledge.",
     images: [
       {
-        url: "/Icon.png",
-        width: 1200,
-        height: 630,
+        url: "/android-chrome-192x192.png",
+        width: 192,
+        height: 192,
         alt: "TriWikiTech Logo",
       },
     ],
