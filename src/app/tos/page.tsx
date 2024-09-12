@@ -28,7 +28,7 @@ export default function TermsOfService() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            We're currently updating our Terms of Service to better serve you.
+            We&apos;re currently updating our Terms of Service to better serve you.
           </motion.p>
           <motion.div
             className="space-y-3 sm:space-y-5"

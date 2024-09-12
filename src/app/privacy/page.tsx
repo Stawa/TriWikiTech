@@ -28,8 +28,8 @@ export default function PrivacyPolicy() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            We're currently crafting our privacy policy to ensure your data is
-            protected.
+            We&apos;re currently crafting our privacy policy to ensure your data
+            is protected.
           </motion.p>
           <motion.div
             className="space-y-3 sm:space-y-5"

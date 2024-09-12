@@ -28,8 +28,8 @@ export default function Courses() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            We're crafting exceptional learning experiences just for you. Stay
-            tuned!
+            We&apos;re crafting exceptional learning experiences just for you.
+            Stay tuned!
           </motion.p>
           <motion.div
             className="space-y-3 sm:space-y-5"

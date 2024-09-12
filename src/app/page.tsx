@@ -3,6 +3,7 @@
 import { ReactNode } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import Languages from "@data/langauges.json";
 
 const GridBackground = () => (
@@ -171,16 +172,13 @@ export default function Home() {
                 <div className="px-4 md:px-6 pt-6 flex-grow">
                   <div className="mx-auto mb-4 text-center">
                     <div className="relative w-12 h-12 md:w-16 md:h-16 mx-auto">
-                      <img
+                      <Image
                         alt={language.title}
                         src={`/lang/${language.name}.png`}
                         width={64}
                         height={64}
                         className="object-contain"
                         loading="lazy"
-                        decoding="async"
-                        style={{ color: "transparent" }}
-                        srcSet={`/_next/image?url=/lang/${language.name}.png&w=64&q=100 1x, /_next/image?url=/lang/${language.name}.png&w=128&q=100 2x`}
                       />
                     </div>
                   </div>
