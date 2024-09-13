@@ -28,7 +28,8 @@ export default function Quiz() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            We&apos;re preparing engaging quizzes to test your knowledge. Stay tuned!
+            We&apos;re preparing engaging quizzes to test your knowledge. Stay
+            tuned!
           </motion.p>
           <motion.div
             className="space-y-3 sm:space-y-5"

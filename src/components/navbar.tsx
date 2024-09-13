@@ -11,6 +11,7 @@ import {
   FaHome,
   FaBook,
   FaQuestionCircle,
+  FaLaptopCode,
 } from "react-icons/fa";
 
 const Navbar = () => {
@@ -32,6 +33,7 @@ const Navbar = () => {
     { name: "Home", icon: FaHome },
     { name: "Courses", icon: FaBook },
     { name: "Quiz", icon: FaQuestionCircle },
+    { name: "Compiler", icon: FaLaptopCode },
   ];
 
   return (
