@@ -21,7 +21,7 @@ const tosContent = [
   {
     title: "2. Use of Service",
     content:
-      "You agree to use TriWikiTech for lawful purposes only and in a way that does not infringe the rights of, restrict or inhibit anyone else's use and enjoyment of the website.",
+      "You agree to use TriWikiTech for lawful purposes only and in a way that does not infringe the rights of, restrict or inhibit anyone else&apos;s use and enjoyment of the website.",
     icon: FaUserShield,
   },
   {
@@ -132,8 +132,8 @@ export default function TermsOfService() {
             </h1>
             <p className="mt-4 sm:mt-5 max-w-xl mx-auto text-lg sm:text-xl text-gray-700 dark:text-gray-300">
               Please read these terms carefully before using TriWikiTech. These
-              terms are still under development and are subject to change. It's
-              not yet finalized and not in use.
+              terms are still under development and are subject to change.
+              It&apos;s not yet finalized and not in use.
             </p>
           </motion.div>
 

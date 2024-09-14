@@ -1,9 +1,36 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { FaShieldAlt, FaBook } from "react-icons/fa";
+import { PiScrollFill } from "react-icons/pi";
+import { useState, useEffect } from "react";
 import Social from "@data/social.json";
 
 const Footer = () => {
+  const defaultUrl = "https://github.com/Stawa/TriWikiTech/commits/dev";
+  const apiUrl = "https://api.github.com/repos/Stawa/TriWikiTech/commits/dev";
+  const [latestCommitUrl, setLatestCommitUrl] = useState<string>(defaultUrl);
+
+  const fetchLatestCommit = async (): Promise<string> => {
+    try {
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch latest commit: ${response.status} ${response.statusText}`
+        );
+      }
+      const data = await response.json();
+      return `https://github.com/Stawa/TriWikiTech/commit/${data.sha}`;
+    } catch (error) {
+      console.error("Error fetching latest commit:", error);
+      return defaultUrl;
+    }
+  };
+
+  useEffect(() => {
+    fetchLatestCommit().then(setLatestCommitUrl);
+  }, []);
+
   return (
     <footer className="bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-black text-gray-800 dark:text-white py-12 shadow-lg border-t-2 border-blue-600 transition-colors duration-300">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -107,18 +134,27 @@ const Footer = () => {
               </a>
             </p>
           </div>
-          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 text-center md:text-left">
+          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 text-center">
             <a
               href="/tos"
-              className="text-sm text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-300"
+              className="text-sm text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-300 flex items-center justify-center md:justify-start"
             >
+              <FaBook className="mr-2" />
               Terms of Service
             </a>
             <a
               href="/privacy"
-              className="text-sm text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-300"
+              className="text-sm text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-300 flex items-center justify-center md:justify-start"
             >
+              <FaShieldAlt className="mr-2" />
               Privacy Policy
+            </a>
+            <a
+              href={latestCommitUrl}
+              className="text-sm text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-300 flex items-center justify-center md:justify-start"
+            >
+              <PiScrollFill className="mr-2" />
+              Changelog
             </a>
           </div>
         </motion.div>
