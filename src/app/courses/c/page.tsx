@@ -28,7 +28,7 @@ export default function CCourses() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            We're working hard to bring you an amazing C programming learning
+            We&apos;re working hard to bring you an amazing C programming learning
             experience.
           </motion.p>
           <motion.div
