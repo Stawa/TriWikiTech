@@ -61,6 +61,7 @@ const Footer = () => {
                 className="h-5 w-5 inline-block"
                 viewBox="0 0 20 20"
                 fill="currentColor"
+                aria-hidden="true"
               >
                 <path
                   fillRule="evenodd"
@@ -81,6 +82,7 @@ const Footer = () => {
                 className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition duration-300 flex items-center mr-4 mb-2 sm:mb-0"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`Visit our ${socialItem.name} page`}
               >
                 <svg
                   className="w-6 h-6 sm:w-7 sm:h-7"
@@ -115,6 +117,7 @@ const Footer = () => {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -139,21 +142,21 @@ const Footer = () => {
               href="/tos"
               className="text-sm text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-300 flex items-center justify-center md:justify-start"
             >
-              <FaBook className="mr-2" />
+              <FaBook className="mr-2" aria-hidden="true" />
               Terms of Service
             </a>
             <a
               href="/privacy"
               className="text-sm text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-300 flex items-center justify-center md:justify-start"
             >
-              <FaShieldAlt className="mr-2" />
+              <FaShieldAlt className="mr-2" aria-hidden="true" />
               Privacy Policy
             </a>
             <a
               href={latestCommitUrl}
               className="text-sm text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-300 flex items-center justify-center md:justify-start"
             >
-              <PiScrollFill className="mr-2" />
+              <PiScrollFill className="mr-2" aria-hidden="true" />
               Changelog
             </a>
           </div>

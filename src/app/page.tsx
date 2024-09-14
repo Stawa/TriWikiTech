@@ -142,108 +142,102 @@ export default function Home() {
           >
             Explore Our Interactive Tools
           </motion.h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12">
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, staggerChildren: 0.1 }}
+          >
             {Languages.map((language) => (
               <motion.div
                 key={language.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                whileHover={{
-                  scale: 1.03,
-                  boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
-                  transition: { duration: 0.3 },
-                }}
-                className={`bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg transition-all duration-300 flex flex-col`}
+                className={`bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col h-full`}
                 style={{ borderTop: `4px solid ${language.color}` }}
               >
-                <div className="px-6 pt-8 pb-6 flex-grow">
-                  <div className="mx-auto mb-6 text-center">
-                    <div className="relative w-20 h-20 mx-auto bg-gray-100 dark:bg-gray-700 rounded-full p-4 shadow-inner flex items-center justify-center">
-                      <Image
-                        alt={language.title}
-                        src={`/lang/${language.name}.svg`}
-                        width={64}
-                        height={64}
-                        className="object-contain"
-                        loading="lazy"
-                      />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl font-bold mb-3 text-gray-800 dark:text-white text-center">
+                <div
+                  className={`p-8 bg-gradient-to-br ${language.color} flex items-center justify-center h-48`}
+                >
+                  <Image
+                    src={`/lang/${language.name}.svg`}
+                    alt={language.title}
+                    width={100}
+                    height={100}
+                    className="object-contain filter drop-shadow-lg"
+                  />
+                </div>
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white text-center">
                     {language.title}
                   </h3>
-                  <p className="text-base text-gray-600 dark:text-gray-400 text-center mb-6">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-6 flex-grow text-center">
                     {language.description}
                   </p>
-                </div>
-                <div className="p-6 bg-gray-50 dark:bg-gray-900 space-y-4">
-                  <motion.button
-                    className={`flex items-center justify-center w-full py-3 rounded-lg font-semibold text-center transition duration-300 ${
-                      language.wiki.available
-                        ? "bg-blue-500 hover:bg-blue-600 text-white shadow-md hover:shadow-lg"
-                        : "bg-gray-200 dark:bg-gray-700 cursor-not-allowed opacity-50 text-gray-700 dark:text-gray-300"
-                    }`}
-                    disabled={!language.wiki.available}
-                    whileHover={{ scale: language.wiki.available ? 1.03 : 1 }}
-                    whileTap={{ scale: language.wiki.available ? 0.97 : 1 }}
-                    onClick={() => {
-                      if (language.wiki.available) {
-                        window.location.href = language.wiki.href;
-                      }
-                    }}
-                  >
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth="0"
-                      viewBox="0 0 640 512"
-                      className="mr-3"
-                      height="1.2em"
-                      width="1.2em"
-                      xmlns="http://www.w3.org/2000/svg"
+                  <div className="space-y-4">
+                    <motion.button
+                      className={`inline-flex items-center justify-center w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-md hover:shadow-lg text-lg ${
+                        !language.wiki.available &&
+                        "opacity-50 cursor-not-allowed"
+                      }`}
+                      disabled={!language.wiki.available}
+                      whileHover={{ scale: language.wiki.available ? 1.05 : 1 }}
+                      whileTap={{ scale: language.wiki.available ? 0.95 : 1 }}
+                      onClick={() => {
+                        if (language.wiki.available) {
+                          window.location.href = language.wiki.href;
+                        }
+                      }}
                     >
-                      <path d="M278.9 511.5l-61-17.7c-6.4-1.8-10-8.5-8.2-14.9L346.2 8.7c1.8-6.4 8.5-10 14.9-8.2l61 17.7c6.4 1.8 10 8.5 8.2 14.9L293.8 503.3c-1.9 6.4-8.5 10.1-14.9 8.2zm-114-112.2l43.5-46.4c4.6-4.9 4.3-12.7-.8-17.2L117 256l90.6-79.7c5.1-4.5 5.5-12.3.8-17.2l-43.5-46.4c-4.5-4.8-12.1-5.1-17-.5L3.8 247.2c-5.1 4.7-5.1 12.8 0 17.5l144.1 135.1c4.9 4.6 12.5 4.4 17-.5zm327.2.6l144.1-135.1c5.1-4.7 5.1-12.8 0-17.5L492.1 112.1c-4.8-4.5-12.4-4.3-17 .5L431.6 159c-4.6 4.9-4.3 12.7.8 17.2L523 256l-90.6 79.7c-5.1 4.5-5.5 12.3-.8 17.2l43.5 46.4c4.5 4.9 12.1 5.1 17 .6z"></path>
-                    </svg>
-                    Learn now
-                  </motion.button>
-                  <motion.button
-                    className={`flex items-center justify-center w-full py-3 rounded-lg font-semibold text-center transition duration-300 ${
-                      language.compiler.available
-                        ? "bg-green-500 hover:bg-green-600 text-white shadow-md hover:shadow-lg"
-                        : "bg-gray-200 dark:bg-gray-700 cursor-not-allowed opacity-50 text-gray-700 dark:text-gray-300"
-                    }`}
-                    disabled={!language.compiler.available}
-                    whileHover={{
-                      scale: language.compiler.available ? 1.03 : 1,
-                    }}
-                    whileTap={{
-                      scale: language.compiler.available ? 0.97 : 1,
-                    }}
-                    onClick={() => {
-                      if (language.compiler.available) {
-                        window.location.href = language.compiler.href;
-                      }
-                    }}
-                  >
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth="0"
-                      viewBox="0 0 640 512"
-                      className="mr-3"
-                      height="1.2em"
-                      width="1.2em"
-                      xmlns="http://www.w3.org/2000/svg"
+                      <svg
+                        stroke="currentColor"
+                        fill="currentColor"
+                        strokeWidth="0"
+                        viewBox="0 0 640 512"
+                        className="mr-3"
+                        height="1.2em"
+                        width="1.2em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M278.9 511.5l-61-17.7c-6.4-1.8-10-8.5-8.2-14.9L346.2 8.7c1.8-6.4 8.5-10 14.9-8.2l61 17.7c6.4 1.8 10 8.5 8.2 14.9L293.8 503.3c-1.9 6.4-8.5 10.1-14.9 8.2zm-114-112.2l43.5-46.4c4.6-4.9 4.3-12.7-.8-17.2L117 256l90.6-79.7c5.1-4.5 5.5-12.3.8-17.2l-43.5-46.4c-4.5-4.8-12.1-5.1-17-.5L3.8 247.2c-5.1 4.7-5.1 12.8 0 17.5l144.1 135.1c4.9 4.6 12.5 4.4 17-.5zm327.2.6l144.1-135.1c5.1-4.7 5.1-12.8 0-17.5L492.1 112.1c-4.8-4.5-12.4-4.3-17 .5L431.6 159c-4.6 4.9-4.3 12.7.8 17.2L523 256l-90.6 79.7c-5.1 4.5-5.5 12.3-.8 17.2l43.5 46.4c4.5 4.9 12.1 5.1 17 .6z"></path>
+                      </svg>
+                      Learn now
+                    </motion.button>
+                    <motion.button
+                      className={`inline-flex items-center justify-center w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-md hover:shadow-lg text-lg ${
+                        !language.compiler.available &&
+                        "opacity-50 cursor-not-allowed"
+                      }`}
+                      disabled={!language.compiler.available}
+                      whileHover={{
+                        scale: language.compiler.available ? 1.05 : 1,
+                      }}
+                      whileTap={{
+                        scale: language.compiler.available ? 0.95 : 1,
+                      }}
+                      onClick={() => {
+                        if (language.compiler.available) {
+                          window.location.href = language.compiler.href;
+                        }
+                      }}
                     >
-                      <path d="M255.03 261.65c6.25 6.25 16.38 6.25 22.63 0l11.31-11.31c6.25-6.25 6.25-16.38 0-22.63L253.25 192l35.71-35.72c6.25-6.25 6.25-16.38 0-22.63l-11.31-11.31c-6.25-6.25-16.38-6.25-22.63 0l-58.34 58.34c-6.25 6.25-6.25 16.38 0 22.63l58.35 58.34zm96.01-11.3l11.31 11.31c6.25 6.25 16.38 6.25 22.63 0l58.34-58.34c6.25-6.25 6.25-16.38 0-22.63l-58.34-58.34c-6.25-6.25-16.38-6.25-22.63 0l-11.31 11.31c-6.25 6.25-6.25 16.38 0 22.63L386.75 192l-35.71 35.72c-6.25 6.25-6.25 16.38 0 22.63zM624 416H381.54c-.74 19.81-14.71 32-32.74 32H288c-18.69 0-33.02-17.47-32.77-32H16c-8.8 0-16 7.2-16 16v16c0 35.2 28.8 64 64 64h512c35.2 0 64-28.8 64-64v-16c0-8.8-7.2-16-16-16zM576 48c0-26.4-21.6-48-48-48H112C85.6 0 64 21.6 64 48v336h512V48zm-64 272H128V64h384v256z"></path>
-                    </svg>
-                    Try Compiler
-                  </motion.button>
+                      <svg
+                        stroke="currentColor"
+                        fill="currentColor"
+                        strokeWidth="0"
+                        viewBox="0 0 640 512"
+                        className="mr-3"
+                        height="1.2em"
+                        width="1.2em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M255.03 261.65c6.25 6.25 16.38 6.25 22.63 0l11.31-11.31c6.25-6.25 6.25-16.38 0-22.63L253.25 192l35.71-35.72c6.25-6.25 6.25-16.38 0-22.63l-11.31-11.31c-6.25-6.25-16.38-6.25-22.63 0l-58.34 58.34c-6.25 6.25-6.25 16.38 0 22.63l58.35 58.34zm96.01-11.3l11.31 11.31c6.25 6.25 16.38 6.25 22.63 0l58.34-58.34c6.25-6.25 6.25-16.38 0-22.63l-58.34-58.34c-6.25-6.25-16.38-6.25-22.63 0l-11.31 11.31c-6.25 6.25-6.25 16.38 0 22.63L386.75 192l-35.71 35.72c-6.25 6.25-6.25 16.38 0 22.63zM624 416H381.54c-.74 19.81-14.71 32-32.74 32H288c-18.69 0-33.02-17.47-32.77-32H16c-8.8 0-16 7.2-16 16v16c0 35.2 28.8 64 64 64h512c35.2 0 64-28.8 64-64v-16c0-8.8-7.2-16-16-16zM576 48c0-26.4-21.6-48-48-48H112C85.6 0 64 21.6 64 48v336h512V48zm-64 272H128V64h384v256z"></path>
+                      </svg>
+                      Try Compiler
+                    </motion.button>
+                  </div>
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
     </Layout>
