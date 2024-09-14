@@ -131,7 +131,9 @@ export default function TermsOfService() {
               Terms of Service
             </h1>
             <p className="mt-4 sm:mt-5 max-w-xl mx-auto text-lg sm:text-xl text-gray-700 dark:text-gray-300">
-              Please read these terms carefully before using TriWikiTech.
+              Please read these terms carefully before using TriWikiTech. These
+              terms are still under development and are subject to change. It's
+              not yet finalized and not in use.
             </p>
           </motion.div>
 

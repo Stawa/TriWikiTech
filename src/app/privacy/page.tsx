@@ -132,6 +132,8 @@ export default function PrivacyPolicy() {
             </h1>
             <p className="mt-4 sm:mt-5 max-w-xl mx-auto text-lg sm:text-xl text-gray-700 dark:text-gray-300">
               Your privacy is important to us. Please read our policy carefully.
+              This policy is still under development and is subject to change.
+              It's not yet finalized and not in use.
             </p>
           </motion.div>
 
