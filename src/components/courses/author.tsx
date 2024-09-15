@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-const AuthorInfo = () => (
+const AuthorInfo = ({ date }: { date: string }) => (
   <motion.div
     initial={{ opacity: 0, y: -20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -39,7 +39,7 @@ const AuthorInfo = () => (
         </a>
       </h3>
       <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">
-        Published on September 15th, 2024
+        Published on {date}
       </p>
       <p className="text-xs text-indigo-600 dark:text-indigo-400 mt-2 font-semibold">
         Creator of TriWikiTech

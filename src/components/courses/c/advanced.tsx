@@ -168,7 +168,7 @@ export default function CAdvanced() {
               Master advanced concepts in C programming
             </p>
           </motion.header>
-          <AuthorInfo />
+          <AuthorInfo date={"September 15th, 2024"} />
           <Section delay={0.3}>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-blue-600 dark:text-blue-400 flex items-center">
               <FaCode className="mr-3" /> Course Overview

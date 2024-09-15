@@ -204,7 +204,7 @@ export default function JavaScriptObjectsArrays() {
               Master complex data structures in JavaScript
             </p>
           </motion.header>
-          <AuthorInfo />
+          <AuthorInfo date={"September 15th, 2024"} />
           <Section delay={0.3}>
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center">
               <FaCode className="mr-3" /> Course Overview

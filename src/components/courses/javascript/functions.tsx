@@ -261,7 +261,7 @@ export default function JavaScriptFunctions() {
               Master the art of creating reusable code blocks
             </p>
           </motion.header>
-          <AuthorInfo />
+          <AuthorInfo date={"September 15th, 2024"} />
           <Section delay={0.3}>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center">
               <TbLambda className="mr-3" /> Course Overview
