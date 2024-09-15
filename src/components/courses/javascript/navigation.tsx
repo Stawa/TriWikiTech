@@ -35,6 +35,14 @@ const courses = [
       <PiBracketsCurlyDuotone className="text-yellow-600 dark:text-yellow-400 text-2xl sm:text-3xl" />
     ),
   },
+  {
+    title: "JavaScript Courses",
+    desc: "Overview of all JavaScript courses",
+    link: "/courses/javascript",
+    icon: (
+      <FaCode className="text-yellow-600 dark:text-yellow-400 text-2xl sm:text-3xl" />
+    ),
+  },
 ];
 
 export default courses;
