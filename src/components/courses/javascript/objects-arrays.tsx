@@ -2,17 +2,12 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  FaCode,
-  FaLightbulb,
-  FaRocket,
-  FaArrowLeft,
-  FaArrowRight,
-} from "react-icons/fa";
+import { FaCode, FaLightbulb, FaRocket } from "react-icons/fa";
 import GridBackground from "@components/grid";
 import HighlightCode from "@components/highlight";
-import "highlight.js/styles/github-dark.css";
 import AuthorInfo from "../author";
+import Courses from "@components/courses/javascript/navigation";
+import CourseNavigationButtons from "../buttons";
 
 const topics = [
   {
@@ -275,7 +270,7 @@ export default function JavaScriptObjectsArrays() {
                     </span>
                     {item.title}
                   </h3>
-                  <p className="text-base sm:text-lg leading-relaxed mb-4">
+                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-4">
                     {item.description}
                   </p>
                   <HighlightCode
@@ -306,7 +301,7 @@ export default function JavaScriptObjectsArrays() {
                     </span>
                     {item.title}
                   </h3>
-                  <p className="text-base sm:text-lg leading-relaxed mb-4">
+                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-4">
                     {item.description}
                   </p>
                   <HighlightCode
@@ -321,7 +316,7 @@ export default function JavaScriptObjectsArrays() {
           <Section delay={1.0}>
             <h2
               id="object-methods"
-              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-yellow-600 dark:text-yellow-400 flex items-center"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-yellow-600 dark:text-yellow-400 flex items-center"
             >
               <FaLightbulb className="mr-3" /> Object Methods
             </h2>
@@ -329,17 +324,17 @@ export default function JavaScriptObjectsArrays() {
               {objectMethods.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-6 shadow-md transition-all duration-300 hover:shadow-xl"
+                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
                 >
                   {item.examples.map((example, idx) => (
-                    <div key={idx} className="mb-8">
-                      <h3 className="text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-4 flex items-center">
-                        <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-3 py-1 rounded-full mr-3">
+                    <div key={idx} className="mb-6 sm:mb-8">
+                      <h3 className="text-lg sm:text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-3 sm:mb-4 flex items-center">
+                        <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm">
                           {item.type}
                         </span>
                         {example.name}
                       </h3>
-                      <p className="text-base sm:text-lg leading-relaxed mb-4">
+                      <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-4">
                         {example.description}
                       </p>
                       <HighlightCode
@@ -356,25 +351,25 @@ export default function JavaScriptObjectsArrays() {
           <Section delay={1.1}>
             <h2
               id="array-operations"
-              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-yellow-600 dark:text-yellow-400 flex items-center"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center"
             >
-              <FaLightbulb className="mr-3" /> Array Operations
+              <FaLightbulb className="mr-2 sm:mr-3" /> Array Operations
             </h2>
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {arrayOperations.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-6 shadow-md transition-all duration-300 hover:shadow-xl"
+                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
                 >
                   {item.examples.map((example, idx) => (
-                    <div key={idx} className="mb-8">
-                      <h3 className="text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-4 flex items-center">
-                        <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-3 py-1 rounded-full mr-3">
+                    <div key={idx} className="mb-6 sm:mb-8">
+                      <h3 className="text-lg sm:text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-3 sm:mb-4 flex items-center flex-wrap">
+                        <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
                           {item.type}
                         </span>
                         {example.name}
                       </h3>
-                      <p className="text-base sm:text-lg leading-relaxed mb-4">
+                      <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
                         {example.description}
                       </p>
                       <HighlightCode
@@ -406,27 +401,7 @@ export default function JavaScriptObjectsArrays() {
             </p>
           </motion.section>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-4"
-          >
-            <Link
-              href="/courses/javascript/functions"
-              className="w-full sm:w-auto inline-flex items-center justify-center bg-yellow-600 hover:bg-yellow-700 dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white dark:text-gray-900 font-bold py-2 px-4 sm:py-3 sm:px-6 md:py-4 md:px-8 rounded-full transition duration-300 text-xs sm:text-sm md:text-base lg:text-lg"
-            >
-              <FaArrowLeft className="mr-2 text-sm sm:text-base" />
-              <span className="hidden md:inline">Previous: Functions</span>
-            </Link>
-            <Link
-              href="/courses"
-              className="w-full sm:w-auto inline-flex items-center justify-center bg-yellow-600 hover:bg-yellow-700 dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white dark:text-gray-900 font-bold py-2 px-4 sm:py-3 sm:px-6 md:py-4 md:px-8 rounded-full transition duration-300 text-xs sm:text-sm md:text-base lg:text-lg"
-            >
-              Back to Courses
-              <FaArrowRight className="ml-2 text-sm sm:text-base" />
-            </Link>
-          </motion.div>
+          <CourseNavigationButtons courses={Courses} currentIndex={3} />
         </div>
       </div>
     </div>

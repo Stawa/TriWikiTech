@@ -2,17 +2,13 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  FaLightbulb,
-  FaRocket,
-  FaArrowLeft,
-  FaArrowRight,
-} from "react-icons/fa";
+import { FaLightbulb, FaRocket } from "react-icons/fa";
 import { TbLambda } from "react-icons/tb";
 import GridBackground from "@components/grid";
 import HighlightCode from "@components/highlight";
-import "highlight.js/styles/github-dark.css";
 import AuthorInfo from "../author";
+import Courses from "@components/courses/javascript/navigation";
+import CourseNavigationButtons from "../buttons";
 
 const topics = [
   {
@@ -316,23 +312,24 @@ export default function JavaScriptFunctions() {
           <Section delay={0.8}>
             <h2
               id="function-declaration"
-              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-yellow-600 dark:text-yellow-400 flex items-center"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center flex-wrap"
             >
-              <FaLightbulb className="mr-3" /> Function Declarations
+              <FaLightbulb className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Function
+              Declarations
             </h2>
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {functionDeclarations.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-6 shadow-md transition-all duration-300 hover:shadow-xl"
+                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
                 >
-                  <h3 className="text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-4 flex items-center">
-                    <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-3 py-1 rounded-full mr-3">
+                  <h3 className="text-lg sm:text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-3 sm:mb-4 flex items-center flex-wrap">
+                    <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
                       {item.type}
                     </span>
                     {item.title}
                   </h3>
-                  <p className="text-base sm:text-lg leading-relaxed mb-4">
+                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
                     {item.description}
                   </p>
                   <HighlightCode language="javascript" content={item.example} />
@@ -344,23 +341,24 @@ export default function JavaScriptFunctions() {
           <Section delay={0.9}>
             <h2
               id="parameters-arguments"
-              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-yellow-600 dark:text-yellow-400 flex items-center"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center flex-wrap"
             >
-              <FaLightbulb className="mr-3" /> Parameters & Arguments
+              <FaLightbulb className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Parameters &
+              Arguments
             </h2>
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {parametersAndArguments.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-6 shadow-md transition-all duration-300 hover:shadow-xl"
+                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
                 >
-                  <h3 className="text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-4 flex items-center">
-                    <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-3 py-1 rounded-full mr-3">
+                  <h3 className="text-lg sm:text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-3 sm:mb-4 flex items-center flex-wrap">
+                    <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
                       {item.type}
                     </span>
                     {item.examples[index].name}
                   </h3>
-                  <p className="text-base sm:text-lg leading-relaxed mb-4">
+                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
                     {item.examples[index].description}
                   </p>
                   <HighlightCode
@@ -375,23 +373,24 @@ export default function JavaScriptFunctions() {
           <Section delay={1.0}>
             <h2
               id="return-values"
-              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-yellow-600 dark:text-yellow-400 flex items-center"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center flex-wrap"
             >
-              <FaLightbulb className="mr-3" /> Return Values
+              <FaLightbulb className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Return
+              Values
             </h2>
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {returnValues.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-6 shadow-md transition-all duration-300 hover:shadow-xl"
+                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
                 >
-                  <h3 className="text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-4 flex items-center">
-                    <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-3 py-1 rounded-full mr-3">
+                  <h3 className="text-lg sm:text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-3 sm:mb-4 flex items-center flex-wrap">
+                    <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
                       {item.type}
                     </span>
                     {item.examples[index].name}
                   </h3>
-                  <p className="text-base sm:text-lg leading-relaxed mb-4">
+                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
                     {item.examples[index].description}
                   </p>
                   <HighlightCode
@@ -406,23 +405,24 @@ export default function JavaScriptFunctions() {
           <Section delay={1.1}>
             <h2
               id="arrow-functions"
-              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-yellow-600 dark:text-yellow-400 flex items-center"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center flex-wrap"
             >
-              <FaLightbulb className="mr-3" /> Arrow Functions
+              <FaLightbulb className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Arrow
+              Functions
             </h2>
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {arrowFunctions.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-6 shadow-md transition-all duration-300 hover:shadow-xl"
+                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
                 >
-                  <h3 className="text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-4 flex items-center">
-                    <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-3 py-1 rounded-full mr-3">
+                  <h3 className="text-lg sm:text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-3 sm:mb-4 flex items-center flex-wrap">
+                    <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
                       {item.type}
                     </span>
                     {item.examples[index].name}
                   </h3>
-                  <p className="text-base sm:text-lg leading-relaxed mb-4">
+                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
                     {item.examples[index].description}
                   </p>
                   <HighlightCode
@@ -434,35 +434,11 @@ export default function JavaScriptFunctions() {
             </div>
           </Section>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="flex flex-col space-y-4 sm:space-y-6 md:space-y-0 md:flex-row md:justify-between md:items-center"
-          >
-            <Link
-              href="/courses/javascript/basics"
-              className="w-full md:w-auto inline-flex items-center justify-center bg-yellow-600 hover:bg-yellow-700 dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white dark:text-gray-900 font-bold py-2 px-4 md:py-3 md:px-6 rounded-full transition duration-300 text-xs sm:text-sm md:text-base"
-            >
-              <FaArrowLeft className="mr-2 text-xs sm:text-sm" />
-              <span className="hidden sm:inline">Previous: Basics</span>
-            </Link>
-            <Link
-              href="/courses/javascript"
-              className="w-full md:w-auto inline-flex items-center justify-center bg-yellow-600 hover:bg-yellow-700 dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white dark:text-gray-900 font-bold py-2 px-4 md:py-3 md:px-6 rounded-full transition duration-300 text-xs sm:text-sm md:text-base"
-            >
-              <span className="hidden sm:inline">
-                Back to JavaScript Courses
-              </span>
-            </Link>
-            <Link
-              href="/courses/javascript/objects-and-arrays"
-              className="w-full md:w-auto inline-flex items-center justify-center bg-yellow-600 hover:bg-yellow-700 dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white dark:text-gray-900 font-bold py-2 px-4 md:py-3 md:px-6 rounded-full transition duration-300 text-xs sm:text-sm md:text-base"
-            >
-              <span className="hidden sm:inline">Next: Objects & Arrays</span>
-              <FaArrowRight className="ml-2 text-xs sm:text-sm" />
-            </Link>
-          </motion.div>
+          <CourseNavigationButtons
+            courses={Courses}
+            middleHomeButton={true}
+            currentIndex={2}
+          />
         </div>
       </div>
     </div>

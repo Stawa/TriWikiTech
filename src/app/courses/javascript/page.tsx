@@ -1,41 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 import { FaCode, FaLightbulb, FaRocket, FaCompass } from "react-icons/fa";
-import { TbLambda } from "react-icons/tb";
-import { PiBracketsCurlyDuotone } from "react-icons/pi";
+import Link from "next/link";
 import GridBackground from "@components/grid";
+import Courses from "@components/courses/javascript/navigation";
+import CourseNavigationButtons from "@components/courses/buttons";
 
 export default function JavaScriptCourses() {
-  const courses = [
-    {
-      title: "Basics",
-      desc: "Variables, data types, and control structures",
-      link: "/courses/javascript/basics",
-      icon: (
-        <FaCode className="text-yellow-600 dark:text-yellow-400 text-2xl sm:text-3xl" />
-      ),
-    },
-    {
-      title: "Functions",
-      desc: "Defining and using functions effectively",
-      link: "/courses/javascript/functions",
-      icon: (
-        <TbLambda className="text-yellow-600 dark:text-yellow-400 text-2xl sm:text-3xl" />
-      ),
-    },
-    {
-      title: "Objects & Arrays",
-      desc: "Working with complex data structures",
-      link: "/courses/javascript/objects-and-arrays",
-      icon: (
-        <PiBracketsCurlyDuotone className="text-yellow-600 dark:text-yellow-400 text-2xl sm:text-3xl" />
-      ),
-    },
-  ];
-
   return (
     <div className="relative min-h-screen overflow-hidden">
       <GridBackground />
@@ -127,8 +100,8 @@ export default function JavaScriptCourses() {
               <FaCompass className="mr-3" /> Course Roadmap
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {courses.map((course, index) => (
-                <Link href={course.link} key={index}>
+              {Courses.slice(1).map((course, index) => (
+                <Link href={course.link} key={index + 1}>
                   <div className="bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 border border-yellow-600 dark:border-yellow-400 p-6 rounded-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1 h-full flex flex-col">
                     <div className="flex items-center mb-4">
                       <div className="flex items-center">
@@ -151,44 +124,7 @@ export default function JavaScriptCourses() {
               ))}
             </div>
           </motion.section>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.1 }}
-            className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0"
-          >
-            <Link
-              href={
-                courses[
-                  courses.findIndex((course) => course.title === "JavaScript") -
-                    1
-                ]?.link || "/courses"
-              }
-              className="w-full sm:w-auto inline-flex items-center justify-center bg-yellow-600 hover:bg-yellow-700 dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white dark:text-gray-900 font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full transition duration-300 text-sm sm:text-base md:text-lg"
-            >
-              <FaArrowLeft className="mr-2" />
-              Previous:{" "}
-              {courses[
-                courses.findIndex((course) => course.title === "JavaScript") - 1
-              ]?.title || "Courses"}
-            </Link>
-            <Link
-              href={
-                courses[
-                  courses.findIndex((course) => course.title === "JavaScript") +
-                    1
-                ]?.link || "/courses"
-              }
-              className="w-full sm:w-auto inline-flex items-center justify-center bg-yellow-600 hover:bg-yellow-700 dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white dark:text-gray-900 font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full transition duration-300 text-sm sm:text-base md:text-lg"
-            >
-              Next:{" "}
-              {courses[
-                courses.findIndex((course) => course.title === "JavaScript") + 1
-              ]?.title || "Courses"}
-              <FaArrowRight className="ml-2" />
-            </Link>
-          </motion.div>
+          <CourseNavigationButtons courses={Courses} currentIndex={0} />
         </div>
       </div>
     </div>
