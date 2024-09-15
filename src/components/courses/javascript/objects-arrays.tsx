@@ -10,7 +10,7 @@ import {
   FaArrowLeft,
   FaArrowRight,
 } from "react-icons/fa";
-import { GridBackground } from "@default/app/page";
+import GridBackground from "@components/grid";
 import { useEffect } from "react";
 import "highlight.js/styles/github-dark.css";
 import AuthorInfo from "../author";
@@ -220,8 +220,8 @@ export default function JavaScriptObjectsArrays() {
               <FaCode className="mr-3" /> Course Overview
             </h2>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed">
-              In this course, you'll dive deep into JavaScript objects and
-              arrays. We'll cover object creation and manipulation, array
+              In this course, you&apos;ll dive deep into JavaScript objects and
+              arrays. We&apos;ll cover object creation and manipulation, array
               fundamentals, object methods, and advanced array operations. These
               concepts are crucial for working with complex data structures in
               JavaScript.
@@ -230,7 +230,7 @@ export default function JavaScriptObjectsArrays() {
 
           <Section delay={0.5}>
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 text-yellow-600 dark:text-yellow-400 flex items-center">
-              <FaLightbulb className="mr-3" /> What You'll Learn
+              <FaLightbulb className="mr-3" /> What You&apos;ll Learn
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
               {topics.map((topic, index) => (

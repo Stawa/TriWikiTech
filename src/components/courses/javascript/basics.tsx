@@ -10,7 +10,7 @@ import {
   FaArrowLeft,
   FaArrowRight,
 } from "react-icons/fa";
-import { GridBackground } from "@default/app/page";
+import GridBackground from "@components/grid";
 import { useEffect } from "react";
 import "highlight.js/styles/github-dark.css";
 import AuthorInfo from "../author";
@@ -330,8 +330,8 @@ export default function JavaScriptBasics() {
               <FaCode className="mr-3" /> Course Overview
             </h2>
             <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-              In this course, you'll learn the essential building blocks of
-              JavaScript programming. We'll cover variables, data types,
+              In this course, you&apos;ll learn the essential building blocks of
+              JavaScript programming. We&apos;ll cover variables, data types,
               operators, and control structures - the fundamental concepts you
               need to start your journey in JavaScript development.
             </p>
@@ -339,7 +339,7 @@ export default function JavaScriptBasics() {
 
           <Section delay={0.5}>
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 text-yellow-600 dark:text-yellow-400 flex items-center">
-              <FaLightbulb className="mr-3" /> What You'll Learn
+              <FaLightbulb className="mr-3" /> What You&apos;ll Learn
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
               {topics.map((topic, index) => (

@@ -10,7 +10,7 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 import { TbLambda } from "react-icons/tb";
-import { GridBackground } from "@default/app/page";
+import GridBackground from "@components/grid";
 import { useEffect } from "react";
 import "highlight.js/styles/github-dark.css";
 import AuthorInfo from "../author";
@@ -276,17 +276,17 @@ export default function JavaScriptFunctions() {
               <TbLambda className="mr-3" /> Course Overview
             </h2>
             <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-              In this course, you'll dive deep into JavaScript functions - the
-              building blocks of reusable code. We'll cover function
+              In this course, you&apos;ll dive deep into JavaScript functions - the
+              building blocks of reusable code. We&apos;ll cover function
               declarations, parameters, return values, and the modern arrow
-              function syntax. By mastering functions, you'll be able to write
+              function syntax. By mastering functions, you&apos;ll be able to write
               more efficient and organized JavaScript code.
             </p>
           </Section>
 
           <Section delay={0.5}>
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 text-yellow-600 dark:text-yellow-400 flex items-center">
-              <FaLightbulb className="mr-3" /> What You'll Learn
+              <FaLightbulb className="mr-3" /> What You&apos;ll Learn
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
               {topics.map((topic, index) => (

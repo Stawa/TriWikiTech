@@ -6,7 +6,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { FaCode, FaLightbulb, FaRocket, FaCompass } from "react-icons/fa";
 import { TbLambda } from "react-icons/tb";
 import { PiBracketsCurlyDuotone } from "react-icons/pi";
-import { GridBackground } from "@default/app/page";
+import GridBackground from "@components/grid";
 
 export default function JavaScriptCourses() {
   const courses = [
