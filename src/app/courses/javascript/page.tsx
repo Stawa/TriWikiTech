@@ -100,7 +100,7 @@ export default function JavaScriptCourses() {
               <FaCompass className="mr-3" /> Course Roadmap
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {Courses.slice(1).map((course, index) => (
+              {Courses.slice(1, -1).map((course, index) => (
                 <Link href={course.link} key={index + 1}>
                   <div className="bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 border border-yellow-600 dark:border-yellow-400 p-6 rounded-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1 h-full flex flex-col">
                     <div className="flex items-center mb-4">
