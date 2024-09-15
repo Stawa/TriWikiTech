@@ -7,7 +7,7 @@ import Image from "next/image";
 import Languages from "@data/langauges.json";
 import { IoNavigateOutline, IoNavigateSharp } from "react-icons/io5";
 
-const GridBackground = () => (
+export const GridBackground = () => (
   <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-black overflow-hidden">
     <svg
       className="absolute inset-0 w-full h-full opacity-20 dark:opacity-40"
