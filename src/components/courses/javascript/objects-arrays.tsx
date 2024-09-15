@@ -401,7 +401,11 @@ export default function JavaScriptObjectsArrays() {
             </p>
           </motion.section>
 
-          <CourseNavigationButtons courses={Courses} currentIndex={3} />
+          <CourseNavigationButtons
+            colorStyle="bg-yellow-600"
+            courses={Courses}
+            currentIndex={3}
+          />
         </div>
       </div>
     </div>

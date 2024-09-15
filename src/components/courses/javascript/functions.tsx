@@ -435,6 +435,7 @@ export default function JavaScriptFunctions() {
           </Section>
 
           <CourseNavigationButtons
+            colorStyle="bg-yellow-600"
             courses={Courses}
             middleHomeButton={true}
             currentIndex={2}

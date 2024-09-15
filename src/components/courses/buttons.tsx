@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaHome } from "react-icons/fa";
 
 interface Course {
   title: string;
@@ -12,46 +12,69 @@ interface Course {
 interface CourseNavigationButtonsProps {
   courses: Course[];
   currentIndex: number;
+  colorStyle: string;
   middleHomeButton?: boolean;
 }
 
-const CourseNavigationButtons = ({
+const CourseNavigationButtons: React.FC<CourseNavigationButtonsProps> = ({
   courses,
   currentIndex,
+  colorStyle,
   middleHomeButton = false,
-}: CourseNavigationButtonsProps) => {
-  const previousCourse = courses[(currentIndex as number) - 1];
-  const nextCourse = courses[(currentIndex as number) + 1];
+}) => {
+  const previousCourse = courses[currentIndex - 1];
+  const nextCourse = courses[currentIndex + 1];
+
+  const buttonClasses = `
+    flex-1
+    inline-flex items-center justify-center 
+    ${colorStyle} hover:bg-opacity-90 
+    text-white dark:text-gray-200 
+    font-bold py-3 px-6 
+    rounded-full 
+    shadow-lg hover:shadow-xl 
+    transition duration-300 ease-in-out 
+    text-sm md:text-base
+    transform hover:scale-105
+  `;
+
+  const renderButton = (
+    course: Course | undefined,
+    icon: JSX.Element,
+    fallbackText: string,
+    isNext: boolean = false
+  ) => (
+    <Link href={course?.link || "/courses"} className={buttonClasses}>
+      {!isNext && <span className="mr-2">{icon}</span>}
+      <span className="truncate">{course?.title || fallbackText}</span>
+      {isNext && <span className="ml-2">{icon}</span>}
+    </Link>
+  );
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8, delay: 1.1 }}
-      className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.8 }}
+      className="flex flex-col sm:flex-row justify-between items-stretch space-y-4 sm:space-y-0 sm:space-x-6 mt-12"
     >
-      <Link
-        href={previousCourse?.link || "/courses"}
-        className="w-full sm:w-auto inline-flex items-center justify-center bg-yellow-600 hover:bg-yellow-700 dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white dark:text-gray-900 font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full transition duration-300 text-sm sm:text-base md:text-lg"
-      >
-        <FaArrowLeft className="mr-2" />
-        Previous: {previousCourse?.title || "Courses"}
-      </Link>
-      {middleHomeButton && (
-        <Link
-          href={courses[0].link}
-          className="w-full sm:w-auto inline-flex items-center justify-center bg-yellow-600 hover:bg-yellow-700 dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white dark:text-gray-900 font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full transition duration-300 text-sm sm:text-base md:text-lg mb-4 sm:mb-0 sm:mx-2"
-        >
-          Back to {courses[0].title}
-        </Link>
+      {renderButton(
+        previousCourse,
+        <FaArrowLeft className="text-lg flex-shrink-0" />,
+        "Previous"
       )}
-      <Link
-        href={nextCourse?.link || "/courses"}
-        className="w-full sm:w-auto inline-flex items-center justify-center bg-yellow-600 hover:bg-yellow-700 dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white dark:text-gray-900 font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full transition duration-300 text-sm sm:text-base md:text-lg"
-      >
-        Next: {nextCourse?.title || "Courses"}
-        <FaArrowRight className="ml-2" />
-      </Link>
+      {middleHomeButton &&
+        renderButton(
+          courses[0],
+          <FaHome className="text-lg flex-shrink-0" />,
+          "Home"
+        )}
+      {renderButton(
+        nextCourse,
+        <FaArrowRight className="text-lg flex-shrink-0" />,
+        "Next",
+        true
+      )}
     </motion.div>
   );
 };

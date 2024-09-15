@@ -526,7 +526,11 @@ export default function JavaScriptBasics() {
             </div>
           </Section>
 
-          <CourseNavigationButtons courses={Courses} currentIndex={1} />
+          <CourseNavigationButtons
+            colorStyle="bg-yellow-600"
+            courses={Courses}
+            currentIndex={1}
+          />
         </div>
       </div>
     </div>

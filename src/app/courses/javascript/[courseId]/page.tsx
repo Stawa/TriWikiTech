@@ -14,11 +14,6 @@ const courseComponents = {
 export default function JavaScriptCourse() {
   const { courseId } = useParams();
   const CourseComponent =
-    courseComponents[courseId as keyof typeof courseComponents] || NotFound;
-
+    courseComponents[courseId as keyof typeof courseComponents];
   return <CourseComponent />;
-}
-
-function NotFound() {
-  return <div>Course not found</div>;
 }

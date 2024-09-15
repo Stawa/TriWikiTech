@@ -11,7 +11,7 @@ You can visit the unreleased website at [TriWikiTech](https://beta.triwikitech.c
 | Homepage            | Completed                 | Main landing page          | ✅     |
 | JavaScript Course   | Completed + Future Update | Interactive JS lessons     | 🔄     |
 | Python Course       | Planned                   | Python programming course  | ❌     |
-| C Course            | In Progress               | C language fundamentals    | ⏳     |
+| C Course            | Completed + Future Update | C language fundamentals    | 🔄     |
 | C++ Course          | Planned                   | C++ and OOP course         | ❌     |
 | User Authentication | Planned                   | Sign-up and login          | ❌     |
 | Progress Tracking   | Planned                   | Course completion tracking | ❌     |

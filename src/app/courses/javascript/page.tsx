@@ -124,7 +124,11 @@ export default function JavaScriptCourses() {
               ))}
             </div>
           </motion.section>
-          <CourseNavigationButtons courses={Courses} currentIndex={0} />
+          <CourseNavigationButtons
+            colorStyle="bg-yellow-600"
+            courses={Courses}
+            currentIndex={0}
+          />
         </div>
       </div>
     </div>
