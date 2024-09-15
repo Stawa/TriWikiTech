@@ -28,7 +28,8 @@ export default function NotFound() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            Oops! The page you&apos;re looking for doesn&apos;t exist or has been moved.
+            Oops! The page you&apos;re looking for doesn&apos;t exist or has
+            been moved.
           </motion.p>
           <motion.div
             className="space-y-3 sm:space-y-5"

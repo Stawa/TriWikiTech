@@ -1,6 +1,8 @@
 "use client";
 
-import hljs from "highlight.js";
+import GridBackground from "@components/grid";
+import AuthorInfo from "../author";
+import HighlightCode from "@components/highlight";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -10,10 +12,6 @@ import {
   FaArrowLeft,
   FaArrowRight,
 } from "react-icons/fa";
-import GridBackground from "@components/grid";
-import { useEffect } from "react";
-import "highlight.js/styles/github-dark.css";
-import AuthorInfo from "../author";
 
 const topics = [
   {
@@ -98,17 +96,17 @@ const dataTypes = [
       {
         name: "Number",
         description: "Represents both integer and floating-point numbers",
-        example: "let age = 25; let pi = 3.14;",
+        example: "let age = 25;\nlet pi = 3.14;",
       },
       {
         name: "String",
         description: "Represents textual data",
-        example: "let name = 'John'; let greeting = `Hello, ${name}`;",
+        example: "let name = 'John';\nlet greeting = `Hello, ${name}`;",
       },
       {
         name: "Boolean",
         description: "Represents a logical entity with two values",
-        example: "let isActive = true; let isLoggedIn = false;",
+        example: "let isActive = true;\nlet isLoggedIn = false;",
       },
       {
         name: "Undefined",
@@ -125,7 +123,7 @@ const dataTypes = [
       {
         name: "Symbol",
         description: "Represents a unique identifier",
-        example: "const id = Symbol('id'); let user = { [id]: 1 };",
+        example: "const id = Symbol('id');\nlet user = { [id]: 1 };",
       },
     ],
   },
@@ -146,7 +144,9 @@ const dataTypes = [
       {
         name: "Function",
         description: "A reusable block of code",
-        example: "function greet(name) { return `Hello, ${name}!`; }",
+        example: `function greet(name) {
+  return \`Hello, \${name}!\`;
+}`,
       },
     ],
   },
@@ -302,10 +302,6 @@ const Section = ({
 );
 
 export default function JavaScriptBasics() {
-  useEffect(() => {
-    hljs.highlightAll();
-  }, []);
-
   return (
     <div className="relative min-h-screen overflow-hidden">
       <GridBackground />
@@ -391,11 +387,10 @@ export default function JavaScriptBasics() {
                   <p className="text-base sm:text-lg leading-relaxed mb-4">
                     {item.description}
                   </p>
-                  <pre className="bg-white dark:bg-gray-800 p-4 rounded-lg overflow-x-auto border border-gray-200 dark:border-gray-700">
-                    <code className="language-javascript text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                      {item.example}
-                    </code>
-                  </pre>
+                  <HighlightCode
+                    content={item.example}
+                    language={"javascript"}
+                  />
                 </div>
               ))}
             </div>
@@ -432,11 +427,10 @@ export default function JavaScriptBasics() {
                         <p className="text-base text-gray-700 dark:text-gray-300 mb-2">
                           {example.description}
                         </p>
-                        <pre className="bg-white dark:bg-gray-800 p-4 rounded-lg overflow-x-auto border border-gray-200 dark:border-gray-700">
-                          <code className="language-javascript text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                            {example.example}
-                          </code>
-                        </pre>
+                        <HighlightCode
+                          content={example.example}
+                          language={"javascript"}
+                        />
                       </div>
                     ))}
                   </div>
@@ -478,11 +472,10 @@ export default function JavaScriptBasics() {
                             {example.description}
                           </span>
                         </div>
-                        <pre className="bg-white dark:bg-gray-800 p-4 rounded-lg overflow-x-auto border border-gray-200 dark:border-gray-700">
-                          <code className="text-sm text-gray-800 dark:text-gray-200">
-                            {example.example}
-                          </code>
-                        </pre>
+                        <HighlightCode
+                          content={example.example}
+                          language={"javascript"}
+                        />
                       </div>
                     ))}
                   </div>
@@ -521,11 +514,10 @@ export default function JavaScriptBasics() {
                         <p className="text-base text-gray-700 dark:text-gray-300 mb-2">
                           {example.description}
                         </p>
-                        <pre className="bg-white dark:bg-gray-800 p-4 rounded-lg overflow-x-auto border border-gray-200 dark:border-gray-700">
-                          <code className="text-sm text-gray-800 dark:text-gray-200">
-                            {example.example}
-                          </code>
-                        </pre>
+                        <HighlightCode
+                          content={example.example}
+                          language={"javascript"}
+                        />
                       </div>
                     ))}
                   </div>

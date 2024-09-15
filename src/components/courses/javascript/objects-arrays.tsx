@@ -1,6 +1,5 @@
 "use client";
 
-import hljs from "highlight.js";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -11,7 +10,7 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 import GridBackground from "@components/grid";
-import { useEffect } from "react";
+import HighlightCode from "@components/highlight";
 import "highlight.js/styles/github-dark.css";
 import AuthorInfo from "../author";
 
@@ -192,10 +191,6 @@ const Section = ({
 );
 
 export default function JavaScriptObjectsArrays() {
-  useEffect(() => {
-    hljs.highlightAll();
-  }, []);
-
   return (
     <div className="relative min-h-screen overflow-hidden">
       <GridBackground />
@@ -283,11 +278,10 @@ export default function JavaScriptObjectsArrays() {
                   <p className="text-base sm:text-lg leading-relaxed mb-4">
                     {item.description}
                   </p>
-                  <pre className="bg-white dark:bg-gray-800 p-4 rounded-lg overflow-x-auto border border-gray-200 dark:border-gray-700">
-                    <code className="language-javascript text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                      {item.example}
-                    </code>
-                  </pre>
+                  <HighlightCode
+                    content={item.example}
+                    language={"javascript"}
+                  />
                 </div>
               ))}
             </div>
@@ -315,11 +309,10 @@ export default function JavaScriptObjectsArrays() {
                   <p className="text-base sm:text-lg leading-relaxed mb-4">
                     {item.description}
                   </p>
-                  <pre className="bg-white dark:bg-gray-800 p-4 rounded-lg overflow-x-auto border border-gray-200 dark:border-gray-700">
-                    <code className="language-javascript text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                      {item.example}
-                    </code>
-                  </pre>
+                  <HighlightCode
+                    content={item.example}
+                    language={"javascript"}
+                  />
                 </div>
               ))}
             </div>
@@ -349,11 +342,10 @@ export default function JavaScriptObjectsArrays() {
                       <p className="text-base sm:text-lg leading-relaxed mb-4">
                         {example.description}
                       </p>
-                      <pre className="bg-white dark:bg-gray-800 p-4 rounded-lg overflow-x-auto border border-gray-200 dark:border-gray-700">
-                        <code className="language-javascript text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                          {example.example}
-                        </code>
-                      </pre>
+                      <HighlightCode
+                        content={example.example}
+                        language={"javascript"}
+                      />
                     </div>
                   ))}
                 </div>
@@ -385,11 +377,10 @@ export default function JavaScriptObjectsArrays() {
                       <p className="text-base sm:text-lg leading-relaxed mb-4">
                         {example.description}
                       </p>
-                      <pre className="bg-white dark:bg-gray-800 p-4 rounded-lg overflow-x-auto border border-gray-200 dark:border-gray-700">
-                        <code className="language-javascript text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                          {example.example}
-                        </code>
-                      </pre>
+                      <HighlightCode
+                        content={example.example}
+                        language={"javascript"}
+                      />
                     </div>
                   ))}
                 </div>

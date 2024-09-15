@@ -1,6 +1,5 @@
 "use client";
 
-import hljs from "highlight.js";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -11,7 +10,7 @@ import {
 } from "react-icons/fa";
 import { TbLambda } from "react-icons/tb";
 import GridBackground from "@components/grid";
-import { useEffect } from "react";
+import HighlightCode from "@components/highlight";
 import "highlight.js/styles/github-dark.css";
 import AuthorInfo from "../author";
 
@@ -248,10 +247,6 @@ const Section = ({
 );
 
 export default function JavaScriptFunctions() {
-  useEffect(() => {
-    hljs.highlightAll();
-  }, []);
-
   return (
     <div className="relative min-h-screen overflow-hidden">
       <GridBackground />
@@ -276,11 +271,11 @@ export default function JavaScriptFunctions() {
               <TbLambda className="mr-3" /> Course Overview
             </h2>
             <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-              In this course, you&apos;ll dive deep into JavaScript functions - the
-              building blocks of reusable code. We&apos;ll cover function
+              In this course, you&apos;ll dive deep into JavaScript functions -
+              the building blocks of reusable code. We&apos;ll cover function
               declarations, parameters, return values, and the modern arrow
-              function syntax. By mastering functions, you&apos;ll be able to write
-              more efficient and organized JavaScript code.
+              function syntax. By mastering functions, you&apos;ll be able to
+              write more efficient and organized JavaScript code.
             </p>
           </Section>
 
@@ -340,11 +335,7 @@ export default function JavaScriptFunctions() {
                   <p className="text-base sm:text-lg leading-relaxed mb-4">
                     {item.description}
                   </p>
-                  <pre className="bg-white dark:bg-gray-800 p-4 rounded-lg overflow-x-auto border border-gray-200 dark:border-gray-700">
-                    <code className="language-javascript text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                      {item.example}
-                    </code>
-                  </pre>
+                  <HighlightCode language="javascript" content={item.example} />
                 </div>
               ))}
             </div>
@@ -372,11 +363,10 @@ export default function JavaScriptFunctions() {
                   <p className="text-base sm:text-lg leading-relaxed mb-4">
                     {item.examples[index].description}
                   </p>
-                  <pre className="bg-white dark:bg-gray-800 p-4 rounded-lg overflow-x-auto border border-gray-200 dark:border-gray-700">
-                    <code className="language-javascript text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                      {item.examples[index].example}
-                    </code>
-                  </pre>
+                  <HighlightCode
+                    language="javascript"
+                    content={item.examples[index].example}
+                  />
                 </div>
               ))}
             </div>
@@ -404,11 +394,10 @@ export default function JavaScriptFunctions() {
                   <p className="text-base sm:text-lg leading-relaxed mb-4">
                     {item.examples[index].description}
                   </p>
-                  <pre className="bg-white dark:bg-gray-800 p-4 rounded-lg overflow-x-auto border border-gray-200 dark:border-gray-700">
-                    <code className="language-javascript text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                      {item.examples[index].example}
-                    </code>
-                  </pre>
+                  <HighlightCode
+                    language="javascript"
+                    content={item.examples[index].example}
+                  />
                 </div>
               ))}
             </div>
@@ -436,11 +425,10 @@ export default function JavaScriptFunctions() {
                   <p className="text-base sm:text-lg leading-relaxed mb-4">
                     {item.examples[index].description}
                   </p>
-                  <pre className="bg-white dark:bg-gray-800 p-4 rounded-lg overflow-x-auto border border-gray-200 dark:border-gray-700">
-                    <code className="language-javascript text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                      {item.examples[index].example}
-                    </code>
-                  </pre>
+                  <HighlightCode
+                    language="javascript"
+                    content={item.examples[index].example}
+                  />
                 </div>
               ))}
             </div>
@@ -457,14 +445,15 @@ export default function JavaScriptFunctions() {
               className="w-full md:w-auto inline-flex items-center justify-center bg-yellow-600 hover:bg-yellow-700 dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white dark:text-gray-900 font-bold py-2 px-4 md:py-3 md:px-6 rounded-full transition duration-300 text-xs sm:text-sm md:text-base"
             >
               <FaArrowLeft className="mr-2 text-xs sm:text-sm" />
-              <span className="hidden sm:inline">Previous: Basics</span> 
+              <span className="hidden sm:inline">Previous: Basics</span>
             </Link>
             <Link
               href="/courses/javascript"
               className="w-full md:w-auto inline-flex items-center justify-center bg-yellow-600 hover:bg-yellow-700 dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white dark:text-gray-900 font-bold py-2 px-4 md:py-3 md:px-6 rounded-full transition duration-300 text-xs sm:text-sm md:text-base"
             >
-              <FaArrowLeft className="mr-2 text-xs sm:text-sm" />
-              <span className="hidden sm:inline">Back to JavaScript Courses</span> 
+              <span className="hidden sm:inline">
+                Back to JavaScript Courses
+              </span>
             </Link>
             <Link
               href="/courses/javascript/objects-and-arrays"
