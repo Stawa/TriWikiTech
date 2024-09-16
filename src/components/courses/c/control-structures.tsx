@@ -1,22 +1,22 @@
 "use client";
-
-import GridBackground from "@components/grid";
-import AuthorInfo from "../author";
-import CourseNavigationButtons from "../buttons";
-import Section from "../section";
-import HighlightCode from "@components/highlight";
-import Courses from "@components/courses/c/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   FaArrowRight,
   FaCode,
+  FaExchangeAlt,
   FaLightbulb,
   FaQuestionCircle,
-  FaExchangeAlt,
-  FaSyncAlt,
   FaRedoAlt,
+  FaSyncAlt,
 } from "react-icons/fa";
+
+import GridBackground from "@components/grid";
+import HighlightCode from "@components/highlight";
+import Courses from "@components/courses/c/navigation";
+import AuthorInfo from "@components/courses/author";
+import CourseNavigationButtons from "@components/courses/buttons";
+import Section from "@components/courses/section";
 
 const topics = [
   {

@@ -1,10 +1,5 @@
 "use client";
 
-import GridBackground from "@components/grid";
-import AuthorInfo from "../author";
-import CourseNavigationButtons from "../buttons";
-import HighlightCode from "@components/highlight";
-import Courses from "@components/courses/c/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -15,7 +10,13 @@ import {
   FaRocket,
   FaTerminal,
 } from "react-icons/fa";
-import Section from "../section";
+
+import Courses from "@components/courses/c/navigation";
+import GridBackground from "@components/grid";
+import HighlightCode from "@components/highlight";
+import AuthorInfo from "@components/courses/author";
+import CourseNavigationButtons from "../buttons";
+import Section from "@components/courses/section";
 
 const topics = [
   {
@@ -57,6 +58,10 @@ const dataTypes = [
         dataType: "int",
         range: "-2147483648 to 2147483647",
         size: "4 bytes",
+        explanation:
+          "Integers are ideal for counting, indexing, or representing discrete quantities. Use them when you need whole numbers and don't require decimal precision, such as for ages, counts, or array indices.",
+        bestUseCase:
+          "Best used for loop counters, array indices, or any whole number calculations where fractional parts are not needed.",
       },
       {
         type: "float",
@@ -67,6 +72,10 @@ const dataTypes = [
         dataType: "float",
         range: "1.2E-38 to 3.4E+38",
         size: "4 bytes",
+        explanation:
+          "Floats are used for representing real numbers with decimal points. They offer a good balance between precision and memory usage.",
+        bestUseCase:
+          "Ideal for scientific calculations, graphics, or any situation where you need decimal precision but don't require the extended precision of a double.",
       },
       {
         type: "char",
@@ -77,6 +86,10 @@ const dataTypes = [
         dataType: "char",
         range: "-128 to 127",
         size: "1 byte",
+        explanation:
+          "Characters in C are actually small integers, each representing a single ASCII character. They're useful for storing individual letters, digits, or symbols.",
+        bestUseCase:
+          "Best used when working with individual characters, such as processing text one character at a time, or when memory efficiency is crucial and you only need to store single characters.",
       },
     ],
   },
@@ -97,12 +110,21 @@ const variables = [
 int score = 100;    // Declaration with initialization
 float price = 9.99; // Float variable
 char grade = 'A';   // Character variable`,
+    wrongExample: `int a;           // Poor variable name
+float 2ndPrice = 19.99; // Invalid: starts with a number
+char longVariableName123456789 = 'X'; // Excessively long name
+int temp = 98.6;    // Wrong data type for temperature`,
     tips: [
       "Use meaningful variable names",
       "Follow C naming conventions (start with a letter or underscore, use only letters, numbers, and underscores)",
       "Initialize variables when possible to avoid using uninitialized values",
+      "Avoid using reserved keywords as variable names",
     ],
     scratch: "[DATA_TYPE] [VARIABLE_NAME] = [VALUE]",
+    explanation:
+      "Variables are essential for storing and manipulating data in your programs. They act as containers that hold values which can be changed during program execution. However, it's crucial to create variables correctly and follow best practices to ensure code readability and prevent errors.",
+    wrongExplanation:
+      "In the wrong examples, 'a' is a poor variable name as it's not descriptive. '2ndPrice' is invalid because variable names can't start with numbers. 'longVariableName123456789' is excessively long, making the code hard to read. Using 'int' for a temperature (98.6) is incorrect as it would truncate the decimal part.",
   },
 ];
 
@@ -120,6 +142,10 @@ scanf("%d", &age);`,
         formatSpecifier: "%d",
         safetyNote:
           "Always check the return value of scanf() to ensure successful input.",
+        explanation:
+          "scanf() is a powerful function for reading formatted input. It allows you to read various data types directly into variables.",
+        bestUseCase:
+          "Best used when you need to read specific data types from user input, especially for simple programs or when performance is a priority. However, be cautious with string inputs due to potential buffer overflow issues.",
       },
       {
         function: "fgets()",
@@ -129,6 +155,10 @@ printf("Enter your name: ");
 fgets(name, sizeof(name), stdin);`,
         safetyNote:
           "Preferred for string input as it prevents buffer overflow.",
+        explanation:
+          "fgets() is a safer alternative to gets() for reading string input. It allows you to specify a maximum number of characters to read, preventing buffer overflows.",
+        bestUseCase:
+          "Ideal for reading string input, especially when you need to include spaces or when security is a concern. It's the preferred method for reading lines of text in modern C programming.",
       },
       {
         function: "gets()",
@@ -139,6 +169,10 @@ printf("Enter some text: ");
 gets(input);`,
         safetyNote:
           "Deprecated and unsafe. Use fgets() instead as gets() can cause buffer overflow.",
+        explanation:
+          "gets() is an older function for reading string input. It's simple to use but doesn't provide any way to limit the input size, making it vulnerable to buffer overflows.",
+        bestUseCase:
+          "Not recommended for use in any new code due to security vulnerabilities. Always prefer fgets() or other safer alternatives for string input.",
       },
     ],
   },
@@ -153,13 +187,21 @@ gets(input);`,
 printf("The answer is: %d\\n", num);`,
         formatSpecifier: "%d, %f, %c, %s",
         tip: "Use \\n for newline in printf() for better formatting.",
+        explanation:
+          "printf() is a versatile function for formatted output. It allows you to combine text and variable values in a single output statement, with fine control over the formatting.",
+        bestUseCase:
+          "Ideal for most output needs, especially when you need to format the output or combine text with variable values. It's the go-to function for complex or formatted output in C.",
       },
       {
         function: "puts()",
         description: "Outputs a string followed by a newline to stdout",
-        example: `const char *message = "Hello, World!";
+        example: `char *message = "Hello, World!";
 puts(message);`,
         tip: "Simpler than printf() for outputting whole strings.",
+        explanation:
+          "puts() is a simpler alternative to printf() when you just need to output a string. It automatically adds a newline at the end of the output.",
+        bestUseCase:
+          "Best used when you need to output a simple string without any formatting. It's more concise than printf() for this specific use case and can be slightly more efficient.",
       },
     ],
   },
@@ -168,28 +210,37 @@ puts(message);`,
 const basicPrinting = [
   {
     title: "Basic Printing",
-    desc: "Learn how to print 'Hello, World!' and other simple messages",
+    desc: "Learn how to display text in C programs",
     explanation:
-      "This program uses the printf() function to display 'Hello, World!' on the screen. The \\n at the end creates a new line after the message.",
+      "The printf() function is a powerful tool for outputting formatted text. It's part of the stdio.h library and allows for precise control over what's displayed. The '\\n' escape sequence adds a newline, ensuring the next output starts on a fresh line.",
     examples: `#include <stdio.h>
 
 int main() {
     printf("Hello, World!\\n");
+    printf("C programming is powerful!\\n");
     return 0;
 }`,
+    bestUseCase:
+      "Use printf() for most of your output needs, especially when you need to format the output or combine text with variable values. It's versatile and allows for complex formatting.",
   },
   {
     title: "Format Specifiers",
-    desc: "Learn about format specifiers in C",
+    desc: "Explore how to integrate variables into your output seamlessly",
     explanation:
-      "In this example, we use the %d format specifier to print an integer value. There are different format specifiers for different data types in C.",
+      "Format specifiers act as placeholders for variable values in printf() statements. The %d specifier is used for integers, but C offers a wide range of specifiers for different data types. This allows for flexible and dynamic output formatting.",
     examples: `#include <stdio.h>
 
 int main() {
     int age = 25;
-    printf("Age: %d\\n", age);
+    float height = 1.75;
+    char grade = 'A';
+    printf("Age: %d years\\n", age);
+    printf("Height: %.2f meters\\n", height);
+    printf("Grade: %c\\n", grade);
     return 0;
 }`,
+    bestUseCase:
+      "Format specifiers are crucial when you need to output variable values alongside text. They're particularly useful for creating readable, formatted output that includes different data types.",
   },
 ];
 
@@ -317,9 +368,17 @@ export default function CBasics() {
                   <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
                     <HighlightCode content={item.examples} language={"c"} />
                   </div>
-                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed mb-6">
                     {item.explanation}
                   </p>
+                  <div className="bg-blue-100 dark:bg-blue-900/50 p-4 sm:p-6 rounded-xl">
+                    <p className="text-base sm:text-lg font-bold text-blue-800 dark:text-blue-200 mb-2">
+                      Best Use Case:
+                    </p>
+                    <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                      {item.bestUseCase}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -357,8 +416,33 @@ export default function CBasics() {
                       </li>
                     ))}
                   </ul>
+                  <h4 className="text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400 mb-4">
+                    Good Example:
+                  </h4>
                   <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
                     <HighlightCode content={item.example} language={"c"} />
+                  </div>
+                  <div className="bg-blue-100 dark:bg-blue-900/50 p-4 sm:p-6 rounded-xl mb-6">
+                    <p className="text-base sm:text-lg font-bold text-blue-800 dark:text-blue-200 mb-2">
+                      Good Example Explanation:
+                    </p>
+                    <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                      {item.explanation}
+                    </p>
+                  </div>
+                  <h4 className="text-xl sm:text-2xl font-bold text-red-600 dark:text-red-400 mb-4">
+                    Bad Example:
+                  </h4>
+                  <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
+                    <HighlightCode content={item.wrongExample} language={"c"} />
+                  </div>
+                  <div className="bg-red-100 dark:bg-red-900/50 p-4 sm:p-6 rounded-xl mb-6">
+                    <p className="text-base sm:text-lg font-bold text-red-800 dark:text-red-200 mb-2">
+                      Bad Example Explanation:
+                    </p>
+                    <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                      {item.wrongExplanation}
+                    </p>
                   </div>
                   <h4 className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">
                     Tips:
@@ -373,7 +457,7 @@ export default function CBasics() {
                       </li>
                     ))}
                   </ul>
-                  <div className="bg-yellow-100 dark:bg-yellow-900/50 p-4 sm:p-6 rounded-xl">
+                  <div className="bg-yellow-100 dark:bg-yellow-900/50 p-4 sm:p-6 rounded-xl mb-6">
                     <p className="text-base sm:text-lg font-bold text-yellow-800 dark:text-yellow-200 mb-2">
                       Variable Declaration Syntax:
                     </p>
@@ -451,6 +535,22 @@ export default function CBasics() {
                             </p>
                           </div>
                         </div>
+                        <div className="mt-6 sm:mt-8 bg-yellow-100 dark:bg-yellow-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
+                          <p className="text-base sm:text-lg font-bold text-yellow-800 dark:text-yellow-200 mb-2 sm:mb-3">
+                            Explanation
+                          </p>
+                          <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                            {example.explanation}
+                          </p>
+                        </div>
+                        <div className="mt-4 sm:mt-6 bg-indigo-100 dark:bg-indigo-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
+                          <p className="text-base sm:text-lg font-bold text-indigo-800 dark:text-indigo-200 mb-2 sm:mb-3">
+                            Best Use Case
+                          </p>
+                          <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                            {example.bestUseCase}
+                          </p>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -517,6 +617,22 @@ export default function CBasics() {
                               <span>Tip: {example.tip}</span>
                             </p>
                           )}
+                          <div className="mt-4 sm:mt-6 bg-indigo-900/20 p-4 sm:p-6 rounded-xl">
+                            <p className="text-base sm:text-lg font-bold text-indigo-300 mb-2">
+                              Explanation:
+                            </p>
+                            <p className="text-sm sm:text-base text-gray-300">
+                              {example.explanation}
+                            </p>
+                          </div>
+                          <div className="mt-4 sm:mt-6 bg-green-900/20 p-4 sm:p-6 rounded-xl">
+                            <p className="text-base sm:text-lg font-bold text-green-300 mb-2">
+                              Best Use Case:
+                            </p>
+                            <p className="text-sm sm:text-base text-gray-300">
+                              {example.bestUseCase}
+                            </p>
+                          </div>
                         </div>
                       ))}
                     </div>
