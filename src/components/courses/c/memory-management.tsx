@@ -5,7 +5,6 @@ import AuthorInfo from "../author";
 import CourseNavigationButtons from "../buttons";
 import HighlightCode from "@components/highlight";
 import Courses from "@components/courses/c/navigation";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   FaCode,
@@ -13,32 +12,38 @@ import {
   FaRocket,
   FaMemory,
   FaShieldAlt,
+  FaArrowRight,
 } from "react-icons/fa";
+import Section from "../section";
+import Link from "next/link";
 
 const topics = [
   {
     title: "Dynamic Memory Allocation",
     desc: "Learn about malloc(), calloc(), and realloc() functions",
     id: "dynamic-allocation",
+    icon: FaMemory,
   },
   {
     title: "Memory Deallocation",
     desc: "Understand the importance of freeing allocated memory",
     id: "memory-deallocation",
+    icon: FaRocket,
   },
   {
     title: "Common Memory Issues",
     desc: "Explore memory leaks, dangling pointers, and buffer overflows",
     id: "memory-issues",
+    icon: FaShieldAlt,
   },
 ];
 
 const memoryAllocation = [
   {
-    type: "Dynamic Allocation",
+    type: "malloc()",
     examples: [
       {
-        title: "malloc()",
+        title: "Allocating Memory with malloc()",
         description: "Allocates a block of uninitialized memory",
         example: `int *ptr = (int*) malloc(5 * sizeof(int));
 if (ptr == NULL) {
@@ -51,9 +56,16 @@ for (int i = 0; i < 5; i++) {
 }
 // Don't forget to free the memory when done
 free(ptr);`,
+        explanation:
+          "Use malloc() when you need to allocate a block of memory without initializing it. It's important to check if the allocation was successful and to free the memory when it's no longer needed.",
       },
+    ],
+  },
+  {
+    type: "calloc()",
+    examples: [
       {
-        title: "calloc()",
+        title: "Allocating and Initializing Memory with calloc()",
         description: "Allocates a block of memory and initializes it to zero",
         example: `int *ptr = (int*) calloc(5, sizeof(int));
 if (ptr == NULL) {
@@ -65,9 +77,16 @@ for (int i = 0; i < 5; i++) {
     printf("%d ", ptr[i]);  // Will print "0 0 0 0 0"
 }
 free(ptr);`,
+        explanation:
+          "Use calloc() when you need allocated memory to be initialized to zero. It's particularly useful when you want to ensure that the allocated memory starts with a known state.",
       },
+    ],
+  },
+  {
+    type: "realloc()",
+    examples: [
       {
-        title: "realloc()",
+        title: "Resizing Memory with realloc()",
         description: "Resizes a previously allocated memory block",
         example: `int *ptr = (int*) malloc(5 * sizeof(int));
 // ... use the memory ...
@@ -82,6 +101,8 @@ for (int i = 5; i < 10; i++) {
     ptr[i] = i + 1;
 }
 free(ptr);`,
+        explanation:
+          "Use realloc() when you need to resize an existing memory block. It can be used to either increase or decrease the size of a previously allocated memory block. Always check if the reallocation was successful.",
       },
     ],
   },
@@ -89,10 +110,10 @@ free(ptr);`,
 
 const memoryDeallocation = [
   {
-    type: "Freeing Memory",
+    type: "free()",
     examples: [
       {
-        title: "free()",
+        title: "Deallocating Memory with free()",
         description:
           "Deallocates the memory previously allocated by malloc, calloc, or realloc",
         example: `int *ptr = (int*) malloc(5 * sizeof(int));
@@ -106,6 +127,8 @@ if (ptr == NULL) {
 free(ptr);
 // Set the pointer to NULL to avoid using it after freeing
 ptr = NULL;`,
+        explanation:
+          "Always use free() when you're done with dynamically allocated memory to prevent memory leaks. After freeing, it's a good practice to set the pointer to NULL to avoid accidental use of freed memory.",
       },
     ],
   },
@@ -113,7 +136,7 @@ ptr = NULL;`,
 
 const memoryIssues = [
   {
-    type: "Common Problems",
+    type: "Common Memory Problems",
     examples: [
       {
         title: "Memory Leak",
@@ -124,6 +147,8 @@ const memoryIssues = [
     // The function ends, and the pointer is lost
     // This memory cannot be accessed or freed now
 }`,
+        explanation:
+          "Memory leaks occur when allocated memory is not freed, leading to gradual loss of available memory. Always free allocated memory when it's no longer needed to prevent memory leaks.",
       },
       {
         title: "Dangling Pointer",
@@ -133,6 +158,8 @@ const memoryIssues = [
 free(ptr);
 // ptr is now a dangling pointer
 *ptr = 5;  // This is undefined behavior`,
+        explanation:
+          "Dangling pointers can lead to unpredictable behavior or crashes. Always set pointers to NULL after freeing them to avoid accidentally using dangling pointers.",
       },
       {
         title: "Buffer Overflow",
@@ -140,6 +167,8 @@ free(ptr);
         example: `char buffer[5];
 strcpy(buffer, "This string is too long");
 // This will write beyond the end of buffer`,
+        explanation:
+          "Buffer overflows can corrupt memory and lead to security vulnerabilities. Always check the size of data before writing to a buffer to prevent buffer overflows.",
       },
     ],
   },
@@ -147,304 +176,325 @@ strcpy(buffer, "This string is too long");
 
 const bestPractices = [
   {
-    title: "Always Check for NULL After Allocation",
-    description:
-      "Always verify if memory allocation was successful to prevent potential crashes.",
-    example: `int *ptr = (int*) malloc(sizeof(int));
+    type: "Memory Management Best Practices",
+    examples: [
+      {
+        title: "Always Check for NULL After Allocation",
+        description:
+          "Always verify if memory allocation was successful to prevent potential crashes.",
+        example: `int *ptr = (int*) malloc(sizeof(int));
 if (ptr == NULL) {
     fprintf(stderr, "Memory allocation failed\\n");
     exit(1);
 }`,
-  },
-  {
-    title: "Free Memory When No Longer Needed",
-    description:
-      "Always free dynamically allocated memory when it's no longer needed to prevent memory leaks.",
-    example: `int *ptr = (int*) malloc(sizeof(int));
+        explanation:
+          "Checking for NULL after every memory allocation ensures that the operation was successful and helps prevent crashes due to failed allocations.",
+      },
+      {
+        title: "Free Memory When No Longer Needed",
+        description:
+          "Always free dynamically allocated memory when it's no longer needed to prevent memory leaks.",
+        example: `int *ptr = (int*) malloc(sizeof(int));
 // Use ptr...
 free(ptr);
 ptr = NULL;  // Set to NULL after freeing`,
-  },
-  {
-    title: "Use Valgrind for Memory Debugging",
-    description:
-      "Utilize tools like Valgrind to detect memory leaks and other memory-related issues.",
-    example: `// Compile with debugging symbols
+        explanation:
+          "Freeing memory when it's no longer needed prevents memory leaks. Setting the pointer to NULL after freeing helps avoid accidental use of freed memory.",
+      },
+      {
+        title: "Use Valgrind for Memory Debugging",
+        description:
+          "Utilize tools like Valgrind to detect memory leaks and other memory-related issues.",
+        example: `// Compile with debugging symbols
 gcc -g your_program.c -o your_program
 
 // Run with Valgrind
 valgrind --leak-check=full ./your_program`,
-  },
-  {
-    title: "Avoid Double Free",
-    description:
-      "Never free the same memory block twice, as it can lead to undefined behavior.",
-    example: `int *ptr = (int*) malloc(sizeof(int));
-free(ptr);
-// Don't do this:
-// free(ptr);  // Double free!`,
-  },
-  {
-    title: "Use calloc() for Zero-Initialized Memory",
-    description:
-      "Use calloc() when you need memory initialized to zero, instead of malloc() followed by memset().",
-    example: `// This:
-int *ptr = (int*) calloc(5, sizeof(int));
-
-// Instead of:
-// int *ptr = (int*) malloc(5 * sizeof(int));
-// memset(ptr, 0, 5 * sizeof(int));`,
+        explanation:
+          "Tools like Valgrind are invaluable for detecting memory leaks, use of uninitialized memory, and other memory-related issues during development and testing.",
+      },
+    ],
   },
 ];
 
-const Section = ({
-  children,
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  delay?: number;
-}) => (
-  <motion.section
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.8, delay }}
-    className="mb-4 sm:mb-6 md:mb-8 bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 rounded-lg p-4 sm:p-6 md:p-8 shadow-lg"
-  >
-    {children}
-  </motion.section>
-);
-
 export default function CMemoryManagement() {
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen bg-gradient-to-b from-gray-900 to-blue-900 text-gray-100">
       <GridBackground />
-      <div className="relative z-10 text-gray-800 dark:text-gray-200">
-        <div className="max-w-5xl mx-auto px-4 py-8 sm:py-12 md:py-16">
+      <div className="relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <motion.header
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-8 sm:mb-12 md:mb-16 text-center"
+            className="mb-12 sm:mb-16 lg:mb-20 text-center"
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 dark:from-blue-400 dark:via-blue-300 dark:to-blue-500">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
               Memory Management in C
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-blue-600 dark:text-blue-200">
-              Master dynamic memory allocation and management in C
+            <p className="text-lg sm:text-xl lg:text-2xl text-blue-300">
+              Master dynamic memory allocation and deallocation in C programming
             </p>
           </motion.header>
-          <AuthorInfo date={"September 15th, 2024"} />
-          <Section delay={0.3}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-blue-600 dark:text-blue-400 flex items-center">
-              <FaMemory className="mr-3" /> Course Overview
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-              In this course, you&apos;ll learn about dynamic memory allocation
-              and management in C. We&apos;ll cover how to allocate memory at
-              runtime, properly deallocate it, and avoid common memory-related
-              issues.
-            </p>
+
+          <div className="px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16 lg:mb-20">
+            <AuthorInfo
+              date={"September 15th, 2024"}
+              lastEdit={"September 16th, 2024"}
+            />
+          </div>
+          <Section id="course-overview" delay={0.3}>
+            <div className="bg-gradient-to-r from-blue-700 to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
+              <div className="bg-black bg-opacity-50 p-6 sm:p-8">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide flex items-center">
+                  <FaCode className="mr-4 text-blue-300" />
+                  Course Overview
+                </h2>
+              </div>
+              <div className="p-6 sm:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <p className="text-lg sm:text-xl text-gray-200 leading-relaxed">
+                  In this comprehensive course, you&apos;ll dive deep into
+                  memory management in C programming. We&apos;ll cover dynamic
+                  memory allocation, deallocation, and common memory-related
+                  issues. You&apos;ll learn how to effectively use functions
+                  like malloc(), calloc(), realloc(), and free(). We&apos;ll
+                  also explore best practices for managing memory and avoiding
+                  common pitfalls like memory leaks and buffer overflows. By
+                  mastering these concepts, you&apos;ll be able to write more
+                  efficient and robust C programs.
+                </p>
+              </div>
+            </div>
           </Section>
 
-          <Section delay={0.5}>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 text-blue-600 dark:text-blue-400 flex items-center">
-              <FaLightbulb className="mr-3" /> What You&apos;ll Learn
+          <Section id="what-you-ll-learn" delay={0.5}>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaLightbulb className="mr-3 sm:mr-4 text-blue-300" />
+              What You&apos;ll Learn
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
               {topics.map((topic, index) => (
-                <Link href={`#${topic.id}`} key={index}>
-                  <div className="bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 border border-blue-600 dark:border-blue-400 p-4 sm:p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl hover:scale-105 h-full flex flex-col">
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-blue-600 dark:text-blue-400 mb-2">
+                <div
+                  key={index}
+                  className="bg-gradient-to-r from-blue-700 to-purple-800 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 h-full flex flex-col"
+                >
+                  <div className="bg-black bg-opacity-50 p-4 sm:p-6">
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-wide flex items-center">
+                      <topic.icon className="mr-3 sm:mr-4 text-blue-300" />
                       {topic.title}
                     </h3>
-                    <p className="text-xs sm:text-sm md:text-base text-gray-700 dark:text-gray-300 flex-grow">
+                  </div>
+                  <div className="p-4 sm:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
+                    <p className="text-base sm:text-lg lg:text-xl text-gray-200 mb-4 sm:mb-6 leading-relaxed">
                       {topic.desc}
                     </p>
+                    <Link
+                      href={`#${topic.id}`}
+                      className="text-blue-400 font-semibold flex items-center mt-auto text-base sm:text-lg hover:text-blue-300 transition-colors duration-300"
+                    >
+                      Learn More{" "}
+                      <FaArrowRight className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1" />
+                    </Link>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </Section>
 
-          <Section delay={0.7}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-blue-600 dark:text-blue-400 flex items-center">
-              <FaRocket className="mr-3" /> Why Memory Management Matters
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-              Effective memory management is crucial for writing efficient and
-              robust C programs. It allows you to use memory resources
-              optimally, avoid memory leaks, and prevent crashes due to
-              memory-related errors. Understanding these concepts is essential
-              for any serious C programmer.
-            </p>
+          <Section id="why-memory-management-matters" delay={0.7}>
+            <div className="bg-gradient-to-r from-blue-700 to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
+              <div className="bg-black bg-opacity-50 p-6 sm:p-8">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide flex items-center">
+                  <FaRocket className="mr-4 text-blue-300" />
+                  Why Memory Management Matters
+                </h2>
+              </div>
+              <div className="p-6 sm:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <p className="text-lg sm:text-xl text-gray-200 leading-relaxed">
+                  Effective memory management is crucial in C programming. It
+                  allows you to optimize your program&apos;s performance,
+                  prevent memory leaks, and avoid crashes due to memory-related
+                  issues. Understanding how to allocate, use, and free memory
+                  dynamically gives you fine-grained control over your
+                  program&apos;s resource usage. This skill is essential for
+                  writing efficient, scalable, and robust C programs, especially
+                  for applications that deal with large datasets or have long
+                  running times. Mastering memory management will make you a
+                  more proficient C programmer and is a fundamental skill for
+                  systems programming and low-level software development.
+                </p>
+              </div>
+            </div>
           </Section>
 
-          <Section delay={0.8}>
-            <h2
-              id="dynamic-allocation"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-blue-600 dark:text-blue-400 flex items-center flex-wrap"
-            >
-              <FaMemory className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Dynamic Memory
-              Allocation
-            </h2>
-            <div className="space-y-6 sm:space-y-8">
-              {memoryAllocation.map((allocation) => (
-                <div
-                  key={allocation.type}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
-                >
-                  <h3 className="text-lg sm:text-xl font-semibold text-blue-600 dark:text-blue-400 mb-3 sm:mb-4 flex items-center flex-wrap">
-                    <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
-                      {allocation.type}
-                    </span>
-                    Memory Allocation Functions
+          <Section id="dynamic-memory-allocation" delay={0.8}>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaMemory className="mr-3 sm:mr-4 text-blue-300" />
+              Dynamic Memory Allocation in C
+            </h3>
+            {memoryAllocation.map((item, index) => (
+              <div
+                key={index}
+                className={`${index !== memoryAllocation.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+              >
+                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                    {item.type}
                   </h3>
-                  <div className="space-y-4 sm:space-y-6">
-                    {allocation.examples.map((example) => (
-                      <div
-                        key={example.title}
-                        className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg"
-                      >
-                        <h4 className="text-base sm:text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2">
-                          {example.title}
-                        </h4>
-                        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-2">
-                          {example.description}
-                        </p>
+                </div>
+                <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                  {item.examples.map((example, exampleIndex) => (
+                    <div key={exampleIndex} className="mb-6 sm:mb-8">
+                      <h4 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+                        {example.title}
+                      </h4>
+                      <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 leading-relaxed">
+                        {example.description}
+                      </p>
+                      <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
                         <HighlightCode
                           content={example.example}
                           language={"c"}
                         />
                       </div>
-                    ))}
-                  </div>
+                      <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
+                        {example.explanation}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </Section>
 
-          <Section delay={1.0}>
-            <h2
-              id="memory-deallocation"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-blue-600 dark:text-blue-400 flex items-center flex-wrap"
-            >
-              <FaMemory className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Memory
-              Deallocation
-            </h2>
-            <div className="space-y-6 sm:space-y-8">
-              {memoryDeallocation.map((deallocation) => (
-                <div
-                  key={deallocation.type}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
-                >
-                  <h3 className="text-lg sm:text-xl font-semibold text-blue-600 dark:text-blue-400 mb-3 sm:mb-4 flex items-center flex-wrap">
-                    <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
-                      {deallocation.type}
-                    </span>
-                    Memory Deallocation
+          <Section id="memory-deallocation" delay={0.9}>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaRocket className="mr-3 sm:mr-4 text-blue-300" />
+              Memory Deallocation in C
+            </h3>
+            {memoryDeallocation.map((item, index) => (
+              <div
+                key={index}
+                className={`${index !== memoryDeallocation.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+              >
+                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                    {item.type}
                   </h3>
-                  <div className="space-y-4 sm:space-y-6">
-                    {deallocation.examples.map((example) => (
-                      <div
-                        key={example.title}
-                        className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg"
-                      >
-                        <h4 className="text-base sm:text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2">
-                          {example.title}
-                        </h4>
-                        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-2">
-                          {example.description}
-                        </p>
+                </div>
+                <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                  {item.examples.map((example, exampleIndex) => (
+                    <div key={exampleIndex} className="mb-6 sm:mb-8">
+                      <h4 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+                        {example.title}
+                      </h4>
+                      <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 leading-relaxed">
+                        {example.description}
+                      </p>
+                      <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
                         <HighlightCode
                           content={example.example}
                           language={"c"}
                         />
                       </div>
-                    ))}
-                  </div>
+                      <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
+                        {example.explanation}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </Section>
 
-          <Section delay={1.2}>
-            <h2
-              id="memory-issues"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-blue-600 dark:text-blue-400 flex items-center flex-wrap"
-            >
-              <FaCode className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Common Memory
-              Issues
-            </h2>
-            <div className="space-y-6 sm:space-y-8">
-              {memoryIssues.map((issue) => (
-                <div
-                  key={issue.type}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
-                >
-                  <h3 className="text-lg sm:text-xl font-semibold text-blue-600 dark:text-blue-400 mb-3 sm:mb-4 flex items-center flex-wrap">
-                    <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
-                      {issue.type}
-                    </span>
-                    Memory Issues
+          <Section id="memory-issues" delay={1.0}>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaShieldAlt className="mr-3 sm:mr-4 text-blue-300" />
+              Common Memory Issues in C
+            </h3>
+            {memoryIssues.map((item, index) => (
+              <div
+                key={index}
+                className={`${index !== memoryIssues.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+              >
+                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                    {item.type}
                   </h3>
-                  <div className="space-y-4 sm:space-y-6">
-                    {issue.examples.map((example) => (
-                      <div
-                        key={example.title}
-                        className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg"
-                      >
-                        <h4 className="text-base sm:text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2">
-                          {example.title}
-                        </h4>
-                        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-2">
-                          {example.description}
-                        </p>
+                </div>
+                <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                  {item.examples.map((example, exampleIndex) => (
+                    <div key={exampleIndex} className="mb-6 sm:mb-8">
+                      <h4 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+                        {example.title}
+                      </h4>
+                      <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 leading-relaxed">
+                        {example.description}
+                      </p>
+                      <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
                         <HighlightCode
                           content={example.example}
                           language={"c"}
                         />
                       </div>
-                    ))}
-                  </div>
+                      <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
+                        {example.explanation}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </Section>
 
-          <Section delay={1.3}>
-            <h2
-              id="best-practices"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-blue-600 dark:text-blue-400 flex items-center flex-wrap"
-            >
-              <FaShieldAlt className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Best
-              Practices for Memory Management
-            </h2>
-            <div className="space-y-6 sm:space-y-8">
-              {bestPractices.map((practice) => (
-                <div
-                  key={practice.title}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
-                >
-                  <h3 className="text-lg sm:text-xl font-semibold text-blue-600 dark:text-blue-400 mb-3 sm:mb-4">
-                    {practice.title}
+          <Section id="best-practices" delay={1.1}>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaLightbulb className="mr-3 sm:mr-4 text-blue-300" />
+              Best Practices for Memory Management
+            </h3>
+            {bestPractices.map((item, index) => (
+              <div
+                key={index}
+                className={`${index !== bestPractices.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+              >
+                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                    {item.type}
                   </h3>
-                  <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-2">
-                    {practice.description}
-                  </p>
-                  {practice.example && (
-                    <HighlightCode content={practice.example} language={"c"} />
-                  )}
                 </div>
-              ))}
-            </div>
+                <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                  {item.examples.map((example, exampleIndex) => (
+                    <div key={exampleIndex} className="mb-6 sm:mb-8">
+                      <h4 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+                        {example.title}
+                      </h4>
+                      <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 leading-relaxed">
+                        {example.description}
+                      </p>
+                      <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                        <HighlightCode
+                          content={example.example}
+                          language={"c"}
+                        />
+                      </div>
+                      <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
+                        {example.explanation}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
           </Section>
 
-          <CourseNavigationButtons
-            colorStyle="bg-blue-600"
-            middleHomeButton={true}
-            courses={Courses}
-            currentIndex={4}
-          />
+          <div className="px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16 lg:mb-20">
+            <CourseNavigationButtons
+              colorStyle="bg-blue-600"
+              middleHomeButton={true}
+              courses={Courses}
+              currentIndex={5}
+            />
+          </div>
         </div>
       </div>
     </div>

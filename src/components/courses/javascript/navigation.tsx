@@ -1,6 +1,7 @@
 import { FaLightbulb, FaCode } from "react-icons/fa";
 import { PiBracketsCurlyDuotone } from "react-icons/pi";
 import { TbLambda } from "react-icons/tb";
+import { VscOutput } from "react-icons/vsc";
 
 const courses = [
   {
@@ -13,8 +14,16 @@ const courses = [
   },
   {
     title: "Basics",
-    desc: "Variables, data types, and control structures",
+    desc: "Console.log, variables, and data types",
     link: "/courses/javascript/basics",
+    icon: (
+      <VscOutput className="text-yellow-600 dark:text-yellow-400 text-2xl sm:text-3xl" />
+    ),
+  },
+  {
+    title: "Control Structures",
+    desc: "Conditionals and loops",
+    link: "/courses/javascript/control-structures",
     icon: (
       <FaCode className="text-yellow-600 dark:text-yellow-400 text-2xl sm:text-3xl" />
     ),

@@ -438,7 +438,7 @@ export default function JavaScriptFunctions() {
             colorStyle="bg-yellow-600"
             courses={Courses}
             middleHomeButton={true}
-            currentIndex={2}
+            currentIndex={3}
           />
         </div>
       </div>

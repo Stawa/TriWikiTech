@@ -7,58 +7,61 @@ import HighlightCode from "@components/highlight";
 import Courses from "@components/courses/c/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FaCode, FaLightbulb, FaRocket } from "react-icons/fa";
+import {
+  FaArrowRight,
+  FaCode,
+  FaExchangeAlt,
+  FaLightbulb,
+  FaRocket,
+} from "react-icons/fa";
+import Section from "../section";
 
 const topics = [
   {
-    title: "Function Basics",
+    title: "Basics",
     desc: "Learn about function declaration and definition in C, including syntax and best practices",
     id: "function-basics",
+    icon: FaCode,
   },
   {
-    title: "Function Parameters",
+    title: "Arguments",
     desc: "Understand how to pass arguments to functions, including pass-by-value and pass-by-reference techniques",
     id: "function-parameters",
+    icon: FaExchangeAlt,
   },
   {
     title: "Return Values",
     desc: "Explore how functions can return values in C, including different data types and multiple return values",
     id: "return-values",
+    icon: FaRocket,
   },
   {
-    title: "Function Prototypes",
+    title: "Prototypes",
     desc: "Learn about function prototypes and their importance in C programming for proper function declaration",
     id: "function-prototypes",
+    icon: FaLightbulb,
   },
 ];
 
 const functionExamples = [
   {
-    title: "Function Declaration",
-    description:
-      "Declaring a function in C involves specifying its return type, name, and parameters. This tells the compiler about the function's interface.",
-    example: `int add(int a, int b);`,
-    whenToUse:
-      "Use function declarations when you want to define the function later in the code or in a separate file. This is particularly useful in header files or when you need to use the function before its full definition.",
-  },
-  {
     title: "Function Definition",
     description:
-      "Defining a function in C includes the function body with the actual implementation. This is where you specify what the function does.",
+      "A function definition in C provides the complete implementation of the function, including its body. This is where you specify the actual behavior of the function.",
     example: `int add(int a, int b) {
   return a + b;
 }`,
     whenToUse:
-      "Use function definitions when you're ready to implement the function's behavior. This is typically done in .c source files.",
+      "Use function definitions in .c source files when you're ready to implement the function's behavior. This is where you write the code that will be executed when the function is called.",
   },
   {
     title: "Function Call",
     description:
-      "Calling a function in C involves using its name and providing the required arguments. This executes the function's code and potentially returns a value.",
+      "A function call in C executes the function's code with the provided arguments. It may return a value that can be used in expressions or assigned to variables.",
     example: `int result = add(5, 3);
 printf("Sum: %d", result);`,
     whenToUse:
-      "Use function calls whenever you need to execute the function's code. This allows you to reuse the same code multiple times without repeating it.",
+      "Use function calls whenever you need to execute the function's code. This allows for code reuse and helps in breaking down complex problems into smaller, manageable parts.",
   },
 ];
 
@@ -66,7 +69,7 @@ const parameterExamples = [
   {
     title: "Pass by Value",
     description:
-      "Passing arguments by value in C creates a copy of the argument, leaving the original unchanged. This means any modifications to the parameter inside the function don't affect the original variable.",
+      "In C, passing arguments by value creates a copy of the argument within the function. Any modifications to the parameter inside the function do not affect the original variable in the calling code.",
     example: `void increment(int x) {
   x++;
 }
@@ -77,12 +80,12 @@ int main() {
   printf("%d", num); // Output: 5
 }`,
     whenToUse:
-      "Use pass by value when you want to work with a copy of the data and ensure that the original value remains unchanged. This is the default behavior for most data types in C.",
+      "Use pass by value when you want to work with a copy of the data and ensure that the original value remains unchanged. This is the default behavior for most data types in C and is useful for maintaining data integrity.",
   },
   {
     title: "Pass by Reference",
     description:
-      "Passing arguments by reference using pointers in C allows the function to modify the original value. This gives the function direct access to the memory location of the variable.",
+      "Passing arguments by reference in C involves using pointers. This method allows the function to directly access and modify the original variable's memory location.",
     example: `void increment(int *x) {
   (*x)++;
 }
@@ -93,7 +96,7 @@ int main() {
   printf("%d", num); // Output: 6
 }`,
     whenToUse:
-      "Use pass by reference when you need to modify the original variable inside the function, or when dealing with large data structures to avoid the overhead of copying.",
+      "Use pass by reference when you need to modify the original variable inside the function or when dealing with large data structures to avoid the overhead of copying. It's also useful for returning multiple values from a function.",
   },
 ];
 
@@ -101,7 +104,7 @@ const returnValueExamples = [
   {
     title: "Returning a Value",
     description:
-      "Functions in C can return a single value of any data type, which can be used in expressions or assigned to variables. This allows functions to compute and provide results back to the caller.",
+      "Functions in C can return a single value of any data type. The returned value can be used in expressions, assigned to variables, or passed as an argument to other functions.",
     example: `int square(int x) {
   return x * x;
 }
@@ -109,29 +112,34 @@ const returnValueExamples = [
 int result = square(5);
 printf("%d", result); // Output: 25`,
     whenToUse:
-      "Use return values when your function needs to compute and provide a result back to the calling code. This is common for mathematical operations, data processing, or any task that produces a result.",
+      "Use return values when your function needs to compute and provide a result back to the calling code. This is essential for functions that perform calculations, data processing, or any task that produces a specific output.",
   },
   {
     title: "Void Function",
     description:
-      "Functions that don't return a value in C are declared with the 'void' return type and are typically used for their side effects, such as modifying global variables, printing output, or performing I/O operations.",
+      "Functions declared with the 'void' return type in C do not return a value. They are typically used for their side effects, such as modifying global variables, printing output, or performing I/O operations.",
     example: `void greet(char *name) {
   printf("Hello, %s!", name);
 }
 
 greet("Alice"); // Output: Hello, Alice!`,
     whenToUse:
-      "Use void functions when your function doesn't need to return a value, but instead performs some action or modifies state. This is common for functions that print output, modify global variables, or perform I/O operations.",
+      "Use void functions when your function doesn't need to return a value but instead performs some action or modifies state. This is common for functions that handle output, modify global data, or carry out specific tasks without producing a direct result.",
   },
 ];
 
 const prototypeExamples = [
   {
-    title: "Function Prototype",
+    title: "Function Declaration vs Definition vs Prototype",
     description:
-      "Declaring a function prototype in C allows the compiler to perform type checking and enables calling the function before its full definition. This is also known as a function declaration.",
-    example: `// Function prototype
+      "In C, there are three related but distinct concepts: function declaration, function definition, and function prototype. Understanding their differences is crucial for effective C programming.",
+    example: `// Function declaration (also serves as a prototype)
 int add(int a, int b);
+
+// Function definition
+int add(int a, int b) {
+  return a + b;
+}
 
 int main() {
   int result = add(5, 3);
@@ -139,245 +147,279 @@ int main() {
   return 0;
 }`,
     whenToUse:
-      "Use function prototypes when you need to declare a function before its full definition, typically in header files or at the top of your source file. This is crucial for larger projects where functions might be defined in different files or later in the same file.",
+      "Use function declarations (prototypes) in header files or at the top of your source file to declare a function's interface. Use function definitions in .c files to implement the full behavior of the function.",
+  },
+  {
+    title: "Function Declaration",
+    description:
+      "A function declaration specifies the function's name, return type, and parameters without providing the function's body. It informs the compiler about the function's existence and interface.",
+    example: `// Function declaration
+int multiply(int x, int y);`,
+    whenToUse:
+      "Use function declarations when you want to inform the compiler about a function's existence without providing its implementation. This is often done in header files.",
   },
   {
     title: "Function Definition",
     description:
-      "The actual implementation of the function, which matches the prototype. This includes the function body with the full code that executes when the function is called.",
+      "A function definition includes both the function's declaration and its implementation (body). It specifies the actual code that executes when the function is called.",
     example: `// Function definition
-int add(int a, int b) {
-  return a + b;
+int multiply(int x, int y) {
+  return x * y;
 }`,
     whenToUse:
-      "Use function definitions when you're ready to implement the full behavior of the function. This is typically done in .c source files after the prototypes have been declared.",
+      "Use function definitions in .c source files to implement the full behavior of the function. This is where you write the actual code that will be executed when the function is called.",
+  },
+  {
+    title: "Function Prototype",
+    description:
+      "A function prototype is a declaration of a function that includes its return type, name, and parameter types, typically ending with a semicolon. It's identical to a function declaration and is used for type checking and to allow calling the function before its full definition.",
+    example: `// Function prototype
+int divide(int numerator, int denominator);`,
+    whenToUse:
+      "Use function prototypes when you need to declare a function before its full definition, especially in header files or at the top of your source file. This is crucial for larger projects and helps with code organization and compilation efficiency.",
   },
 ];
 
-const Section = ({
-  children,
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  delay?: number;
-}) => (
-  <motion.section
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.8, delay }}
-    className="mb-4 sm:mb-6 md:mb-8 bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 rounded-lg p-4 sm:p-6 md:p-8 shadow-lg"
-  >
-    {children}
-  </motion.section>
-);
-
 export default function CFunctions() {
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen bg-gradient-to-b from-gray-900 to-blue-900 text-gray-100">
       <GridBackground />
-      <div className="relative z-10 text-gray-800 dark:text-gray-200">
-        <div className="max-w-5xl mx-auto px-4 py-8 sm:py-12 md:py-16">
+      <div className="relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <motion.header
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-8 sm:mb-12 md:mb-16 text-center"
+            className="mb-12 sm:mb-16 lg:mb-20 text-center"
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 dark:from-blue-400 dark:via-blue-300 dark:to-blue-500">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
               Functions in C Programming
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-blue-600 dark:text-blue-200">
+            <p className="text-lg sm:text-xl lg:text-2xl text-blue-300">
               Master defining and using functions in C for efficient and modular
               programming
             </p>
           </motion.header>
-          <AuthorInfo date={"September 15th, 2024"} />
-          <Section delay={0.3}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-blue-600 dark:text-blue-400 flex items-center">
-              <FaCode className="mr-3" /> Course Overview
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-              In this comprehensive course, you&apos;ll dive deep into the world
-              of functions in C programming. We&apos;ll cover everything from
-              function basics and parameter passing to return values and
-              function prototypes. These are essential concepts for organizing,
-              structuring, and optimizing your C programs effectively. By
-              mastering functions, you&apos;ll be able to write more modular,
-              reusable, and maintainable code.
-            </p>
+
+          <div className="px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16 lg:mb-20">
+            <AuthorInfo
+              date={"September 15th, 2024"}
+              lastEdit={"September 16th, 2024"}
+            />
+          </div>
+
+          <Section id="course-overview" delay={0.3}>
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl shadow-2xl overflow-hidden mb-12 sm:mb-16">
+              <div className="bg-black bg-opacity-50 p-4 sm:p-6 lg:p-8">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-wide flex items-center space-x-4">
+                  <FaCode className="text-blue-300 text-2xl sm:text-3xl lg:text-4xl" />
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300">
+                    Course Overview
+                  </span>
+                </h2>
+              </div>
+              <div className="p-4 sm:p-6 lg:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <p className="text-base sm:text-lg lg:text-xl leading-relaxed text-gray-200">
+                  In this comprehensive course, you&apos;ll dive deep into the
+                  world of functions in C programming. We&apos;ll cover
+                  everything from function basics and parameter passing to
+                  return values and function prototypes. These are essential
+                  concepts for organizing, structuring, and optimizing your C
+                  programs effectively. By mastering functions, you&apos;ll be
+                  able to write more modular, reusable, and maintainable code.
+                </p>
+              </div>
+            </div>
           </Section>
 
-          <Section delay={0.5}>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 text-blue-600 dark:text-blue-400 flex items-center">
-              <FaLightbulb className="mr-3" /> What You&apos;ll Learn
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+          <Section id="what-you-ll-learn" delay={0.5}>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mb-4 sm:mb-6 lg:mb-8 font-extrabold text-white tracking-wide flex items-center">
+              <FaLightbulb className="mr-3 sm:mr-4 text-blue-300" />
+              What You&apos;ll Learn
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
               {topics.map((topic, index) => (
-                <Link href={`#${topic.id}`} key={index}>
-                  <div className="bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 border border-blue-600 dark:border-blue-400 p-4 sm:p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl hover:scale-105 h-full flex flex-col">
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-blue-600 dark:text-blue-400 mb-2">
+                <div
+                  key={index}
+                  className="bg-gradient-to-r from-blue-700 to-purple-800 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 h-full flex flex-col"
+                >
+                  <div className="bg-black bg-opacity-50 p-4 sm:p-6">
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-wide flex items-center">
+                      <topic.icon className="mr-3 sm:mr-4 text-blue-300" />
                       {topic.title}
                     </h3>
-                    <p className="text-xs sm:text-sm md:text-base text-gray-700 dark:text-gray-300 flex-grow">
+                  </div>
+                  <div className="p-4 sm:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
+                    <p className="text-base sm:text-lg lg:text-xl text-gray-200 mb-4 sm:mb-6 leading-relaxed">
                       {topic.desc}
                     </p>
+                    <Link
+                      href={`#${topic.id}`}
+                      className="text-blue-400 font-semibold flex items-center mt-auto text-base sm:text-lg hover:text-blue-300 transition-colors duration-300"
+                    >
+                      Learn More{" "}
+                      <FaArrowRight className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1" />
+                    </Link>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </Section>
 
-          <Section delay={0.7}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-blue-600 dark:text-blue-400 flex items-center">
-              <FaRocket className="mr-3" /> Why Functions Matter
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-              Functions are fundamental building blocks in C programming,
-              serving as the cornerstone of structured and modular programming.
-              They allow you to break down complex problems into smaller,
-              manageable pieces, promoting code organization and readability.
-              Functions enable code reuse, reducing redundancy and making your
-              programs more efficient. They also facilitate easier debugging and
-              maintenance, as issues can be isolated to specific functions.
-              Understanding how to work with functions is crucial for writing
-              efficient, scalable, and maintainable C programs, and is a skill
-              that will benefit you throughout your programming career.
-            </p>
+          <Section id="why-functions-matter" delay={0.7}>
+            <div className="bg-gradient-to-r from-blue-700 to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
+              <div className="bg-black bg-opacity-50 p-6 sm:p-8">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide flex items-center">
+                  <FaRocket className="mr-4 text-blue-300" />
+                  Why Functions Matter
+                </h2>
+              </div>
+              <div className="p-6 sm:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <p className="text-lg sm:text-xl text-gray-200 leading-relaxed">
+                  Functions are fundamental building blocks in C programming,
+                  serving as the cornerstone of structured and modular
+                  programming. They allow you to break down complex problems
+                  into smaller, manageable pieces, promoting code organization
+                  and readability. Functions enable code reuse, reducing
+                  redundancy and making your programs more efficient. They also
+                  facilitate easier debugging and maintenance, as issues can be
+                  isolated to specific functions. Understanding how to work with
+                  functions is crucial for writing efficient, scalable, and
+                  maintainable C programs, and is a skill that will benefit you
+                  throughout your programming career.
+                </p>
+              </div>
+            </div>
           </Section>
 
-          <Section delay={0.8}>
-            <h2
-              id="function-basics"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-blue-600 dark:text-blue-400 flex items-center flex-wrap"
-            >
-              <FaLightbulb className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Function
-              Basics in C
-            </h2>
-            <div className="space-y-6 sm:space-y-8">
-              {functionExamples.map((item) => (
-                <div
-                  key={item.title}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
-                >
-                  <h3 className="text-lg sm:text-xl font-semibold text-blue-600 dark:text-blue-400 mb-3 sm:mb-4 flex items-center flex-wrap">
-                    <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
-                      {item.title}
-                    </span>
+          <Section id="function-basics" delay={0.8}>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaCode className="mr-3 sm:mr-4 text-blue-300" />
+              Function Basics in C
+            </h3>
+            {functionExamples.map((item, index) => (
+              <div
+                key={index}
+                className={`${index !== functionExamples.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+              >
+                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                    {item.title}
                   </h3>
-                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
+                </div>
+                <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-6 sm:mb-8 leading-relaxed">
                     {item.description}
                   </p>
-                  <HighlightCode content={item.example} language={"c"} />
-                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mt-3 sm:mt-4 text-gray-700 dark:text-gray-300">
+                  <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
+                    <HighlightCode content={item.example} language={"c"} />
+                  </div>
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
                     <strong>When to use:</strong> {item.whenToUse}
                   </p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </Section>
 
-          <Section delay={1.0}>
-            <h2
-              id="function-parameters"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-blue-600 dark:text-blue-400 flex items-center flex-wrap"
-            >
-              <FaCode className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Function
-              Parameters
-            </h2>
-            <div className="space-y-6 sm:space-y-8">
-              {parameterExamples.map((example) => (
-                <div
-                  key={example.title}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
-                >
-                  <h3 className="text-lg sm:text-xl font-semibold text-blue-600 dark:text-blue-400 mb-3 sm:mb-4 flex items-center flex-wrap">
-                    <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
-                      {example.title}
-                    </span>
+          <Section id="function-parameters" delay={1.0}>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaExchangeAlt className="mr-3 sm:mr-4 text-blue-300" />
+              Function Parameters
+            </h3>
+            {parameterExamples.map((item, index) => (
+              <div
+                key={index}
+                className={`${index !== parameterExamples.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+              >
+                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                    {item.title}
                   </h3>
-                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
-                    {example.description}
+                </div>
+                <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-6 sm:mb-8 leading-relaxed">
+                    {item.description}
                   </p>
-                  <HighlightCode content={example.example} language={"c"} />
-                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mt-3 sm:mt-4 text-gray-700 dark:text-gray-300">
-                    <strong>When to use:</strong> {example.whenToUse}
+                  <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
+                    <HighlightCode content={item.example} language={"c"} />
+                  </div>
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
+                    <strong>When to use:</strong> {item.whenToUse}
                   </p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </Section>
 
-          <Section delay={1.2}>
-            <h2
-              id="return-values"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-blue-600 dark:text-blue-400 flex items-center flex-wrap"
-            >
-              <FaCode className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Return Values
-            </h2>
-            <div className="space-y-6 sm:space-y-8">
-              {returnValueExamples.map((example) => (
-                <div
-                  key={example.title}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
-                >
-                  <h3 className="text-lg sm:text-xl font-semibold text-blue-600 dark:text-blue-400 mb-3 sm:mb-4 flex items-center flex-wrap">
-                    <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
-                      {example.title}
-                    </span>
+          <Section id="return-values" delay={1.2}>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaRocket className="mr-3 sm:mr-4 text-blue-300" />
+              Return Values
+            </h3>
+            {returnValueExamples.map((item, index) => (
+              <div
+                key={index}
+                className={`${index !== returnValueExamples.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+              >
+                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                    {item.title}
                   </h3>
-                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
-                    {example.description}
-                  </p>
-                  <HighlightCode content={example.example} language={"c"} />
-                  {example.whenToUse && (
-                    <p className="text-sm sm:text-base md:text-lg leading-relaxed mt-3 sm:mt-4 text-gray-700 dark:text-gray-300">
-                      <strong>When to use:</strong> {example.whenToUse}
-                    </p>
-                  )}
                 </div>
-              ))}
-            </div>
+                <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-6 sm:mb-8 leading-relaxed">
+                    {item.description}
+                  </p>
+                  <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
+                    <HighlightCode content={item.example} language={"c"} />
+                  </div>
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
+                    <strong>When to use:</strong> {item.whenToUse}
+                  </p>
+                </div>
+              </div>
+            ))}
           </Section>
 
-          <Section delay={1.4}>
-            <h2
-              id="function-prototypes"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-blue-600 dark:text-blue-400 flex items-center flex-wrap"
-            >
-              <FaCode className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Function
-              Prototypes
-            </h2>
-            <div className="space-y-6 sm:space-y-8">
-              {prototypeExamples.map((example) => (
-                <div
-                  key={example.title}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
-                >
-                  <h3 className="text-lg sm:text-xl font-semibold text-blue-600 dark:text-blue-400 mb-3 sm:mb-4 flex items-center flex-wrap">
-                    <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
-                      {example.title}
-                    </span>
+          <Section id="function-prototypes" delay={1.4}>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaLightbulb className="mr-3 sm:mr-4 text-blue-300" />
+              Function Prototypes
+            </h3>
+            {prototypeExamples.map((item, index) => (
+              <div
+                key={index}
+                className={`${index !== prototypeExamples.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+              >
+                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                    {item.title}
                   </h3>
-                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
-                    {example.description}
-                  </p>
-                  <HighlightCode content={example.example} language={"c"} />
-                  {example.whenToUse && (
-                    <p className="text-sm sm:text-base md:text-lg leading-relaxed mt-3 sm:mt-4 text-gray-700 dark:text-gray-300">
-                      <strong>When to use:</strong> {example.whenToUse}
-                    </p>
-                  )}
                 </div>
-              ))}
-            </div>
+                <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-6 sm:mb-8 leading-relaxed">
+                    {item.description}
+                  </p>
+                  <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
+                    <HighlightCode content={item.example} language={"c"} />
+                  </div>
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
+                    <strong>When to use:</strong> {item.whenToUse}
+                  </p>
+                </div>
+              </div>
+            ))}
           </Section>
 
-          <CourseNavigationButtons
-            colorStyle="bg-blue-600"
-            middleHomeButton={true}
-            courses={Courses}
-            currentIndex={2}
-          />
+          <div className="px-4 sm:px-6 lg:px-8">
+            <CourseNavigationButtons
+              colorStyle="bg-blue-600"
+              middleHomeButton={true}
+              courses={Courses}
+              currentIndex={3}
+            />
+          </div>
         </div>
       </div>
     </div>

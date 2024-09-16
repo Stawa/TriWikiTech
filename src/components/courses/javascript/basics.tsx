@@ -7,9 +7,14 @@ import HighlightCode from "@components/highlight";
 import Courses from "@components/courses/javascript/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FaCode, FaLightbulb, FaRocket } from "react-icons/fa";
+import { FaCode, FaLightbulb, FaRocket, FaTerminal } from "react-icons/fa";
 
 const topics = [
+  {
+    title: "Console.log",
+    desc: "Learn how to output data to the console",
+    id: "console-log",
+  },
   {
     title: "Variables",
     desc: "Learn about var, let, and const",
@@ -19,16 +24,6 @@ const topics = [
     title: "Data Types",
     desc: "Understand primitive and complex data types",
     id: "data-types",
-  },
-  {
-    title: "Operators",
-    desc: "Explore arithmetic, comparison, and logical operators",
-    id: "operators",
-  },
-  {
-    title: "Control Structures",
-    desc: "Master if statements, loops, and switch cases",
-    id: "control-structures",
   },
 ];
 
@@ -148,138 +143,6 @@ const dataTypes = [
   },
 ];
 
-const operators = [
-  {
-    type: "Arithmetic",
-    examples: [
-      {
-        operator: "+",
-        description: "Addition",
-        example: "let sum = 5 + 3; // 8",
-      },
-      {
-        operator: "-",
-        description: "Subtraction",
-        example: "let difference = 10 - 4; // 6",
-      },
-      {
-        operator: "*",
-        description: "Multiplication",
-        example: "let product = 3 * 4; // 12",
-      },
-      {
-        operator: "/",
-        description: "Division",
-        example: "let quotient = 20 / 5; // 4",
-      },
-      {
-        operator: "%",
-        description: "Modulus (remainder)",
-        example: "let remainder = 17 % 5; // 2",
-      },
-    ],
-  },
-  {
-    type: "Comparison",
-    examples: [
-      {
-        operator: "==",
-        description: "Equal to (value)",
-        example: "5 == '5' // true",
-      },
-      {
-        operator: "===",
-        description: "Strict equal to (value and type)",
-        example: "5 === '5' // false",
-      },
-      {
-        operator: "!=",
-        description: "Not equal to",
-        example: "5 != '6' // true",
-      },
-      {
-        operator: "!==",
-        description: "Strict not equal to",
-        example: "5 !== '5' // true",
-      },
-      { operator: ">", description: "Greater than", example: "10 > 5 // true" },
-      { operator: "<", description: "Less than", example: "3 < 7 // true" },
-    ],
-  },
-  {
-    type: "Logical",
-    examples: [
-      { operator: "&&", description: "AND", example: "true && false // false" },
-      { operator: "||", description: "OR", example: "true || false // true" },
-      { operator: "!", description: "NOT", example: "!true // false" },
-    ],
-  },
-];
-
-const controlStructures = [
-  {
-    type: "Conditional Statements",
-    examples: [
-      {
-        name: "if...else",
-        description:
-          "Executes a block of code if a specified condition is true",
-        example: `if (condition) {
-  // code to be executed if condition is true
-} else {
-  // code to be executed if condition is false
-}`,
-      },
-      {
-        name: "switch",
-        description: "Selects one of many code blocks to be executed",
-        example: `switch(expression) {
-  case x:
-    // code block
-    break;
-  case y:
-    // code block
-    break;
-  default:
-    // code block
-}`,
-      },
-    ],
-  },
-  {
-    type: "Loops",
-    examples: [
-      {
-        name: "for",
-        description: "Repeats a block of code a number of times",
-        example: `for (let i = 0; i < 5; i++) {
-  console.log(i);
-}`,
-      },
-      {
-        name: "while",
-        description:
-          "Loops through a block of code while a specified condition is true",
-        example: `let i = 0;
-while (i < 5) {
-  console.log(i);
-  i++;
-}`,
-      },
-      {
-        name: "do...while",
-        description:
-          "Executes a block of code once, and then repeats the loop while a specified condition is true",
-        example: `let i = 0;
-do {
-  console.log(i);
-  i++;
-} while (i < 5);`,
-      },
-    ],
-  },
-];
-
 const Section = ({
   children,
   delay = 0,
@@ -323,9 +186,9 @@ export default function JavaScriptBasics() {
             </h2>
             <p className="text-base sm:text-lg md:text-xl leading-relaxed">
               In this course, you&apos;ll learn the essential building blocks of
-              JavaScript programming. We&apos;ll cover variables, data types,
-              operators, and control structures - the fundamental concepts you
-              need to start your journey in JavaScript development.
+              JavaScript programming. We&apos;ll cover console.log, variables,
+              and data types - the fundamental concepts you need to start your
+              journey in JavaScript development.
             </p>
           </Section>
 
@@ -363,6 +226,44 @@ export default function JavaScriptBasics() {
 
           <Section delay={0.8}>
             <h2
+              id="console-log"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center flex-wrap"
+            >
+              <FaTerminal className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Console.log:
+              Your First JavaScript Output
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl leading-relaxed mb-4">
+              console.log() is a crucial function in JavaScript that allows you
+              to output data to the console. It&apos;s often used for debugging
+              and understanding how your code is executing.
+            </p>
+            <HighlightCode
+              content={`// Basic usage
+console.log('Hello, World!');
+
+// Logging variables
+let name = 'Alice';
+console.log(name);  // Outputs: Alice
+
+// Logging multiple items
+console.log('Name:', name, 'Age:', 30);
+
+// Using template literals
+console.log(\`Hello, \${name}!\`);
+
+// Logging objects
+let person = { name: 'Bob', age: 25 };
+console.log(person);  // Outputs: { name: 'Bob', age: 25 }
+
+// Logging arrays
+let fruits = ['apple', 'banana', 'orange'];
+console.log(fruits);  // Outputs: ['apple', 'banana', 'orange']`}
+              language={"javascript"}
+            />
+          </Section>
+
+          <Section delay={0.9}>
+            <h2
               id="variables"
               className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center flex-wrap"
             >
@@ -393,7 +294,7 @@ export default function JavaScriptBasics() {
             </div>
           </Section>
 
-          <Section delay={0.9}>
+          <Section delay={1.0}>
             <h2
               id="data-types"
               className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center flex-wrap"
@@ -412,95 +313,6 @@ export default function JavaScriptBasics() {
                       {type.type}
                     </span>
                     Data Types
-                  </h3>
-                  <div className="space-y-4 sm:space-y-6">
-                    {type.examples.map((example) => (
-                      <div
-                        key={example.name}
-                        className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg"
-                      >
-                        <h4 className="text-base sm:text-lg font-semibold text-yellow-600 dark:text-yellow-400 mb-2">
-                          {example.name}
-                        </h4>
-                        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-2">
-                          {example.description}
-                        </p>
-                        <HighlightCode
-                          content={example.example}
-                          language={"javascript"}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Section>
-
-          <Section delay={1.2}>
-            <h2
-              id="operators"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center flex-wrap"
-            >
-              <FaCode className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Operators in
-              JavaScript
-            </h2>
-            <div className="space-y-6 sm:space-y-8">
-              {operators.map((type) => (
-                <div
-                  key={type.type}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
-                >
-                  <h3 className="text-lg sm:text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-3 sm:mb-4 flex items-center flex-wrap">
-                    <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
-                      {type.type}
-                    </span>
-                    Operators
-                  </h3>
-                  <div className="space-y-4 sm:space-y-6">
-                    {type.examples.map((example) => (
-                      <div
-                        key={example.operator}
-                        className="bg-white dark:bg-gray-800 p-3 sm:p-4 rounded-lg"
-                      >
-                        <div className="flex flex-wrap items-center space-x-2 mb-2">
-                          <span className="text-base sm:text-lg font-semibold text-yellow-600 dark:text-yellow-400 bg-yellow-100 dark:bg-yellow-900 px-2 py-1 rounded mb-2 sm:mb-0">
-                            {example.operator}
-                          </span>
-                          <span className="inline-block bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-sm sm:text-base">
-                            {example.description}
-                          </span>
-                        </div>
-                        <HighlightCode
-                          content={example.example}
-                          language={"javascript"}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Section>
-
-          <Section delay={1.5}>
-            <h2
-              id="control-structures"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center flex-wrap"
-            >
-              <FaCode className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Control
-              Structures in JavaScript
-            </h2>
-            <div className="space-y-6 sm:space-y-8">
-              {controlStructures.map((type) => (
-                <div
-                  key={type.type}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
-                >
-                  <h3 className="text-lg sm:text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-3 sm:mb-4 flex items-center flex-wrap">
-                    <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
-                      {type.type}
-                    </span>
                   </h3>
                   <div className="space-y-4 sm:space-y-6">
                     {type.examples.map((example) => (

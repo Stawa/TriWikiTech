@@ -404,7 +404,7 @@ export default function JavaScriptObjectsArrays() {
           <CourseNavigationButtons
             colorStyle="bg-yellow-600"
             courses={Courses}
-            currentIndex={3}
+            currentIndex={4}
           />
         </div>
       </div>

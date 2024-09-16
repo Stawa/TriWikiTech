@@ -1,6 +1,13 @@
-import { FaLightbulb, FaCode, FaMemory, FaFileAlt } from "react-icons/fa";
+import {
+  FaLightbulb,
+  FaCode,
+  FaMemory,
+  FaFileAlt,
+  FaProjectDiagram,
+} from "react-icons/fa";
 import { TbPointer } from "react-icons/tb";
 import { GiProcessor } from "react-icons/gi";
+import { AiOutlineConsoleSql } from "react-icons/ai";
 
 const courses = [
   {
@@ -13,10 +20,18 @@ const courses = [
   },
   {
     title: "Basics",
-    desc: "Variables, data types, and control structures in C",
+    desc: "Variables, data types, and basic input/output operations",
     link: "/courses/c/basics",
     icon: (
-      <FaCode className="text-blue-600 dark:text-blue-400 text-2xl sm:text-3xl" />
+      <AiOutlineConsoleSql className="text-blue-600 dark:text-blue-400 text-2xl sm:text-3xl" />
+    ),
+  },
+  {
+    title: "Control Structures",
+    desc: "Conditionals and loops in C",
+    link: "/courses/c/control-structures",
+    icon: (
+      <FaProjectDiagram className="text-blue-600 dark:text-blue-400 text-2xl sm:text-3xl" />
     ),
   },
   {
