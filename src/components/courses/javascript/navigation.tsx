@@ -39,7 +39,7 @@ const courses = [
   {
     title: "Objects & Arrays",
     desc: "Working with complex data structures",
-    link: "/courses/javascript/objects-and-arrays",
+    link: "/courses/javascript/objects-arrays",
     icon: (
       <PiBracketsCurlyDuotone className="text-yellow-600 dark:text-yellow-400 text-2xl sm:text-3xl" />
     ),

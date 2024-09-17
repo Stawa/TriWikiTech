@@ -1,41 +1,51 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { FaLightbulb, FaRocket } from "react-icons/fa";
-import { TbLambda } from "react-icons/tb";
+import Link from "next/link";
+import {
+  FaArrowRight,
+  FaCode,
+  FaCube,
+  FaLightbulb,
+  FaRocket,
+  FaTerminal,
+} from "react-icons/fa";
+import AuthorInfo from "@components/courses/author";
+import CourseNavigationButtons from "@components/courses/buttons";
+import Courses from "@components/courses/javascript/navigation";
 import GridBackground from "@components/grid";
 import HighlightCode from "@components/highlight";
-import AuthorInfo from "../author";
-import Courses from "@components/courses/javascript/navigation";
-import CourseNavigationButtons from "../buttons";
+import Section from "@components/courses/section";
 
 const topics = [
   {
     title: "Function Declaration",
     desc: "Learn how to declare and define functions",
     id: "function-declaration",
+    icon: FaCode,
   },
   {
     title: "Parameters & Arguments",
     desc: "Understand how to pass data to functions",
     id: "parameters-arguments",
+    icon: FaTerminal,
   },
   {
     title: "Return Values",
     desc: "Explore how functions can return results",
     id: "return-values",
+    icon: FaCube,
   },
   {
     title: "Arrow Functions",
     desc: "Master the concise arrow function syntax",
     id: "arrow-functions",
+    icon: FaRocket,
   },
 ];
 
 const functionDeclarations = [
   {
-    type: "Function Declaration",
     title: "Standard Function Declaration",
     description:
       "This is the most common way to define a function. It uses the 'function' keyword followed by the function name.",
@@ -44,9 +54,11 @@ const functionDeclarations = [
 }
 
 console.log(greet("Alice")); // Outputs: Hello, Alice!`,
+    output: `Hello, Alice!`,
+    explanation:
+      "This function takes a 'name' parameter and returns a greeting string. When called with 'Alice', it outputs 'Hello, Alice!'.",
   },
   {
-    type: "Function Expression",
     title: "Function Expression",
     description:
       "A function can also be created by a function expression. Such a function can be anonymous or have a name.",
@@ -55,9 +67,11 @@ console.log(greet("Alice")); // Outputs: Hello, Alice!`,
 };
 
 console.log(greet("Bob")); // Outputs: Hello, Bob!`,
+    output: `Hello, Bob!`,
+    explanation:
+      "This function is assigned to a variable 'greet'. It works similarly to the function declaration, but is defined as an expression.",
   },
   {
-    type: "Arrow Function",
     title: "Arrow Function",
     description:
       "Arrow functions provide a shorter syntax for writing function expressions. They don't have their own 'this', arguments, super, or new.target.",
@@ -69,92 +83,97 @@ console.log(greet("Bob")); // Outputs: Hello, Bob!`,
 const greetShort = name => "Hello, " + name + "!";
 
 console.log(greetShort("Charlie")); // Outputs: Hello, Charlie!`,
+    output: `Hello, Charlie!`,
+    explanation:
+      "Arrow functions offer a concise syntax. The 'greetShort' function demonstrates a compact form for single-expression functions.",
   },
 ];
 
 const parametersAndArguments = [
   {
-    type: "Basic Parameters",
-    examples: [
-      {
-        name: "Single Parameter",
-        description: "A function with a single parameter",
-        example: `function square(number) {
+    title: "Single Parameter",
+    description: "A function with a single parameter",
+    example: `function square(number) {
   return number * number;
 }
 
 console.log(square(5)); // Outputs: 25`,
-      },
-      {
-        name: "Multiple Parameters",
-        description: "A function with multiple parameters",
-        example: `function add(a, b) {
+    output: `25`,
+    explanation:
+      "This function takes one parameter 'number' and returns its square. When called with 5, it returns 25.",
+  },
+  {
+    title: "Multiple Parameters",
+    description: "A function with multiple parameters",
+    example: `function add(a, b) {
   return a + b;
 }
 
 console.log(add(3, 4)); // Outputs: 7`,
-      },
-    ],
+    output: `7`,
+    explanation:
+      "This function takes two parameters 'a' and 'b' and returns their sum. When called with 3 and 4, it returns 7.",
   },
   {
-    type: "Advanced Parameters",
-    examples: [
-      {
-        name: "Default Parameters",
-        description: "Parameters with default values",
-        example: `function greet(name = "Guest") {
+    title: "Default Parameters",
+    description: "Parameters with default values",
+    example: `function greet(name = "Guest") {
   return "Hello, " + name + "!";
 }
 
 console.log(greet()); // Outputs: Hello, Guest!
 console.log(greet("Alice")); // Outputs: Hello, Alice!`,
-      },
-      {
-        name: "Rest Parameters",
-        description: "Represent an indefinite number of arguments as an array",
-        example: `function sum(...numbers) {
+    output: `Hello, Guest!
+Hello, Alice!`,
+    explanation:
+      "This function has a default parameter. If no argument is provided, it uses 'Guest' as the default value.",
+  },
+  {
+    title: "Rest Parameters",
+    description: "Represent an indefinite number of arguments as an array",
+    example: `function sum(...numbers) {
   return numbers.reduce((total, num) => total + num, 0);
 }
 
 console.log(sum(1, 2, 3, 4)); // Outputs: 10`,
-      },
-    ],
+    output: `10`,
+    explanation:
+      "The rest parameter '...numbers' allows the function to accept any number of arguments. It then sums all the provided numbers.",
   },
 ];
 
 const returnValues = [
   {
-    type: "Basic Return",
-    examples: [
-      {
-        name: "Returning a Value",
-        description: "A function that returns a single value",
-        example: `function double(number) {
+    title: "Returning a Value",
+    description: "A function that returns a single value",
+    example: `function double(number) {
   return number * 2;
 }
 
 console.log(double(5)); // Outputs: 10`,
-      },
-      {
-        name: "Returning Multiple Values",
-        description: "A function that returns multiple values using an object",
-        example: `function getPersonInfo(name, age) {
+    output: `10`,
+    explanation:
+      "This function takes a number, doubles it, and returns the result. When called with 5, it returns 10.",
+  },
+  {
+    title: "Returning Multiple Values",
+    description: "A function that returns multiple values using an object",
+    example: `function getPersonInfo(name, age) {
   return { name: name, age: age };
 }
 
 const person = getPersonInfo("Alice", 30);
 console.log(person.name); // Outputs: Alice
 console.log(person.age); // Outputs: 30`,
-      },
-    ],
+    output: `Alice
+30`,
+    explanation:
+      "This function returns an object containing multiple values. We can then access these values using dot notation.",
   },
   {
-    type: "Advanced Return",
-    examples: [
-      {
-        name: "Early Return",
-        description: "Using return to exit a function early",
-        example: `function isEven(number) {
+    title: "Early Return",
+    description: "Using return to exit a function early",
+    example: `function isEven(number) {
   if (number % 2 === 0) {
     return true;
   }
@@ -163,11 +182,15 @@ console.log(person.age); // Outputs: 30`,
 
 console.log(isEven(4)); // Outputs: true
 console.log(isEven(5)); // Outputs: false`,
-      },
-      {
-        name: "Returning a Function",
-        description: "A function that returns another function",
-        example: `function multiplier(factor) {
+    output: `true
+false`,
+    explanation:
+      "This function uses an early return to exit as soon as it determines if a number is even. It returns true for 4 and false for 5.",
+  },
+  {
+    title: "Returning a Function",
+    description: "A function that returns another function",
+    example: `function multiplier(factor) {
   return function(number) {
     return number * factor;
   };
@@ -175,271 +198,384 @@ console.log(isEven(5)); // Outputs: false`,
 
 const double = multiplier(2);
 console.log(double(5)); // Outputs: 10`,
-      },
-    ],
+    output: `10`,
+    explanation:
+      "This function returns another function. We create a 'double' function by calling multiplier with 2, then use it to multiply 5 by 2.",
   },
 ];
 
 const arrowFunctions = [
   {
-    type: "Basic Syntax",
-    examples: [
-      {
-        name: "Simple Arrow Function",
-        description: "A basic arrow function with a single parameter",
-        example: `const square = x => x * x;
+    title: "Simple Arrow Function",
+    description: "A basic arrow function with a single parameter",
+    example: `const square = x => x * x;
 
 console.log(square(5)); // Outputs: 25`,
-      },
-      {
-        name: "Multiple Parameters",
-        description: "An arrow function with multiple parameters",
-        example: `const add = (a, b) => a + b;
-
-console.log(add(3, 4)); // Outputs: 7`,
-      },
-    ],
+    output: `25`,
+    explanation:
+      "This concise arrow function takes a single parameter 'x' and returns its square. When called with 5, it returns 25.",
   },
   {
-    type: "Advanced Usage",
-    examples: [
-      {
-        name: "Arrow Function with Block",
-        description: "An arrow function with a block of code",
-        example: `const greet = name => {
+    title: "Multiple Parameters",
+    description: "An arrow function with multiple parameters",
+    example: `const add = (a, b) => a + b;
+
+console.log(add(3, 4)); // Outputs: 7`,
+    output: `7`,
+    explanation:
+      "This arrow function takes two parameters 'a' and 'b' and returns their sum. When called with 3 and 4, it returns 7.",
+  },
+  {
+    title: "Arrow Function with Block",
+    description: "An arrow function with a block of code",
+    example: `const greet = name => {
   const message = "Hello, " + name + "!";
   return message;
 };
 
 console.log(greet("Alice")); // Outputs: Hello, Alice!`,
-      },
-      {
-        name: "Returning an Object",
-        description: "An arrow function that returns an object literal",
-        example: `const createPerson = (name, age) => ({ name, age });
+    output: `Hello, Alice!`,
+    explanation:
+      "This arrow function uses a block of code. It creates a message and then returns it. When called with 'Alice', it outputs 'Hello, Alice!'.",
+  },
+  {
+    title: "Returning an Object",
+    description: "An arrow function that returns an object literal",
+    example: `const createPerson = (name, age) => ({ name, age });
 
 const person = createPerson("Bob", 30);
 console.log(person); // Outputs: { name: "Bob", age: 30 }`,
-      },
-    ],
+    output: `{ name: "Bob", age: 30 }`,
+    explanation:
+      "This arrow function returns an object. The parentheses around the object are necessary to distinguish it from a function body.",
   },
 ];
-
-const Section = ({
-  children,
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  delay?: number;
-}) => (
-  <motion.section
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.8, delay }}
-    className="mb-4 sm:mb-6 md:mb-8 bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 rounded-lg p-4 sm:p-6 md:p-8 shadow-lg"
-  >
-    {children}
-  </motion.section>
-);
 
 export default function JavaScriptFunctions() {
   return (
     <div className="relative min-h-screen overflow-hidden">
       <GridBackground />
       <div className="relative z-10 text-gray-800 dark:text-gray-200">
-        <div className="max-w-5xl mx-auto px-4 py-8 sm:py-12 md:py-16">
+        <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12 md:py-16">
           <motion.header
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="mb-8 sm:mb-12 md:mb-16 text-center"
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-700 dark:from-yellow-400 dark:via-yellow-300 dark:to-yellow-500">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 dark:from-blue-400 dark:via-blue-300 dark:to-blue-500">
               JavaScript Functions
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-yellow-600 dark:text-yellow-200">
+            <p className="text-lg sm:text-xl md:text-2xl text-blue-600 dark:text-blue-200">
               Master the art of creating reusable code blocks
             </p>
           </motion.header>
-          <AuthorInfo date={"September 15th, 2024"} />
-          <Section delay={0.3}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center">
-              <TbLambda className="mr-3" /> Course Overview
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-              In this course, you&apos;ll dive deep into JavaScript functions -
-              the building blocks of reusable code. We&apos;ll cover function
-              declarations, parameters, return values, and the modern arrow
-              function syntax. By mastering functions, you&apos;ll be able to
-              write more efficient and organized JavaScript code.
-            </p>
+
+          <div className="px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16 lg:mb-20">
+            <AuthorInfo
+              date={"September 15th, 2024"}
+              lastEdit={"September 17th, 2024"}
+            />
+          </div>
+
+          <Section id="course-overview" delay={0.3}>
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
+              <div className="bg-black bg-opacity-50 p-6 sm:p-8">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide flex items-center">
+                  <FaCode className="mr-4 text-blue-300" />
+                  Course Overview
+                </h2>
+              </div>
+              <div className="p-6 sm:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <p className="text-lg sm:text-xl text-gray-200 leading-relaxed">
+                  In this course, you&apos;ll dive deep into JavaScript
+                  functions - the building blocks of reusable code. We&apos;ll
+                  cover function declarations, parameters, return values, and
+                  the modern arrow function syntax. By mastering functions,
+                  you&apos;ll be able to write more efficient and organized
+                  JavaScript code.
+                </p>
+              </div>
+            </div>
           </Section>
 
-          <Section delay={0.5}>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 text-yellow-600 dark:text-yellow-400 flex items-center">
-              <FaLightbulb className="mr-3" /> What You&apos;ll Learn
+          <Section id="topics" delay={0.5}>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaLightbulb className="mr-3 sm:mr-4 text-blue-300" />
+              What You&apos;ll Learn
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
               {topics.map((topic, index) => (
-                <Link href={`#${topic.id}`} key={index}>
-                  <div className="bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 border border-yellow-600 dark:border-yellow-400 p-4 sm:p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl hover:scale-105 h-full flex flex-col">
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-yellow-600 dark:text-yellow-400 mb-2">
+                <div
+                  key={index}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 h-full flex flex-col"
+                >
+                  <div className="bg-black bg-opacity-50 p-4 sm:p-6">
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-wide flex items-center">
+                      <topic.icon className="mr-3 sm:mr-4 text-blue-300" />
                       {topic.title}
                     </h3>
-                    <p className="text-xs sm:text-sm md:text-base text-gray-700 dark:text-gray-300 flex-grow">
+                  </div>
+                  <div className="p-4 sm:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
+                    <p className="text-base sm:text-lg lg:text-xl text-gray-200 mb-4 sm:mb-6 leading-relaxed">
                       {topic.desc}
                     </p>
+                    <Link
+                      href={`#${topic.id}`}
+                      className="text-blue-300 font-semibold flex items-center mt-auto text-base sm:text-lg hover:text-blue-200 transition-colors duration-300"
+                    >
+                      Learn More{" "}
+                      <FaArrowRight className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1" />
+                    </Link>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </Section>
 
-          <Section delay={0.7}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-yellow-600 dark:text-yellow-400 flex items-center">
-              <FaRocket className="mr-3" /> Why Functions Matter
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-              Functions are at the heart of JavaScript programming. They allow
-              you to write modular, reusable code, making your programs more
-              efficient and easier to maintain. Understanding functions is
-              crucial for any aspiring JavaScript developer, as they form the
-              foundation for more advanced concepts like closures, callbacks,
-              and asynchronous programming.
-            </p>
+          <Section id="why-functions-matter" delay={0.7}>
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
+              <div className="bg-black bg-opacity-50 p-6 sm:p-8">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide flex items-center">
+                  <FaRocket className="mr-4 text-blue-300" />
+                  Why Functions Matter
+                </h2>
+              </div>
+              <div className="p-6 sm:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <p className="text-lg sm:text-xl text-gray-200 leading-relaxed">
+                  Functions are at the heart of JavaScript programming. They
+                  allow you to write modular, reusable code, making your
+                  programs more efficient and easier to maintain. Understanding
+                  functions is crucial for any aspiring JavaScript developer, as
+                  they form the foundation for more advanced concepts like
+                  closures, callbacks, and asynchronous programming.
+                </p>
+              </div>
+            </div>
           </Section>
 
-          <Section delay={0.8}>
-            <h2
-              id="function-declaration"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center flex-wrap"
-            >
-              <FaLightbulb className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Function
-              Declarations
+          <Section id="function-declaration" delay={0.8}>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaLightbulb className="mr-3 sm:mr-4 text-blue-300" />
+              Function Declarations
             </h2>
-            <div className="space-y-6 sm:space-y-8">
+            <div className="space-y-8 sm:space-y-12">
               {functionDeclarations.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
+                  className={`${index !== functionDeclarations.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
                 >
-                  <h3 className="text-lg sm:text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-3 sm:mb-4 flex items-center flex-wrap">
-                    <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
-                      {item.type}
-                    </span>
-                    {item.title}
-                  </h3>
-                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
-                    {item.description}
-                  </p>
-                  <HighlightCode language="javascript" content={item.example} />
+                  <div className="bg-black bg-opacity-20 p-6 sm:p-8">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                      {item.title}
+                    </h3>
+                  </div>
+                  <div className="p-6 sm:p-8 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                    <div className="mb-6 sm:mb-8">
+                      <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-4 leading-relaxed">
+                        {item.description}
+                      </p>
+                      <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                        <HighlightCode
+                          content={item.example}
+                          language={"javascript"}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                          Output:
+                        </h4>
+                        <div className="rounded-xl overflow-hidden shadow-inner">
+                          <HighlightCode
+                            content={item.output}
+                            language={"javascript"}
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                          Explanation:
+                        </h4>
+                        <p className="text-base sm:text-lg text-gray-200">
+                          {item.explanation}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
           </Section>
 
-          <Section delay={0.9}>
-            <h2
-              id="parameters-arguments"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center flex-wrap"
-            >
-              <FaLightbulb className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Parameters &
-              Arguments
+          <Section id="parameters-arguments" delay={0.9}>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaLightbulb className="mr-3 sm:mr-4 text-blue-300" />
+              Parameters & Arguments
             </h2>
-            <div className="space-y-6 sm:space-y-8">
+            <div className="space-y-8 sm:space-y-12">
               {parametersAndArguments.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
+                  className={`${index !== parametersAndArguments.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
                 >
-                  <h3 className="text-lg sm:text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-3 sm:mb-4 flex items-center flex-wrap">
-                    <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
-                      {item.type}
-                    </span>
-                    {item.examples[index].name}
-                  </h3>
-                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
-                    {item.examples[index].description}
-                  </p>
-                  <HighlightCode
-                    language="javascript"
-                    content={item.examples[index].example}
-                  />
+                  <div className="bg-black bg-opacity-20 p-6 sm:p-8">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                      {item.title}
+                    </h3>
+                  </div>
+                  <div className="p-6 sm:p-8 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                    <div className="mb-6 sm:mb-8">
+                      <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-4 leading-relaxed">
+                        {item.description}
+                      </p>
+                      <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                        <HighlightCode
+                          content={item.example}
+                          language={"javascript"}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                          Output:
+                        </h4>
+                        <div className="rounded-xl overflow-hidden shadow-inner">
+                          <HighlightCode
+                            content={item.output}
+                            language={"javascript"}
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                          Explanation:
+                        </h4>
+                        <p className="text-base sm:text-lg text-gray-200">
+                          {item.explanation}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
           </Section>
 
-          <Section delay={1.0}>
-            <h2
-              id="return-values"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center flex-wrap"
-            >
-              <FaLightbulb className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Return
-              Values
+          <Section id="return-values" delay={1.0}>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaLightbulb className="mr-3 sm:mr-4 text-blue-300" />
+              Return Values
             </h2>
-            <div className="space-y-6 sm:space-y-8">
+            <div className="space-y-8 sm:space-y-12">
               {returnValues.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
+                  className={`${index !== returnValues.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
                 >
-                  <h3 className="text-lg sm:text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-3 sm:mb-4 flex items-center flex-wrap">
-                    <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
-                      {item.type}
-                    </span>
-                    {item.examples[index].name}
-                  </h3>
-                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
-                    {item.examples[index].description}
-                  </p>
-                  <HighlightCode
-                    language="javascript"
-                    content={item.examples[index].example}
-                  />
+                  <div className="bg-black bg-opacity-20 p-6 sm:p-8">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                      {item.title}
+                    </h3>
+                  </div>
+                  <div className="p-6 sm:p-8 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                    <div className="mb-6 sm:mb-8">
+                      <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-4 leading-relaxed">
+                        {item.description}
+                      </p>
+                      <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                        <HighlightCode
+                          content={item.example}
+                          language={"javascript"}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                          Output:
+                        </h4>
+                        <div className="rounded-xl overflow-hidden shadow-inner">
+                          <HighlightCode
+                            content={item.output}
+                            language={"javascript"}
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                          Explanation:
+                        </h4>
+                        <p className="text-base sm:text-lg text-gray-200">
+                          {item.explanation}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
           </Section>
 
-          <Section delay={1.1}>
-            <h2
-              id="arrow-functions"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center flex-wrap"
-            >
-              <FaLightbulb className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Arrow
-              Functions
+          <Section id="arrow-functions" delay={1.1}>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaLightbulb className="mr-3 sm:mr-4 text-blue-300" />
+              Arrow Functions
             </h2>
-            <div className="space-y-6 sm:space-y-8">
+            <div className="space-y-8 sm:space-y-12">
               {arrowFunctions.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
+                  className={`${index !== arrowFunctions.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
                 >
-                  <h3 className="text-lg sm:text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-3 sm:mb-4 flex items-center flex-wrap">
-                    <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
-                      {item.type}
-                    </span>
-                    {item.examples[index].name}
-                  </h3>
-                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
-                    {item.examples[index].description}
-                  </p>
-                  <HighlightCode
-                    language="javascript"
-                    content={item.examples[index].example}
-                  />
+                  <div className="bg-black bg-opacity-20 p-6 sm:p-8">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                      {item.title}
+                    </h3>
+                  </div>
+                  <div className="p-6 sm:p-8 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                    <div className="mb-6 sm:mb-8">
+                      <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-4 leading-relaxed">
+                        {item.description}
+                      </p>
+                      <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                        <HighlightCode
+                          content={item.example}
+                          language={"javascript"}
+                        />
+                      </div>
+                      <div className="mt-4">
+                        <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                          Output:
+                        </h4>
+                        <div className="rounded-xl overflow-hidden shadow-inner">
+                          <HighlightCode
+                            content={item.output}
+                            language={"javascript"}
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                          Explanation:
+                        </h4>
+                        <p className="text-base sm:text-lg text-gray-200">
+                          {item.explanation}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
           </Section>
 
-          <CourseNavigationButtons
-            colorStyle="bg-yellow-600"
-            courses={Courses}
-            middleHomeButton={true}
-            currentIndex={3}
-          />
+          <div className="px-4 sm:px-6 lg:px-8">
+            <CourseNavigationButtons
+              colorStyle="bg-blue-600"
+              courses={Courses}
+              middleHomeButton={true}
+              currentIndex={Courses.findIndex(
+                (course) => course.link === "/courses/javascript/functions"
+              )}
+            />
+          </div>
         </div>
       </div>
     </div>

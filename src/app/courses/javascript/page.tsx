@@ -1,134 +1,171 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FaArrowRight } from "react-icons/fa";
-import { FaCode, FaLightbulb, FaRocket, FaCompass } from "react-icons/fa";
+import {
+  FaArrowRight,
+  FaCode,
+  FaLightbulb,
+  FaRocket,
+  FaCompass,
+} from "react-icons/fa";
 import Link from "next/link";
 import GridBackground from "@components/grid";
 import Courses from "@components/courses/javascript/navigation";
 import CourseNavigationButtons from "@components/courses/buttons";
 
+const Section = ({
+  children,
+  id,
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  id: string;
+  delay?: number;
+}) => (
+  <motion.section
+    id={id}
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, delay, type: "spring", stiffness: 100 }}
+    className="mx-4 sm:mx-6 lg:mx-8 mb-12 sm:mb-16 lg:mb-20"
+  >
+    {children}
+  </motion.section>
+);
+
 export default function JavaScriptCourses() {
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen bg-gradient-to-b from-gray-900 to-indigo-900 text-gray-100">
       <GridBackground />
-      <div className="relative z-10 text-gray-800 dark:text-gray-200">
-        <div className="max-w-5xl mx-auto px-4 py-8 sm:py-12 md:py-16">
+      <div className="relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <motion.header
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-8 sm:mb-12 md:mb-16 text-center"
+            className="mb-12 sm:mb-16 lg:mb-20 text-center"
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-700 dark:from-yellow-400 dark:via-yellow-300 dark:to-yellow-500">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
               JavaScript Mastery
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-yellow-600 dark:text-yellow-200">
+            <p className="text-lg sm:text-xl lg:text-2xl text-blue-300">
               Unlock the power of modern web development
             </p>
           </motion.header>
 
-          <motion.section
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="mb-8 sm:mb-12 md:mb-16 bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 rounded-lg p-6 sm:p-8 shadow-lg"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center">
-              <FaCode className="mr-3" /> What is JavaScript?
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-              JavaScript is a versatile, high-level programming language
-              essential for creating dynamic and interactive web experiences. It
-              powers modern web development, enabling complex features and
-              responsive interfaces.
-            </p>
-          </motion.section>
-
-          <motion.section
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="mb-8 sm:mb-12 md:mb-16 bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 rounded-lg p-6 sm:p-8 shadow-lg"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-yellow-600 dark:text-yellow-400 flex items-center">
-              <FaLightbulb className="mr-3" /> Key Features
-            </h2>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-base sm:text-lg md:text-xl">
-              {[
-                "Interactive UIs",
-                "Asynchronous Operations",
-                "DOM Manipulation",
-                "Client-side Validation",
-                "Animations & Effects",
-                "Full-stack Development",
-              ].map((feature, index) => (
-                <li key={index} className="flex items-center">
-                  <span className="mr-3 text-yellow-600 dark:text-yellow-400 text-2xl">
-                    ▹
+          <Section id="what-is-javascript" delay={0.3}>
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl overflow-hidden">
+              <div className="bg-black bg-opacity-50 p-4 sm:p-6 lg:p-8">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-wide flex items-center space-x-4">
+                  <FaCode className="text-blue-300 text-2xl sm:text-3xl lg:text-4xl" />
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300">
+                    What is JavaScript?
                   </span>
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          </motion.section>
+                </h2>
+              </div>
+              <div className="p-4 sm:p-6 lg:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <p className="text-base sm:text-lg lg:text-xl leading-relaxed text-gray-200">
+                  JavaScript is a versatile, high-level programming language
+                  essential for creating dynamic and interactive web
+                  experiences. It powers modern web development, enabling
+                  complex features and responsive interfaces.
+                </p>
+              </div>
+            </div>
+          </Section>
 
-          <motion.section
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="mb-8 sm:mb-12 md:mb-16 bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 rounded-lg p-6 sm:p-8 shadow-lg"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-yellow-600 dark:text-yellow-400 flex items-center">
-              <FaRocket className="mr-3" /> Why Learn JavaScript?
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-              As one of the most in-demand programming languages, JavaScript
-              opens doors to countless opportunities in web development. Master
-              JavaScript to create cutting-edge applications and stay at the
-              forefront of technology.
-            </p>
-          </motion.section>
+          <Section id="key-features" delay={0.5}>
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl overflow-hidden">
+              <div className="bg-black bg-opacity-50 p-4 sm:p-6 lg:p-8">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-wide flex items-center space-x-4">
+                  <FaLightbulb className="text-blue-300 text-2xl sm:text-3xl lg:text-4xl" />
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300">
+                    Key Features
+                  </span>
+                </h2>
+              </div>
+              <div className="p-4 sm:p-6 lg:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-base sm:text-lg lg:text-xl text-gray-200">
+                  {[
+                    "Interactive UIs",
+                    "Asynchronous Operations",
+                    "DOM Manipulation",
+                    "Client-side Validation",
+                    "Animations & Effects",
+                    "Full-stack Development",
+                  ].map((feature, index) => (
+                    <li key={index} className="flex items-center">
+                      <span className="mr-3 text-blue-400 text-2xl">▹</span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </Section>
 
-          <motion.section
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="mb-8 sm:mb-12 md:mb-16"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 text-yellow-600 dark:text-yellow-400 flex items-center">
-              <FaCompass className="mr-3" /> Course Roadmap
+          <Section id="why-learn-javascript" delay={0.7}>
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl overflow-hidden">
+              <div className="bg-black bg-opacity-50 p-4 sm:p-6 lg:p-8">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-wide flex items-center space-x-4">
+                  <FaRocket className="text-blue-300 text-2xl sm:text-3xl lg:text-4xl" />
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300">
+                    Why Learn JavaScript?
+                  </span>
+                </h2>
+              </div>
+              <div className="p-4 sm:p-6 lg:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <p className="text-base sm:text-lg lg:text-xl leading-relaxed text-gray-200">
+                  As one of the most in-demand programming languages, JavaScript
+                  opens doors to countless opportunities in web development.
+                  Master JavaScript to create cutting-edge applications and stay
+                  at the forefront of technology.
+                </p>
+              </div>
+            </div>
+          </Section>
+
+          <Section id="course-roadmap" delay={0.9}>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaCompass className="mr-3 sm:mr-4 text-blue-300" />
+              Course Roadmap
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
               {Courses.slice(1, -1).map((course, index) => (
-                <Link href={course.link} key={index + 1}>
-                  <div className="bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 border border-yellow-600 dark:border-yellow-400 p-6 rounded-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1 h-full flex flex-col">
-                    <div className="flex items-center mb-4">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
-                          {course.icon}
-                        </div>
-                        <h3 className="text-xl sm:text-2xl font-semibold text-yellow-600 dark:text-yellow-400">
-                          {course.title}
-                        </h3>
-                      </div>
-                    </div>
-                    <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-4 flex-grow">
+                <div
+                  key={index}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 h-full flex flex-col"
+                >
+                  <div className="bg-black bg-opacity-50 p-4 sm:p-6">
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-wide flex items-center">
+                      <span className="mr-3 text-blue-300">{course.icon}</span>
+                      {course.title}
+                    </h3>
+                  </div>
+                  <div className="p-4 sm:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
+                    <p className="text-base sm:text-lg lg:text-xl text-gray-200 mb-4 sm:mb-6 leading-relaxed">
                       {course.desc}
                     </p>
-                    <span className="text-base sm:text-lg text-yellow-600 dark:text-yellow-400 hover:underline inline-flex items-center mt-auto">
-                      Start Learning <FaArrowRight className="ml-2" />
-                    </span>
+                    <Link
+                      href={course.link}
+                      className="text-blue-300 font-semibold flex items-center mt-auto text-base sm:text-lg hover:text-blue-200 transition-colors duration-300"
+                    >
+                      Start Learning{" "}
+                      <FaArrowRight className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1" />
+                    </Link>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
-          </motion.section>
-          <CourseNavigationButtons
-            colorStyle="bg-yellow-600"
-            courses={Courses}
-            currentIndex={0}
-          />
+          </Section>
+
+          <div className="mx-4 sm:mx-6 lg:mx-8">
+            <CourseNavigationButtons
+              colorStyle="bg-blue-500 hover:bg-blue-600"
+              courses={Courses}
+              currentIndex={0}
+            />
+          </div>
         </div>
       </div>
     </div>

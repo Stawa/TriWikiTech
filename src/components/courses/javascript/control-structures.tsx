@@ -1,29 +1,40 @@
 "use client";
 
-import GridBackground from "@components/grid";
-import AuthorInfo from "../author";
-import CourseNavigationButtons from "../buttons";
-import HighlightCode from "@components/highlight";
-import Courses from "@components/courses/javascript/navigation";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { FaCode, FaLightbulb, FaRocket, FaTerminal } from "react-icons/fa";
+import Link from "next/link";
+import {
+  FaArrowRight,
+  FaCode,
+  FaExchangeAlt,
+  FaLightbulb,
+  FaRocket,
+  FaSyncAlt,
+} from "react-icons/fa";
+import AuthorInfo from "@components/courses/author";
+import CourseNavigationButtons from "@components/courses/buttons";
+import Courses from "@components/courses/javascript/navigation";
+import GridBackground from "@components/grid";
+import HighlightCode from "@components/highlight";
+import Section from "@components/courses/section";
 
 const topics = [
   {
     title: "Conditional Statements",
     desc: "Learn about if, else if, and else",
     id: "conditionals",
+    icon: FaCode,
   },
   {
     title: "Loops",
     desc: "Understand for, while, and do-while loops",
     id: "loops",
+    icon: FaSyncAlt,
   },
   {
     title: "Switch Statements",
     desc: "Master the switch-case structure",
     id: "switch",
+    icon: FaExchangeAlt,
   },
 ];
 
@@ -40,6 +51,9 @@ if (age >= 18) {
 } else {
   console.log("You are not eligible to vote yet.");
 }`,
+    output: `You are eligible to vote.`,
+    explanation:
+      "In this example, since the age is 18, which is greater than or equal to 18, the first condition is true, so the first console.log statement is executed.",
   },
   {
     type: "else-if",
@@ -57,6 +71,9 @@ if (score >= 90) {
 } else {
   console.log("Grade: F");
 }`,
+    output: `Grade: B`,
+    explanation:
+      "Here, the score is 85. It's not greater than or equal to 90, but it is greater than or equal to 80, so the second condition is true and 'Grade: B' is logged.",
   },
 ];
 
@@ -69,6 +86,13 @@ const loopExamples = [
     example: `for (let i = 0; i < 5; i++) {
   console.log("Iteration: " + i);
 }`,
+    output: `Iteration: 0
+Iteration: 1
+Iteration: 2
+Iteration: 3
+Iteration: 4`,
+    explanation:
+      "This for loop runs 5 times, with i starting at 0 and incrementing by 1 each time until it reaches 4.",
   },
   {
     type: "while",
@@ -80,6 +104,13 @@ while (count < 5) {
   console.log("Count: " + count);
   count++;
 }`,
+    output: `Count: 0
+Count: 1
+Count: 2
+Count: 3
+Count: 4`,
+    explanation:
+      "This while loop continues to execute as long as count is less than 5. It increments count each time, so it will run 5 times.",
   },
   {
     type: "do-while",
@@ -91,6 +122,13 @@ do {
   console.log("Number: " + num);
   num++;
 } while (num < 5);`,
+    output: `Number: 0
+Number: 1
+Number: 2
+Number: 3
+Number: 4`,
+    explanation:
+      "This do-while loop works similarly to the while loop, but it would execute at least once even if the initial condition was false.",
   },
 ];
 
@@ -122,196 +160,271 @@ switch (day) {
 }
 
 console.log("Today is " + dayName);`,
+  output: `Today is Wednesday`,
+  explanation:
+    "In this switch statement, the value of day is 3, so it matches the case 3, and dayName is set to 'Wednesday'.",
 };
-
-const Section = ({
-  children,
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  delay?: number;
-}) => (
-  <motion.section
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.8, delay }}
-    className="mb-4 sm:mb-6 md:mb-8 bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 rounded-lg p-4 sm:p-6 md:p-8 shadow-lg"
-  >
-    {children}
-  </motion.section>
-);
 
 export default function JavaScriptControlStructures() {
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen bg-gradient-to-b from-gray-900 to-indigo-900 text-gray-100">
       <GridBackground />
-      <div className="relative z-10 text-gray-800 dark:text-gray-200">
-        <div className="max-w-5xl mx-auto px-4 py-8 sm:py-12 md:py-16">
+      <div className="relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <motion.header
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-8 sm:mb-12 md:mb-16 text-center"
+            className="mb-12 sm:mb-16 lg:mb-20 text-center"
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-700 dark:from-yellow-400 dark:via-yellow-300 dark:to-yellow-500">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
               JavaScript Control Structures
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-yellow-600 dark:text-yellow-200">
+            <p className="text-lg sm:text-xl lg:text-2xl text-blue-300">
               Master the flow of your JavaScript code
             </p>
           </motion.header>
-          <AuthorInfo date={"September 16th, 2024"} />
 
-          <Section delay={0.3}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center">
-              <FaCode className="mr-3" /> Course Overview
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-              In this course, you&apos;ll learn about JavaScript control
-              structures. We&apos;ll cover conditional statements, loops, and
-              switch statements - essential tools for controlling the flow of
-              your code and making decisions based on different conditions.
-            </p>
+          <div className="px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16 lg:mb-20">
+            <AuthorInfo
+              date={"September 15th, 2024"}
+              lastEdit={"September 17th, 2024"}
+            />
+          </div>
+
+          <Section id="course-overview" delay={0.3}>
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
+              <div className="bg-black bg-opacity-50 p-6 sm:p-8">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide flex items-center">
+                  <FaCode className="mr-4 text-blue-300" />
+                  Course Overview
+                </h2>
+              </div>
+              <div className="p-6 sm:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <p className="text-lg sm:text-xl text-gray-200 leading-relaxed">
+                  In this course, you&apos;ll learn about JavaScript control
+                  structures. We&apos;ll cover conditional statements, loops,
+                  and switch statements - essential tools for controlling the
+                  flow of your code and making decisions based on different
+                  conditions.
+                </p>
+              </div>
+            </div>
           </Section>
 
-          <Section delay={0.5}>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 text-yellow-600 dark:text-yellow-400 flex items-center">
-              <FaLightbulb className="mr-3" /> What You&apos;ll Learn
+          <Section id="topics" delay={0.5}>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaLightbulb className="mr-3 sm:mr-4 text-blue-300" />
+              What You&apos;ll Learn
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
               {topics.map((topic, index) => (
-                <Link href={`#${topic.id}`} key={index}>
-                  <div className="bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 border border-yellow-600 dark:border-yellow-400 p-4 sm:p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl hover:scale-105 h-full flex flex-col">
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-yellow-600 dark:text-yellow-400 mb-2">
+                <div
+                  key={index}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 h-full flex flex-col"
+                >
+                  <div className="bg-black bg-opacity-50 p-4 sm:p-6">
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-wide flex items-center">
+                      <topic.icon className="mr-3 sm:mr-4 text-blue-300" />
                       {topic.title}
                     </h3>
-                    <p className="text-xs sm:text-sm md:text-base text-gray-700 dark:text-gray-300 flex-grow">
+                  </div>
+                  <div className="p-4 sm:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
+                    <p className="text-base sm:text-lg lg:text-xl text-gray-200 mb-4 sm:mb-6 leading-relaxed">
                       {topic.desc}
                     </p>
+                    <Link
+                      href={`#${topic.id}`}
+                      className="text-blue-300 font-semibold flex items-center mt-auto text-base sm:text-lg hover:text-blue-200 transition-colors duration-300"
+                    >
+                      Learn More{" "}
+                      <FaArrowRight className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1" />
+                    </Link>
                   </div>
-                </Link>
-              ))}
-            </div>
-          </Section>
-
-          <Section delay={0.7}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-yellow-600 dark:text-yellow-400 flex items-center">
-              <FaRocket className="mr-3" /> Why Control Structures Matter
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-              Control structures are fundamental to programming. They allow you
-              to make decisions in your code, repeat actions, and choose
-              different code paths based on conditions. Mastering these concepts
-              will give you the power to create more complex and interactive
-              JavaScript applications.
-            </p>
-          </Section>
-
-          <Section delay={0.8}>
-            <h2
-              id="conditionals"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center flex-wrap"
-            >
-              <FaTerminal className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Conditional
-              Statements
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed mb-4">
-              Conditional statements allow your code to make decisions and
-              execute different code blocks based on different conditions.
-            </p>
-            <div className="space-y-6 sm:space-y-8">
-              {conditionalExamples.map((item) => (
-                <div
-                  key={item.type}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
-                >
-                  <h3 className="text-lg sm:text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-3 sm:mb-4 flex items-center flex-wrap">
-                    <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
-                      {item.type}
-                    </span>
-                    {item.title}
-                  </h3>
-                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
-                    {item.description}
-                  </p>
-                  <HighlightCode
-                    content={item.example}
-                    language={"javascript"}
-                  />
                 </div>
               ))}
             </div>
           </Section>
 
-          <Section delay={0.9}>
-            <h2
-              id="loops"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center flex-wrap"
-            >
-              <FaTerminal className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Loops
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed mb-4">
-              Loops allow you to repeat a block of code multiple times, making
-              it easier to work with arrays, perform iterations, and automate
-              repetitive tasks.
-            </p>
-            <div className="space-y-6 sm:space-y-8">
-              {loopExamples.map((item) => (
-                <div
-                  key={item.type}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl"
-                >
-                  <h3 className="text-lg sm:text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-3 sm:mb-4 flex items-center flex-wrap">
-                    <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded-full mr-2 sm:mr-3 text-xs sm:text-sm mb-2 sm:mb-0">
-                      {item.type}
-                    </span>
+          <Section id="why-control-structures-matter" delay={0.7}>
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
+              <div className="bg-black bg-opacity-50 p-6 sm:p-8">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide flex items-center">
+                  <FaRocket className="mr-4 text-blue-300" />
+                  Why Control Structures Matter
+                </h2>
+              </div>
+              <div className="p-6 sm:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <p className="text-lg sm:text-xl text-gray-200 leading-relaxed">
+                  Control structures are fundamental to programming. They allow
+                  you to make decisions in your code, repeat actions, and choose
+                  different code paths based on conditions. Mastering these
+                  concepts will give you the power to create more complex and
+                  interactive JavaScript applications.
+                </p>
+              </div>
+            </div>
+          </Section>
+
+          <Section id="conditionals" delay={0.8}>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaCode className="mr-3 sm:mr-4 text-blue-300" />
+              Conditional Statements
+            </h3>
+            {conditionalExamples.map((item, index) => (
+              <div
+                key={index}
+                className={`${index !== conditionalExamples.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+              >
+                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
                     {item.title}
                   </h3>
-                  <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
-                    {item.description}
-                  </p>
-                  <HighlightCode
-                    content={item.example}
-                    language={"javascript"}
-                  />
                 </div>
-              ))}
+                <div className="p-6 sm:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                  <div className="mb-6 sm:mb-8">
+                    <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-4 leading-relaxed">
+                      {item.description}
+                    </p>
+                    <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                      <HighlightCode
+                        content={item.example}
+                        language={"javascript"}
+                      />
+                    </div>
+                    <div className="mt-4">
+                      <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                        Output:
+                      </h4>
+                      <div className="rounded-xl overflow-hidden shadow-inner">
+                        <HighlightCode
+                          content={item.output}
+                          language={"javascript"}
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                        Explanation:
+                      </h4>
+                      <p className="text-base sm:text-lg text-gray-200">
+                        {item.explanation}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Section>
+
+          <Section id="loops" delay={0.9}>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaSyncAlt className="mr-3 sm:mr-4 text-blue-300" />
+              Loops
+            </h3>
+            {loopExamples.map((item, index) => (
+              <div
+                key={index}
+                className={`${index !== loopExamples.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+              >
+                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                    {item.title}
+                  </h3>
+                </div>
+                <div className="p-6 sm:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                  <div className="mb-6 sm:mb-8">
+                    <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-4 leading-relaxed">
+                      {item.description}
+                    </p>
+                    <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                      <HighlightCode
+                        content={item.example}
+                        language={"javascript"}
+                      />
+                    </div>
+                    <div className="mt-4">
+                      <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                        Output:
+                      </h4>
+                      <div className="rounded-xl overflow-hidden shadow-inner">
+                        <HighlightCode
+                          content={item.output}
+                          language={"javascript"}
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                        Explanation:
+                      </h4>
+                      <p className="text-base sm:text-lg text-gray-200">
+                        {item.explanation}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Section>
+
+          <Section id="switch" delay={1.0}>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
+              <FaExchangeAlt className="mr-3 sm:mr-4 text-blue-300" />
+              Switch Statements
+            </h3>
+            <div className="bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden">
+              <div className="bg-black bg-opacity-20 p-6 sm:p-8">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                  {switchExample.title}
+                </h3>
+              </div>
+              <div className="p-6 sm:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <div className="mb-6 sm:mb-8">
+                  <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-4 leading-relaxed">
+                    {switchExample.description}
+                  </p>
+                  <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                    <HighlightCode
+                      content={switchExample.example}
+                      language={"javascript"}
+                    />
+                  </div>
+                  <div className="mt-4">
+                    <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                      Output:
+                    </h4>
+                    <div className="rounded-xl overflow-hidden shadow-inner">
+                      <HighlightCode
+                        content={switchExample.output}
+                        language={"javascript"}
+                      />
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                      Explanation:
+                    </h4>
+                    <p className="text-base sm:text-lg text-gray-200">
+                      {switchExample.explanation}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </Section>
 
-          <Section delay={1.0}>
-            <h2
-              id="switch"
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-yellow-600 dark:text-yellow-400 flex items-center flex-wrap"
-            >
-              <FaTerminal className="mr-2 sm:mr-3 mb-2 sm:mb-0" /> Switch
-              Statements
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed mb-4">
-              Switch statements provide a way to execute different code blocks
-              based on different cases, offering an alternative to multiple
-              if-else statements.
-            </p>
-            <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 sm:p-6 shadow-md transition-all duration-300 hover:shadow-xl">
-              <h3 className="text-lg sm:text-xl font-semibold text-yellow-600 dark:text-yellow-400 mb-3 sm:mb-4">
-                {switchExample.title}
-              </h3>
-              <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
-                {switchExample.description}
-              </p>
-              <HighlightCode
-                content={switchExample.example}
-                language={"javascript"}
-              />
-            </div>
-          </Section>
-
-          <CourseNavigationButtons
-            colorStyle="bg-yellow-600"
-            middleHomeButton={true}
-            courses={Courses}
-            currentIndex={2}
-          />
+          <div className="px-4 sm:px-6 lg:px-8">
+            <CourseNavigationButtons
+              colorStyle="bg-blue-500 hover:bg-blue-600"
+              middleHomeButton={true}
+              courses={Courses}
+              currentIndex={Courses.findIndex(
+                (course) =>
+                  course.link === "/courses/javascript/control-structures"
+              )}
+            />
+          </div>
         </div>
       </div>
     </div>

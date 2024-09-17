@@ -9,7 +9,7 @@ import JavaScriptControlStructures from "@components/courses/javascript/control-
 const courseComponents = {
   basics: JavaScriptBasics,
   functions: JavaScriptFunctions,
-  "objects-and-arrays": JavaScriptObjectsArrays,
+  "objects-arrays": JavaScriptObjectsArrays,
   "control-structures": JavaScriptControlStructures,
 };
 
