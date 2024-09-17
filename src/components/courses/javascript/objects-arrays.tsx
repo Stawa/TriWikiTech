@@ -326,41 +326,35 @@ console.log(upperWords);`,
 
 export default function JavaScriptObjectsArrays() {
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen bg-gradient-to-b from-gray-900 to-indigo-900 text-gray-100">
       <GridBackground />
-      <div className="relative z-10 text-gray-800 dark:text-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12 md:py-16">
+      <div className="relative z-10">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
           <motion.header
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-8 sm:mb-12 md:mb-16 text-center"
+            className="mb-8 sm:mb-12 lg:mb-16 text-center"
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 dark:from-blue-400 dark:via-blue-300 dark:to-blue-500">
-              JavaScript Objects & Arrays
-            </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-blue-600 dark:text-blue-200">
-              Master complex data structures in JavaScript
-            </p>
+            <AuthorInfo
+              date="2024-09-15"
+              lastEdit="2024-09-17"
+              title={"JavaScript Objects & Arrays"}
+            />
           </motion.header>
 
-          <div className="px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16 lg:mb-20">
-            <AuthorInfo
-              date={"September 15th, 2024"}
-              lastEdit={"September 17th, 2024"}
-            />
-          </div>
-
           <Section id="course-overview" delay={0.3}>
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
-              <div className="bg-black bg-opacity-50 p-6 sm:p-8">
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide flex items-center">
-                  <FaCode className="mr-4 text-blue-300" />
-                  Course Overview
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-xl overflow-hidden">
+              <div className="bg-black bg-opacity-50 p-3 sm:p-4 lg:p-6">
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-wide flex items-center space-x-3">
+                  <FaCode className="text-blue-300 text-xl sm:text-2xl lg:text-3xl" />
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300">
+                    Course Overview
+                  </span>
                 </h2>
               </div>
-              <div className="p-6 sm:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                <p className="text-lg sm:text-xl text-gray-200 leading-relaxed">
+              <div className="p-3 sm:p-4 lg:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <p className="text-sm sm:text-base lg:text-lg leading-relaxed text-gray-200">
                   In this course, you&apos;ll dive deep into JavaScript objects
                   and arrays. We&apos;ll cover object creation and manipulation,
                   array fundamentals, object methods, and advanced array
@@ -372,29 +366,31 @@ export default function JavaScriptObjectsArrays() {
           </Section>
 
           <Section id="topics" delay={0.5}>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
-              <FaLightbulb className="mr-3 sm:mr-4 text-blue-300" />
+            <h2 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-white tracking-wide flex items-center">
+              <FaLightbulb className="mr-2 sm:mr-3 text-blue-300" />
               What You&apos;ll Learn
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {topics.map((topic, index) => (
                 <div
                   key={index}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 h-full flex flex-col"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-xl overflow-hidden transition-all duration-300 h-full flex flex-col"
                 >
-                  <div className="bg-black bg-opacity-50 p-4 sm:p-6">
-                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-wide flex items-center">
-                      <topic.icon className="mr-3 sm:mr-4 text-blue-300" />
+                  <div className="bg-black bg-opacity-50 p-3 sm:p-4">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-wide flex items-center">
+                      <span className="mr-2 text-blue-300">
+                        {<topic.icon />}
+                      </span>
                       {topic.title}
                     </h3>
                   </div>
-                  <div className="p-4 sm:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
-                    <p className="text-base sm:text-lg lg:text-xl text-gray-200 mb-4 sm:mb-6 leading-relaxed">
+                  <div className="p-3 sm:p-4 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
+                    <p className="text-sm sm:text-base lg:text-lg text-gray-200 mb-3 sm:mb-4 leading-relaxed">
                       {topic.desc}
                     </p>
                     <Link
                       href={`#${topic.id}`}
-                      className="text-blue-300 font-semibold flex items-center mt-auto text-base sm:text-lg hover:text-blue-200 transition-colors duration-300"
+                      className="text-blue-300 font-semibold flex items-center mt-auto text-sm sm:text-base hover:text-blue-200 transition-colors duration-300"
                     >
                       Learn More{" "}
                       <FaArrowRight className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1" />
@@ -406,15 +402,17 @@ export default function JavaScriptObjectsArrays() {
           </Section>
 
           <Section id="why-objects-arrays-matter" delay={0.7}>
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
-              <div className="bg-black bg-opacity-50 p-6 sm:p-8">
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide flex items-center">
-                  <FaRocket className="mr-4 text-blue-300" />
-                  Why Objects & Arrays Matter
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-xl overflow-hidden">
+              <div className="bg-black bg-opacity-50 p-3 sm:p-4 lg:p-6">
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-wide flex items-center space-x-3">
+                  <FaRocket className="text-blue-300 text-xl sm:text-2xl lg:text-3xl" />
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300">
+                    Why Objects & Arrays Matter
+                  </span>
                 </h2>
               </div>
-              <div className="p-6 sm:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                <p className="text-lg sm:text-xl text-gray-200 leading-relaxed">
+              <div className="p-3 sm:p-4 lg:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <p className="text-sm sm:text-base lg:text-lg leading-relaxed text-gray-200">
                   Objects and arrays are fundamental data structures in
                   JavaScript. They allow you to organize, store, and manipulate
                   complex data efficiently. Mastering these concepts is crucial
@@ -426,51 +424,49 @@ export default function JavaScriptObjectsArrays() {
           </Section>
 
           <Section id="object-basics" delay={0.8}>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
-              <FaCube className="mr-3 sm:mr-4 text-blue-300" />
+            <h2 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-white tracking-wide flex items-center">
+              <FaCube className="mr-2 sm:mr-3 text-blue-300" />
               Object Basics
             </h2>
-            <div className="space-y-8 sm:space-y-12">
+            <div className="space-y-4 sm:space-y-6">
               {objectBasics.map((item, index) => (
                 <div
                   key={index}
-                  className={`${index !== objectBasics.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-xl overflow-hidden"
                 >
-                  <div className="bg-black bg-opacity-20 p-6 sm:p-8">
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                  <div className="bg-black bg-opacity-50 p-3 sm:p-4 lg:p-6">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-wide">
                       {item.title}
                     </h3>
                   </div>
-                  <div className="p-6 sm:p-8 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                    <div className="mb-6 sm:mb-8">
-                      <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-4 leading-relaxed">
-                        {item.description}
-                      </p>
-                      <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                  <div className="p-3 sm:p-4 lg:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                    <p className="text-sm sm:text-base lg:text-lg text-gray-200 mb-3 leading-relaxed">
+                      {item.description}
+                    </p>
+                    <div className="mb-3 rounded-xl overflow-hidden shadow-inner">
+                      <HighlightCode
+                        content={item.example}
+                        language={"javascript"}
+                      />
+                    </div>
+                    <div className="mt-3">
+                      <h4 className="text-base sm:text-lg font-semibold text-gray-200 mb-2">
+                        Output:
+                      </h4>
+                      <div className="rounded-xl overflow-hidden shadow-inner">
                         <HighlightCode
-                          content={item.example}
+                          content={item.output}
                           language={"javascript"}
                         />
                       </div>
-                      <div className="mt-4">
-                        <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
-                          Output:
-                        </h4>
-                        <div className="rounded-xl overflow-hidden shadow-inner">
-                          <HighlightCode
-                            content={item.output}
-                            language={"javascript"}
-                          />
-                        </div>
-                      </div>
-                      <div className="mt-4">
-                        <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
-                          Explanation:
-                        </h4>
-                        <p className="text-base sm:text-lg text-gray-200 whitespace-pre-line">
-                          {item.explanation}
-                        </p>
-                      </div>
+                    </div>
+                    <div className="mt-3">
+                      <h4 className="text-base sm:text-lg font-semibold text-gray-200 mb-2">
+                        Explanation:
+                      </h4>
+                      <p className="text-sm sm:text-base text-gray-200 whitespace-pre-line">
+                        {item.explanation}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -479,51 +475,49 @@ export default function JavaScriptObjectsArrays() {
           </Section>
 
           <Section id="array-fundamentals" delay={0.9}>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
-              <FaList className="mr-3 sm:mr-4 text-blue-300" />
+            <h2 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-white tracking-wide flex items-center">
+              <FaList className="mr-2 sm:mr-3 text-blue-300" />
               Array Fundamentals
             </h2>
-            <div className="space-y-8 sm:space-y-12">
+            <div className="space-y-4 sm:space-y-6">
               {arrayFundamentals.map((item, index) => (
                 <div
                   key={index}
-                  className={`${index !== arrayFundamentals.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-xl overflow-hidden"
                 >
-                  <div className="bg-black bg-opacity-20 p-6 sm:p-8">
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                  <div className="bg-black bg-opacity-50 p-3 sm:p-4 lg:p-6">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-wide">
                       {item.title}
                     </h3>
                   </div>
-                  <div className="p-6 sm:p-8 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                    <div className="mb-6 sm:mb-8">
-                      <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-4 leading-relaxed">
-                        {item.description}
-                      </p>
-                      <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                  <div className="p-3 sm:p-4 lg:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                    <p className="text-sm sm:text-base lg:text-lg text-gray-200 mb-3 leading-relaxed">
+                      {item.description}
+                    </p>
+                    <div className="mb-3 rounded-xl overflow-hidden shadow-inner">
+                      <HighlightCode
+                        content={item.example}
+                        language={"javascript"}
+                      />
+                    </div>
+                    <div className="mt-3">
+                      <h4 className="text-base sm:text-lg font-semibold text-gray-200 mb-2">
+                        Output:
+                      </h4>
+                      <div className="rounded-xl overflow-hidden shadow-inner">
                         <HighlightCode
-                          content={item.example}
+                          content={item.output}
                           language={"javascript"}
                         />
                       </div>
-                      <div className="mt-4">
-                        <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
-                          Output:
-                        </h4>
-                        <div className="rounded-xl overflow-hidden shadow-inner">
-                          <HighlightCode
-                            content={item.output}
-                            language={"javascript"}
-                          />
-                        </div>
-                      </div>
-                      <div className="mt-4">
-                        <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
-                          Explanation:
-                        </h4>
-                        <p className="text-base sm:text-lg text-gray-200 whitespace-pre-line">
-                          {item.explanation}
-                        </p>
-                      </div>
+                    </div>
+                    <div className="mt-3">
+                      <h4 className="text-base sm:text-lg font-semibold text-gray-200 mb-2">
+                        Explanation:
+                      </h4>
+                      <p className="text-sm sm:text-base text-gray-200 whitespace-pre-line">
+                        {item.explanation}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -532,61 +526,59 @@ export default function JavaScriptObjectsArrays() {
           </Section>
 
           <Section id="object-methods" delay={1.0}>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
-              <FaWrench className="mr-3 sm:mr-4 text-blue-300" />
+            <h2 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-white tracking-wide flex items-center">
+              <FaWrench className="mr-2 sm:mr-3 text-blue-300" />
               Object Methods
             </h2>
-            <div className="space-y-8 sm:space-y-12">
+            <div className="space-y-4 sm:space-y-6">
               {objectMethods.map((item, index) => (
                 <div
                   key={index}
-                  className={`${index !== objectMethods.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-xl overflow-hidden"
                 >
-                  <div className="bg-black bg-opacity-20 p-6 sm:p-8">
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                  <div className="bg-black bg-opacity-50 p-3 sm:p-4 lg:p-6">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-wide">
                       {item.title}
                     </h3>
                   </div>
-                  <div className="p-6 sm:p-8 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                    <div className="mb-6 sm:mb-8">
-                      <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-4 leading-relaxed">
-                        {item.description}
-                      </p>
-                      {item.examples.map((example, idx) => (
-                        <div key={idx} className="mb-6 sm:mb-8">
-                          <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
-                            {example.name}
+                  <div className="p-3 sm:p-4 lg:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                    <p className="text-sm sm:text-base lg:text-lg text-gray-200 mb-3 leading-relaxed">
+                      {item.description}
+                    </p>
+                    {item.examples.map((example, idx) => (
+                      <div key={idx} className="mb-4 sm:mb-6">
+                        <h4 className="text-base sm:text-lg font-semibold text-gray-200 mb-2">
+                          {example.name}
+                        </h4>
+                        <p className="text-sm sm:text-base text-gray-200 mb-2">
+                          {example.description}
+                        </p>
+                        <div className="mb-3 rounded-xl overflow-hidden shadow-inner">
+                          <HighlightCode
+                            content={example.example}
+                            language={"javascript"}
+                          />
+                        </div>
+                        <div className="mt-3">
+                          <h4 className="text-base sm:text-lg font-semibold text-gray-200 mb-2">
+                            Output:
                           </h4>
-                          <p className="text-base sm:text-lg text-gray-200 mb-3">
-                            {example.description}
-                          </p>
-                          <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                          <div className="rounded-xl overflow-hidden shadow-inner">
                             <HighlightCode
-                              content={example.example}
+                              content={example.output}
                               language={"javascript"}
                             />
                           </div>
-                          <div className="mt-4">
-                            <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
-                              Output:
-                            </h4>
-                            <div className="rounded-xl overflow-hidden shadow-inner">
-                              <HighlightCode
-                                content={example.output}
-                                language={"javascript"}
-                              />
-                            </div>
-                          </div>
                         </div>
-                      ))}
-                      <div className="mt-4">
-                        <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
-                          Explanation:
-                        </h4>
-                        <p className="text-base sm:text-lg text-gray-200 whitespace-pre-line">
-                          {item.explanation}
-                        </p>
                       </div>
+                    ))}
+                    <div className="mt-3">
+                      <h4 className="text-base sm:text-lg font-semibold text-gray-200 mb-2">
+                        Explanation:
+                      </h4>
+                      <p className="text-sm sm:text-base text-gray-200 whitespace-pre-line">
+                        {item.explanation}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -595,61 +587,59 @@ export default function JavaScriptObjectsArrays() {
           </Section>
 
           <Section id="array-operations" delay={1.1}>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
-              <FaExchangeAlt className="mr-3 sm:mr-4 text-blue-300" />
+            <h2 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-white tracking-wide flex items-center">
+              <FaExchangeAlt className="mr-2 sm:mr-3 text-blue-300" />
               Array Operations
             </h2>
-            <div className="space-y-8 sm:space-y-12">
+            <div className="space-y-4 sm:space-y-6">
               {arrayOperations.map((item, index) => (
                 <div
                   key={index}
-                  className={`${index !== arrayOperations.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-xl overflow-hidden"
                 >
-                  <div className="bg-black bg-opacity-20 p-6 sm:p-8">
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                  <div className="bg-black bg-opacity-50 p-3 sm:p-4 lg:p-6">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-wide">
                       {item.title}
                     </h3>
                   </div>
-                  <div className="p-6 sm:p-8 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                    <div className="mb-6 sm:mb-8">
-                      <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-4 leading-relaxed">
-                        {item.description}
-                      </p>
-                      {item.examples.map((example, idx) => (
-                        <div key={idx} className="mb-6 sm:mb-8">
-                          <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
-                            {example.name}
+                  <div className="p-3 sm:p-4 lg:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                    <p className="text-sm sm:text-base lg:text-lg text-gray-200 mb-3 leading-relaxed">
+                      {item.description}
+                    </p>
+                    {item.examples.map((example, idx) => (
+                      <div key={idx} className="mb-4 sm:mb-6">
+                        <h4 className="text-base sm:text-lg font-semibold text-gray-200 mb-2">
+                          {example.name}
+                        </h4>
+                        <p className="text-sm sm:text-base text-gray-200 mb-2">
+                          {example.description}
+                        </p>
+                        <div className="mb-3 rounded-xl overflow-hidden shadow-inner">
+                          <HighlightCode
+                            content={example.example}
+                            language={"javascript"}
+                          />
+                        </div>
+                        <div className="mt-3">
+                          <h4 className="text-base sm:text-lg font-semibold text-gray-200 mb-2">
+                            Output:
                           </h4>
-                          <p className="text-base sm:text-lg text-gray-200 mb-3">
-                            {example.description}
-                          </p>
-                          <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                          <div className="rounded-xl overflow-hidden shadow-inner">
                             <HighlightCode
-                              content={example.example}
+                              content={example.output}
                               language={"javascript"}
                             />
                           </div>
-                          <div className="mt-4">
-                            <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
-                              Output:
-                            </h4>
-                            <div className="rounded-xl overflow-hidden shadow-inner">
-                              <HighlightCode
-                                content={example.output}
-                                language={"javascript"}
-                              />
-                            </div>
-                          </div>
                         </div>
-                      ))}
-                      <div className="mt-4">
-                        <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
-                          Explanation:
-                        </h4>
-                        <p className="text-base sm:text-lg text-gray-200 whitespace-pre-line">
-                          {item.explanation}
-                        </p>
                       </div>
+                    ))}
+                    <div className="mt-3">
+                      <h4 className="text-base sm:text-lg font-semibold text-gray-200 mb-2">
+                        Explanation:
+                      </h4>
+                      <p className="text-sm sm:text-base text-gray-200 whitespace-pre-line">
+                        {item.explanation}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -657,9 +647,9 @@ export default function JavaScriptObjectsArrays() {
             </div>
           </Section>
 
-          <div className="px-4 sm:px-6 lg:px-8">
+          <div className="mx-2 sm:mx-4 lg:mx-6">
             <CourseNavigationButtons
-              colorStyle="bg-blue-600"
+              colorStyle="bg-blue-500 hover:bg-blue-600"
               courses={Courses}
               currentIndex={Courses.findIndex(
                 (course) => course.link === "/courses/javascript/objects-arrays"

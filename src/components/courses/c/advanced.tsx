@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { BsFileCode } from "react-icons/bs";
 import { FaArrowRight, FaCode, FaLightbulb, FaRocket } from "react-icons/fa";
 import { RiFileTextLine } from "react-icons/ri";
-import { TbBuildingBridge } from "react-icons/tb";
+import { PiTreeStructure } from "react-icons/pi";
+import { TbCpu } from "react-icons/tb";
 
 import Section from "@components/courses/section";
 import Courses from "@components/courses/c/navigation";
@@ -19,7 +19,7 @@ const topics = [
     title: "Structures",
     desc: "Learn about user-defined data types in C",
     id: "structures",
-    icon: TbBuildingBridge,
+    icon: PiTreeStructure,
   },
   {
     title: "File I/O",
@@ -31,7 +31,7 @@ const topics = [
     title: "Preprocessor Directives",
     desc: "Master preprocessor commands and macros in C",
     id: "preprocessor",
-    icon: BsFileCode,
+    icon: TbCpu,
   },
 ];
 
@@ -166,22 +166,14 @@ export default function CAdvanced() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-12 sm:mb-16 lg:mb-20 text-center"
+            className="mb-8 sm:mb-12 lg:mb-16 text-center"
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
-              Advanced C Programming
-            </h1>
-            <p className="text-lg sm:text-xl lg:text-2xl text-blue-300">
-              Master advanced concepts in C programming
-            </p>
-          </motion.header>
-
-          <div className="px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16 lg:mb-20">
             <AuthorInfo
-              date={"September 15th, 2024"}
-              lastEdit={"September 16th, 2024"}
+              date="2024-09-15"
+              lastEdit="2024-09-17"
+              title={"Advanced C Programming"}
             />
-          </div>
+          </motion.header>
 
           <Section id="course-overview" delay={0.3}>
             <div className="bg-gradient-to-r from-blue-700 to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
@@ -258,7 +250,7 @@ export default function CAdvanced() {
 
           <Section id="structures" delay={0.8}>
             <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
-              <TbBuildingBridge className="mr-3 sm:mr-4 text-blue-300" />
+              <PiTreeStructure className="mr-3 sm:mr-4 text-blue-300" />
               Structures in C
             </h3>
             {structures.map((item, index) => (
@@ -338,7 +330,7 @@ export default function CAdvanced() {
 
           <Section id="preprocessor" delay={1.2}>
             <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
-              <BsFileCode className="mr-3 sm:mr-4 text-blue-300" />
+              <TbCpu className="mr-3 sm:mr-4 text-blue-300" />
               Preprocessor Directives in C
             </h3>
             {preprocessor.map((item, index) => (

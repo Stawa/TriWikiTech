@@ -277,38 +277,32 @@ export default function JavaScriptBasics() {
     <div className="relative min-h-screen bg-gradient-to-b from-gray-900 to-indigo-900 text-gray-100">
       <GridBackground />
       <div className="relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
           <motion.header
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-12 sm:mb-16 lg:mb-20 text-center"
+            className="mb-8 sm:mb-12 lg:mb-16 text-center"
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
-              JavaScript Basics
-            </h1>
-            <p className="text-lg sm:text-xl lg:text-2xl text-blue-300">
-              Master the fundamentals of JavaScript programming
-            </p>
+            <AuthorInfo
+              date="2024-09-15"
+              lastEdit="2024-09-17"
+              title={"JavaScript Basics"}
+            />
           </motion.header>
 
-          <div className="px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16 lg:mb-20">
-            <AuthorInfo
-              date={"September 15th, 2024"}
-              lastEdit={"September 17th, 2024"}
-            />
-          </div>
-
           <Section id="course-overview" delay={0.3}>
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
-              <div className="bg-black bg-opacity-50 p-6 sm:p-8">
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide flex items-center">
-                  <FaCode className="mr-4 text-blue-300" />
-                  Course Overview
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-xl overflow-hidden">
+              <div className="bg-black bg-opacity-50 p-3 sm:p-4 lg:p-6">
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-wide flex items-center">
+                  <FaCode className="text-blue-300 text-xl sm:text-2xl lg:text-3xl mr-3" />
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300">
+                    Course Overview
+                  </span>
                 </h2>
               </div>
-              <div className="p-6 sm:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                <p className="text-lg sm:text-xl text-gray-200 leading-relaxed">
+              <div className="p-3 sm:p-4 lg:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <p className="text-sm sm:text-base lg:text-lg leading-relaxed text-gray-200">
                   In this course, you&apos;ll dive deep into JavaScript basics,
                   covering console.log, variables, and data types. These
                   fundamental concepts form the foundation for more advanced
@@ -319,29 +313,29 @@ export default function JavaScriptBasics() {
           </Section>
 
           <Section id="topics" delay={0.5}>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
-              <FaLightbulb className="mr-3 sm:mr-4 text-blue-300" />
+            <h2 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-white tracking-wide flex items-center">
+              <FaLightbulb className="mr-2 sm:mr-3 text-blue-300" />
               What You&apos;ll Learn
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {topics.map((topic, index) => (
                 <div
                   key={index}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 h-full flex flex-col"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-xl overflow-hidden transition-all duration-300 h-full flex flex-col"
                 >
-                  <div className="bg-black bg-opacity-50 p-4 sm:p-6">
-                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-wide flex items-center">
-                      <topic.icon className="mr-3 sm:mr-4 text-blue-300" />
+                  <div className="bg-black bg-opacity-50 p-3 sm:p-4">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-wide flex items-center">
+                      <topic.icon className="mr-2 text-blue-300" />
                       {topic.title}
                     </h3>
                   </div>
-                  <div className="p-4 sm:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
-                    <p className="text-base sm:text-lg lg:text-xl text-gray-200 mb-4 sm:mb-6 leading-relaxed">
+                  <div className="p-3 sm:p-4 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
+                    <p className="text-sm sm:text-base lg:text-lg text-gray-200 mb-3 sm:mb-4 leading-relaxed">
                       {topic.desc}
                     </p>
                     <Link
                       href={`#${topic.id}`}
-                      className="text-blue-300 font-semibold flex items-center mt-auto text-base sm:text-lg hover:text-blue-200 transition-colors duration-300"
+                      className="text-blue-300 font-semibold flex items-center mt-auto text-sm sm:text-base hover:text-blue-200 transition-colors duration-300"
                     >
                       Learn More{" "}
                       <FaArrowRight className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1" />
@@ -353,15 +347,17 @@ export default function JavaScriptBasics() {
           </Section>
 
           <Section id="why-basics-matter" delay={0.7}>
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
-              <div className="bg-black bg-opacity-50 p-6 sm:p-8">
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide flex items-center">
-                  <FaRocket className="mr-4 text-blue-300" />
-                  Why These Basics Matter
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-xl overflow-hidden">
+              <div className="bg-black bg-opacity-50 p-3 sm:p-4 lg:p-6">
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-wide flex items-center">
+                  <FaRocket className="text-blue-300 text-xl sm:text-2xl lg:text-3xl mr-3" />
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300">
+                    Why These Basics Matter
+                  </span>
                 </h2>
               </div>
-              <div className="p-6 sm:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                <p className="text-lg sm:text-xl text-gray-200 leading-relaxed">
+              <div className="p-3 sm:p-4 lg:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <p className="text-sm sm:text-base lg:text-lg leading-relaxed text-gray-200">
                   Understanding these fundamental concepts is crucial for any
                   aspiring JavaScript developer. These basics form the
                   foundation upon which more advanced concepts are built,
@@ -373,33 +369,33 @@ export default function JavaScriptBasics() {
           </Section>
 
           <Section id="console-log" delay={0.8}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
-              <FaTerminal className="mr-3 sm:mr-4 text-blue-300" />
+            <h3 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-white tracking-wide flex items-center">
+              <FaTerminal className="mr-2 sm:mr-3 text-blue-300" />
               Console.log: Your First JavaScript Output
             </h3>
             {consoleLogExamples.map((item, index) => (
               <div
                 key={index}
-                className={`${index !== consoleLogExamples.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+                className={`${index !== consoleLogExamples.length - 1 ? "mb-4 sm:mb-6" : ""} bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-xl transition-all duration-300 overflow-hidden`}
               >
-                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                <div className="bg-black bg-opacity-50 p-3 sm:p-4 lg:p-6">
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-wide">
                     {item.title}
                   </h3>
                 </div>
-                <div className="p-6 sm:p-8 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                  <div className="mb-6 sm:mb-8">
-                    <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-4 leading-relaxed">
+                <div className="p-3 sm:p-4 lg:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                  <div className="mb-3 sm:mb-4">
+                    <p className="text-sm sm:text-base lg:text-lg text-gray-200 mb-2 leading-relaxed">
                       {item.description}
                     </p>
-                    <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                    <div className="mb-2 rounded-xl overflow-hidden shadow-inner">
                       <HighlightCode
                         content={item.example}
                         language={"javascript"}
                       />
                     </div>
-                    <div className="mt-4">
-                      <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                    <div className="mt-2">
+                      <h4 className="text-base sm:text-lg font-semibold text-gray-200 mb-1">
                         Output:
                       </h4>
                       <div className="rounded-xl overflow-hidden shadow-inner">
@@ -409,11 +405,11 @@ export default function JavaScriptBasics() {
                         />
                       </div>
                     </div>
-                    <div className="mt-4">
-                      <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                    <div className="mt-2">
+                      <h4 className="text-base sm:text-lg font-semibold text-gray-200 mb-1">
                         Explanation:
                       </h4>
-                      <p className="text-base sm:text-lg text-gray-200">
+                      <p className="text-sm sm:text-base text-gray-200">
                         {item.explanation}
                       </p>
                     </div>
@@ -424,33 +420,33 @@ export default function JavaScriptBasics() {
           </Section>
 
           <Section id="variables" delay={0.9}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
-              <FaCode className="mr-3 sm:mr-4 text-blue-300" />
+            <h3 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-white tracking-wide flex items-center">
+              <FaCode className="mr-2 sm:mr-3 text-blue-300" />
               Understanding Variable Types
             </h3>
             {variableTypes.map((item, index) => (
               <div
                 key={index}
-                className={`${index !== variableTypes.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+                className={`${index !== variableTypes.length - 1 ? "mb-4 sm:mb-6" : ""} bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-xl transition-all duration-300 overflow-hidden`}
               >
-                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                <div className="bg-black bg-opacity-50 p-3 sm:p-4 lg:p-6">
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-wide">
                     {item.title}
                   </h3>
                 </div>
-                <div className="p-6 sm:p-8 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                  <div className="mb-6 sm:mb-8">
-                    <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-4 leading-relaxed">
+                <div className="p-3 sm:p-4 lg:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                  <div className="mb-3 sm:mb-4">
+                    <p className="text-sm sm:text-base lg:text-lg text-gray-200 mb-2 leading-relaxed">
                       {item.description}
                     </p>
-                    <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                    <div className="mb-2 rounded-xl overflow-hidden shadow-inner">
                       <HighlightCode
                         content={item.example}
                         language={"javascript"}
                       />
                     </div>
-                    <div className="mt-4">
-                      <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                    <div className="mt-2">
+                      <h4 className="text-base sm:text-lg font-semibold text-gray-200 mb-1">
                         Output:
                       </h4>
                       <div className="rounded-xl overflow-hidden shadow-inner">
@@ -460,11 +456,11 @@ export default function JavaScriptBasics() {
                         />
                       </div>
                     </div>
-                    <div className="mt-4">
-                      <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                    <div className="mt-2">
+                      <h4 className="text-base sm:text-lg font-semibold text-gray-200 mb-1">
                         Explanation:
                       </h4>
-                      <p className="text-base sm:text-lg text-gray-200">
+                      <p className="text-sm sm:text-base text-gray-200">
                         {item.explanation}
                       </p>
                     </div>
@@ -475,40 +471,40 @@ export default function JavaScriptBasics() {
           </Section>
 
           <Section id="data-types" delay={1.0}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
-              <FaCube className="mr-3 sm:mr-4 text-blue-300" />
+            <h3 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-white tracking-wide flex items-center">
+              <FaCube className="mr-2 sm:mr-3 text-blue-300" />
               Data Types in JavaScript
             </h3>
             {dataTypes.map((item, index) => (
               <div
                 key={index}
-                className={`${index !== dataTypes.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+                className={`${index !== dataTypes.length - 1 ? "mb-4 sm:mb-6" : ""} bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-xl transition-all duration-300 overflow-hidden`}
               >
-                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                <div className="bg-black bg-opacity-50 p-3 sm:p-4 lg:p-6">
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-wide">
                     {item.type}
                   </h3>
                 </div>
-                <div className="p-6 sm:p-8 bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <div className="p-3 sm:p-4 lg:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
                   {item.examples.map((example, exampleIndex) => (
                     <div
                       key={exampleIndex}
-                      className="mb-6 sm:mb-8 border-b border-gray-700 pb-6 sm:pb-8 last:border-b-0 last:pb-0"
+                      className="mb-3 sm:mb-4 border-b border-gray-700 pb-3 sm:pb-4 last:border-b-0 last:pb-0"
                     >
-                      <h4 className="text-xl sm:text-2xl font-semibold text-gray-200 mb-4">
+                      <h4 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-200 mb-2">
                         {example.name}
                       </h4>
-                      <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-4 leading-relaxed">
+                      <p className="text-sm sm:text-base lg:text-lg text-gray-200 mb-2 leading-relaxed">
                         {example.description}
                       </p>
-                      <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                      <div className="mb-2 rounded-xl overflow-hidden shadow-inner">
                         <HighlightCode
                           content={example.example}
                           language={"javascript"}
                         />
                       </div>
-                      <div className="mt-4">
-                        <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                      <div className="mt-2">
+                        <h4 className="text-base sm:text-lg font-semibold text-gray-200 mb-1">
                           Output:
                         </h4>
                         <div className="rounded-xl overflow-hidden shadow-inner">
@@ -518,11 +514,11 @@ export default function JavaScriptBasics() {
                           />
                         </div>
                       </div>
-                      <div className="mt-4">
-                        <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
+                      <div className="mt-2">
+                        <h4 className="text-base sm:text-lg font-semibold text-gray-200 mb-1">
                           Explanation:
                         </h4>
-                        <p className="text-base sm:text-lg text-gray-200">
+                        <p className="text-sm sm:text-base text-gray-200">
                           {example.explanation}
                         </p>
                       </div>

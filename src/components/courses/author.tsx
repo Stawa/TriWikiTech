@@ -1,70 +1,55 @@
-import { motion } from "framer-motion";
 import Image from "next/image";
-import { FaGithub, FaCalendar, FaEdit, FaCode } from "react-icons/fa";
+import Link from "next/link";
 
 const AuthorInfo = ({
   date,
   lastEdit,
+  title,
 }: {
   date: string;
   lastEdit?: string;
+  title?: string;
+  description?: string;
 }) => (
-  <motion.div
-    initial={{ opacity: 0, y: -20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-    className="flex flex-col sm:flex-row items-center mb-8 bg-gradient-to-r from-blue-900 via-indigo-900 to-purple-900 dark:from-gray-900 dark:via-indigo-950 dark:to-purple-950 p-6 sm:p-10 rounded-3xl shadow-2xl backdrop-filter backdrop-blur-lg border border-blue-400/30"
-  >
-    <motion.div
-      initial={{ scale: 0, rotate: -180 }}
-      animate={{ scale: 1, rotate: 0 }}
-      transition={{ duration: 0.7, delay: 0.2, type: "spring" }}
-      className="mb-6 sm:mb-0 sm:mr-10 relative"
-    >
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 rounded-full animate-pulse"></div>
-      <Image
-        src="https://avatars.githubusercontent.com/u/69102292?v=4"
-        alt="Author Profile"
-        width={120}
-        height={120}
-        className="rounded-full border-4 border-indigo-400 shadow-lg relative z-10 hover:scale-105 transition-transform duration-300 sm:w-[140px] sm:h-[140px]"
-      />
-    </motion.div>
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, delay: 0.4 }}
-      className="text-center sm:text-left flex-1"
-    >
-      <h3 className="text-2xl font-bold mb-2">
-        <a
-          href="https://github.com/Stawa"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center sm:justify-start text-blue-300 hover:underline"
-        >
-          <FaGithub className="mr-2" />
-          Stawa
-        </a>
-      </h3>
-      <p className="text-sm text-blue-200 dark:text-blue-300 mt-3 flex items-center justify-center sm:justify-start">
-        <FaCalendar className="mr-2 text-indigo-400" />
-        <span className="text-center sm:text-left">Published on {date}</span>
-      </p>
-      {lastEdit && (
-        <p className="text-sm text-indigo-200 dark:text-indigo-300 mt-2 flex items-center justify-center sm:justify-start">
-          <FaEdit className="mr-2 text-purple-400" />
-          <span className="text-center sm:text-left">
-            Last edited on {lastEdit}
-          </span>
-        </p>
-      )}
-      <p className="text-sm sm:text-base text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 mt-4 font-semibold flex items-center justify-center sm:justify-start">
-        <FaCode className="mr-2 sm:mr-3 text-blue-300" />
-        Creator of TriWikiTech
-      </p>
-    </motion.div>
-  </motion.div>
+  <header className="not-prose mb-8 sm:mb-12 lg:mb-20 xl:mb-24 text-center">
+    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
+      {title}
+    </h1>
+    <div className="flex justify-center mt-1 sm:mt-2 lg:mt-3 xl:mt-4">
+      <div className="flex flex-row items-center gap-2 sm:gap-3 lg:gap-4 xl:gap-5 text-sm sm:text-base lg:text-lg xl:text-xl">
+        <Image
+          src="https://avatars.githubusercontent.com/u/69102292?v=4"
+          alt="author"
+          width={460}
+          height={460}
+          className="rounded-full h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7 xl:h-9 xl:w-9"
+          quality={100}
+          priority
+        />
+        <div className="flex flex-row items-center gap-1 sm:gap-2 lg:gap-3 xl:gap-4">
+          <Link
+            href="https://github.com/Stawa"
+            className="text-blue-300 hover:text-blue-200 transition-colors duration-300 font-semibold"
+            target="_blank"
+          >
+            Stawa
+          </Link>
+          <span className="text-gray-400">•</span>
+          <time
+            dateTime={date}
+            title={`Written on ${date}${lastEdit ? ` and updated on ${lastEdit}` : ""}`}
+            className="text-gray-400"
+          >
+            {new Date(date).toLocaleDateString("en-US", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            })}
+          </time>
+        </div>
+      </div>
+    </div>
+  </header>
 );
 
 export default AuthorInfo;

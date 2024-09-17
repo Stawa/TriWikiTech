@@ -14,7 +14,7 @@ const Section = ({
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.8, delay, type: "spring", stiffness: 100 }}
-    className="px-4 sm:px-6 lg:px-8"
+    className="mx-2 sm:mx-4 lg:mx-6 mb-8 sm:mb-12 lg:mb-16"
   >
     {children}
   </motion.section>

@@ -191,23 +191,14 @@ export default function CFunctions() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-12 sm:mb-16 lg:mb-20 text-center"
+            className="mb-8 sm:mb-12 lg:mb-16 text-center"
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
-              Functions in C Programming
-            </h1>
-            <p className="text-lg sm:text-xl lg:text-2xl text-blue-300">
-              Master defining and using functions in C for efficient and modular
-              programming
-            </p>
-          </motion.header>
-
-          <div className="px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16 lg:mb-20">
             <AuthorInfo
-              date={"September 15th, 2024"}
-              lastEdit={"September 16th, 2024"}
+              date="2024-09-15"
+              lastEdit="2024-09-17"
+              title={"C Functions"}
             />
-          </div>
+          </motion.header>
 
           <Section id="course-overview" delay={0.3}>
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl shadow-2xl overflow-hidden mb-12 sm:mb-16">
