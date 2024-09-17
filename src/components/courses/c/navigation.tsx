@@ -1,6 +1,5 @@
 import {
   FaLightbulb,
-  FaCode,
   FaMemory,
   FaFileAlt,
   FaProjectDiagram,
@@ -68,10 +67,10 @@ const courses = [
   },
   {
     title: "C Courses",
-    desc: "Overview of all C programming courses",
+    desc: "Overview of all C courses",
     link: "/courses/c",
     icon: (
-      <FaCode className="text-blue-600 dark:text-blue-400 text-2xl sm:text-3xl" />
+      <FaLightbulb className="text-blue-600 dark:text-blue-400 text-2xl sm:text-3xl" />
     ),
   },
 ];

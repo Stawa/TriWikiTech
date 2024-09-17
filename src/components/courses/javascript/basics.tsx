@@ -284,11 +284,7 @@ export default function JavaScriptBasics() {
             transition={{ duration: 0.5 }}
             className="mb-8 sm:mb-12 lg:mb-16 text-center"
           >
-            <AuthorInfo
-              date="2024-09-15"
-              lastEdit="2024-09-17"
-              title={"JavaScript Basics"}
-            />
+            <AuthorInfo date="2024-09-15" title={"JavaScript Basics"} />
           </motion.header>
 
           <Section id="course-overview" delay={0.3}>
@@ -531,7 +527,6 @@ export default function JavaScriptBasics() {
 
           <div className="px-4 sm:px-6 lg:px-8">
             <CourseNavigationButtons
-              colorStyle="bg-blue-500 hover:bg-blue-600"
               courses={Courses}
               currentIndex={Courses.findIndex(
                 (course) => course.link === "/courses/javascript/basics"

@@ -338,7 +338,6 @@ export default function JavaScriptObjectsArrays() {
           >
             <AuthorInfo
               date="2024-09-15"
-              lastEdit="2024-09-17"
               title={"JavaScript Objects & Arrays"}
             />
           </motion.header>
@@ -649,7 +648,6 @@ export default function JavaScriptObjectsArrays() {
 
           <div className="mx-2 sm:mx-4 lg:mx-6">
             <CourseNavigationButtons
-              colorStyle="bg-blue-500 hover:bg-blue-600"
               courses={Courses}
               currentIndex={Courses.findIndex(
                 (course) => course.link === "/courses/javascript/objects-arrays"

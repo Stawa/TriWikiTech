@@ -249,18 +249,14 @@ export default function CBasics() {
     <div className="relative min-h-screen bg-gradient-to-b from-gray-900 to-blue-900 text-gray-100">
       <GridBackground />
       <div className="relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
           <motion.header
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="mb-8 sm:mb-12 lg:mb-16 text-center"
           >
-            <AuthorInfo
-              date="2024-09-15"
-              lastEdit="2024-09-17"
-              title={"C Programming Basics"}
-            />
+            <AuthorInfo date="2024-09-15" title={"C Programming Basics"} />
           </motion.header>
 
           <Section id="course-overview" delay={0.3}>
@@ -636,9 +632,10 @@ export default function CBasics() {
 
           <div className="px-4 sm:px-6 lg:px-8">
             <CourseNavigationButtons
-              colorStyle="bg-blue-600"
               courses={Courses}
-              currentIndex={1}
+              currentIndex={Courses.findIndex(
+                (course) => course.link === "/courses/c/basics"
+              )}
             />
           </div>
         </div>

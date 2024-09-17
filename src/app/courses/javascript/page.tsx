@@ -141,11 +141,7 @@ export default function JavaScriptCourses() {
           </Section>
 
           <div className="mx-2 sm:mx-4 lg:mx-6">
-            <CourseNavigationButtons
-              colorStyle="bg-blue-500 hover:bg-blue-600"
-              courses={Courses}
-              currentIndex={0}
-            />
+            <CourseNavigationButtons courses={Courses} currentIndex={0} />
           </div>
         </div>
       </div>

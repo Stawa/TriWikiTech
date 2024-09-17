@@ -179,7 +179,6 @@ export default function JavaScriptControlStructures() {
           >
             <AuthorInfo
               date="2024-09-15"
-              lastEdit="2024-09-17"
               title={"JavaScript Control Structures"}
             />
           </motion.header>
@@ -412,8 +411,6 @@ export default function JavaScriptControlStructures() {
 
           <div className="mx-2 sm:mx-4 lg:mx-6">
             <CourseNavigationButtons
-              colorStyle="bg-blue-500 hover:bg-blue-600"
-              middleHomeButton={true}
               courses={Courses}
               currentIndex={Courses.findIndex(
                 (course) =>
