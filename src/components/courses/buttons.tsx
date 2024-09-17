@@ -62,9 +62,7 @@ const CourseNavigationButtons: React.FC<CourseNavigationButtonsProps> = ({
   );
 
   const showMiddleHomeButton =
-    currentIndex !== 0 &&
-    currentIndex !== 1 &&
-    currentIndex !== courses.length - 2;
+    currentIndex > 1 && currentIndex < courses.length - 2;
 
   return (
     <motion.div

@@ -191,7 +191,7 @@ printf("Max value: %d", *maxPtr);  // Prints "Max value: 9"`,
 
 export default function CPointers() {
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-gray-900 to-blue-900 text-gray-100">
+    <div className="relative min-h-screen bg-gradient-to-b from-gray-100 to-blue-200 dark:from-gray-900 dark:to-blue-900 text-gray-900 dark:text-gray-100">
       <GridBackground />
       <div className="relative z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
@@ -205,15 +205,15 @@ export default function CPointers() {
           </motion.header>
 
           <Section id="course-overview" delay={0.3}>
-            <div className="bg-gradient-to-r from-blue-700 to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
-              <div className="bg-black bg-opacity-50 p-6 sm:p-8">
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide flex items-center">
-                  <TbPointer className="mr-4 text-blue-300" />
+            <div className="bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
+              <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-6 sm:p-8">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+                  <TbPointer className="mr-4 text-blue-600 dark:text-blue-300" />
                   Course Overview
                 </h2>
               </div>
-              <div className="p-6 sm:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                <p className="text-lg sm:text-xl text-gray-200 leading-relaxed">
+              <div className="p-6 sm:p-8 bg-white bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <p className="text-lg sm:text-xl text-gray-700 dark:text-gray-200 leading-relaxed">
                   In this course, you&apos;ll dive deep into pointers, one of
                   the most powerful features of C programming. We&apos;ll cover
                   pointer basics, arithmetic, their relationship with arrays,
@@ -224,29 +224,29 @@ export default function CPointers() {
           </Section>
 
           <Section id="topics" delay={0.5}>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
-              <FaLightbulb className="mr-3 sm:mr-4 text-blue-300" />
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+              <FaLightbulb className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
               What You&apos;ll Learn
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
               {topics.map((topic, index) => (
                 <div
                   key={index}
-                  className="bg-gradient-to-r from-blue-700 to-purple-800 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 h-full flex flex-col"
+                  className="bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 h-full flex flex-col"
                 >
-                  <div className="bg-black bg-opacity-50 p-4 sm:p-6">
-                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-wide flex items-center">
-                      <topic.icon className="mr-3 sm:mr-4 text-blue-300" />
+                  <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-4 sm:p-6">
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+                      <topic.icon className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
                       {topic.title}
                     </h3>
                   </div>
-                  <div className="p-4 sm:p-6 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
-                    <p className="text-base sm:text-lg lg:text-xl text-gray-200 mb-4 sm:mb-6 leading-relaxed">
+                  <div className="p-4 sm:p-6 bg-white bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
+                    <p className="text-base sm:text-lg lg:text-xl text-gray-700 dark:text-gray-200 mb-4 sm:mb-6 leading-relaxed">
                       {topic.desc}
                     </p>
                     <Link
                       href={`#${topic.id}`}
-                      className="text-blue-400 font-semibold flex items-center mt-auto text-base sm:text-lg hover:text-blue-300 transition-colors duration-300"
+                      className="text-blue-600 dark:text-blue-400 font-semibold flex items-center mt-auto text-base sm:text-lg hover:text-blue-500 dark:hover:text-blue-300 transition-colors duration-300"
                     >
                       Learn More{" "}
                       <FaArrowRight className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1" />
@@ -258,15 +258,15 @@ export default function CPointers() {
           </Section>
 
           <Section id="why-pointers-matter" delay={0.7}>
-            <div className="bg-gradient-to-r from-blue-700 to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
-              <div className="bg-black bg-opacity-50 p-6 sm:p-8">
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide flex items-center">
-                  <FaMemory className="mr-4 text-blue-300" />
+            <div className="bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
+              <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-6 sm:p-8">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+                  <FaMemory className="mr-4 text-blue-600 dark:text-blue-300" />
                   Why Pointers Matter
                 </h2>
               </div>
-              <div className="p-6 sm:p-8 bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                <p className="text-lg sm:text-xl text-gray-200 leading-relaxed">
+              <div className="p-6 sm:p-8 bg-white bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <p className="text-lg sm:text-xl text-gray-700 dark:text-gray-200 leading-relaxed">
                   Pointers are fundamental to C programming, allowing for
                   efficient memory management, dynamic data structures, and
                   powerful programming techniques. Understanding pointers is
@@ -277,8 +277,8 @@ export default function CPointers() {
           </Section>
 
           <Section id="pointer-basics" delay={0.8}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
-              <TbPointer className="mr-3 sm:mr-4 text-blue-300" />
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+              <TbPointer className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
               Pointer Basics
             </h3>
             {pointerBasics.map((item, index) => (
@@ -286,8 +286,8 @@ export default function CPointers() {
                 key={index}
                 className={`${index !== pointerBasics.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
               >
-                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
                     {item.type}
                   </h3>
                 </div>
@@ -317,8 +317,8 @@ export default function CPointers() {
           </Section>
 
           <Section id="pointer-arithmetic" delay={1.0}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
-              <PiMathOperationsBold className="mr-3 sm:mr-4 text-blue-300" />
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+              <PiMathOperationsBold className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
               Pointer Arithmetic
             </h3>
             {pointerArithmetic.map((item, index) => (
@@ -326,8 +326,8 @@ export default function CPointers() {
                 key={index}
                 className={`${index !== pointerArithmetic.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
               >
-                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
                     {item.type}
                   </h3>
                 </div>
@@ -357,8 +357,8 @@ export default function CPointers() {
           </Section>
 
           <Section id="pointers-and-arrays" delay={1.2}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
-              <FaMemory className="mr-3 sm:mr-4 text-blue-300" />
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+              <FaMemory className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
               Pointers and Arrays
             </h3>
             {pointersAndArrays.map((item, index) => (
@@ -366,8 +366,8 @@ export default function CPointers() {
                 key={index}
                 className={`${index !== pointersAndArrays.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
               >
-                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
                     {item.type}
                   </h3>
                 </div>
@@ -397,8 +397,8 @@ export default function CPointers() {
           </Section>
 
           <Section id="pointers-and-functions" delay={1.3}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-white tracking-wide flex items-center">
-              <RiFunctionAddLine className="mr-3 sm:mr-4 text-blue-300" />
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+              <RiFunctionAddLine className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
               Pointers and Functions
             </h3>
             {pointersAndFunctions.map((item, index) => (
@@ -406,8 +406,8 @@ export default function CPointers() {
                 key={index}
                 className={`${index !== pointersAndFunctions.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
               >
-                <div className="bg-black bg-opacity-20 p-6 sm:p-8">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
                     {item.type}
                   </h3>
                 </div>
