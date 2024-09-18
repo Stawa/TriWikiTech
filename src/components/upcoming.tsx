@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { IconType } from "react-icons";
-import { FaArrowLeft } from "react-icons/fa";
+import HomeButton from "./homeButton";
 
 const ComingSoonScreen = ({
   title,
@@ -50,13 +49,7 @@ const ComingSoonScreen = ({
               {description}
             </p>
             <div className="flex justify-center">
-              <Link
-                href="/"
-                className="inline-flex items-center bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold py-2 sm:py-2.5 px-3 sm:px-5 rounded-full transition duration-300 transform hover:scale-105 shadow-lg text-xs sm:text-sm"
-              >
-                <FaArrowLeft className="mr-2" />
-                Return to Home
-              </Link>
+              <HomeButton />
             </div>
           </motion.div>
         </motion.div>

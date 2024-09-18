@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FaArrowLeft, FaBook } from "react-icons/fa";
+import { FaBook } from "react-icons/fa";
+import HomeButton from "@components/homeButton";
 
 const courses = [
   {
@@ -114,19 +115,12 @@ export default function Courses() {
           ))}
         </motion.div>
         <motion.div
-          className="mt-20 flex justify-center"
+          className="mt-20"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <Link
-            href="/"
-            className="group relative inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full font-bold text-base md:text-lg transition duration-300 hover:from-pink-600 hover:to-purple-700 hover:shadow-lg hover:scale-105 transform overflow-hidden"
-          >
-            <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
-            <FaArrowLeft className="mr-2 md:mr-3 w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:-translate-x-1" />
-            <span className="relative z-10">Return to Home</span>
-          </Link>
+          <HomeButton />
         </motion.div>
       </div>
     </div>
