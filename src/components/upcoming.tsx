@@ -49,7 +49,7 @@ const ComingSoonScreen = ({
               {description}
             </p>
             <div className="flex justify-center">
-              <HomeButton />
+              <HomeButton size="sm" />
             </div>
           </motion.div>
         </motion.div>
