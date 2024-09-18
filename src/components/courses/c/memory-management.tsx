@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import {
   FaArrowRight,
   FaCode,
@@ -11,12 +10,10 @@ import {
   FaShieldAlt,
 } from "react-icons/fa";
 
-import GridBackground from "@components/grid";
 import HighlightCode from "@components/highlight";
-import AuthorInfo from "@components/courses/author";
-import CourseNavigationButtons from "@components/courses/buttons";
 import Courses from "@components/courses/c/navigation";
 import Section from "@components/courses/section";
+import CourseContainer from "@components/courses/container";
 
 const topics = [
   {
@@ -220,273 +217,241 @@ valgrind --leak-check=full ./your_program`,
 
 export default function CMemoryManagement() {
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-gray-100 to-blue-100 dark:from-gray-900 dark:to-blue-900 text-gray-900 dark:text-gray-100">
-      <GridBackground />
-      <div className="relative z-10">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-          <motion.header
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-8 sm:mb-12 lg:mb-16 text-center"
-          >
-            <AuthorInfo date="2024-09-15" title={"C Memory Management"} />
-          </motion.header>
+    <CourseContainer
+      authorInfo={{ date: "2024-09-15", title: "C Memory Management" }}
+      courses={Courses}
+      currentCourseLink="/courses/c/memory-management"
+    >
+      <Section id="course-overview" delay={0.3}>
+        <div className="bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
+          <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-6 sm:p-8">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+              <FaCode className="mr-4 text-blue-600 dark:text-blue-300" />
+              Course Overview
+            </h2>
+          </div>
+          <div className="p-6 sm:p-8 bg-gray-100 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+            <p className="text-lg sm:text-xl text-gray-700 dark:text-gray-200 leading-relaxed">
+              In this comprehensive course, you&apos;ll dive deep into memory
+              management in C programming. We&apos;ll cover dynamic memory
+              allocation, deallocation, and common memory-related issues.
+              You&apos;ll learn how to effectively use functions like malloc(),
+              calloc(), realloc(), and free(). We&apos;ll also explore best
+              practices for managing memory and avoiding common pitfalls like
+              memory leaks and buffer overflows. By mastering these concepts,
+              you&apos;ll be able to write more efficient and robust C programs.
+            </p>
+          </div>
+        </div>
+      </Section>
 
-          <Section id="course-overview" delay={0.3}>
-            <div className="bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
-              <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-6 sm:p-8">
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-                  <FaCode className="mr-4 text-blue-600 dark:text-blue-300" />
-                  Course Overview
-                </h2>
+      <Section id="what-you-ll-learn" delay={0.5}>
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+          <FaLightbulb className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
+          What You&apos;ll Learn
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+          {topics.map((topic, index) => (
+            <div
+              key={index}
+              className="bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 h-full flex flex-col"
+            >
+              <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-4 sm:p-6">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+                  <topic.icon className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
+                  {topic.title}
+                </h3>
               </div>
-              <div className="p-6 sm:p-8 bg-gray-100 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                <p className="text-lg sm:text-xl text-gray-700 dark:text-gray-200 leading-relaxed">
-                  In this comprehensive course, you&apos;ll dive deep into
-                  memory management in C programming. We&apos;ll cover dynamic
-                  memory allocation, deallocation, and common memory-related
-                  issues. You&apos;ll learn how to effectively use functions
-                  like malloc(), calloc(), realloc(), and free(). We&apos;ll
-                  also explore best practices for managing memory and avoiding
-                  common pitfalls like memory leaks and buffer overflows. By
-                  mastering these concepts, you&apos;ll be able to write more
-                  efficient and robust C programs.
+              <div className="p-4 sm:p-6 bg-gray-100 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
+                <p className="text-base sm:text-lg lg:text-xl text-gray-700 dark:text-gray-200 mb-4 sm:mb-6 leading-relaxed">
+                  {topic.desc}
                 </p>
+                <Link
+                  href={`#${topic.id}`}
+                  className="text-blue-600 dark:text-blue-400 font-semibold flex items-center mt-auto text-base sm:text-lg hover:text-blue-500 dark:hover:text-blue-300 transition-colors duration-300"
+                >
+                  Learn More{" "}
+                  <FaArrowRight className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
               </div>
             </div>
-          </Section>
+          ))}
+        </div>
+      </Section>
 
-          <Section id="what-you-ll-learn" delay={0.5}>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-              <FaLightbulb className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
-              What You&apos;ll Learn
+      <Section id="why-memory-management-matters" delay={0.7}>
+        <div className="bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
+          <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-6 sm:p-8">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+              <FaRocket className="mr-4 text-blue-600 dark:text-blue-300" />
+              Why Memory Management Matters
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-              {topics.map((topic, index) => (
-                <div
-                  key={index}
-                  className="bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 h-full flex flex-col"
-                >
-                  <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-4 sm:p-6">
-                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-                      <topic.icon className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
-                      {topic.title}
-                    </h3>
+          </div>
+          <div className="p-6 sm:p-8 bg-gray-100 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+            <p className="text-lg sm:text-xl text-gray-700 dark:text-gray-200 leading-relaxed">
+              Effective memory management is crucial in C programming. It allows
+              you to optimize your program&apos;s performance, prevent memory
+              leaks, and avoid crashes due to memory-related issues.
+              Understanding how to allocate, use, and free memory dynamically
+              gives you fine-grained control over your program&apos;s resource
+              usage. This skill is essential for writing efficient, scalable,
+              and robust C programs, especially for applications that deal with
+              large datasets or have long running times. Mastering memory
+              management will make you a more proficient C programmer and is a
+              fundamental skill for systems programming and low-level software
+              development.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      <Section id="dynamic-memory-allocation" delay={0.8}>
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+          <FaMemory className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
+          Dynamic Memory Allocation in C
+        </h3>
+        {memoryAllocation.map((item, index) => (
+          <div
+            key={index}
+            className={`${index !== memoryAllocation.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+          >
+            <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
+                {item.type}
+              </h3>
+            </div>
+            <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+              {item.examples.map((example, exampleIndex) => (
+                <div key={exampleIndex} className="mb-6 sm:mb-8">
+                  <h4 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+                    {example.title}
+                  </h4>
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 leading-relaxed">
+                    {example.description}
+                  </p>
+                  <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                    <HighlightCode content={example.example} language={"c"} />
                   </div>
-                  <div className="p-4 sm:p-6 bg-gray-100 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
-                    <p className="text-base sm:text-lg lg:text-xl text-gray-700 dark:text-gray-200 mb-4 sm:mb-6 leading-relaxed">
-                      {topic.desc}
-                    </p>
-                    <Link
-                      href={`#${topic.id}`}
-                      className="text-blue-600 dark:text-blue-400 font-semibold flex items-center mt-auto text-base sm:text-lg hover:text-blue-500 dark:hover:text-blue-300 transition-colors duration-300"
-                    >
-                      Learn More{" "}
-                      <FaArrowRight className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1" />
-                    </Link>
-                  </div>
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
+                    {example.explanation}
+                  </p>
                 </div>
               ))}
             </div>
-          </Section>
-
-          <Section id="why-memory-management-matters" delay={0.7}>
-            <div className="bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
-              <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-6 sm:p-8">
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-                  <FaRocket className="mr-4 text-blue-600 dark:text-blue-300" />
-                  Why Memory Management Matters
-                </h2>
-              </div>
-              <div className="p-6 sm:p-8 bg-gray-100 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                <p className="text-lg sm:text-xl text-gray-700 dark:text-gray-200 leading-relaxed">
-                  Effective memory management is crucial in C programming. It
-                  allows you to optimize your program&apos;s performance,
-                  prevent memory leaks, and avoid crashes due to memory-related
-                  issues. Understanding how to allocate, use, and free memory
-                  dynamically gives you fine-grained control over your
-                  program&apos;s resource usage. This skill is essential for
-                  writing efficient, scalable, and robust C programs, especially
-                  for applications that deal with large datasets or have long
-                  running times. Mastering memory management will make you a
-                  more proficient C programmer and is a fundamental skill for
-                  systems programming and low-level software development.
-                </p>
-              </div>
-            </div>
-          </Section>
-
-          <Section id="dynamic-memory-allocation" delay={0.8}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-              <FaMemory className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
-              Dynamic Memory Allocation in C
-            </h3>
-            {memoryAllocation.map((item, index) => (
-              <div
-                key={index}
-                className={`${index !== memoryAllocation.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
-              >
-                <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
-                    {item.type}
-                  </h3>
-                </div>
-                <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                  {item.examples.map((example, exampleIndex) => (
-                    <div key={exampleIndex} className="mb-6 sm:mb-8">
-                      <h4 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
-                        {example.title}
-                      </h4>
-                      <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 leading-relaxed">
-                        {example.description}
-                      </p>
-                      <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
-                        <HighlightCode
-                          content={example.example}
-                          language={"c"}
-                        />
-                      </div>
-                      <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
-                        {example.explanation}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </Section>
-
-          <Section id="memory-deallocation" delay={0.9}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-              <FaRocket className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
-              Memory Deallocation in C
-            </h3>
-            {memoryDeallocation.map((item, index) => (
-              <div
-                key={index}
-                className={`${index !== memoryDeallocation.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
-              >
-                <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
-                    {item.type}
-                  </h3>
-                </div>
-                <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                  {item.examples.map((example, exampleIndex) => (
-                    <div key={exampleIndex} className="mb-6 sm:mb-8">
-                      <h4 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
-                        {example.title}
-                      </h4>
-                      <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 leading-relaxed">
-                        {example.description}
-                      </p>
-                      <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
-                        <HighlightCode
-                          content={example.example}
-                          language={"c"}
-                        />
-                      </div>
-                      <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
-                        {example.explanation}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </Section>
-
-          <Section id="memory-issues" delay={1.0}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-              <FaShieldAlt className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
-              Common Memory Issues in C
-            </h3>
-            {memoryIssues.map((item, index) => (
-              <div
-                key={index}
-                className={`${index !== memoryIssues.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
-              >
-                <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
-                    {item.type}
-                  </h3>
-                </div>
-                <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                  {item.examples.map((example, exampleIndex) => (
-                    <div key={exampleIndex} className="mb-6 sm:mb-8">
-                      <h4 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
-                        {example.title}
-                      </h4>
-                      <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 leading-relaxed">
-                        {example.description}
-                      </p>
-                      <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
-                        <HighlightCode
-                          content={example.example}
-                          language={"c"}
-                        />
-                      </div>
-                      <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
-                        {example.explanation}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </Section>
-
-          <Section id="best-practices" delay={1.1}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-              <FaLightbulb className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
-              Best Practices for Memory Management
-            </h3>
-            {bestPractices.map((item, index) => (
-              <div
-                key={index}
-                className={`${index !== bestPractices.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
-              >
-                <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
-                    {item.type}
-                  </h3>
-                </div>
-                <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                  {item.examples.map((example, exampleIndex) => (
-                    <div key={exampleIndex} className="mb-6 sm:mb-8">
-                      <h4 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
-                        {example.title}
-                      </h4>
-                      <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 leading-relaxed">
-                        {example.description}
-                      </p>
-                      <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
-                        <HighlightCode
-                          content={example.example}
-                          language={"c"}
-                        />
-                      </div>
-                      <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
-                        {example.explanation}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </Section>
-
-          <div className="px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16 lg:mb-20">
-            <CourseNavigationButtons
-              courses={Courses}
-              currentIndex={Courses.findIndex(
-                (course) => course.link === "/courses/c/memory-management"
-              )}
-            />
           </div>
-        </div>
-      </div>
-    </div>
+        ))}
+      </Section>
+
+      <Section id="memory-deallocation" delay={0.9}>
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+          <FaRocket className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
+          Memory Deallocation in C
+        </h3>
+        {memoryDeallocation.map((item, index) => (
+          <div
+            key={index}
+            className={`${index !== memoryDeallocation.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+          >
+            <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
+                {item.type}
+              </h3>
+            </div>
+            <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+              {item.examples.map((example, exampleIndex) => (
+                <div key={exampleIndex} className="mb-6 sm:mb-8">
+                  <h4 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+                    {example.title}
+                  </h4>
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 leading-relaxed">
+                    {example.description}
+                  </p>
+                  <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                    <HighlightCode content={example.example} language={"c"} />
+                  </div>
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
+                    {example.explanation}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </Section>
+
+      <Section id="memory-issues" delay={1.0}>
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+          <FaShieldAlt className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
+          Common Memory Issues in C
+        </h3>
+        {memoryIssues.map((item, index) => (
+          <div
+            key={index}
+            className={`${index !== memoryIssues.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+          >
+            <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
+                {item.type}
+              </h3>
+            </div>
+            <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+              {item.examples.map((example, exampleIndex) => (
+                <div key={exampleIndex} className="mb-6 sm:mb-8">
+                  <h4 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+                    {example.title}
+                  </h4>
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 leading-relaxed">
+                    {example.description}
+                  </p>
+                  <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                    <HighlightCode content={example.example} language={"c"} />
+                  </div>
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
+                    {example.explanation}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </Section>
+
+      <Section id="best-practices" delay={1.1}>
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+          <FaLightbulb className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
+          Best Practices for Memory Management
+        </h3>
+        {bestPractices.map((item, index) => (
+          <div
+            key={index}
+            className={`${index !== bestPractices.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-200 to-purple-300 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+          >
+            <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
+                {item.type}
+              </h3>
+            </div>
+            <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+              {item.examples.map((example, exampleIndex) => (
+                <div key={exampleIndex} className="mb-6 sm:mb-8">
+                  <h4 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+                    {example.title}
+                  </h4>
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 leading-relaxed">
+                    {example.description}
+                  </p>
+                  <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
+                    <HighlightCode content={example.example} language={"c"} />
+                  </div>
+                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
+                    {example.explanation}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </Section>
+    </CourseContainer>
   );
 }

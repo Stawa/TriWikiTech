@@ -92,4 +92,4 @@ const CourseNavigationButtons: React.FC<CourseNavigationButtonsProps> = ({
   );
 };
 
-export default CourseNavigationButtons;
+export { CourseNavigationButtons, type Course };

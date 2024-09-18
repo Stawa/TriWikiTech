@@ -10,14 +10,6 @@ import { AiOutlineConsoleSql } from "react-icons/ai";
 
 const courses = [
   {
-    title: "Introduction",
-    desc: "Get started with C programming fundamentals",
-    link: "/courses/c/",
-    icon: (
-      <FaLightbulb className="text-blue-600 dark:text-blue-400 text-2xl sm:text-3xl" />
-    ),
-  },
-  {
     title: "Basics",
     desc: "Variables, data types, and basic input/output operations",
     link: "/courses/c/basics",

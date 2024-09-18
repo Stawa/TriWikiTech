@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import {
   FaArrowRight,
   FaCode,
@@ -12,11 +11,9 @@ import {
 } from "react-icons/fa";
 
 import Courses from "@components/courses/c/navigation";
-import GridBackground from "@components/grid";
 import HighlightCode from "@components/highlight";
-import AuthorInfo from "@components/courses/author";
-import CourseNavigationButtons from "../buttons";
 import Section from "@components/courses/section";
+import CourseContainer from "@components/courses/container";
 
 const topics = [
   {
@@ -246,400 +243,377 @@ int main() {
 
 export default function CBasics() {
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-gray-100 to-blue-100 dark:from-gray-900 dark:to-blue-900 text-gray-900 dark:text-gray-100">
-      <GridBackground />
-      <div className="relative z-10">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-          <motion.header
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-8 sm:mb-12 lg:mb-16 text-center"
-          >
-            <AuthorInfo date="2024-09-15" title={"C Programming Basics"} />
-          </motion.header>
-
-          <Section id="course-overview" delay={0.3}>
-            <div className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-3xl shadow-2xl overflow-hidden mb-12 sm:mb-16">
-              <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-4 sm:p-6 lg:p-8">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center space-x-4">
-                  <FaCode className="text-blue-600 dark:text-blue-300 text-2xl sm:text-3xl lg:text-4xl" />
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-300 dark:to-purple-300">
-                    Course Overview
-                  </span>
-                </h2>
-              </div>
-              <div className="p-4 sm:p-6 lg:p-8 bg-gray-100 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                <p className="text-base sm:text-lg lg:text-xl leading-relaxed text-gray-700 dark:text-gray-200">
-                  Embark on a cutting-edge journey into C programming. Master
-                  the core elements: from sleek printing techniques to dynamic
-                  variables, versatile data types, and streamlined I/O
-                  operations. These are your launch codes for the C development
-                  universe.
-                </p>
-              </div>
-            </div>
-          </Section>
-
-          <Section id="what-you-ll-learn" delay={0.5}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mb-4 sm:mb-6 lg:mb-8 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-              <FaLightbulb className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
-              What You&apos;ll Learn
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
-              {topics.map((topic, index) => (
-                <div
-                  key={index}
-                  className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 h-full flex flex-col"
-                >
-                  <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-4 sm:p-6">
-                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-                      <topic.icon className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
-                      {topic.title}
-                    </h3>
-                  </div>
-                  <div className="p-4 sm:p-6 bg-gray-100 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
-                    <p className="text-base sm:text-lg lg:text-xl text-gray-700 dark:text-gray-200 mb-4 sm:mb-6 leading-relaxed">
-                      {topic.desc}
-                    </p>
-                    <Link
-                      href={`#${topic.id}`}
-                      className="text-blue-600 dark:text-blue-400 font-semibold flex items-center mt-auto text-base sm:text-lg hover:text-blue-500 dark:hover:text-blue-300 transition-colors duration-300"
-                    >
-                      Learn More{" "}
-                      <FaArrowRight className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1" />
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Section>
-
-          <Section id="why-these-basics-matter" delay={0.7}>
-            <div className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
-              <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-6 sm:p-8">
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-                  <FaRocket className="mr-4 text-blue-600 dark:text-blue-300" />
-                  Why These Basics Matter
-                </h2>
-              </div>
-              <div className="p-6 sm:p-8 bg-gray-100 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                <p className="text-lg sm:text-xl text-gray-700 dark:text-gray-200 leading-relaxed">
-                  Understanding these fundamental concepts is crucial for any
-                  aspiring C programmer. These basics form the foundation upon
-                  which more advanced concepts are built, enabling you to write
-                  efficient, clean, and powerful C code.
-                </p>
-              </div>
-            </div>
-          </Section>
-
-          <Section id="basic-printing" delay={0.8}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-              <FaLightbulb className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
-              Basic Printing in C
-            </h3>
-            {basicPrinting.map((item, index) => (
-              <div
-                key={index}
-                className={`${index !== basicPrinting.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-300 to-purple-400 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
-              >
-                <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
-                    {item.title}
-                  </h3>
-                </div>
-                <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-6 sm:mb-8 leading-relaxed">
-                    {item.desc}
-                  </p>
-                  <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
-                    <HighlightCode content={item.examples} language={"c"} />
-                  </div>
-                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed mb-6">
-                    {item.explanation}
-                  </p>
-                  <div className="bg-blue-100 dark:bg-blue-900/50 p-4 sm:p-6 rounded-xl">
-                    <p className="text-base sm:text-lg font-bold text-blue-800 dark:text-blue-200 mb-2">
-                      Best Use Case:
-                    </p>
-                    <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
-                      {item.bestUseCase}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </Section>
-
-          <Section id="variables" delay={1.0}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-              <FaLightbulb className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
-              Variables in C
-            </h3>
-            {variables.map((item, index) => (
-              <div
-                key={index}
-                className={`${index !== variables.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-300 to-purple-400 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
-              >
-                <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
-                    {item.title}
-                  </h3>
-                </div>
-                <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-6 sm:mb-8 leading-relaxed">
-                    {item.description}
-                  </p>
-                  <h4 className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">
-                    Steps:
-                  </h4>
-                  <ul className="list-disc list-inside mb-6 sm:mb-8 space-y-2">
-                    {item.steps.map((step, stepIndex) => (
-                      <li
-                        key={stepIndex}
-                        className="text-base sm:text-lg text-gray-800 dark:text-gray-200"
-                      >
-                        {step}
-                      </li>
-                    ))}
-                  </ul>
-                  <h4 className="text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400 mb-4">
-                    Good Example:
-                  </h4>
-                  <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
-                    <HighlightCode content={item.example} language={"c"} />
-                  </div>
-                  <div className="bg-blue-100 dark:bg-blue-900/50 p-4 sm:p-6 rounded-xl mb-6">
-                    <p className="text-base sm:text-lg font-bold text-blue-800 dark:text-blue-200 mb-2">
-                      Good Example Explanation:
-                    </p>
-                    <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
-                      {item.explanation}
-                    </p>
-                  </div>
-                  <h4 className="text-xl sm:text-2xl font-bold text-red-600 dark:text-red-400 mb-4">
-                    Bad Example:
-                  </h4>
-                  <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
-                    <HighlightCode content={item.wrongExample} language={"c"} />
-                  </div>
-                  <div className="bg-red-100 dark:bg-red-900/50 p-4 sm:p-6 rounded-xl mb-6">
-                    <p className="text-base sm:text-lg font-bold text-red-800 dark:text-red-200 mb-2">
-                      Bad Example Explanation:
-                    </p>
-                    <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
-                      {item.wrongExplanation}
-                    </p>
-                  </div>
-                  <h4 className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">
-                    Tips:
-                  </h4>
-                  <ul className="list-disc list-inside mb-6 sm:mb-8 space-y-2">
-                    {item.tips.map((tip, tipIndex) => (
-                      <li
-                        key={tipIndex}
-                        className="text-base sm:text-lg text-gray-800 dark:text-gray-200"
-                      >
-                        {tip}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="bg-yellow-100 dark:bg-yellow-900/50 p-4 sm:p-6 rounded-xl mb-6">
-                    <p className="text-base sm:text-lg font-bold text-yellow-800 dark:text-yellow-200 mb-2">
-                      Variable Declaration Syntax:
-                    </p>
-                    <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
-                      {item.scratch}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </Section>
-
-          <Section id="data-types" delay={1.2}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-              <FaLightbulb className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
-              Data Types in C
-            </h3>
-            {dataTypes.map((type, index) => (
-              <div
-                key={type.type}
-                className={`${index !== dataTypes.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-300 to-purple-400 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
-              >
-                <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
-                    {type.type} Data Types
-                  </h3>
-                </div>
-                <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                  <div className="space-y-8 sm:space-y-12">
-                    {type.examples.map((example) => (
-                      <div key={example.title} className="mb-8 sm:mb-12">
-                        <h4 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-blue-600 dark:text-blue-400 mb-4 sm:mb-6">
-                          {example.title}
-                        </h4>
-                        <p className="text-base sm:text-lg lg:text-xl text-gray-800 dark:text-gray-200 mb-6 sm:mb-8 leading-relaxed">
-                          {example.description}
-                        </p>
-                        <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
-                          <HighlightCode
-                            content={example.example}
-                            language={"c"}
-                          />
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-                          <div className="bg-blue-100 dark:bg-blue-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
-                            <p className="text-base sm:text-lg font-bold text-blue-600 dark:text-blue-400 mb-2 sm:mb-3">
-                              Format Specifier
-                            </p>
-                            <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
-                              {example.formatSpecifier}
-                            </p>
-                          </div>
-                          <div className="bg-green-100 dark:bg-green-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
-                            <p className="text-base sm:text-lg font-bold text-green-600 dark:text-green-400 mb-2 sm:mb-3">
-                              Data Type
-                            </p>
-                            <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
-                              {example.dataType}
-                            </p>
-                          </div>
-                          <div className="bg-purple-100 dark:bg-purple-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
-                            <p className="text-base sm:text-lg font-bold text-purple-600 dark:text-purple-400 mb-2 sm:mb-3">
-                              Range
-                            </p>
-                            <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
-                              {example.range}
-                            </p>
-                          </div>
-                          <div className="bg-orange-100 dark:bg-orange-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
-                            <p className="text-base sm:text-lg font-bold text-orange-600 dark:text-orange-400 mb-2 sm:mb-3">
-                              Size
-                            </p>
-                            <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
-                              {example.size}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="mt-6 sm:mt-8 bg-yellow-100 dark:bg-yellow-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
-                          <p className="text-base sm:text-lg font-bold text-yellow-800 dark:text-yellow-200 mb-2 sm:mb-3">
-                            Explanation
-                          </p>
-                          <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
-                            {example.explanation}
-                          </p>
-                        </div>
-                        <div className="mt-4 sm:mt-6 bg-indigo-100 dark:bg-indigo-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
-                          <p className="text-base sm:text-lg font-bold text-indigo-800 dark:text-indigo-200 mb-2 sm:mb-3">
-                            Best Use Case
-                          </p>
-                          <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
-                            {example.bestUseCase}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </Section>
-
-          <Section id="input-output" delay={1.0}>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-              <FaTerminal className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
-              Basic Input/Output in C
-            </h3>
-            <div className="space-y-8 sm:space-y-12 lg:space-y-16">
-              {inputOutputExamples.map((ioType) => (
-                <div
-                  key={ioType.type}
-                  className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl overflow-hidden"
-                >
-                  <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-4 sm:p-6 lg:p-8">
-                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-                      <span className="bg-blue-500 text-white px-3 sm:px-4 py-1 sm:py-2 rounded-full mr-3 sm:mr-4 text-sm sm:text-base">
-                        {ioType.type}
-                      </span>
-                      {ioType.type} Operations
-                    </h3>
-                  </div>
-                  <div className="p-4 sm:p-6 lg:p-8 bg-gray-100 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                    <div className="space-y-6 sm:space-y-8 lg:space-y-10">
-                      {ioType.examples.map((example) => (
-                        <div
-                          key={example.function}
-                          className="bg-white bg-opacity-50 dark:bg-gray-900 dark:bg-opacity-50 p-4 sm:p-6 lg:p-8 rounded-xl"
-                        >
-                          <h4 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-blue-600 dark:text-blue-300 mb-4 sm:mb-6">
-                            {example.function}
-                          </h4>
-                          <p className="text-sm sm:text-base lg:text-lg text-gray-700 dark:text-gray-200 mb-4 sm:mb-6">
-                            {example.description}
-                          </p>
-                          <div className="mb-4 sm:mb-6 rounded-xl overflow-hidden shadow-inner">
-                            <HighlightCode
-                              content={example.example}
-                              language={"c"}
-                            />
-                          </div>
-                          {example.formatSpecifier && (
-                            <p className="mt-3 sm:mt-4 text-sm sm:text-base text-blue-600 dark:text-blue-300">
-                              Format Specifier:{" "}
-                              <code className="bg-blue-100 dark:bg-blue-800/30 px-2 sm:px-3 py-1 sm:py-2 rounded">
-                                {example.formatSpecifier}
-                              </code>
-                            </p>
-                          )}
-                          {"safetyNote" in example && (
-                            <p className="mt-3 sm:mt-4 text-sm sm:text-base text-yellow-600 dark:text-yellow-300 bg-yellow-100 dark:bg-yellow-800/20 p-3 sm:p-4 rounded-xl flex items-center">
-                              <FaExclamationTriangle className="mr-2 flex-shrink-0" />
-                              <span>Safety Note: {example.safetyNote}</span>
-                            </p>
-                          )}
-                          {"tip" in example && (
-                            <p className="mt-3 sm:mt-4 text-sm sm:text-base text-green-600 dark:text-green-300 bg-green-100 dark:bg-green-800/20 p-3 sm:p-4 rounded-xl flex items-center">
-                              <FaLightbulb className="mr-2 flex-shrink-0" />
-                              <span>Tip: {example.tip}</span>
-                            </p>
-                          )}
-                          <div className="mt-4 sm:mt-6 bg-indigo-100 dark:bg-indigo-900/20 p-4 sm:p-6 rounded-xl">
-                            <p className="text-base sm:text-lg font-bold text-indigo-600 dark:text-indigo-300 mb-2">
-                              Explanation:
-                            </p>
-                            <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
-                              {example.explanation}
-                            </p>
-                          </div>
-                          <div className="mt-4 sm:mt-6 bg-green-100 dark:bg-green-900/20 p-4 sm:p-6 rounded-xl">
-                            <p className="text-base sm:text-lg font-bold text-green-600 dark:text-green-300 mb-2">
-                              Best Use Case:
-                            </p>
-                            <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
-                              {example.bestUseCase}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Section>
-
-          <div className="px-4 sm:px-6 lg:px-8">
-            <CourseNavigationButtons
-              courses={Courses}
-              currentIndex={Courses.findIndex(
-                (course) => course.link === "/courses/c/basics"
-              )}
-            />
+    <CourseContainer
+      authorInfo={{ date: "2024-09-15", title: "C Basics" }}
+      courses={Courses}
+      currentCourseLink="/courses/c/basics"
+    >
+      <Section id="course-overview" delay={0.3}>
+        <div className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-3xl shadow-2xl overflow-hidden mb-12 sm:mb-16">
+          <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-4 sm:p-6 lg:p-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center space-x-4">
+              <FaCode className="text-blue-600 dark:text-blue-300 text-2xl sm:text-3xl lg:text-4xl" />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-300 dark:to-purple-300">
+                Course Overview
+              </span>
+            </h2>
+          </div>
+          <div className="p-4 sm:p-6 lg:p-8 bg-gray-100 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+            <p className="text-base sm:text-lg lg:text-xl leading-relaxed text-gray-700 dark:text-gray-200">
+              Embark on a cutting-edge journey into C programming. Master the
+              core elements: from sleek printing techniques to dynamic
+              variables, versatile data types, and streamlined I/O operations.
+              These are your launch codes for the C development universe.
+            </p>
           </div>
         </div>
-      </div>
-    </div>
+      </Section>
+
+      <Section id="what-you-ll-learn" delay={0.5}>
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl mb-4 sm:mb-6 lg:mb-8 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+          <FaLightbulb className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
+          What You&apos;ll Learn
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
+          {topics.map((topic, index) => (
+            <div
+              key={index}
+              className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 h-full flex flex-col"
+            >
+              <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-4 sm:p-6">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+                  <topic.icon className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
+                  {topic.title}
+                </h3>
+              </div>
+              <div className="p-4 sm:p-6 bg-gray-100 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
+                <p className="text-base sm:text-lg lg:text-xl text-gray-700 dark:text-gray-200 mb-4 sm:mb-6 leading-relaxed">
+                  {topic.desc}
+                </p>
+                <Link
+                  href={`#${topic.id}`}
+                  className="text-blue-600 dark:text-blue-400 font-semibold flex items-center mt-auto text-base sm:text-lg hover:text-blue-500 dark:hover:text-blue-300 transition-colors duration-300"
+                >
+                  Learn More{" "}
+                  <FaArrowRight className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section id="why-these-basics-matter" delay={0.7}>
+        <div className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
+          <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-6 sm:p-8">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+              <FaRocket className="mr-4 text-blue-600 dark:text-blue-300" />
+              Why These Basics Matter
+            </h2>
+          </div>
+          <div className="p-6 sm:p-8 bg-gray-100 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+            <p className="text-lg sm:text-xl text-gray-700 dark:text-gray-200 leading-relaxed">
+              Understanding these fundamental concepts is crucial for any
+              aspiring C programmer. These basics form the foundation upon which
+              more advanced concepts are built, enabling you to write efficient,
+              clean, and powerful C code.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      <Section id="basic-printing" delay={0.8}>
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+          <FaLightbulb className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
+          Basic Printing in C
+        </h3>
+        {basicPrinting.map((item, index) => (
+          <div
+            key={index}
+            className={`${index !== basicPrinting.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-300 to-purple-400 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+          >
+            <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
+                {item.title}
+              </h3>
+            </div>
+            <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+              <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-6 sm:mb-8 leading-relaxed">
+                {item.desc}
+              </p>
+              <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
+                <HighlightCode content={item.examples} language={"c"} />
+              </div>
+              <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed mb-6">
+                {item.explanation}
+              </p>
+              <div className="bg-blue-100 dark:bg-blue-900/50 p-4 sm:p-6 rounded-xl">
+                <p className="text-base sm:text-lg font-bold text-blue-800 dark:text-blue-200 mb-2">
+                  Best Use Case:
+                </p>
+                <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                  {item.bestUseCase}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </Section>
+
+      <Section id="variables" delay={1.0}>
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+          <FaLightbulb className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
+          Variables in C
+        </h3>
+        {variables.map((item, index) => (
+          <div
+            key={index}
+            className={`${index !== variables.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-300 to-purple-400 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+          >
+            <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
+                {item.title}
+              </h3>
+            </div>
+            <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+              <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-6 sm:mb-8 leading-relaxed">
+                {item.description}
+              </p>
+              <h4 className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">
+                Steps:
+              </h4>
+              <ul className="list-disc list-inside mb-6 sm:mb-8 space-y-2">
+                {item.steps.map((step, stepIndex) => (
+                  <li
+                    key={stepIndex}
+                    className="text-base sm:text-lg text-gray-800 dark:text-gray-200"
+                  >
+                    {step}
+                  </li>
+                ))}
+              </ul>
+              <h4 className="text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400 mb-4">
+                Good Example:
+              </h4>
+              <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
+                <HighlightCode content={item.example} language={"c"} />
+              </div>
+              <div className="bg-blue-100 dark:bg-blue-900/50 p-4 sm:p-6 rounded-xl mb-6">
+                <p className="text-base sm:text-lg font-bold text-blue-800 dark:text-blue-200 mb-2">
+                  Good Example Explanation:
+                </p>
+                <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                  {item.explanation}
+                </p>
+              </div>
+              <h4 className="text-xl sm:text-2xl font-bold text-red-600 dark:text-red-400 mb-4">
+                Bad Example:
+              </h4>
+              <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
+                <HighlightCode content={item.wrongExample} language={"c"} />
+              </div>
+              <div className="bg-red-100 dark:bg-red-900/50 p-4 sm:p-6 rounded-xl mb-6">
+                <p className="text-base sm:text-lg font-bold text-red-800 dark:text-red-200 mb-2">
+                  Bad Example Explanation:
+                </p>
+                <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                  {item.wrongExplanation}
+                </p>
+              </div>
+              <h4 className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">
+                Tips:
+              </h4>
+              <ul className="list-disc list-inside mb-6 sm:mb-8 space-y-2">
+                {item.tips.map((tip, tipIndex) => (
+                  <li
+                    key={tipIndex}
+                    className="text-base sm:text-lg text-gray-800 dark:text-gray-200"
+                  >
+                    {tip}
+                  </li>
+                ))}
+              </ul>
+              <div className="bg-yellow-100 dark:bg-yellow-900/50 p-4 sm:p-6 rounded-xl mb-6">
+                <p className="text-base sm:text-lg font-bold text-yellow-800 dark:text-yellow-200 mb-2">
+                  Variable Declaration Syntax:
+                </p>
+                <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                  {item.scratch}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </Section>
+
+      <Section id="data-types" delay={1.2}>
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+          <FaLightbulb className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
+          Data Types in C
+        </h3>
+        {dataTypes.map((type, index) => (
+          <div
+            key={type.type}
+            className={`${index !== dataTypes.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-300 to-purple-400 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+          >
+            <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
+                {type.type} Data Types
+              </h3>
+            </div>
+            <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+              <div className="space-y-8 sm:space-y-12">
+                {type.examples.map((example) => (
+                  <div key={example.title} className="mb-8 sm:mb-12">
+                    <h4 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-blue-600 dark:text-blue-400 mb-4 sm:mb-6">
+                      {example.title}
+                    </h4>
+                    <p className="text-base sm:text-lg lg:text-xl text-gray-800 dark:text-gray-200 mb-6 sm:mb-8 leading-relaxed">
+                      {example.description}
+                    </p>
+                    <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
+                      <HighlightCode content={example.example} language={"c"} />
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+                      <div className="bg-blue-100 dark:bg-blue-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
+                        <p className="text-base sm:text-lg font-bold text-blue-600 dark:text-blue-400 mb-2 sm:mb-3">
+                          Format Specifier
+                        </p>
+                        <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                          {example.formatSpecifier}
+                        </p>
+                      </div>
+                      <div className="bg-green-100 dark:bg-green-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
+                        <p className="text-base sm:text-lg font-bold text-green-600 dark:text-green-400 mb-2 sm:mb-3">
+                          Data Type
+                        </p>
+                        <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                          {example.dataType}
+                        </p>
+                      </div>
+                      <div className="bg-purple-100 dark:bg-purple-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
+                        <p className="text-base sm:text-lg font-bold text-purple-600 dark:text-purple-400 mb-2 sm:mb-3">
+                          Range
+                        </p>
+                        <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                          {example.range}
+                        </p>
+                      </div>
+                      <div className="bg-orange-100 dark:bg-orange-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
+                        <p className="text-base sm:text-lg font-bold text-orange-600 dark:text-orange-400 mb-2 sm:mb-3">
+                          Size
+                        </p>
+                        <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                          {example.size}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="mt-6 sm:mt-8 bg-yellow-100 dark:bg-yellow-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
+                      <p className="text-base sm:text-lg font-bold text-yellow-800 dark:text-yellow-200 mb-2 sm:mb-3">
+                        Explanation
+                      </p>
+                      <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                        {example.explanation}
+                      </p>
+                    </div>
+                    <div className="mt-4 sm:mt-6 bg-indigo-100 dark:bg-indigo-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
+                      <p className="text-base sm:text-lg font-bold text-indigo-800 dark:text-indigo-200 mb-2 sm:mb-3">
+                        Best Use Case
+                      </p>
+                      <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                        {example.bestUseCase}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </Section>
+
+      <Section id="input-output" delay={1.0}>
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+          <FaTerminal className="mr-3 sm:mr-4 text-blue-600 dark:text-blue-300" />
+          Basic Input/Output in C
+        </h3>
+        <div className="space-y-8 sm:space-y-12 lg:space-y-16">
+          {inputOutputExamples.map((ioType) => (
+            <div
+              key={ioType.type}
+              className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl overflow-hidden"
+            >
+              <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-4 sm:p-6 lg:p-8">
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
+                  <span className="bg-blue-500 text-white px-3 sm:px-4 py-1 sm:py-2 rounded-full mr-3 sm:mr-4 text-sm sm:text-base">
+                    {ioType.type}
+                  </span>
+                  {ioType.type} Operations
+                </h3>
+              </div>
+              <div className="p-4 sm:p-6 lg:p-8 bg-gray-100 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
+                <div className="space-y-6 sm:space-y-8 lg:space-y-10">
+                  {ioType.examples.map((example) => (
+                    <div
+                      key={example.function}
+                      className="bg-white bg-opacity-50 dark:bg-gray-900 dark:bg-opacity-50 p-4 sm:p-6 lg:p-8 rounded-xl"
+                    >
+                      <h4 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-blue-600 dark:text-blue-300 mb-4 sm:mb-6">
+                        {example.function}
+                      </h4>
+                      <p className="text-sm sm:text-base lg:text-lg text-gray-700 dark:text-gray-200 mb-4 sm:mb-6">
+                        {example.description}
+                      </p>
+                      <div className="mb-4 sm:mb-6 rounded-xl overflow-hidden shadow-inner">
+                        <HighlightCode
+                          content={example.example}
+                          language={"c"}
+                        />
+                      </div>
+                      {example.formatSpecifier && (
+                        <p className="mt-3 sm:mt-4 text-sm sm:text-base text-blue-600 dark:text-blue-300">
+                          Format Specifier:{" "}
+                          <code className="bg-blue-100 dark:bg-blue-800/30 px-2 sm:px-3 py-1 sm:py-2 rounded">
+                            {example.formatSpecifier}
+                          </code>
+                        </p>
+                      )}
+                      {"safetyNote" in example && (
+                        <p className="mt-3 sm:mt-4 text-sm sm:text-base text-yellow-600 dark:text-yellow-300 bg-yellow-100 dark:bg-yellow-800/20 p-3 sm:p-4 rounded-xl flex items-center">
+                          <FaExclamationTriangle className="mr-2 flex-shrink-0" />
+                          <span>Safety Note: {example.safetyNote}</span>
+                        </p>
+                      )}
+                      {"tip" in example && (
+                        <p className="mt-3 sm:mt-4 text-sm sm:text-base text-green-600 dark:text-green-300 bg-green-100 dark:bg-green-800/20 p-3 sm:p-4 rounded-xl flex items-center">
+                          <FaLightbulb className="mr-2 flex-shrink-0" />
+                          <span>Tip: {example.tip}</span>
+                        </p>
+                      )}
+                      <div className="mt-4 sm:mt-6 bg-indigo-100 dark:bg-indigo-900/20 p-4 sm:p-6 rounded-xl">
+                        <p className="text-base sm:text-lg font-bold text-indigo-600 dark:text-indigo-300 mb-2">
+                          Explanation:
+                        </p>
+                        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                          {example.explanation}
+                        </p>
+                      </div>
+                      <div className="mt-4 sm:mt-6 bg-green-100 dark:bg-green-900/20 p-4 sm:p-6 rounded-xl">
+                        <p className="text-base sm:text-lg font-bold text-green-600 dark:text-green-300 mb-2">
+                          Best Use Case:
+                        </p>
+                        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                          {example.bestUseCase}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+    </CourseContainer>
   );
 }

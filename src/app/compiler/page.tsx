@@ -1,58 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { FaLaptopCode, FaArrowLeft } from "react-icons/fa";
+import ComingSoonScreen from "@default/components/upcoming";
+import { FaLaptopCode } from "react-icons/fa";
 
 export default function Compiler() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-black">
-      <div className="text-center max-w-3xl mx-auto px-4 sm:px-5 py-6 sm:py-10">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <FaLaptopCode className="text-4xl sm:text-5xl md:text-7xl mx-auto mb-3 sm:mb-5 text-blue-600 dark:text-blue-400" />
-          <motion.h1
-            className="text-xl sm:text-2xl md:text-4xl font-extrabold mb-3 sm:mb-5 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-          >
-            Compiler Coming Soon
-          </motion.h1>
-          <motion.p
-            className="text-sm sm:text-base md:text-lg mb-5 sm:mb-8 text-gray-700 dark:text-gray-300"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            We&apos;re building a powerful online compiler to enhance your
-            coding experience. Stay tuned!
-          </motion.p>
-          <motion.div
-            className="space-y-3 sm:space-y-5"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-              Our team is working hard to bring you a feature-rich,
-              user-friendly compiler.
-            </p>
-            <div className="flex justify-center">
-              <Link
-                href="/"
-                className="inline-flex items-center bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-2 sm:py-2.5 px-3 sm:px-5 rounded-full transition duration-300 transform hover:scale-105 shadow-lg text-xs sm:text-sm"
-              >
-                <FaArrowLeft className="mr-2" />
-                Return to Home
-              </Link>
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
-    </div>
+    <ComingSoonScreen
+      title="Compiler"
+      description="We're working on an exciting online compiler feature. Stay tuned for the upcoming update!"
+      icon={FaLaptopCode}
+    />
   );
 }

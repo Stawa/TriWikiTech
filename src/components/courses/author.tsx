@@ -3,7 +3,7 @@ import Link from "next/link";
 
 interface AuthorInfoProps {
   date: string;
-  title?: string;
+  title: string;
 }
 
 const AuthorInfo = ({ date, title }: AuthorInfoProps) => (
@@ -48,4 +48,4 @@ const AuthorInfo = ({ date, title }: AuthorInfoProps) => (
   </header>
 );
 
-export default AuthorInfo;
+export { AuthorInfo, type AuthorInfoProps };

@@ -1,17 +1,9 @@
-import { FaLightbulb, FaCode } from "react-icons/fa";
+import { FaCode } from "react-icons/fa";
 import { PiBracketsCurlyDuotone } from "react-icons/pi";
 import { TbLambda } from "react-icons/tb";
 import { VscOutput } from "react-icons/vsc";
 
 const courses = [
-  {
-    title: "Introduction",
-    desc: "Get started with JavaScript fundamentals",
-    link: "/courses/javascript/",
-    icon: (
-      <FaLightbulb className="text-yellow-600 dark:text-yellow-400 text-2xl sm:text-3xl" />
-    ),
-  },
   {
     title: "Basics",
     desc: "Console.log, variables, and data types",
