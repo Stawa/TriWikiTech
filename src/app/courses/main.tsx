@@ -149,7 +149,7 @@ const CourseContainer = ({
         </Section>
 
         <div className="mx-2 sm:mx-4 lg:mx-6">
-          <CourseNavigationButtons courses={courses} currentIndex={0} />
+          <CourseNavigationButtons courses={courses} currentIndex={-1} />
         </div>
       </div>
     </div>

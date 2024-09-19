@@ -58,7 +58,7 @@ const courses = [
     ),
   },
   {
-    title: "C Courses",
+    title: "Back to Home",
     desc: "Overview of all C courses",
     link: "/courses/c",
     icon: (

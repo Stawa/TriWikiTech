@@ -62,7 +62,7 @@ const CourseNavigationButtons: React.FC<CourseNavigationButtonsProps> = ({
   );
 
   const showMiddleHomeButton =
-    currentIndex > 1 && currentIndex < courses.length - 2;
+    currentIndex > 0 && currentIndex < courses.length - 2;
 
   return (
     <motion.div
@@ -78,7 +78,7 @@ const CourseNavigationButtons: React.FC<CourseNavigationButtonsProps> = ({
       )}
       {showMiddleHomeButton &&
         renderButton(
-          courses[0],
+          courses[courses.length - 1],
           <FaHome className="text-lg flex-shrink-0" />,
           "Home"
         )}

@@ -37,7 +37,7 @@ const courses = [
     ),
   },
   {
-    title: "JavaScript Courses",
+    title: "Back to Home",
     desc: "Overview of all JavaScript courses",
     link: "/courses/javascript",
     icon: (
