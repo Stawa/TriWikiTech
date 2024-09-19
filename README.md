@@ -18,6 +18,7 @@ You can visit the unreleased website at [TriWikiTech](https://beta.triwikitech.c
 | C Course            | Completed + Future Update | C language fundamentals    | 🔄     |
 | C++ Course          | Planned                   | C++ and OOP course         | ❌     |
 | User Authentication | Planned                   | Sign-up and login          | ❌     |
+| Switch Language     | In Progress               | Switch between languages   | 🚧     |
 | Progress Tracking   | Planned                   | Course completion tracking | ❌     |
 | Code Compiler       | Planned                   | In-browser code execution  | ❌     |
 

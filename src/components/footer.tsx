@@ -7,39 +7,97 @@ import { useState, useEffect } from "react";
 import Social from "@data/social.json";
 
 const Footer = () => {
-  const defaultUrl = "https://github.com/Stawa/TriWikiTech/commits/dev";
-  const apiUrl = "https://api.github.com/repos/Stawa/TriWikiTech/commits/dev";
-  const [latestCommitUrl, setLatestCommitUrl] = useState<string>(defaultUrl);
-
-  const fetchLatestCommit = async (): Promise<string> => {
-    try {
-      const response = await fetch(apiUrl);
-      if (!response.ok) {
-        throw new Error(
-          `Failed to fetch latest commit: ${response.status} ${response.statusText}`
-        );
-      }
-      const data = await response.json();
-      return `https://github.com/Stawa/TriWikiTech/commit/${data.sha}`;
-    } catch (error) {
-      console.error("Error fetching latest commit:", error);
-      return defaultUrl;
-    }
-  };
+  const [latestCommitUrl, setLatestCommitUrl] = useState<string>(
+    "https://github.com/Stawa/TriWikiTech/commits/dev"
+  );
 
   useEffect(() => {
-    fetchLatestCommit().then(setLatestCommitUrl);
+    const fetchLatestCommit = async () => {
+      try {
+        const response = await fetch(
+          "https://api.github.com/repos/Stawa/TriWikiTech/commits/dev"
+        );
+        if (!response.ok) {
+          throw new Error(
+            `Failed to fetch latest commit: ${response.status} ${response.statusText}`
+          );
+        }
+        const data = await response.json();
+        setLatestCommitUrl(
+          `https://github.com/Stawa/TriWikiTech/commit/${data.sha}`
+        );
+      } catch (error) {
+        console.error("Error fetching latest commit:", error);
+      }
+    };
+
+    fetchLatestCommit();
   }, []);
+
+  const FooterSection = ({ children }: { children: React.ReactNode }) => (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="flex justify-between items-center"
+    >
+      {children}
+    </motion.div>
+  );
+
+  const SocialLinks = () => (
+    <div className="flex flex-wrap justify-center sm:justify-start">
+      {Social.map((socialItem, index) => (
+        <motion.a
+          key={index}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 + index * 0.1 }}
+          href={socialItem.url}
+          className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition duration-300 flex items-center mr-4 mb-2 sm:mb-0"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Visit our ${socialItem.name} page`}
+        >
+          <svg
+            className="w-6 h-6 sm:w-7 sm:h-7"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              fillRule="evenodd"
+              d={socialItem.icon}
+              clipRule="evenodd"
+            ></path>
+          </svg>
+        </motion.a>
+      ))}
+    </div>
+  );
+
+  const FooterLink = ({
+    href,
+    icon: Icon,
+    children,
+  }: {
+    href: string;
+    icon: React.ElementType;
+    children: React.ReactNode;
+  }) => (
+    <a
+      href={href}
+      className="text-sm text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-300 flex items-center justify-center md:justify-start"
+    >
+      <Icon className="mr-2" aria-hidden="true" />
+      {children}
+    </a>
+  );
 
   return (
     <footer className="bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-black text-gray-800 dark:text-white py-12 shadow-lg border-t-2 border-blue-600 transition-colors duration-300">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="flex justify-between items-center"
-        >
+        <FooterSection>
           <div>
             <motion.h3
               initial={{ opacity: 0, x: -20 }}
@@ -55,7 +113,7 @@ const Footer = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-gray-600 dark:text-gray-300"
             >
-              Learn, Code, Grow{" "}
+              Learn, Code, Grow
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 inline-block"
@@ -71,35 +129,8 @@ const Footer = () => {
               </svg>
             </motion.p>
           </div>
-          <div className="flex flex-wrap justify-center sm:justify-start">
-            {Social.map((socialItem, index) => (
-              <motion.a
-                key={index}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 + index * 0.1 }}
-                href={socialItem.url}
-                className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition duration-300 flex items-center mr-4 mb-2 sm:mb-0"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Visit our ${socialItem.name} page`}
-              >
-                <svg
-                  className="w-6 h-6 sm:w-7 sm:h-7"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d={socialItem.icon}
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-              </motion.a>
-            ))}
-          </div>
-        </motion.div>
+          <SocialLinks />
+        </FooterSection>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -138,27 +169,15 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 text-center">
-            <a
-              href="/tos"
-              className="text-sm text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-300 flex items-center justify-center md:justify-start"
-            >
-              <FaBook className="mr-2" aria-hidden="true" />
+            <FooterLink href="/tos" icon={FaBook}>
               Terms of Service
-            </a>
-            <a
-              href="/privacy"
-              className="text-sm text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-300 flex items-center justify-center md:justify-start"
-            >
-              <FaShieldAlt className="mr-2" aria-hidden="true" />
+            </FooterLink>
+            <FooterLink href="/privacy" icon={FaShieldAlt}>
               Privacy Policy
-            </a>
-            <a
-              href={latestCommitUrl}
-              className="text-sm text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-300 flex items-center justify-center md:justify-start"
-            >
-              <PiScrollFill className="mr-2" aria-hidden="true" />
+            </FooterLink>
+            <FooterLink href={latestCommitUrl} icon={PiScrollFill}>
               Changelog
-            </a>
+            </FooterLink>
           </div>
         </motion.div>
       </div>
