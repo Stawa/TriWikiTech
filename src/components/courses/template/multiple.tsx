@@ -6,12 +6,12 @@ import { IconType } from "react-icons";
 interface MultipleItem {
   type: string;
   examples: {
-    title: string;
+    name: string;
     description: string;
     example: string;
-    explanation: string;
     output: string;
   }[];
+  explanation: string;
 }
 
 interface MultipleProps {
@@ -53,7 +53,7 @@ const Multiple: React.FC<MultipleProps> = ({
             {item.examples.map((example, exampleIndex) => (
               <div key={exampleIndex} className="mb-6 sm:mb-8">
                 <h4 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
-                  {example.title}
+                  {example.name}
                 </h4>
                 <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 leading-relaxed">
                   {example.description}
@@ -65,7 +65,7 @@ const Multiple: React.FC<MultipleProps> = ({
                   />
                 </div>
                 <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-line">
-                  {example.explanation}
+                  {example.output}
                 </p>
                 <div className="mt-3">
                   <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">

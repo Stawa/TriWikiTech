@@ -1,6 +1,6 @@
 import React from "react";
-import { FaRocket } from "react-icons/fa";
 import Section from "@components/courses/section";
+import { FaRocket } from "react-icons/fa";
 
 interface ReasonProps {
   id: string;

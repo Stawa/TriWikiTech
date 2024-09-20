@@ -410,7 +410,7 @@ export default function JavaScriptBasics() {
         title="Basic Printing in JavaScript"
         id="basic-printing"
         delay={0.8}
-        basicPrinting={consoleLogExamples.map((item) => ({
+        components={consoleLogExamples.map((item) => ({
           title: item.title,
           desc: item.description,
           examples: item.example,

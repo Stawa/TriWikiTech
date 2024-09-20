@@ -1,7 +1,7 @@
-import React from "react";
 import Link from "next/link";
-import { FaLightbulb, FaArrowRight } from "react-icons/fa";
+import React from "react";
 import Section from "@components/courses/section";
+import { FaArrowRight, FaLightbulb } from "react-icons/fa";
 
 interface Topic {
   id: string;

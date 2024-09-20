@@ -303,7 +303,7 @@ export default function JavaScriptFunctions() {
         title="Function Declarations in JavaScript"
         id="function-declaration"
         delay={0.8}
-        basicPrinting={functionDeclarations.map((item) => ({
+        components={functionDeclarations.map((item) => ({
           title: item.title,
           desc: item.description,
           examples: item.example,
@@ -319,7 +319,7 @@ export default function JavaScriptFunctions() {
         title="Parameters & Arguments in JavaScript"
         id="parameters-arguments"
         delay={0.9}
-        basicPrinting={parametersAndArguments.map((item) => ({
+        components={parametersAndArguments.map((item) => ({
           title: item.title,
           desc: item.description,
           examples: item.example,
@@ -335,7 +335,7 @@ export default function JavaScriptFunctions() {
         title="Return Values in JavaScript"
         id="return-values"
         delay={1.0}
-        basicPrinting={returnValues.map((item) => ({
+        components={returnValues.map((item) => ({
           title: item.title,
           desc: item.description,
           examples: item.example,
@@ -351,7 +351,7 @@ export default function JavaScriptFunctions() {
         title="Arrow Functions in JavaScript"
         id="arrow-functions"
         delay={1.1}
-        basicPrinting={arrowFunctions.map((item) => ({
+        components={arrowFunctions.map((item) => ({
           title: item.title,
           desc: item.description,
           examples: item.example,

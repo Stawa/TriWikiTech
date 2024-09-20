@@ -1,9 +1,9 @@
 import React from "react";
-import Section from "@components/courses/section";
+import CourseSection from "@components/courses/template/section";
 import HighlightCode from "@components/highlight";
 import { IconType } from "react-icons";
 
-interface BasicPrintingItem {
+interface SingleProps {
   title: string;
   desc: string;
   examples: string;
@@ -12,8 +12,8 @@ interface BasicPrintingItem {
   bestUseCase?: string;
 }
 
-interface BasicPrintingProps {
-  basicPrinting: BasicPrintingItem[];
+interface SinglePrintingProps {
+  components: SingleProps[];
   language: string;
   title: string;
   id: string;
@@ -21,8 +21,8 @@ interface BasicPrintingProps {
   icon: IconType;
 }
 
-const BasicPrinting: React.FC<BasicPrintingProps> = ({
-  basicPrinting,
+const SinglePrinting: React.FC<SinglePrintingProps> = ({
+  components,
   language,
   title,
   id,
@@ -30,17 +30,11 @@ const BasicPrinting: React.FC<BasicPrintingProps> = ({
   icon,
 }) => {
   return (
-    <Section id={id} delay={delay}>
-      <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-        {React.createElement(icon, {
-          className: "mr-3 sm:mr-4 text-blue-600 dark:text-blue-300",
-        })}
-        {title}
-      </h3>
-      {basicPrinting.map((item, index) => (
+    <CourseSection id={id} delay={delay} title={title} icon={icon}>
+      {components.map((item, index) => (
         <div
           key={index}
-          className={`${index !== basicPrinting.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-300 to-purple-400 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
+          className={`${index !== components.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-300 to-purple-400 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
         >
           <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
@@ -78,8 +72,8 @@ const BasicPrinting: React.FC<BasicPrintingProps> = ({
           </div>
         </div>
       ))}
-    </Section>
+    </CourseSection>
   );
 };
 
-export default BasicPrinting;
+export default SinglePrinting;

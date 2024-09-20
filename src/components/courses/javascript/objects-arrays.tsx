@@ -339,13 +339,12 @@ export default function JavaScriptObjectsArrays() {
         title="Object Basics"
         id="object-basics"
         delay={0.8}
-        basicPrinting={objectBasics.map((item) => ({
+        components={objectBasics.map((item) => ({
           title: item.title,
           desc: item.description,
           examples: item.example,
           output: item.output,
           explanation: item.explanation,
-          bestUseCase: "",
         }))}
         language="javascript"
         icon={FaCube}
@@ -355,13 +354,12 @@ export default function JavaScriptObjectsArrays() {
         title="Array Fundamentals"
         id="array-fundamentals"
         delay={0.9}
-        basicPrinting={arrayFundamentals.map((item) => ({
+        components={arrayFundamentals.map((item) => ({
           title: item.title,
           desc: item.description,
           examples: item.example,
           output: item.output,
           explanation: item.explanation,
-          bestUseCase: "",
         }))}
         language="javascript"
         icon={FaList}
@@ -373,16 +371,7 @@ export default function JavaScriptObjectsArrays() {
         title="Object Methods"
         icon={FaWrench}
         language="javascript"
-        items={objectMethods.map((item) => ({
-          type: item.title,
-          examples: item.examples.map((example) => ({
-            title: example.name,
-            description: example.description,
-            example: example.example,
-            explanation: item.explanation,
-            output: example.output,
-          })),
-        }))}
+        items={objectMethods}
       />
 
       <Multiple
@@ -391,16 +380,7 @@ export default function JavaScriptObjectsArrays() {
         title="Array Operations"
         icon={FaExchangeAlt}
         language="javascript"
-        items={arrayOperations.map((item) => ({
-          type: item.title,
-          examples: item.examples.map((example) => ({
-            title: example.name,
-            description: example.description,
-            example: example.example,
-            explanation: item.explanation,
-            output: example.output,
-          })),
-        }))}
+        items={arrayOperations}
       />
     </CourseContainer>
   );

@@ -1,6 +1,6 @@
 import React from "react";
-import { FaCode } from "react-icons/fa";
 import Section from "@components/courses/section";
+import { FaCode } from "react-icons/fa";
 
 interface CourseOverviewProps {
   id: string;

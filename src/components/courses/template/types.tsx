@@ -1,5 +1,5 @@
 import React from "react";
-import Section from "@components/courses/section";
+import CourseSection from "@components/courses/template/section";
 import HighlightCode from "@components/highlight";
 import { IconType } from "react-icons";
 
@@ -38,13 +38,7 @@ const DataTypes: React.FC<DataTypesProps> = ({
   icon,
 }) => {
   return (
-    <Section id={id} delay={delay}>
-      <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
-        {React.createElement(icon, {
-          className: "mr-3 sm:mr-4 text-blue-600 dark:text-blue-300",
-        })}
-        {title}
-      </h3>
+    <CourseSection id={id} delay={delay} title={title} icon={icon}>
       {dataTypes.map((type, index) => (
         <div
           key={type.type}
@@ -135,7 +129,7 @@ const DataTypes: React.FC<DataTypesProps> = ({
           </div>
         </div>
       ))}
-    </Section>
+    </CourseSection>
   );
 };
 

@@ -197,7 +197,7 @@ export default function JavaScriptControlStructures() {
         delay={0.8}
         title="Conditional Statements"
         language="javascript"
-        basicPrinting={conditionalExamples.map((item) => ({
+        components={conditionalExamples.map((item) => ({
           title: item.title,
           desc: item.description,
           examples: item.example,
@@ -213,7 +213,7 @@ export default function JavaScriptControlStructures() {
         delay={0.9}
         title="Loops"
         language="javascript"
-        basicPrinting={loopExamples.map((item) => ({
+        components={loopExamples.map((item) => ({
           title: item.title,
           desc: item.description,
           examples: item.example,
@@ -229,7 +229,7 @@ export default function JavaScriptControlStructures() {
         delay={1.0}
         title="Switch Statements"
         language="javascript"
-        basicPrinting={[
+        components={[
           {
             title: switchExample.title,
             desc: switchExample.description,
