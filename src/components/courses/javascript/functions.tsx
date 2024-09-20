@@ -1,8 +1,6 @@
 "use client";
 
-import Link from "next/link";
 import {
-  FaArrowRight,
   FaCode,
   FaCube,
   FaLightbulb,
@@ -10,9 +8,11 @@ import {
   FaTerminal,
 } from "react-icons/fa";
 import Courses from "@components/courses/javascript/navigation";
-import HighlightCode from "@components/highlight";
-import Section from "@components/courses/section";
 import CourseContainer from "@components/courses/container";
+import CourseOverview from "@components/courses/template/overview";
+import Topics from "@components/courses/template/topics";
+import Reason from "@components/courses/template/reason";
+import BasicPrinting from "@components/courses/template/basic";
 
 const topics = [
   {
@@ -54,6 +54,8 @@ console.log(greet("Alice")); // Outputs: Hello, Alice!`,
     output: `Hello, Alice!`,
     explanation:
       "This function takes a 'name' parameter and returns a greeting string. When called with 'Alice', it outputs 'Hello, Alice!'.",
+    bestUseCase:
+      "Best for creating named functions that will be used throughout your code, especially when hoisting is desired.",
   },
   {
     title: "Function Expression",
@@ -67,6 +69,8 @@ console.log(greet("Bob")); // Outputs: Hello, Bob!`,
     output: `Hello, Bob!`,
     explanation:
       "This function is assigned to a variable 'greet'. It works similarly to the function declaration, but is defined as an expression.",
+    bestUseCase:
+      "Useful when you want to assign a function to a variable or pass it as an argument to another function. Also good for creating closures.",
   },
   {
     title: "Arrow Function",
@@ -83,6 +87,8 @@ console.log(greetShort("Charlie")); // Outputs: Hello, Charlie!`,
     output: `Hello, Charlie!`,
     explanation:
       "Arrow functions offer a concise syntax. The 'greetShort' function demonstrates a compact form for single-expression functions.",
+    bestUseCase:
+      "Ideal for short, single-expression functions and when you want to preserve the lexical 'this' binding. Commonly used in functional programming patterns and with array methods.",
   },
 ];
 
@@ -98,6 +104,8 @@ console.log(square(5)); // Outputs: 25`,
     output: `25`,
     explanation:
       "This function takes one parameter 'number' and returns its square. When called with 5, it returns 25.",
+    bestUseCase:
+      "Ideal for simple operations that require only one input, such as mathematical functions or string manipulations.",
   },
   {
     title: "Multiple Parameters",
@@ -110,6 +118,8 @@ console.log(add(3, 4)); // Outputs: 7`,
     output: `7`,
     explanation:
       "This function takes two parameters 'a' and 'b' and returns their sum. When called with 3 and 4, it returns 7.",
+    bestUseCase:
+      "Useful for operations that require multiple inputs, like complex calculations or combining different pieces of data.",
   },
   {
     title: "Default Parameters",
@@ -124,6 +134,8 @@ console.log(greet("Alice")); // Outputs: Hello, Alice!`,
 Hello, Alice!`,
     explanation:
       "This function has a default parameter. If no argument is provided, it uses 'Guest' as the default value.",
+    bestUseCase:
+      "Great for functions that can work with optional inputs, providing flexibility while ensuring the function always has a valid input to work with.",
   },
   {
     title: "Rest Parameters",
@@ -136,6 +148,8 @@ console.log(sum(1, 2, 3, 4)); // Outputs: 10`,
     output: `10`,
     explanation:
       "The rest parameter '...numbers' allows the function to accept any number of arguments. It then sums all the provided numbers.",
+    bestUseCase:
+      "Perfect for functions that need to handle a variable number of inputs, such as mathematical operations on an arbitrary set of numbers or combining multiple strings.",
   },
 ];
 
@@ -151,6 +165,8 @@ console.log(double(5)); // Outputs: 10`,
     output: `10`,
     explanation:
       "This function takes a number, doubles it, and returns the result. When called with 5, it returns 10.",
+    bestUseCase:
+      "Suitable for simple computations or transformations where a single result is needed.",
   },
   {
     title: "Returning Multiple Values",
@@ -166,6 +182,8 @@ console.log(person.age); // Outputs: 30`,
 30`,
     explanation:
       "This function returns an object containing multiple values. We can then access these values using dot notation.",
+    bestUseCase:
+      "Ideal when a function needs to return multiple related pieces of information, such as properties of an entity or results of multiple calculations.",
   },
   {
     title: "Early Return",
@@ -183,6 +201,8 @@ console.log(isEven(5)); // Outputs: false`,
 false`,
     explanation:
       "This function uses an early return to exit as soon as it determines if a number is even. It returns true for 4 and false for 5.",
+    bestUseCase:
+      "Useful for conditional logic where you want to exit the function as soon as a condition is met, improving efficiency and readability.",
   },
   {
     title: "Returning a Function",
@@ -198,6 +218,8 @@ console.log(double(5)); // Outputs: 10`,
     output: `10`,
     explanation:
       "This function returns another function. We create a 'double' function by calling multiplier with 2, then use it to multiply 5 by 2.",
+    bestUseCase:
+      "Excellent for creating closures, implementing currying, or generating specialized functions based on input parameters.",
   },
 ];
 
@@ -211,6 +233,8 @@ console.log(square(5)); // Outputs: 25`,
     output: `25`,
     explanation:
       "This concise arrow function takes a single parameter 'x' and returns its square. When called with 5, it returns 25.",
+    bestUseCase:
+      "Perfect for short, single-expression functions, especially when used as callbacks or in functional programming patterns.",
   },
   {
     title: "Multiple Parameters",
@@ -221,6 +245,8 @@ console.log(add(3, 4)); // Outputs: 7`,
     output: `7`,
     explanation:
       "This arrow function takes two parameters 'a' and 'b' and returns their sum. When called with 3 and 4, it returns 7.",
+    bestUseCase:
+      "Ideal for simple operations with multiple inputs, providing a concise syntax for function expressions.",
   },
   {
     title: "Arrow Function with Block",
@@ -234,6 +260,8 @@ console.log(greet("Alice")); // Outputs: Hello, Alice!`,
     output: `Hello, Alice!`,
     explanation:
       "This arrow function uses a block of code. It creates a message and then returns it. When called with 'Alice', it outputs 'Hello, Alice!'.",
+    bestUseCase:
+      "Useful when the function body requires multiple statements or more complex logic while still benefiting from the concise arrow syntax.",
   },
   {
     title: "Returning an Object",
@@ -245,6 +273,8 @@ console.log(person); // Outputs: { name: "Bob", age: 30 }`,
     output: `{ name: "Bob", age: 30 }`,
     explanation:
       "This arrow function returns an object. The parentheses around the object are necessary to distinguish it from a function body.",
+    bestUseCase:
+      "Excellent for creating simple factory functions or when you need to return an object literal concisely, often used in React components or when working with data transformations.",
   },
 ];
 
@@ -255,290 +285,83 @@ export default function JavaScriptFunctions() {
       courses={Courses}
       currentCourseLink="/courses/javascript/functions"
     >
-      <Section id="course-overview" delay={0.3}>
-        <div className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-xl shadow-xl overflow-hidden">
-          <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-3 sm:p-4 lg:p-6">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white tracking-wide flex items-center space-x-3">
-              <FaCode className="text-blue-600 dark:text-blue-300 text-xl sm:text-2xl lg:text-3xl" />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-300 dark:to-purple-300">
-                Course Overview
-              </span>
-            </h2>
-          </div>
-          <div className="p-3 sm:p-4 lg:p-6 bg-gray-200 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-            <p className="text-sm sm:text-base lg:text-lg leading-relaxed text-gray-800 dark:text-gray-200">
-              In this course, you&apos;ll dive deep into JavaScript functions -
-              the building blocks of reusable code. We&apos;ll cover function
-              declarations, parameters, return values, and the modern arrow
-              function syntax. By mastering functions, you&apos;ll be able to
-              write more efficient and organized JavaScript code.
-            </p>
-          </div>
-        </div>
-      </Section>
+      <CourseOverview
+        id="course-overview"
+        delay={0.3}
+        description="In this course, you'll dive deep into JavaScript functions - the building blocks of reusable code. We'll cover function declarations, parameters, return values, and the modern arrow function syntax. By mastering functions, you'll be able to write more efficient and organized JavaScript code."
+      />
 
-      <Section id="topics" delay={0.5}>
-        <h2 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-gray-900 dark:text-white tracking-wide flex items-center">
-          <FaLightbulb className="mr-2 sm:mr-3 text-blue-600 dark:text-blue-300" />
-          What You&apos;ll Learn
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-          {topics.map((topic, index) => (
-            <div
-              key={index}
-              className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-xl shadow-xl overflow-hidden transition-all duration-300 h-full flex flex-col"
-            >
-              <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-3 sm:p-4">
-                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white tracking-wide flex items-center">
-                  <span className="mr-2 text-blue-600 dark:text-blue-300">
-                    {<topic.icon />}
-                  </span>
-                  {topic.title}
-                </h3>
-              </div>
-              <div className="p-3 sm:p-4 bg-gray-200 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
-                <p className="text-sm sm:text-base lg:text-lg text-gray-800 dark:text-gray-200 mb-3 sm:mb-4 leading-relaxed">
-                  {topic.desc}
-                </p>
-                <Link
-                  href={`#${topic.id}`}
-                  className="text-blue-600 dark:text-blue-300 font-semibold flex items-center mt-auto text-sm sm:text-base hover:text-blue-500 dark:hover:text-blue-200 transition-colors duration-300"
-                >
-                  Learn More{" "}
-                  <FaArrowRight className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
+      <Topics id="topics" delay={0.5} topics={topics} />
 
-      <Section id="why-functions-matter" delay={0.7}>
-        <div className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-xl shadow-xl overflow-hidden">
-          <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-3 sm:p-4 lg:p-6">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white tracking-wide flex items-center space-x-3">
-              <FaRocket className="text-blue-600 dark:text-blue-300 text-xl sm:text-2xl lg:text-3xl" />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-300 dark:to-purple-300">
-                Why Functions Matter
-              </span>
-            </h2>
-          </div>
-          <div className="p-3 sm:p-4 lg:p-6 bg-gray-200 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-            <p className="text-sm sm:text-base lg:text-lg leading-relaxed text-gray-800 dark:text-gray-200">
-              Functions are at the heart of JavaScript programming. They allow
-              you to write modular, reusable code, making your programs more
-              efficient and easier to maintain. Understanding functions is
-              crucial for any aspiring JavaScript developer, as they form the
-              foundation for more advanced concepts like closures, callbacks,
-              and asynchronous programming.
-            </p>
-          </div>
-        </div>
-      </Section>
+      <Reason
+        id="why-functions-matter"
+        delay={0.7}
+        description="Functions are at the heart of JavaScript programming. They allow you to write modular, reusable code, making your programs more efficient and easier to maintain. Understanding functions is crucial for any aspiring JavaScript developer, as they form the foundation for more advanced concepts like closures, callbacks, and asynchronous programming."
+      />
 
-      <Section id="function-declaration" delay={0.8}>
-        <h2 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-gray-900 dark:text-white tracking-wide flex items-center">
-          <FaLightbulb className="mr-2 sm:mr-3 text-blue-600 dark:text-blue-300" />
-          Function Declarations
-        </h2>
-        <div className="space-y-4 sm:space-y-6">
-          {functionDeclarations.map((item, index) => (
-            <div
-              key={index}
-              className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-xl shadow-xl overflow-hidden"
-            >
-              <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-3 sm:p-4 lg:p-6">
-                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white tracking-wide">
-                  {item.title}
-                </h3>
-              </div>
-              <div className="p-3 sm:p-4 lg:p-6 bg-gray-200 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                <p className="text-sm sm:text-base lg:text-lg text-gray-800 dark:text-gray-200 mb-3 sm:mb-4 leading-relaxed">
-                  {item.description}
-                </p>
-                <div className="mb-3 sm:mb-4 rounded-xl overflow-hidden shadow-inner">
-                  <HighlightCode
-                    content={item.example}
-                    language={"javascript"}
-                  />
-                </div>
-                <div className="mt-3 sm:mt-4">
-                  <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                    Output:
-                  </h4>
-                  <div className="rounded-xl overflow-hidden shadow-inner">
-                    <HighlightCode
-                      content={item.output}
-                      language={"javascript"}
-                    />
-                  </div>
-                </div>
-                <div className="mt-3 sm:mt-4">
-                  <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                    Explanation:
-                  </h4>
-                  <p className="text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                    {item.explanation}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
+      <BasicPrinting
+        title="Function Declarations in JavaScript"
+        id="function-declaration"
+        delay={0.8}
+        basicPrinting={functionDeclarations.map((item) => ({
+          title: item.title,
+          desc: item.description,
+          examples: item.example,
+          output: item.output,
+          explanation: item.explanation,
+          bestUseCase: item.bestUseCase,
+        }))}
+        language="javascript"
+        icon={FaCode}
+      />
 
-      <Section id="parameters-arguments" delay={0.9}>
-        <h2 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-gray-900 dark:text-white tracking-wide flex items-center">
-          <FaLightbulb className="mr-2 sm:mr-3 text-blue-600 dark:text-blue-300" />
-          Parameters & Arguments
-        </h2>
-        <div className="space-y-4 sm:space-y-6">
-          {parametersAndArguments.map((item, index) => (
-            <div
-              key={index}
-              className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-xl shadow-xl overflow-hidden"
-            >
-              <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-3 sm:p-4 lg:p-6">
-                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white tracking-wide">
-                  {item.title}
-                </h3>
-              </div>
-              <div className="p-3 sm:p-4 lg:p-6 bg-gray-200 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                <p className="text-sm sm:text-base lg:text-lg text-gray-800 dark:text-gray-200 mb-3 sm:mb-4 leading-relaxed">
-                  {item.description}
-                </p>
-                <div className="mb-3 sm:mb-4 rounded-xl overflow-hidden shadow-inner">
-                  <HighlightCode
-                    content={item.example}
-                    language={"javascript"}
-                  />
-                </div>
-                <div className="mt-3 sm:mt-4">
-                  <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                    Output:
-                  </h4>
-                  <div className="rounded-xl overflow-hidden shadow-inner">
-                    <HighlightCode
-                      content={item.output}
-                      language={"javascript"}
-                    />
-                  </div>
-                </div>
-                <div className="mt-3 sm:mt-4">
-                  <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                    Explanation:
-                  </h4>
-                  <p className="text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                    {item.explanation}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
+      <BasicPrinting
+        title="Parameters & Arguments in JavaScript"
+        id="parameters-arguments"
+        delay={0.9}
+        basicPrinting={parametersAndArguments.map((item) => ({
+          title: item.title,
+          desc: item.description,
+          examples: item.example,
+          output: item.output,
+          explanation: item.explanation,
+          bestUseCase: item.bestUseCase,
+        }))}
+        language="javascript"
+        icon={FaLightbulb}
+      />
 
-      <Section id="return-values" delay={1.0}>
-        <h2 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-gray-900 dark:text-white tracking-wide flex items-center">
-          <FaLightbulb className="mr-2 sm:mr-3 text-blue-600 dark:text-blue-300" />
-          Return Values
-        </h2>
-        <div className="space-y-4 sm:space-y-6">
-          {returnValues.map((item, index) => (
-            <div
-              key={index}
-              className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-xl shadow-xl overflow-hidden"
-            >
-              <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-3 sm:p-4 lg:p-6">
-                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white tracking-wide">
-                  {item.title}
-                </h3>
-              </div>
-              <div className="p-3 sm:p-4 lg:p-6 bg-gray-200 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                <p className="text-sm sm:text-base lg:text-lg text-gray-800 dark:text-gray-200 mb-3 sm:mb-4 leading-relaxed">
-                  {item.description}
-                </p>
-                <div className="mb-3 sm:mb-4 rounded-xl overflow-hidden shadow-inner">
-                  <HighlightCode
-                    content={item.example}
-                    language={"javascript"}
-                  />
-                </div>
-                <div className="mt-3 sm:mt-4">
-                  <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                    Output:
-                  </h4>
-                  <div className="rounded-xl overflow-hidden shadow-inner">
-                    <HighlightCode
-                      content={item.output}
-                      language={"javascript"}
-                    />
-                  </div>
-                </div>
-                <div className="mt-3 sm:mt-4">
-                  <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                    Explanation:
-                  </h4>
-                  <p className="text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                    {item.explanation}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
+      <BasicPrinting
+        title="Return Values in JavaScript"
+        id="return-values"
+        delay={1.0}
+        basicPrinting={returnValues.map((item) => ({
+          title: item.title,
+          desc: item.description,
+          examples: item.example,
+          output: item.output,
+          explanation: item.explanation,
+          bestUseCase: item.bestUseCase,
+        }))}
+        language="javascript"
+        icon={FaCube}
+      />
 
-      <Section id="arrow-functions" delay={1.1}>
-        <h2 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-gray-900 dark:text-white tracking-wide flex items-center">
-          <FaLightbulb className="mr-2 sm:mr-3 text-blue-600 dark:text-blue-300" />
-          Arrow Functions
-        </h2>
-        <div className="space-y-4 sm:space-y-6">
-          {arrowFunctions.map((item, index) => (
-            <div
-              key={index}
-              className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-xl shadow-xl overflow-hidden"
-            >
-              <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-3 sm:p-4 lg:p-6">
-                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white tracking-wide">
-                  {item.title}
-                </h3>
-              </div>
-              <div className="p-3 sm:p-4 lg:p-6 bg-gray-200 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-                <p className="text-sm sm:text-base lg:text-lg text-gray-800 dark:text-gray-200 mb-3 sm:mb-4 leading-relaxed">
-                  {item.description}
-                </p>
-                <div className="mb-3 sm:mb-4 rounded-xl overflow-hidden shadow-inner">
-                  <HighlightCode
-                    content={item.example}
-                    language={"javascript"}
-                  />
-                </div>
-                <div className="mt-3 sm:mt-4">
-                  <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                    Output:
-                  </h4>
-                  <div className="rounded-xl overflow-hidden shadow-inner">
-                    <HighlightCode
-                      content={item.output}
-                      language={"javascript"}
-                    />
-                  </div>
-                </div>
-                <div className="mt-3 sm:mt-4">
-                  <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                    Explanation:
-                  </h4>
-                  <p className="text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                    {item.explanation}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
+      <BasicPrinting
+        title="Arrow Functions in JavaScript"
+        id="arrow-functions"
+        delay={1.1}
+        basicPrinting={arrowFunctions.map((item) => ({
+          title: item.title,
+          desc: item.description,
+          examples: item.example,
+          output: item.output,
+          explanation: item.explanation,
+          bestUseCase: item.bestUseCase,
+        }))}
+        language="javascript"
+        icon={FaRocket}
+      />
     </CourseContainer>
   );
 }

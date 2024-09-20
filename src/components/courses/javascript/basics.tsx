@@ -1,24 +1,20 @@
 "use client";
 
-import Link from "next/link";
-import {
-  FaArrowRight,
-  FaCode,
-  FaCube,
-  FaLightbulb,
-  FaRocket,
-  FaTerminal,
-} from "react-icons/fa";
-import Courses from "@components/courses/javascript/navigation";
-import HighlightCode from "@components/highlight";
-import Section from "@components/courses/section";
+import { FaCode, FaCube, FaTerminal } from "react-icons/fa";
 import CourseContainer from "@components/courses/container";
+import CourseOverview from "@components/courses/template/overview";
+import Courses from "@components/courses/javascript/navigation";
+import Reason from "@components/courses/template/reason";
+import Topics from "@components/courses/template/topics";
+import BasicPrinting from "@components/courses/template/basic";
+import Variables from "@components/courses/template/variable";
+import DataTypes from "@components/courses/template/types";
 
 const topics = [
   {
     title: "Console.log",
     desc: "Learn how to output data to the console",
-    id: "console-log",
+    id: "basic-printing",
     icon: FaTerminal,
   },
   {
@@ -37,10 +33,15 @@ const topics = [
 
 const variableTypes = [
   {
-    type: "var",
     title: "var (Function/Global Scope)",
     description:
-      "The 'var' keyword is the oldest way to declare variables in JavaScript. It creates variables that are either function-scoped or globally-scoped. This means that if you declare a variable with 'var' inside a function, it's only accessible within that function. If you declare it outside any function, it becomes a global variable, accessible throughout your entire script.",
+      "To create a variable using 'var' in JavaScript, you declare it with the 'var' keyword. 'var' creates variables that are either function-scoped or globally-scoped.",
+    steps: [
+      "Use the 'var' keyword",
+      "Choose a descriptive variable name",
+      "Optionally, initialize the variable with a value",
+      "Be aware of function or global scope",
+    ],
     example: `// Using var (function-scoped or globally-scoped)
 var x = 10;
 if (true) {
@@ -51,16 +52,32 @@ console.log(x); // Outputs 20
 // Caution: var can lead to unexpected behavior due to hoisting
 console.log(y); // Outputs undefined, not an error
 var y = 5;`,
-    output: `20
-undefined`,
+    wrongExample: `// Incorrect usage of var
+var 123abc = "invalid name"; // Invalid: starts with a number
+var function = "reserved word"; // Invalid: uses a reserved keyword
+var globalVar = "avoid globals"; // Caution: creates a global variable`,
+    tips: [
+      "Avoid using 'var' in modern JavaScript; prefer 'let' or 'const'",
+      "Be cautious of function scope and hoisting behavior",
+      "Don't rely on global variables created with 'var'",
+      "Use meaningful variable names",
+    ],
+    scratch: "var [VARIABLE_NAME] = [VALUE];",
     explanation:
-      "In the first example, we see that 'var' doesn't respect block scope (like inside an if statement). When we redeclare 'x' inside the if block, it affects the outer 'x' as well. This can lead to unexpected behavior in larger programs.\n\nThe second example demonstrates 'hoisting', a behavior specific to 'var'. When you use 'var', JavaScript moves the declaration (but not the initialization) to the top of its scope. This is why we can use 'y' before its actual declaration in the code without getting an error.\n\nBest practice: Due to these potentially confusing behaviors, 'var' is less commonly used in modern JavaScript. It's better to use 'let' or 'const' instead, which we'll cover next.",
+      "Variables declared with 'var' are function-scoped or globally-scoped. This means they are accessible throughout the entire function they're declared in, or globally if declared outside any function. 'var' variables are also hoisted, which means their declarations (but not initializations) are moved to the top of their scope.",
+    wrongExplanation:
+      "In the wrong examples, '123abc' is an invalid variable name as it starts with a number. 'function' is a reserved word in JavaScript and can't be used as a variable name. Creating global variables with 'var' outside of functions (like 'globalVar') is generally discouraged as it can lead to naming conflicts and hard-to-debug code.",
   },
   {
-    type: "let",
     title: "let (Block Scope)",
     description:
-      "The 'let' keyword, introduced in ES6 (2015), creates block-scoped variables. This means the variable is only accessible within the nearest set of curly braces {} where it was declared. 'let' allows you to declare variables that are limited in scope to the block, statement, or expression in which they are used.",
+      "To create a variable using 'let' in JavaScript, you declare it with the 'let' keyword. 'let' creates block-scoped variables.",
+    steps: [
+      "Use the 'let' keyword",
+      "Choose a descriptive variable name",
+      "Optionally, initialize the variable with a value",
+      "Be aware of block scope",
+    ],
     example: `// Using let (block-scoped)
 let count = 0;
 if (true) {
@@ -73,17 +90,36 @@ console.log(count); // Outputs 0
 let score = 75;
 score = score + 25; // Now score is 100
 console.log(score); // Outputs 100`,
-    output: `1
-0
-100`,
+    wrongExample: `// Incorrect usage of let
+let x = 5;
+let x = 10; // Error: can't redeclare block-scoped variable
+{
+  console.log(y); // Error: can't use before declaration
+  let y = 20;
+}
+console.log(y); // Error: y is not defined in this scope`,
+    tips: [
+      "Use 'let' for variables that will be reassigned",
+      "Remember that 'let' is block-scoped",
+      "Don't redeclare variables with 'let' in the same scope",
+      "Initialize 'let' variables before using them",
+    ],
+    scratch: "let [VARIABLE_NAME] = [VALUE];",
     explanation:
-      "In the first example, we see how 'let' respects block scope. The 'count' variable inside the if block is a completely separate variable from the outer 'count'. This prevents accidental modifications of variables outside the current block.\n\nThe second example shows that 'let' allows reassignment. You can change the value of a 'let' variable after it's been declared. This is useful for variables whose values need to change over time, like counters or accumulating values.\n\nBest practice: Use 'let' when you need to reassign values to a variable, especially within loops or block statements. It helps prevent accidental global variable declarations and makes your code's intent clearer.",
+      "'let' declares variables that are block-scoped, meaning they are only accessible within the nearest set of curly braces {} where they are declared. This prevents accidental modifications of variables outside the current block. 'let' allows reassignment, making it useful for variables whose values need to change over time.",
+    wrongExplanation:
+      "In the wrong examples, redeclaring 'x' with 'let' in the same scope causes an error. Trying to use 'y' before its declaration within the same block also causes an error, as 'let' doesn't hoist like 'var'. Attempting to access 'y' outside its block scope results in an error because 'let' variables are not accessible outside their block.",
   },
   {
-    type: "const",
     title: "const (Block Scope, Immutable)",
     description:
-      "The 'const' keyword, also introduced in ES6, creates block-scoped variables like 'let', but with one key difference: variables declared with 'const' cannot be reassigned after they are initialized. This makes 'const' ideal for values that shouldn't change throughout your program.",
+      "To create a constant variable in JavaScript, you declare it with the 'const' keyword. 'const' creates block-scoped variables that cannot be reassigned.",
+    steps: [
+      "Use the 'const' keyword",
+      "Choose a descriptive variable name (often in UPPER_CASE for true constants)",
+      "Initialize the variable with a value (required)",
+      "Be aware of block scope and immutability",
+    ],
     example: `// Using const (block-scoped, cannot be reassigned)
 const PI = 3.14159;
 // PI = 3.14; // This would cause an error
@@ -98,10 +134,26 @@ console.log(user);
 // Best practice: Use const for variables that won't be reassigned
 const DAYS_IN_WEEK = 7; // Correct usage of const
 console.log(DAYS_IN_WEEK);`,
-    output: `{ name: 'John', age: 31 }
-7`,
+    wrongExample: `// Incorrect usage of const
+const X; // Error: missing initializer in const declaration
+const Y = 10;
+Y = 20; // Error: assignment to a constant variable
+{
+  console.log(Z); // Error: cannot access 'Z' before initialization
+  const Z = 30;
+}
+console.log(Z); // Error: Z is not defined in this scope`,
+    tips: [
+      "Use 'const' as your default choice when declaring variables",
+      "Always initialize 'const' variables when declaring them",
+      "Remember that 'const' prevents reassignment, not modification of object properties",
+      "Use 'const' for values that shouldn't change throughout your program",
+    ],
+    scratch: "const [VARIABLE_NAME] = [VALUE];",
     explanation:
-      "The 'const' keyword creates a read-only reference to a value. For primitive values (like numbers or strings), this means the value cannot be changed at all. However, for objects and arrays, while the reference cannot be changed, the contents of the object or array can still be modified.\n\nIn the first example, we see that trying to reassign a 'const' variable would cause an error. This helps prevent accidental changes to values that should remain constant.\n\nThe second example shows that for objects and arrays, the properties or elements can still be changed. This is because 'const' only prevents reassignment of the variable itself, not modifications to its contents.\n\nBest practice: Use 'const' as your default choice when declaring variables. If you know a variable shouldn't be reassigned, using 'const' makes this intent clear in your code. It's particularly useful for declaring constants, function declarations, or object and array references that won't change. Only use 'let' when you specifically need to reassign a variable.",
+      "'const' declares variables that are block-scoped and cannot be reassigned after initialization. For primitive values, this means the value cannot be changed at all. For objects and arrays, while the reference cannot be changed, the contents can still be modified. This makes 'const' ideal for declaring constants or variables that shouldn't be reassigned.",
+    wrongExplanation:
+      "In the wrong examples, declaring 'X' without initialization is an error as 'const' requires immediate initialization. Attempting to reassign 'Y' causes an error because 'const' variables cannot be reassigned. Trying to use 'Z' before its declaration within the same block causes an error, and attempting to access 'Z' outside its block scope results in an error because 'const' variables are not accessible outside their block.",
   },
 ];
 
@@ -121,6 +173,13 @@ console.log(typeof pi, pi);`,
 "number" 3.14`,
         explanation:
           "In JavaScript, there's no distinction between integers and floating-point numbers at the language level. Both are simply of type 'number'. This simplifies numeric operations but can sometimes lead to precision issues with very large numbers or complex calculations.",
+        formatSpecifier: undefined,
+        dataType: "Number",
+        range:
+          "-(2^53 - 1) to (2^53 - 1) for integers, and approximately ±1.8e308 for floating-point numbers",
+        size: "64 bits (8 bytes)",
+        bestUseCase:
+          "Use for any numeric calculations, counters, or representing quantities in your application.",
       },
       {
         name: "String",
@@ -134,6 +193,12 @@ console.log(typeof greeting, greeting);`,
 "string" "Hello, John"`,
         explanation:
           "Strings in JavaScript can be created using single quotes, double quotes, or backticks. Backticks allow for template literals, which can include expressions inside ${} placeholders. This is very useful for creating dynamic strings.",
+        formatSpecifier: undefined,
+        dataType: "String",
+        range: "Can contain 0 to 2^53 - 1 elements",
+        size: "Each character is 16 bits (2 bytes)",
+        bestUseCase:
+          "Use for storing and manipulating text data, such as names, messages, or any textual content in your application.",
       },
       {
         name: "Boolean",
@@ -147,6 +212,12 @@ console.log(typeof isLoggedIn, isLoggedIn);`,
 "boolean" false`,
         explanation:
           "Booleans are fundamental for control flow in programming. They're often the result of comparisons (like x > y) and are used in if statements, while loops, and other conditional structures.",
+        formatSpecifier: undefined,
+        dataType: "Boolean",
+        range: "Only two possible values: true or false",
+        size: "1 bit (but typically stored as 1 byte for alignment)",
+        bestUseCase:
+          "Use for conditional logic, flags, or any situation where you need to represent a binary state (on/off, yes/no, true/false).",
       },
       {
         name: "Undefined",
@@ -154,9 +225,15 @@ console.log(typeof isLoggedIn, isLoggedIn);`,
           "Undefined represents a variable that has been declared but hasn't been assigned a value yet.",
         example: `let x;
 console.log(typeof x, x);`,
-        output: `"undefined" undefined`,
+        output: `undefined undefined`,
         explanation:
           "Undefined is automatically assigned to variables that have been declared but not initialized. It's also the value returned by functions that don't explicitly return anything.",
+        formatSpecifier: undefined,
+        dataType: "Undefined",
+        range: "Only one possible value: undefined",
+        size: undefined,
+        bestUseCase:
+          "Use to check if a variable has been assigned a value, or to explicitly indicate that a variable or object property has no assigned value.",
       },
       {
         name: "Null",
@@ -167,6 +244,12 @@ console.log(typeof empty, empty);`,
         output: `"object" null`,
         explanation:
           "Interestingly, typeof null returns 'object', which is actually a long-standing bug in JavaScript. Despite this, null is not an object, but a primitive value. It's often used to explicitly indicate that a variable intentionally has no value.",
+        formatSpecifier: undefined,
+        dataType: "Null",
+        range: "Only one possible value: null",
+        size: undefined,
+        bestUseCase:
+          "Use to explicitly indicate that a variable or object property has no value or is intentionally empty, especially when you want to distinguish from undefined.",
       },
       {
         name: "Symbol",
@@ -180,6 +263,12 @@ console.log(user);`,
 { [Symbol(id)]: 1 }`,
         explanation:
           "Symbols are often used to add unique property keys to an object that won't collide with keys any other code might add to the object. They're not enumerable in for...in iterations, which makes them useful for storing metadata about objects.",
+        formatSpecifier: undefined,
+        dataType: "Symbol",
+        range: "Each Symbol value is unique and immutable",
+        size: undefined,
+        bestUseCase:
+          "Use for creating unique identifiers for object properties, especially when you want to avoid naming conflicts in objects or add non-string property keys.",
       },
     ],
   },
@@ -195,6 +284,13 @@ console.log(typeof person, person);`,
         output: `"object" { name: "Alice", age: 30 }`,
         explanation:
           "Objects are one of the most important data types in JavaScript. They allow you to store keyed collections of various data and more complex entities. Objects can be created using the object literal notation (as shown) or with the Object() constructor.",
+        formatSpecifier: undefined,
+        dataType: "Object",
+        range:
+          "Can contain any number of properties, limited only by available memory",
+        size: "Varies depending on content",
+        bestUseCase:
+          "Use for storing and organizing related data and functionality together, representing complex entities, or creating custom data structures in your application.",
       },
       {
         name: "Array",
@@ -205,6 +301,12 @@ console.log(typeof fruits, fruits);`,
         output: `"object" ["apple", "banana", "orange"]`,
         explanation:
           "Arrays in JavaScript are actually objects, which is why typeof returns 'object'. They have numeric keys and a length property. Arrays are very versatile and have many built-in methods for manipulation and iteration.",
+        formatSpecifier: undefined,
+        dataType: "Array",
+        range: "Can contain 0 to 2^32 - 1 elements",
+        size: "Varies depending on content",
+        bestUseCase:
+          "Use for storing and manipulating lists of data, especially when you need ordered collections or want to perform operations on multiple values at once.",
       },
       {
         name: "Function",
@@ -219,6 +321,12 @@ console.log(greet('Alice'));`,
 "Hello, Alice!"`,
         explanation:
           "Functions in JavaScript are objects, but they have a special typeof result: 'function'. They can be assigned to variables, passed as arguments to other functions, and even have properties and methods of their own. This makes JavaScript a very flexible language for functional programming.",
+        formatSpecifier: undefined,
+        dataType: "Function",
+        range: "Can contain any valid JavaScript code",
+        size: "Varies depending on the function's code",
+        bestUseCase:
+          "Use for creating reusable blocks of code, implementing behaviors, handling events, or organizing your code into modular, maintainable units.",
       },
     ],
   },
@@ -234,6 +342,8 @@ const consoleLogExamples = [
     output: "Hello, World!",
     explanation:
       "This is the simplest use of console.log(). It's often used as a first step in learning a new programming language. In JavaScript, you can use it to quickly check if your code is running or to see the value of a variable at a specific point in your program.",
+    bestUseCase:
+      "Use this for quick debugging, verifying if a script is running, or outputting simple messages during development.",
   },
   {
     type: "console.log",
@@ -244,6 +354,8 @@ const consoleLogExamples = [
     output: "Name: Alice Age: 30",
     explanation:
       "When you pass multiple arguments to console.log(), it will print them all out in order, separated by spaces. This is useful for logging multiple values at once or for adding labels to your log outputs to make them more readable.",
+    bestUseCase:
+      "Ideal for logging multiple related pieces of information at once, or for creating more descriptive debug outputs.",
   },
   {
     type: "console.log",
@@ -255,6 +367,8 @@ console.log('The value of x is:', x);`,
     output: "The value of x is: 5",
     explanation:
       "Here, we're using console.log() to print out both a string and the value of a variable. This is extremely useful when debugging, as it allows you to see the current state of your variables at different points in your code execution.",
+    bestUseCase:
+      "Perfect for tracking the value of variables throughout your code, especially in loops or complex functions.",
   },
   {
     type: "console.log",
@@ -266,6 +380,8 @@ console.log(person);`,
     output: "{ name: 'Bob', age: 25 }",
     explanation:
       "When you pass an object to console.log(), it will display the object's properties and their values. In most browser consoles, you can even expand the object to explore nested properties. This is invaluable when working with complex data structures or API responses.",
+    bestUseCase:
+      "Excellent for inspecting complex objects, debugging API responses, or understanding the structure of nested data.",
   },
 ];
 
@@ -276,242 +392,75 @@ export default function JavaScriptBasics() {
       courses={Courses}
       currentCourseLink="/courses/javascript/basics"
     >
-      <Section id="course-overview" delay={0.3}>
-        <div className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-xl shadow-xl overflow-hidden">
-          <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-3 sm:p-4 lg:p-6">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white tracking-wide flex items-center">
-              <FaCode className="text-blue-600 dark:text-blue-300 text-xl sm:text-2xl lg:text-3xl mr-3" />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-300 dark:to-purple-300">
-                Course Overview
-              </span>
-            </h2>
-          </div>
-          <div className="p-3 sm:p-4 lg:p-6 bg-gray-200 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-            <p className="text-sm sm:text-base lg:text-lg leading-relaxed text-gray-800 dark:text-gray-200">
-              In this course, you&apos;ll dive deep into JavaScript basics,
-              covering console.log, variables, and data types. These fundamental
-              concepts form the foundation for more advanced JavaScript
-              programming.
-            </p>
-          </div>
-        </div>
-      </Section>
+      <CourseOverview
+        id="course-overview"
+        delay={0.3}
+        description="In this course, you'll dive deep into JavaScript basics, covering console.log, variables, and data types. These fundamental concepts form the foundation for more advanced JavaScript programming."
+      />
 
-      <Section id="topics" delay={0.5}>
-        <h2 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-gray-900 dark:text-white tracking-wide flex items-center">
-          <FaLightbulb className="mr-2 sm:mr-3 text-blue-600 dark:text-blue-300" />
-          What You&apos;ll Learn
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-          {topics.map((topic, index) => (
-            <div
-              key={index}
-              className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-xl shadow-xl overflow-hidden transition-all duration-300 h-full flex flex-col"
-            >
-              <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-3 sm:p-4">
-                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white tracking-wide flex items-center">
-                  <topic.icon className="mr-2 text-blue-600 dark:text-blue-300" />
-                  {topic.title}
-                </h3>
-              </div>
-              <div className="p-3 sm:p-4 bg-gray-200 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
-                <p className="text-sm sm:text-base lg:text-lg text-gray-800 dark:text-gray-200 mb-3 sm:mb-4 leading-relaxed">
-                  {topic.desc}
-                </p>
-                <Link
-                  href={`#${topic.id}`}
-                  className="text-blue-600 dark:text-blue-300 font-semibold flex items-center mt-auto text-sm sm:text-base hover:text-blue-500 dark:hover:text-blue-200 transition-colors duration-300"
-                >
-                  Learn More{" "}
-                  <FaArrowRight className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
+      <Topics id="topics" delay={0.5} topics={topics} />
 
-      <Section id="why-basics-matter" delay={0.7}>
-        <div className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-xl shadow-xl overflow-hidden">
-          <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-3 sm:p-4 lg:p-6">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white tracking-wide flex items-center">
-              <FaRocket className="text-blue-600 dark:text-blue-300 text-xl sm:text-2xl lg:text-3xl mr-3" />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-300 dark:to-purple-300">
-                Why These Basics Matter
-              </span>
-            </h2>
-          </div>
-          <div className="p-3 sm:p-4 lg:p-6 bg-gray-200 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-            <p className="text-sm sm:text-base lg:text-lg leading-relaxed text-gray-800 dark:text-gray-200">
-              Understanding these fundamental concepts is crucial for any
-              aspiring JavaScript developer. These basics form the foundation
-              upon which more advanced concepts are built, enabling you to write
-              efficient, clean, and powerful JavaScript code.
-            </p>
-          </div>
-        </div>
-      </Section>
+      <Reason
+        id="why-basics-matter"
+        delay={0.7}
+        description="Understanding these fundamental concepts is crucial for any aspiring JavaScript developer. These basics form the foundation upon which more advanced concepts are built, enabling you to write efficient, clean, and powerful JavaScript code."
+      />
 
-      <Section id="console-log" delay={0.8}>
-        <h3 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-gray-900 dark:text-white tracking-wide flex items-center">
-          <FaTerminal className="mr-2 sm:mr-3 text-blue-600 dark:text-blue-300" />
-          Console.log: Your First JavaScript Output
-        </h3>
-        {consoleLogExamples.map((item, index) => (
-          <div
-            key={index}
-            className={`${index !== consoleLogExamples.length - 1 ? "mb-4 sm:mb-6" : ""} bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-xl shadow-xl transition-all duration-300 overflow-hidden`}
-          >
-            <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-3 sm:p-4 lg:p-6">
-              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white tracking-wide">
-                {item.title}
-              </h3>
-            </div>
-            <div className="p-3 sm:p-4 lg:p-6 bg-gray-200 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-              <div className="mb-3 sm:mb-4">
-                <p className="text-sm sm:text-base lg:text-lg text-gray-800 dark:text-gray-200 mb-2 leading-relaxed">
-                  {item.description}
-                </p>
-                <div className="mb-2 rounded-xl overflow-hidden shadow-inner">
-                  <HighlightCode
-                    content={item.example}
-                    language={"javascript"}
-                  />
-                </div>
-                <div className="mt-2">
-                  <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
-                    Output:
-                  </h4>
-                  <div className="rounded-xl overflow-hidden shadow-inner">
-                    <HighlightCode
-                      content={item.output}
-                      language={"javascript"}
-                    />
-                  </div>
-                </div>
-                <div className="mt-2">
-                  <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
-                    Explanation:
-                  </h4>
-                  <p className="text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                    {item.explanation}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </Section>
+      <BasicPrinting
+        title="Basic Printing in JavaScript"
+        id="basic-printing"
+        delay={0.8}
+        basicPrinting={consoleLogExamples.map((item) => ({
+          title: item.title,
+          desc: item.description,
+          examples: item.example,
+          output: item.output,
+          explanation: item.explanation,
+          bestUseCase: item.bestUseCase,
+        }))}
+        language="javascript"
+        icon={FaTerminal}
+      />
 
-      <Section id="variables" delay={0.9}>
-        <h3 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-gray-900 dark:text-white tracking-wide flex items-center">
-          <FaCode className="mr-2 sm:mr-3 text-blue-600 dark:text-blue-300" />
-          Understanding Variable Types
-        </h3>
-        {variableTypes.map((item, index) => (
-          <div
-            key={index}
-            className={`${index !== variableTypes.length - 1 ? "mb-4 sm:mb-6" : ""} bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-xl shadow-xl transition-all duration-300 overflow-hidden`}
-          >
-            <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-3 sm:p-4 lg:p-6">
-              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white tracking-wide">
-                {item.title}
-              </h3>
-            </div>
-            <div className="p-3 sm:p-4 lg:p-6 bg-gray-200 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-              <div className="mb-3 sm:mb-4">
-                <p className="text-sm sm:text-base lg:text-lg text-gray-800 dark:text-gray-200 mb-2 leading-relaxed">
-                  {item.description}
-                </p>
-                <div className="mb-2 rounded-xl overflow-hidden shadow-inner">
-                  <HighlightCode
-                    content={item.example}
-                    language={"javascript"}
-                  />
-                </div>
-                <div className="mt-2">
-                  <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
-                    Output:
-                  </h4>
-                  <div className="rounded-xl overflow-hidden shadow-inner">
-                    <HighlightCode
-                      content={item.output}
-                      language={"javascript"}
-                    />
-                  </div>
-                </div>
-                <div className="mt-2">
-                  <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
-                    Explanation:
-                  </h4>
-                  <p className="text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                    {item.explanation}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </Section>
+      <Variables
+        id="variables"
+        delay={0.9}
+        title="Understanding Variable Types"
+        icon={FaCode}
+        variables={variableTypes.map((item) => ({
+          title: item.title,
+          description: item.description,
+          steps: item.steps,
+          example: item.example,
+          explanation: item.explanation,
+          wrongExample: item.wrongExample,
+          wrongExplanation: item.wrongExplanation,
+          tips: item.tips,
+          scratch: item.scratch,
+        }))}
+      />
 
-      <Section id="data-types" delay={1.0}>
-        <h3 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-gray-900 dark:text-white tracking-wide flex items-center">
-          <FaCube className="mr-2 sm:mr-3 text-blue-600 dark:text-blue-300" />
-          Data Types in JavaScript
-        </h3>
-        {dataTypes.map((item, index) => (
-          <div
-            key={index}
-            className={`${index !== dataTypes.length - 1 ? "mb-4 sm:mb-6" : ""} bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-xl shadow-xl transition-all duration-300 overflow-hidden`}
-          >
-            <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-3 sm:p-4 lg:p-6">
-              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white tracking-wide">
-                {item.type}
-              </h3>
-            </div>
-            <div className="p-3 sm:p-4 lg:p-6 bg-gray-200 bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-              {item.examples.map((example, exampleIndex) => (
-                <div
-                  key={exampleIndex}
-                  className="mb-3 sm:mb-4 border-b border-gray-300 dark:border-gray-700 pb-3 sm:pb-4 last:border-b-0 last:pb-0"
-                >
-                  <h4 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                    {example.name}
-                  </h4>
-                  <p className="text-sm sm:text-base lg:text-lg text-gray-800 dark:text-gray-200 mb-2 leading-relaxed">
-                    {example.description}
-                  </p>
-                  <div className="mb-2 rounded-xl overflow-hidden shadow-inner">
-                    <HighlightCode
-                      content={example.example}
-                      language={"javascript"}
-                    />
-                  </div>
-                  <div className="mt-2">
-                    <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
-                      Output:
-                    </h4>
-                    <div className="rounded-xl overflow-hidden shadow-inner">
-                      <HighlightCode
-                        content={example.output}
-                        language={"javascript"}
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-2">
-                    <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-1">
-                      Explanation:
-                    </h4>
-                    <p className="text-sm sm:text-base text-gray-800 dark:text-gray-200">
-                      {example.explanation}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </Section>
+      <DataTypes
+        id="data-types"
+        delay={1.0}
+        title="Data Types in JavaScript"
+        icon={FaCube}
+        language="javascript"
+        dataTypes={dataTypes.map((item) => ({
+          type: item.type,
+          examples: item.examples.map((example) => ({
+            title: example.name,
+            description: example.description,
+            example: example.example,
+            formatSpecifier: example.formatSpecifier,
+            dataType: example.dataType,
+            range: example.range,
+            size: example.size,
+            explanation: example.explanation,
+            bestUseCase: example.bestUseCase,
+          })),
+        }))}
+      />
     </CourseContainer>
   );
 }
