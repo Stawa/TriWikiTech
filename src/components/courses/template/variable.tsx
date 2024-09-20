@@ -115,4 +115,4 @@ const Variables: React.FC<VariablesProps> = ({
   );
 };
 
-export default Variables;
+export { Variables, type VariableItem };

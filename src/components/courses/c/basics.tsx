@@ -19,7 +19,10 @@ import Courses from "@components/courses/c/navigation";
 import DataTypes from "@components/courses/template/types";
 import InputOutput from "@components/courses/template/input";
 import Topics from "@components/courses/template/topics";
-import Variables from "@components/courses/template/variable";
+import {
+  Variables,
+  type VariableItem,
+} from "@components/courses/template/variable";
 
 const topics = [
   {
@@ -98,7 +101,7 @@ const dataTypes = [
   },
 ];
 
-const variables = [
+const variables: VariableItem[] = [
   {
     title: "Creating Variables",
     description:
@@ -292,17 +295,7 @@ export default function CBasics() {
         delay={1.0}
         title="Understanding Variables in C"
         icon={FaLightbulb}
-        variables={variables.map((item) => ({
-          title: item.title,
-          description: item.description,
-          steps: item.steps,
-          example: item.example,
-          explanation: item.explanation,
-          wrongExample: item.wrongExample,
-          wrongExplanation: item.wrongExplanation,
-          tips: item.tips,
-          scratch: item.scratch,
-        }))}
+        variables={variables}
       />
 
       <DataTypes

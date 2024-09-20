@@ -8,8 +8,11 @@ import {
   Single,
   type SingleItemProps,
 } from "@components/courses/template/single";
+import {
+  Variables,
+  type VariableItem,
+} from "@components/courses/template/variable";
 
-import Variables from "@components/courses/template/variable";
 import DataTypes from "@components/courses/template/types";
 import { FaCode, FaCube, FaTerminal } from "react-icons/fa";
 import { PiLightbulbFilamentFill } from "react-icons/pi";
@@ -35,7 +38,7 @@ const topics = [
   },
 ];
 
-const variableTypes = [
+const variableTypes: VariableItem[] = [
   {
     title: "var (Function/Global Scope)",
     description:
@@ -424,17 +427,7 @@ export default function JavaScriptBasics() {
         delay={0.9}
         title="Understanding Variable Types"
         icon={FaCode}
-        variables={variableTypes.map((item) => ({
-          title: item.title,
-          description: item.description,
-          steps: item.steps,
-          example: item.example,
-          explanation: item.explanation,
-          wrongExample: item.wrongExample,
-          wrongExplanation: item.wrongExplanation,
-          tips: item.tips,
-          scratch: item.scratch,
-        }))}
+        variables={variableTypes}
       />
 
       <DataTypes
