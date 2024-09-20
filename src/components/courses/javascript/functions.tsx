@@ -4,7 +4,7 @@ import Courses from "@components/courses/javascript/navigation";
 import CourseContainer from "@components/courses/container";
 import CourseInfo from "@components/courses/template/info";
 import Topics from "@components/courses/template/topics";
-import BasicPrinting from "@components/courses/template/single";
+import Single from "@components/courses/template/single";
 import {
   FaCode,
   FaCube,
@@ -303,7 +303,7 @@ export default function JavaScriptFunctions() {
         icon={PiLightbulbFilamentFill}
       />
 
-      <BasicPrinting
+      <Single
         title="Function Declarations in JavaScript"
         id="function-declaration"
         delay={0.8}
@@ -319,7 +319,7 @@ export default function JavaScriptFunctions() {
         icon={FaCode}
       />
 
-      <BasicPrinting
+      <Single
         title="Parameters & Arguments in JavaScript"
         id="parameters-arguments"
         delay={0.9}
@@ -335,7 +335,7 @@ export default function JavaScriptFunctions() {
         icon={FaLightbulb}
       />
 
-      <BasicPrinting
+      <Single
         title="Return Values in JavaScript"
         id="return-values"
         delay={1.0}
@@ -351,7 +351,7 @@ export default function JavaScriptFunctions() {
         icon={FaCube}
       />
 
-      <BasicPrinting
+      <Single
         title="Arrow Functions in JavaScript"
         id="arrow-functions"
         delay={1.1}

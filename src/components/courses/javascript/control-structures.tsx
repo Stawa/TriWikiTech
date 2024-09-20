@@ -4,7 +4,7 @@ import Courses from "@components/courses/javascript/navigation";
 import CourseContainer from "@components/courses/container";
 import CourseInfo from "@components/courses/template/info";
 import Topics from "@components/courses/template/topics";
-import BasicPrinting from "@components/courses/template/single";
+import Single from "@components/courses/template/single";
 import { FaCode, FaExchangeAlt, FaSyncAlt } from "react-icons/fa";
 import { PiLightbulbFilamentFill } from "react-icons/pi";
 
@@ -196,7 +196,7 @@ export default function JavaScriptControlStructures() {
         icon={PiLightbulbFilamentFill}
       />
 
-      <BasicPrinting
+      <Single
         id="conditionals"
         delay={0.8}
         title="Conditional Statements"
@@ -212,7 +212,7 @@ export default function JavaScriptControlStructures() {
         icon={FaCode}
       />
 
-      <BasicPrinting
+      <Single
         id="loops"
         delay={0.9}
         title="Loops"
@@ -228,7 +228,7 @@ export default function JavaScriptControlStructures() {
         icon={FaSyncAlt}
       />
 
-      <BasicPrinting
+      <Single
         id="switch"
         delay={1.0}
         title="Switch Statements"

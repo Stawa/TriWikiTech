@@ -4,7 +4,7 @@ import CourseContainer from "@components/courses/container";
 import CourseInfo from "@components/courses/template/info";
 import Courses from "@components/courses/javascript/navigation";
 import Topics from "@components/courses/template/topics";
-import BasicPrinting from "@components/courses/template/single";
+import Single from "@components/courses/template/single";
 import Variables from "@components/courses/template/variable";
 import DataTypes from "@components/courses/template/types";
 import { FaCode, FaCube, FaTerminal } from "react-icons/fa";
@@ -410,7 +410,7 @@ export default function JavaScriptBasics() {
         icon={PiLightbulbFilamentFill}
       />
 
-      <BasicPrinting
+      <Single
         title="Basic Printing in JavaScript"
         id="basic-printing"
         delay={0.8}

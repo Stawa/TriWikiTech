@@ -4,8 +4,11 @@ import Courses from "@components/courses/javascript/navigation";
 import CourseContainer from "@components/courses/container";
 import CourseInfo from "@components/courses/template/info";
 import Topics from "@components/courses/template/topics";
-import BasicPrinting from "@components/courses/template/single";
-import Multiple from "@components/courses/template/multiple";
+import Single from "@components/courses/template/single";
+import {
+  Multiple,
+  type MultipleItem,
+} from "@components/courses/template/multiple";
 import {
   FaCode,
   FaCube,
@@ -180,12 +183,9 @@ undefined
   },
 ];
 
-const objectMethods = [
+const objectMethods: MultipleItem[] = [
   {
     type: "Built-in",
-    title: "Built-in Object Methods",
-    description:
-      "JavaScript gives us some handy tools (called methods) to work with objects. These methods help us do common tasks with objects more easily. Let's look at a couple of these helpful tools!",
     examples: [
       {
         name: "Object.keys()",
@@ -202,6 +202,8 @@ const emptyObject = {};
 console.log(Object.keys(emptyObject));`,
         output: `["name", "age", "job"]
 []`,
+        explanation:
+          "Object.keys() returns an array of a given object's own enumerable property names. In the first example, it returns all the keys of the 'person' object. For the empty object, it returns an empty array since there are no keys.",
       },
       {
         name: "Object.values()",
@@ -218,16 +220,13 @@ const scores = { math: 95, science: 88, history: 92 };
 console.log(Object.values(scores));`,
         output: `["John", 30, "developer"]
 [95, 88, 92]`,
+        explanation:
+          "Object.values() returns an array of a given object's own enumerable property values. In the first example, it returns all the values of the 'person' object. For the 'scores' object, it returns an array of all the score values.",
       },
     ],
-    explanation:
-      "These built-in methods are super helpful when working with objects:\n\n1. Object.keys() gives us an array of all the property names in an object. This is useful when you want to know what kind of information an object contains.\n\n2. Object.values() gives us an array of all the values in an object. This is great when you want to work with all the information in an object without worrying about the property names.\n\nBoth methods return empty arrays for empty objects. These tools make it easier to work with objects, especially when you're not sure what properties an object might have or when you want to do something with all the values in an object.",
   },
   {
     type: "Custom",
-    title: "Custom Object Methods",
-    description:
-      "Objects can also have their own special functions, which we call methods. These are like personal tools that belong to the object. You can create these yourself to make objects do specific tasks.",
     examples: [
       {
         name: "Custom Method",
@@ -256,19 +255,16 @@ calculator.describe();`,
 6
 12
 I'm a calculator object!`,
+        explanation:
+          "In this example, we've created a calculator object with custom methods. The add, subtract, and multiply methods perform arithmetic operations, while the describe method logs a message. We can call these methods using dot notation (e.g., calculator.add(5, 3)). This demonstrates how objects can have their own functions, allowing for more organized and object-oriented code.",
       },
     ],
-    explanation:
-      "Custom methods let you add special behaviors to your objects:\n\n1. We created a calculator object with four methods: add, subtract, multiply, and describe.\n\n2. Each method is like a mini-function that belongs to the calculator object.\n\n3. We can use these methods by writing the object name, then a dot, then the method name, like calculator.add(5, 3).\n\n4. The describe method doesn't return a value, it just prints a message.\n\nCustom methods are great because they let you group related functions together in an object. This helps organize your code and makes it easier to use. For example, all the math operations are kept together in the calculator object.",
   },
 ];
 
-const arrayOperations = [
+const arrayOperations: MultipleItem[] = [
   {
     type: "Manipulation",
-    title: "Array Manipulation Methods",
-    description:
-      "JavaScript gives us special tools (methods) to work with arrays. These methods help us add, remove, or change items in an array. Let's look at some of these helpful tools!",
     examples: [
       {
         name: "push() and pop()",
@@ -284,6 +280,8 @@ console.log(fruits);`,
         output: `["apple", "banana", "orange"]
 orange
 ["apple", "banana"]`,
+        explanation:
+          "push() adds 'orange' to the end of the fruits array. pop() then removes and returns the last item ('orange'). After these operations, the fruits array is back to its original state with just 'apple' and 'banana'.",
       },
       {
         name: "unshift() and shift()",
@@ -299,6 +297,8 @@ console.log(numbers);`,
         output: `[1, 2, 3, 4]
 1
 [2, 3, 4]`,
+        explanation:
+          "unshift() adds 1 to the beginning of the numbers array. shift() then removes and returns the first item (1). After these operations, the numbers array is back to its original state with 2, 3, and 4.",
       },
       {
         name: "map()",
@@ -313,10 +313,10 @@ const upperWords = words.map(word => word.toUpperCase());
 console.log(upperWords);`,
         output: `[2, 4, 6, 8]
 ["HELLO", "WORLD"]`,
+        explanation:
+          "map() applies a function to each element of the array and returns a new array with the results. In the first example, it doubles each number. In the second example, it converts each word to uppercase. The original arrays remain unchanged.",
       },
     ],
-    explanation:
-      "These array methods are super useful for changing arrays:\n\n1. push() and pop() work with the end of the array. push() adds an item, making the array longer. pop() removes the last item and tells you what it was.\n\n2. unshift() and shift() are like push() and pop(), but they work at the beginning of the array instead of the end.\n\n3. map() is special because it creates a whole new array. It does something to each item in the original array and puts the results in a new array. The original array doesn't change.\n\nThese methods make it easy to add, remove, or change items in arrays. They're like having a toolbox for working with lists in your programs!",
   },
 ];
 
@@ -345,7 +345,7 @@ export default function JavaScriptObjectsArrays() {
         icon={PiLightbulbFilamentFill}
       />
 
-      <BasicPrinting
+      <Single
         title="Object Basics"
         id="object-basics"
         delay={0.8}
@@ -360,7 +360,7 @@ export default function JavaScriptObjectsArrays() {
         icon={FaCube}
       />
 
-      <BasicPrinting
+      <Single
         title="Array Fundamentals"
         id="array-fundamentals"
         delay={0.9}

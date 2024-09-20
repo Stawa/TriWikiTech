@@ -10,8 +10,8 @@ interface MultipleItem {
     description: string;
     example: string;
     output: string;
+    explanation: string;
   }[];
-  explanation: string;
 }
 
 interface MultipleProps {
@@ -64,9 +64,6 @@ const Multiple: React.FC<MultipleProps> = ({
                     language={language}
                   />
                 </div>
-                <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-line">
-                  {example.output}
-                </p>
                 <div className="mt-3">
                   <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
                     Output:
@@ -78,6 +75,14 @@ const Multiple: React.FC<MultipleProps> = ({
                     />
                   </div>
                 </div>
+                <div className="mt-4">
+                  <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                    Explanation:
+                  </h4>
+                  <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-line">
+                    {example.explanation}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -87,4 +92,4 @@ const Multiple: React.FC<MultipleProps> = ({
   );
 };
 
-export default Multiple;
+export { Multiple, type MultipleItem };

@@ -1,15 +1,18 @@
 "use client";
 
-import Link from "next/link";
-import { FaArrowRight, FaCode, FaLightbulb, FaRocket } from "react-icons/fa";
+import { FaCode, FaRocket } from "react-icons/fa";
 import { RiFileTextLine } from "react-icons/ri";
 import { PiTreeStructure } from "react-icons/pi";
 import { TbCpu } from "react-icons/tb";
 
-import Section from "@components/courses/section";
 import Courses from "@components/courses/c/navigation";
 import CourseContainer from "@components/courses/container";
-import HighlightCode from "@components/highlight";
+import CourseInfo from "@components/courses/template/info";
+import Topics from "@components/courses/template/topics";
+import {
+  Multiple,
+  type MultipleItem,
+} from "@components/courses/template/multiple";
 
 const topics = [
   {
@@ -32,23 +35,24 @@ const topics = [
   },
 ];
 
-const structures = [
+const structures: MultipleItem[] = [
   {
     type: "Basic Structure",
     examples: [
       {
-        title: "Simple Structure",
+        name: "Simple Structure",
         description: "Define a basic structure with multiple data types",
         example: `struct Person {
   char name[50];
   int age;
   float height;
 };`,
+        output: "// No output (structure definition)",
         explanation:
-          "This structure defines a 'Person' with a name, age, and height. It allows you to group related data of different types together.",
+          "This example demonstrates a simple structure named 'Person' that groups related data of different types. It includes a character array for the name, an integer for age, and a float for height. This structure allows you to create variables that can store all this information about a person in a single, organized unit.",
       },
       {
-        title: "Nested Structure",
+        name: "Nested Structure",
         description: "Define a structure within another structure",
         example: `struct Address {
   char street[100];
@@ -61,41 +65,44 @@ struct Employee {
   int id;
   struct Address address;
 };`,
+        output: "// No output (structure definition)",
         explanation:
-          "This example shows a nested structure where 'Employee' contains an 'Address' structure. This allows for more complex data organization.",
+          "This example shows a nested structure where 'Address' is defined first, and then used within the 'Employee' structure. This allows for more complex data organization. An Employee now has a name, an ID, and a complete address (which itself contains street, city, and country). This demonstrates how structures can be used to create more sophisticated data representations.",
       },
     ],
   },
 ];
 
-const fileIO = [
+const fileIO: MultipleItem[] = [
   {
     type: "File Operations",
     examples: [
       {
-        title: "Opening a File",
+        name: "Opening a File",
         description: "Open a file for reading or writing",
         example: `FILE *file = fopen("example.txt", "r");
 if (file == NULL) {
     printf("Error opening file\\n");
     return 1;
 }`,
+        output: "// No output if file opens successfully",
         explanation:
-          "This code opens a file named 'example.txt' for reading. It's important to check if the file was successfully opened before proceeding.",
+          "This example demonstrates how to open a file in C. The fopen() function is used with the filename and mode ('r' for read). It's crucial to check if the file was opened successfully by comparing the returned pointer to NULL. This error checking helps prevent issues when trying to use a file that couldn't be opened.",
       },
       {
-        title: "Writing to a File",
+        name: "Writing to a File",
         description: "Write data to a file",
         example: `FILE *file = fopen("example.txt", "w");
 if (file != NULL) {
     fprintf(file, "Hello, World!\\n");
     fclose(file);
 }`,
+        output: "// No console output (writes to file)",
         explanation:
-          "This example demonstrates writing a string to a file. Always remember to close the file after you're done writing to it.",
+          "This example shows how to write to a file. After opening the file in write mode ('w'), fprintf() is used to write a string to the file. Note the importance of closing the file with fclose() after writing. This ensures that all data is properly saved and system resources are released.",
       },
       {
-        title: "Reading from a File",
+        name: "Reading from a File",
         description: "Read data from a file",
         example: `FILE *file = fopen("example.txt", "r");
 if (file != NULL) {
@@ -105,35 +112,38 @@ if (file != NULL) {
     }
     fclose(file);
 }`,
+        output: "// Outputs file contents to console",
         explanation:
-          "This code reads the contents of a file line by line and prints each line. The fgets function is used to read strings from the file.",
+          "This example demonstrates reading from a file. After opening the file in read mode, it uses a while loop with fgets() to read the file line by line into a buffer. Each line is then printed to the console. The loop continues until fgets() returns NULL, indicating the end of the file. Again, the file is closed after reading.",
       },
     ],
   },
 ];
 
-const preprocessor = [
+const preprocessor: MultipleItem[] = [
   {
     type: "Preprocessor Directives",
     examples: [
       {
-        title: "Include Directive",
+        name: "Include Directive",
         description: "Include a header file",
         example: `#include <stdio.h>
 #include "myheader.h"`,
+        output: "// No output (preprocessor directive)",
         explanation:
-          "The #include directive is used to include header files. Angle brackets are used for system headers, while quotation marks are used for user-defined headers.",
+          'The #include directive is used to include header files in your C program. <stdio.h> is a standard library header, included using angle brackets. "myheader.h" is a user-defined header, included using quotes. This directive tells the preprocessor to insert the contents of the specified file at the location of the #include statement.',
       },
       {
-        title: "Define Directive",
+        name: "Define Directive",
         description: "Define a macro",
         example: `#define PI 3.14159
 #define SQUARE(x) ((x) * (x))`,
+        output: "// No output (preprocessor directive)",
         explanation:
-          "The #define directive is used to create macros. These can be simple constant definitions or more complex function-like macros.",
+          "The #define directive is used to create macros. PI is defined as a constant value. SQUARE(x) is defined as a function-like macro that squares its argument. These macros are processed by the preprocessor before compilation, replacing all occurrences in the code with their defined values or expressions.",
       },
       {
-        title: "Conditional Compilation",
+        name: "Conditional Compilation",
         description: "Conditionally compile code",
         example: `#ifdef DEBUG
     printf("Debug mode is on\\n");
@@ -146,8 +156,9 @@ const preprocessor = [
 #else
     // Default code
 #endif`,
+        output: "// Output depends on defined macros and conditions",
         explanation:
-          "Conditional compilation allows you to include or exclude portions of code based on certain conditions. This is useful for platform-specific code or debugging.",
+          "Conditional compilation directives allow parts of the code to be included or excluded based on certain conditions. #ifdef checks if a macro is defined. #if, #elif, and #else work similarly to regular if-else statements, but at the preprocessor level. This is useful for creating platform-specific code or including debug statements only when needed.",
       },
     ],
   },
@@ -160,188 +171,50 @@ export default function CAdvanced() {
       courses={Courses}
       currentCourseLink="/courses/c/advanced"
     >
-      <Section id="course-overview" delay={0.3}>
-        <div className="bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
-          <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-50 p-6 sm:p-8">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-wide flex items-center">
-              <FaCode className="mr-4 text-blue-700 dark:text-blue-300" />
-              Course Overview
-            </h2>
-          </div>
-          <div className="p-6 sm:p-8 bg-white bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-            <p className="text-lg sm:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
-              In this advanced C programming course, you&apos;ll delve into more
-              complex topics such as structures, file I/O, and preprocessor
-              directives. These concepts will help you write more sophisticated
-              and efficient C programs.
-            </p>
-          </div>
-        </div>
-      </Section>
+      <CourseInfo
+        title="Course Overview"
+        id="course-overview"
+        delay={0.3}
+        description="In this advanced C programming course, you'll delve into more complex topics such as structures, file I/O, and preprocessor directives. These concepts will help you write more sophisticated and efficient C programs."
+        icon={FaCode}
+      />
 
-      <Section id="topics" delay={0.5}>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-900 dark:text-white tracking-wide flex items-center">
-          <FaLightbulb className="mr-3 sm:mr-4 text-blue-700 dark:text-blue-300" />
-          What You&apos;ll Learn
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-          {topics.map((topic, index) => (
-            <div
-              key={index}
-              className="bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 h-full flex flex-col"
-            >
-              <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-50 p-4 sm:p-6">
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-gray-900 dark:text-white tracking-wide flex items-center">
-                  <topic.icon className="mr-3 sm:mr-4 text-blue-700 dark:text-blue-300" />
-                  {topic.title}
-                </h3>
-              </div>
-              <div className="p-4 sm:p-6 bg-white bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg flex-grow flex flex-col justify-between">
-                <p className="text-base sm:text-lg lg:text-xl text-gray-800 dark:text-gray-200 mb-4 sm:mb-6 leading-relaxed">
-                  {topic.desc}
-                </p>
-                <Link
-                  href={`#${topic.id}`}
-                  className="text-blue-600 dark:text-blue-400 font-semibold flex items-center mt-auto text-base sm:text-lg hover:text-blue-500 dark:hover:text-blue-300 transition-colors duration-300"
-                >
-                  Learn More{" "}
-                  <FaArrowRight className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
+      <Topics id="topics" delay={0.5} topics={topics} />
 
-      <Section id="why-advanced-topics-matter" delay={0.7}>
-        <div className="bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden mt-12 sm:mt-16">
-          <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-50 p-6 sm:p-8">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-wide flex items-center">
-              <FaRocket className="mr-4 text-blue-700 dark:text-blue-300" />
-              Why These Advanced Topics Matter
-            </h2>
-          </div>
-          <div className="p-6 sm:p-8 bg-white bg-opacity-90 dark:bg-gray-800 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-            <p className="text-lg sm:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
-              Understanding these advanced concepts is crucial for any serious C
-              programmer. They allow you to create more complex data structures,
-              interact with files, and optimize your code, enabling you to build
-              more powerful and efficient C applications.
-            </p>
-          </div>
-        </div>
-      </Section>
+      <CourseInfo
+        title="Why These Advanced Topics Matter"
+        id="why-advanced-topics-matter"
+        delay={0.7}
+        description="Understanding these advanced concepts is crucial for any serious C programmer. They allow you to create more complex data structures, interact with files, and optimize your code, enabling you to build more powerful and efficient C applications."
+        icon={FaRocket}
+      />
 
-      <Section id="structures" delay={0.8}>
-        <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-900 dark:text-white tracking-wide flex items-center">
-          <PiTreeStructure className="mr-3 sm:mr-4 text-blue-700 dark:text-blue-300" />
-          Structures in C
-        </h3>
-        {structures.map((item, index) => (
-          <div
-            key={index}
-            className={`${index !== structures.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
-          >
-            <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white tracking-wide">
-                {item.type}
-              </h3>
-            </div>
-            <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-              {item.examples.map((example, exampleIndex) => (
-                <div key={exampleIndex} className="mb-6 sm:mb-8">
-                  <h4 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
-                    {example.title}
-                  </h4>
-                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 leading-relaxed">
-                    {example.description}
-                  </p>
-                  <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
-                    <HighlightCode content={example.example} language={"c"} />
-                  </div>
-                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
-                    {example.explanation}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </Section>
+      <Multiple
+        title="Structures in C"
+        id="structures"
+        delay={0.8}
+        icon={PiTreeStructure}
+        language="c"
+        items={structures}
+      />
 
-      <Section id="file-io" delay={1.0}>
-        <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-900 dark:text-white tracking-wide flex items-center">
-          <RiFileTextLine className="mr-3 sm:mr-4 text-blue-700 dark:text-blue-300" />
-          File I/O in C
-        </h3>
-        {fileIO.map((item, index) => (
-          <div
-            key={index}
-            className={`${index !== fileIO.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
-          >
-            <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white tracking-wide">
-                {item.type}
-              </h3>
-            </div>
-            <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-              {item.examples.map((example, exampleIndex) => (
-                <div key={exampleIndex} className="mb-6 sm:mb-8">
-                  <h4 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
-                    {example.title}
-                  </h4>
-                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 leading-relaxed">
-                    {example.description}
-                  </p>
-                  <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
-                    <HighlightCode content={example.example} language={"c"} />
-                  </div>
-                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
-                    {example.explanation}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </Section>
+      <Multiple
+        title="File I/O in C"
+        id="file-io"
+        delay={1.0}
+        icon={RiFileTextLine}
+        language="c"
+        items={fileIO}
+      />
 
-      <Section id="preprocessor" delay={1.2}>
-        <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-900 dark:text-white tracking-wide flex items-center">
-          <TbCpu className="mr-3 sm:mr-4 text-blue-700 dark:text-blue-300" />
-          Preprocessor Directives in C
-        </h3>
-        {preprocessor.map((item, index) => (
-          <div
-            key={index}
-            className={`${index !== preprocessor.length - 1 ? "mb-8 sm:mb-12" : ""} bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-700 dark:to-purple-800 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden`}
-          >
-            <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white tracking-wide">
-                {item.type}
-              </h3>
-            </div>
-            <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
-              {item.examples.map((example, exampleIndex) => (
-                <div key={exampleIndex} className="mb-6 sm:mb-8">
-                  <h4 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
-                    {example.title}
-                  </h4>
-                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-4 leading-relaxed">
-                    {example.description}
-                  </p>
-                  <div className="mb-4 rounded-xl overflow-hidden shadow-inner">
-                    <HighlightCode content={example.example} language={"c"} />
-                  </div>
-                  <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
-                    {example.explanation}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </Section>
+      <Multiple
+        title="Preprocessor Directives in C"
+        id="preprocessor"
+        delay={1.2}
+        icon={TbCpu}
+        language="c"
+        items={preprocessor}
+      />
     </CourseContainer>
   );
 }
