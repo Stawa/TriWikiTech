@@ -16,13 +16,16 @@ import {
 import CourseContainer from "@components/courses/container";
 import CourseInfo from "@components/courses/template/info";
 import Courses from "@components/courses/c/navigation";
-import DataTypes from "@components/courses/template/types";
 import InputOutput from "@components/courses/template/input";
 import Topics from "@components/courses/template/topics";
 import {
   Variables,
   type VariableItem,
 } from "@components/courses/template/variable";
+import {
+  DataTypes,
+  type DataTypeCategory,
+} from "@components/courses/template/types";
 
 const topics = [
   {
@@ -51,15 +54,16 @@ const topics = [
   },
 ];
 
-const dataTypes = [
+const dataTypes: DataTypeCategory[] = [
   {
     type: "Basic",
     examples: [
       {
-        type: "int",
         title: "Integer",
         description: "Used for whole numbers without decimal points.",
-        example: `int age = 25;\nint count = -10;`,
+        example: `int age = 25;
+int count = -10;
+printf("Age: %d, Count: %d\\n", age, count);`,
         formatSpecifier: "%d or %i",
         dataType: "int",
         range: "-2147483648 to 2147483647",
@@ -68,12 +72,14 @@ const dataTypes = [
           "Integers are ideal for counting, indexing, or representing discrete quantities. Use them when you need whole numbers and don't require decimal precision, such as for ages, counts, or array indices.",
         bestUseCase:
           "Best used for loop counters, array indices, or any whole number calculations where fractional parts are not needed.",
+        output: "Age: 25, Count: -10",
       },
       {
-        type: "float",
         title: "Float",
         description: "Used for numbers with decimal points (single precision).",
-        example: `float price = 9.99f;\nfloat temperature = -2.5f;`,
+        example: `float price = 9.99f;
+float temperature = -2.5f;
+printf("Price: %.2f, Temperature: %.1f\\n", price, temperature);`,
         formatSpecifier: "%f",
         dataType: "float",
         range: "1.2E-38 to 3.4E+38",
@@ -82,12 +88,14 @@ const dataTypes = [
           "Floats are used for representing real numbers with decimal points. They offer a good balance between precision and memory usage.",
         bestUseCase:
           "Ideal for scientific calculations, graphics, or any situation where you need decimal precision but don't require the extended precision of a double.",
+        output: "Price: 9.99, Temperature: -2.5",
       },
       {
-        type: "char",
         title: "Character",
         description: "Used for single characters.",
-        example: `char grade = 'A';\nchar symbol = '*';`,
+        example: `char grade = 'A';
+char symbol = '*';
+printf("Grade: %c, Symbol: %c\\n", grade, symbol);`,
         formatSpecifier: "%c",
         dataType: "char",
         range: "-128 to 127",
@@ -96,6 +104,7 @@ const dataTypes = [
           "Characters in C are actually small integers, each representing a single ASCII character. They're useful for storing individual letters, digits, or symbols.",
         bestUseCase:
           "Best used when working with individual characters, such as processing text one character at a time, or when memory efficiency is crucial and you only need to store single characters.",
+        output: "Grade: A, Symbol: *",
       },
     ],
   },
@@ -304,20 +313,7 @@ export default function CBasics() {
         title="Data Types in C"
         icon={FaCube}
         language="c"
-        dataTypes={dataTypes.map((item) => ({
-          type: item.type,
-          examples: item.examples.map((example) => ({
-            title: example.title,
-            description: example.description,
-            example: example.example,
-            formatSpecifier: example.formatSpecifier,
-            dataType: example.dataType,
-            range: example.range,
-            size: example.size,
-            explanation: example.explanation,
-            bestUseCase: example.bestUseCase,
-          })),
-        }))}
+        content={dataTypes}
       />
 
       <InputOutput

@@ -12,8 +12,11 @@ import {
   Variables,
   type VariableItem,
 } from "@components/courses/template/variable";
+import {
+  DataTypes,
+  type DataTypeCategory,
+} from "@components/courses/template/types";
 
-import DataTypes from "@components/courses/template/types";
 import { FaCode, FaCube, FaTerminal } from "react-icons/fa";
 import { PiLightbulbFilamentFill } from "react-icons/pi";
 
@@ -164,12 +167,12 @@ console.log(Z); // Error: Z is not defined in this scope`,
   },
 ];
 
-const dataTypes = [
+const dataTypes: DataTypeCategory[] = [
   {
     type: "Primitive",
     examples: [
       {
-        name: "Number",
+        title: "Number",
         description:
           "The Number type in JavaScript represents both integer and floating-point numbers. It's used for any kind of numeric value.",
         example: `let age = 25;
@@ -189,7 +192,7 @@ console.log(typeof pi, pi);`,
           "Use for any numeric calculations, counters, or representing quantities in your application.",
       },
       {
-        name: "String",
+        title: "String",
         description:
           "The String type represents textual data. It's used for storing and manipulating text.",
         example: `let name = 'John';
@@ -208,7 +211,7 @@ console.log(typeof greeting, greeting);`,
           "Use for storing and manipulating text data, such as names, messages, or any textual content in your application.",
       },
       {
-        name: "Boolean",
+        title: "Boolean",
         description:
           "The Boolean type represents a logical entity and can have only two values: true or false. It's often used in conditional statements and comparisons.",
         example: `let isActive = true;
@@ -227,7 +230,7 @@ console.log(typeof isLoggedIn, isLoggedIn);`,
           "Use for conditional logic, flags, or any situation where you need to represent a binary state (on/off, yes/no, true/false).",
       },
       {
-        name: "Undefined",
+        title: "Undefined",
         description:
           "Undefined represents a variable that has been declared but hasn't been assigned a value yet.",
         example: `let x;
@@ -243,7 +246,7 @@ console.log(typeof x, x);`,
           "Use to check if a variable has been assigned a value, or to explicitly indicate that a variable or object property has no assigned value.",
       },
       {
-        name: "Null",
+        title: "Null",
         description:
           "Null represents a deliberate non-value or absence of any object value. It's often used to signify 'no value' or 'unknown value'.",
         example: `let empty = null;
@@ -259,7 +262,7 @@ console.log(typeof empty, empty);`,
           "Use to explicitly indicate that a variable or object property has no value or is intentionally empty, especially when you want to distinguish from undefined.",
       },
       {
-        name: "Symbol",
+        title: "Symbol",
         description:
           "Symbol is a unique and immutable primitive value and may be used as the key of an Object property. It was introduced in ECMAScript 2015.",
         example: `const id = Symbol('id');
@@ -283,7 +286,7 @@ console.log(user);`,
     type: "Complex",
     examples: [
       {
-        name: "Object",
+        title: "Object",
         description:
           "Objects are used to store collections of data and more complex entities. They can contain properties and methods.",
         example: `let person = { name: 'Alice', age: 30 };
@@ -300,7 +303,7 @@ console.log(typeof person, person);`,
           "Use for storing and organizing related data and functionality together, representing complex entities, or creating custom data structures in your application.",
       },
       {
-        name: "Array",
+        title: "Array",
         description:
           "Arrays are used to store multiple values in a single variable. They are objects that contain a list of items.",
         example: `let fruits = ['apple', 'banana', 'orange'];
@@ -316,7 +319,7 @@ console.log(typeof fruits, fruits);`,
           "Use for storing and manipulating lists of data, especially when you need ordered collections or want to perform operations on multiple values at once.",
       },
       {
-        name: "Function",
+        title: "Function",
         description:
           "Functions are reusable blocks of code that perform a specific task. In JavaScript, functions are first-class objects.",
         example: `function greet(name) {
@@ -436,20 +439,7 @@ export default function JavaScriptBasics() {
         title="Data Types in JavaScript"
         icon={FaCube}
         language="javascript"
-        dataTypes={dataTypes.map((item) => ({
-          type: item.type,
-          examples: item.examples.map((example) => ({
-            title: example.name,
-            description: example.description,
-            example: example.example,
-            formatSpecifier: example.formatSpecifier,
-            dataType: example.dataType,
-            range: example.range,
-            size: example.size,
-            explanation: example.explanation,
-            bestUseCase: example.bestUseCase,
-          })),
-        }))}
+        content={dataTypes}
       />
     </CourseContainer>
   );
