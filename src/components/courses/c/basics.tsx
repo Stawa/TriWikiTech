@@ -9,7 +9,10 @@ import {
   FaTerminal,
 } from "react-icons/fa";
 
-import Single from "@components/courses/template/single";
+import {
+  Single,
+  type SingleItemProps,
+} from "@components/courses/template/single";
 import CourseContainer from "@components/courses/container";
 import CourseInfo from "@components/courses/template/info";
 import Courses from "@components/courses/c/navigation";
@@ -207,13 +210,13 @@ puts(message);`,
   },
 ];
 
-const basicPrinting = [
+const basicPrinting: SingleItemProps[] = [
   {
     title: "Basic Printing",
-    desc: "Learn how to display text in C programs",
+    description: "Learn how to display text in C programs",
     explanation:
       "The printf() function is a powerful tool for outputting formatted text. It's part of the stdio.h library and allows for precise control over what's displayed. The '\\n' escape sequence adds a newline, ensuring the next output starts on a fresh line.",
-    examples: `#include <stdio.h>
+    example: `#include <stdio.h>
 
 int main() {
     printf("Hello, World!\\n");
@@ -227,10 +230,11 @@ C programming is powerful!`,
   },
   {
     title: "Format Specifiers",
-    desc: "Explore how to integrate variables into your output seamlessly",
+    description:
+      "Explore how to integrate variables into your output seamlessly",
     explanation:
       "Format specifiers act as placeholders for variable values in printf() statements. The %d specifier is used for integers, but C offers a wide range of specifiers for different data types. This allows for flexible and dynamic output formatting.",
-    examples: `#include <stdio.h>
+    example: `#include <stdio.h>
 
 int main() {
     int age = 25;
@@ -278,14 +282,7 @@ export default function CBasics() {
         title="Basic Printing in C"
         id="basic-printing"
         delay={0.8}
-        components={basicPrinting.map((item) => ({
-          title: item.title,
-          desc: item.desc,
-          examples: item.examples,
-          output: item.output,
-          explanation: item.explanation,
-          bestUseCase: item.bestUseCase,
-        }))}
+        components={basicPrinting}
         language="c"
         icon={FaTerminal}
       />

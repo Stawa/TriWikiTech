@@ -6,7 +6,10 @@ import Courses from "@components/courses/c/navigation";
 import CourseContainer from "@components/courses/container";
 import CourseInfo from "@components/courses/template/info";
 import Topics from "@components/courses/template/topics";
-import Single from "@components/courses/template/single";
+import {
+  Single,
+  type SingleItemProps,
+} from "@components/courses/template/single";
 
 const topics = [
   {
@@ -35,7 +38,7 @@ const topics = [
   },
 ];
 
-const functionExamples = [
+const functionExamples: SingleItemProps[] = [
   {
     title: "Function Definition",
     description:
@@ -43,7 +46,7 @@ const functionExamples = [
     example: `int add(int a, int b) {
   return a + b;
 }`,
-    whenToUse:
+    explanation:
       "Use function definitions in .c source files when you're ready to implement the function's behavior. This is where you write the code that will be executed when the function is called.",
     output: "No direct output. This is just a function definition.",
   },
@@ -53,13 +56,13 @@ const functionExamples = [
       "A function call in C executes the function's code with the provided arguments. It may return a value that can be used in expressions or assigned to variables.",
     example: `int result = add(5, 3);
 printf("Sum: %d", result);`,
-    whenToUse:
+    explanation:
       "Use function calls whenever you need to execute the function's code. This allows for code reuse and helps in breaking down complex problems into smaller, manageable parts.",
     output: "Sum: 8",
   },
 ];
 
-const parameterExamples = [
+const parameterExamples: SingleItemProps[] = [
   {
     title: "Pass by Value",
     description:
@@ -73,7 +76,7 @@ int main() {
   increment(num);
   printf("%d", num); // Output: 5
 }`,
-    whenToUse:
+    explanation:
       "Use pass by value when you want to work with a copy of the data and ensure that the original value remains unchanged. This is the default behavior for most data types in C and is useful for maintaining data integrity.",
     output: "5",
   },
@@ -90,13 +93,13 @@ int main() {
   increment(&num);
   printf("%d", num); // Output: 6
 }`,
-    whenToUse:
+    explanation:
       "Use pass by reference when you need to modify the original variable inside the function or when dealing with large data structures to avoid the overhead of copying. It's also useful for returning multiple values from a function.",
     output: "6",
   },
 ];
 
-const returnValueExamples = [
+const returnValueExamples: SingleItemProps[] = [
   {
     title: "Returning a Value",
     description:
@@ -107,7 +110,7 @@ const returnValueExamples = [
 
 int result = square(5);
 printf("%d", result); // Output: 25`,
-    whenToUse:
+    explanation:
       "Use return values when your function needs to compute and provide a result back to the calling code. This is essential for functions that perform calculations, data processing, or any task that produces a specific output.",
     output: "25",
   },
@@ -120,13 +123,13 @@ printf("%d", result); // Output: 25`,
 }
 
 greet("Alice"); // Output: Hello, Alice!`,
-    whenToUse:
+    explanation:
       "Use void functions when your function doesn't need to return a value but instead performs some action or modifies state. This is common for functions that handle output, modify global data, or carry out specific tasks without producing a direct result.",
     output: "Hello, Alice!",
   },
 ];
 
-const prototypeExamples = [
+const prototypeExamples: SingleItemProps[] = [
   {
     title: "Function Declaration vs Definition vs Prototype",
     description:
@@ -144,7 +147,7 @@ int main() {
   printf("%d", result);
   return 0;
 }`,
-    whenToUse:
+    explanation:
       "Use function declarations (prototypes) in header files or at the top of your source file to declare a function's interface. Use function definitions in .c files to implement the full behavior of the function.",
     output: "8",
   },
@@ -154,7 +157,7 @@ int main() {
       "A function declaration specifies the function's name, return type, and parameters without providing the function's body. It informs the compiler about the function's existence and interface.",
     example: `// Function declaration
 int multiply(int x, int y);`,
-    whenToUse:
+    explanation:
       "Use function declarations when you want to inform the compiler about a function's existence without providing its implementation. This is often done in header files.",
     output: "No direct output. This is just a function declaration.",
   },
@@ -166,7 +169,7 @@ int multiply(int x, int y);`,
 int multiply(int x, int y) {
   return x * y;
 }`,
-    whenToUse:
+    explanation:
       "Use function definitions in .c source files to implement the full behavior of the function. This is where you write the actual code that will be executed when the function is called.",
     output: "No direct output. This is just a function definition.",
   },
@@ -176,7 +179,7 @@ int multiply(int x, int y) {
       "A function prototype is a declaration of a function that includes its return type, name, and parameter types, typically ending with a semicolon. It's identical to a function declaration and is used for type checking and to allow calling the function before its full definition.",
     example: `// Function prototype
 int divide(int numerator, int denominator);`,
-    whenToUse:
+    explanation:
       "Use function prototypes when you need to declare a function before its full definition, especially in header files or at the top of your source file. This is crucial for larger projects and helps with code organization and compilation efficiency.",
     output: "No direct output. This is just a function prototype.",
   },
@@ -211,13 +214,7 @@ export default function CFunctions() {
         title="Function Basics in C"
         id="function-basics"
         delay={0.8}
-        components={functionExamples.map((item) => ({
-          title: item.title,
-          desc: item.description,
-          examples: item.example,
-          explanation: item.whenToUse,
-          output: item.output,
-        }))}
+        components={functionExamples}
         language="c"
         icon={FaCode}
       />
@@ -226,13 +223,7 @@ export default function CFunctions() {
         title="Function Parameters in C"
         id="function-parameters"
         delay={1.0}
-        components={parameterExamples.map((item) => ({
-          title: item.title,
-          desc: item.description,
-          examples: item.example,
-          explanation: item.whenToUse,
-          output: item.output,
-        }))}
+        components={parameterExamples}
         language="c"
         icon={FaExchangeAlt}
       />
@@ -241,13 +232,7 @@ export default function CFunctions() {
         title="Return Values in C"
         id="return-values"
         delay={1.2}
-        components={returnValueExamples.map((item) => ({
-          title: item.title,
-          desc: item.description,
-          examples: item.example,
-          explanation: item.whenToUse,
-          output: item.output,
-        }))}
+        components={returnValueExamples}
         language="c"
         icon={FaRocket}
       />
@@ -256,13 +241,7 @@ export default function CFunctions() {
         title="Function Prototypes in C"
         id="function-prototypes"
         delay={1.4}
-        components={prototypeExamples.map((item) => ({
-          title: item.title,
-          desc: item.description,
-          examples: item.example,
-          explanation: item.whenToUse,
-          output: item.output,
-        }))}
+        components={prototypeExamples}
         language="c"
         icon={FaLightbulb}
       />

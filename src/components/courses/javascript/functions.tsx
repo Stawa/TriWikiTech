@@ -4,7 +4,11 @@ import Courses from "@components/courses/javascript/navigation";
 import CourseContainer from "@components/courses/container";
 import CourseInfo from "@components/courses/template/info";
 import Topics from "@components/courses/template/topics";
-import Single from "@components/courses/template/single";
+import {
+  Single,
+  type SingleItemProps,
+} from "@components/courses/template/single";
+
 import {
   FaCode,
   FaCube,
@@ -41,7 +45,7 @@ const topics = [
   },
 ];
 
-const functionDeclarations = [
+const functionDeclarations: SingleItemProps[] = [
   {
     title: "Standard Function Declaration",
     description:
@@ -92,7 +96,7 @@ console.log(greetShort("Charlie")); // Outputs: Hello, Charlie!`,
   },
 ];
 
-const parametersAndArguments = [
+const parametersAndArguments: SingleItemProps[] = [
   {
     title: "Single Parameter",
     description: "A function with a single parameter",
@@ -153,7 +157,7 @@ console.log(sum(1, 2, 3, 4)); // Outputs: 10`,
   },
 ];
 
-const returnValues = [
+const returnValues: SingleItemProps[] = [
   {
     title: "Returning a Value",
     description: "A function that returns a single value",
@@ -223,7 +227,7 @@ console.log(double(5)); // Outputs: 10`,
   },
 ];
 
-const arrowFunctions = [
+const arrowFunctions: SingleItemProps[] = [
   {
     title: "Simple Arrow Function",
     description: "A basic arrow function with a single parameter",
@@ -307,14 +311,7 @@ export default function JavaScriptFunctions() {
         title="Function Declarations in JavaScript"
         id="function-declaration"
         delay={0.8}
-        components={functionDeclarations.map((item) => ({
-          title: item.title,
-          desc: item.description,
-          examples: item.example,
-          output: item.output,
-          explanation: item.explanation,
-          bestUseCase: item.bestUseCase,
-        }))}
+        components={functionDeclarations}
         language="javascript"
         icon={FaCode}
       />
@@ -323,14 +320,7 @@ export default function JavaScriptFunctions() {
         title="Parameters & Arguments in JavaScript"
         id="parameters-arguments"
         delay={0.9}
-        components={parametersAndArguments.map((item) => ({
-          title: item.title,
-          desc: item.description,
-          examples: item.example,
-          output: item.output,
-          explanation: item.explanation,
-          bestUseCase: item.bestUseCase,
-        }))}
+        components={parametersAndArguments}
         language="javascript"
         icon={FaLightbulb}
       />
@@ -339,14 +329,7 @@ export default function JavaScriptFunctions() {
         title="Return Values in JavaScript"
         id="return-values"
         delay={1.0}
-        components={returnValues.map((item) => ({
-          title: item.title,
-          desc: item.description,
-          examples: item.example,
-          output: item.output,
-          explanation: item.explanation,
-          bestUseCase: item.bestUseCase,
-        }))}
+        components={returnValues}
         language="javascript"
         icon={FaCube}
       />
@@ -355,14 +338,7 @@ export default function JavaScriptFunctions() {
         title="Arrow Functions in JavaScript"
         id="arrow-functions"
         delay={1.1}
-        components={arrowFunctions.map((item) => ({
-          title: item.title,
-          desc: item.description,
-          examples: item.example,
-          output: item.output,
-          explanation: item.explanation,
-          bestUseCase: item.bestUseCase,
-        }))}
+        components={arrowFunctions}
         language="javascript"
         icon={FaRocket}
       />

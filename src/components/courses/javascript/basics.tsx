@@ -4,7 +4,11 @@ import CourseContainer from "@components/courses/container";
 import CourseInfo from "@components/courses/template/info";
 import Courses from "@components/courses/javascript/navigation";
 import Topics from "@components/courses/template/topics";
-import Single from "@components/courses/template/single";
+import {
+  Single,
+  type SingleItemProps,
+} from "@components/courses/template/single";
+
 import Variables from "@components/courses/template/variable";
 import DataTypes from "@components/courses/template/types";
 import { FaCode, FaCube, FaTerminal } from "react-icons/fa";
@@ -332,9 +336,8 @@ console.log(greet('Alice'));`,
   },
 ];
 
-const consoleLogExamples = [
+const consoleLogExamples: SingleItemProps[] = [
   {
-    type: "console.log",
     title: "Basic Output",
     description:
       "console.log() is a function in JavaScript that outputs a message to the web console. It's one of the most basic and commonly used debugging tools.",
@@ -346,7 +349,6 @@ const consoleLogExamples = [
       "Use this for quick debugging, verifying if a script is running, or outputting simple messages during development.",
   },
   {
-    type: "console.log",
     title: "Multiple Arguments",
     description:
       "console.log() can take multiple arguments, which will be printed out separated by spaces.",
@@ -358,7 +360,6 @@ const consoleLogExamples = [
       "Ideal for logging multiple related pieces of information at once, or for creating more descriptive debug outputs.",
   },
   {
-    type: "console.log",
     title: "Variable Output",
     description:
       "One of the most common uses of console.log() is to output the value of variables for debugging purposes.",
@@ -371,7 +372,6 @@ console.log('The value of x is:', x);`,
       "Perfect for tracking the value of variables throughout your code, especially in loops or complex functions.",
   },
   {
-    type: "console.log",
     title: "Object Output",
     description:
       "console.log() can also be used to output complex data structures like objects. This is particularly useful for inspecting the properties of an object.",
@@ -414,14 +414,7 @@ export default function JavaScriptBasics() {
         title="Basic Printing in JavaScript"
         id="basic-printing"
         delay={0.8}
-        components={consoleLogExamples.map((item) => ({
-          title: item.title,
-          desc: item.description,
-          examples: item.example,
-          output: item.output,
-          explanation: item.explanation,
-          bestUseCase: item.bestUseCase,
-        }))}
+        components={consoleLogExamples}
         language="javascript"
         icon={FaTerminal}
       />

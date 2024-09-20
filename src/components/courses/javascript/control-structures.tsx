@@ -4,7 +4,11 @@ import Courses from "@components/courses/javascript/navigation";
 import CourseContainer from "@components/courses/container";
 import CourseInfo from "@components/courses/template/info";
 import Topics from "@components/courses/template/topics";
-import Single from "@components/courses/template/single";
+import {
+  Single,
+  type SingleItemProps,
+} from "@components/courses/template/single";
+
 import { FaCode, FaExchangeAlt, FaSyncAlt } from "react-icons/fa";
 import { PiLightbulbFilamentFill } from "react-icons/pi";
 
@@ -29,9 +33,8 @@ const topics = [
   },
 ];
 
-const conditionalExamples = [
+const conditionalExamples: SingleItemProps[] = [
   {
-    type: "if-else",
     title: "if-else Statement",
     description:
       "The if-else statement allows you to execute different blocks of code based on a condition.",
@@ -49,7 +52,6 @@ if (age >= 18) {
       "Use if-else statements when you need to execute different code blocks based on a single condition. It's particularly useful for binary decisions or simple branching logic.",
   },
   {
-    type: "else-if",
     title: "else-if Statement",
     description:
       "The else-if statement allows you to check multiple conditions in sequence.",
@@ -72,9 +74,8 @@ if (score >= 90) {
   },
 ];
 
-const loopExamples = [
+const loopExamples: SingleItemProps[] = [
   {
-    type: "for",
     title: "for Loop",
     description:
       "The for loop repeats a block of code a specified number of times.",
@@ -92,7 +93,6 @@ Iteration: 4`,
       "Use for loops when you know the exact number of iterations needed. They're ideal for iterating over arrays or performing a task a specific number of times.",
   },
   {
-    type: "while",
     title: "while Loop",
     description:
       "The while loop repeats a block of code as long as a specified condition is true.",
@@ -112,7 +112,6 @@ Count: 4`,
       "Use while loops when you don't know in advance how many times the loop should run. They're great for situations where you need to continue a process until a certain condition is met.",
   },
   {
-    type: "do-while",
     title: "do-while Loop",
     description:
       "The do-while loop is similar to the while loop, but it always executes the code block at least once before checking the condition.",
@@ -133,11 +132,12 @@ Number: 4`,
   },
 ];
 
-const switchExample = {
-  title: "Switch Statement",
-  description:
-    "The switch statement is used to perform different actions based on different conditions.",
-  example: `let day = 3;
+const switchExample: SingleItemProps[] = [
+  {
+    title: "Switch Statement",
+    description:
+      "The switch statement is used to perform different actions based on different conditions.",
+    example: `let day = 3;
 let dayName;
 
 switch (day) {
@@ -161,12 +161,13 @@ switch (day) {
 }
 
 console.log("Today is " + dayName);`,
-  output: `Today is Wednesday`,
-  explanation:
-    "In this switch statement, the value of day is 3, so it matches the case 3, and dayName is set to 'Wednesday'.",
-  bestUseCase:
-    "Use switch statements when you have multiple conditions to check against a single variable. It's especially useful for menu systems, state machines, or when mapping numeric values to string representations (like in this day of the week example).",
-};
+    output: `Today is Wednesday`,
+    explanation:
+      "In this switch statement, the value of day is 3, so it matches the case 3, and dayName is set to 'Wednesday'.",
+    bestUseCase:
+      "Use switch statements when you have multiple conditions to check against a single variable. It's especially useful for menu systems, state machines, or when mapping numeric values to string representations (like in this day of the week example).",
+  },
+];
 
 export default function JavaScriptControlStructures() {
   return (
@@ -201,14 +202,7 @@ export default function JavaScriptControlStructures() {
         delay={0.8}
         title="Conditional Statements"
         language="javascript"
-        components={conditionalExamples.map((item) => ({
-          title: item.title,
-          desc: item.description,
-          examples: item.example,
-          output: item.output,
-          explanation: item.explanation,
-          bestUseCase: item.bestUseCase,
-        }))}
+        components={conditionalExamples}
         icon={FaCode}
       />
 
@@ -217,14 +211,7 @@ export default function JavaScriptControlStructures() {
         delay={0.9}
         title="Loops"
         language="javascript"
-        components={loopExamples.map((item) => ({
-          title: item.title,
-          desc: item.description,
-          examples: item.example,
-          output: item.output,
-          explanation: item.explanation,
-          bestUseCase: item.bestUseCase,
-        }))}
+        components={loopExamples}
         icon={FaSyncAlt}
       />
 
@@ -233,16 +220,7 @@ export default function JavaScriptControlStructures() {
         delay={1.0}
         title="Switch Statements"
         language="javascript"
-        components={[
-          {
-            title: switchExample.title,
-            desc: switchExample.description,
-            examples: switchExample.example,
-            output: switchExample.output,
-            explanation: switchExample.explanation,
-            bestUseCase: switchExample.bestUseCase,
-          },
-        ]}
+        components={switchExample}
         icon={FaExchangeAlt}
       />
     </CourseContainer>

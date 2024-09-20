@@ -3,17 +3,17 @@ import CourseSection from "@components/courses/template/section";
 import HighlightCode from "@components/highlight";
 import { IconType } from "react-icons";
 
-interface SingleProps {
+interface SingleItemProps {
   title: string;
-  desc: string;
-  examples: string;
+  description: string;
+  example: string;
   output: string;
   explanation: string;
   bestUseCase?: string;
 }
 
-interface SinglePrintingProps {
-  components: SingleProps[];
+interface SingleProps {
+  components: SingleItemProps[];
   language: string;
   title: string;
   id: string;
@@ -21,7 +21,7 @@ interface SinglePrintingProps {
   icon: IconType;
 }
 
-const SinglePrinting: React.FC<SinglePrintingProps> = ({
+const Single: React.FC<SingleProps> = ({
   components,
   language,
   title,
@@ -43,10 +43,10 @@ const SinglePrinting: React.FC<SinglePrintingProps> = ({
           </div>
           <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
             <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-6 sm:mb-8 leading-relaxed">
-              {item.desc}
+              {item.description}
             </p>
             <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
-              <HighlightCode content={item.examples} language={language} />
+              <HighlightCode content={item.example} language={language} />
             </div>
             <div className="mb-6 sm:mb-8">
               <h4 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
@@ -76,4 +76,4 @@ const SinglePrinting: React.FC<SinglePrintingProps> = ({
   );
 };
 
-export default SinglePrinting;
+export { Single, type SingleItemProps };

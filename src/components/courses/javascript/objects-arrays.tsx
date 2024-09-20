@@ -4,11 +4,15 @@ import Courses from "@components/courses/javascript/navigation";
 import CourseContainer from "@components/courses/container";
 import CourseInfo from "@components/courses/template/info";
 import Topics from "@components/courses/template/topics";
-import Single from "@components/courses/template/single";
+import {
+  Single,
+  type SingleItemProps,
+} from "@components/courses/template/single";
 import {
   Multiple,
   type MultipleItem,
 } from "@components/courses/template/multiple";
+
 import {
   FaCode,
   FaCube,
@@ -45,9 +49,8 @@ const topics = [
   },
 ];
 
-const objectBasics = [
+const objectBasics: SingleItemProps[] = [
   {
-    type: "Creation",
     title: "Object Creation",
     description:
       "Objects in JavaScript are like containers that hold related information. Think of them as a box where you can put different things and label each item. They're very useful for grouping data that belongs together.",
@@ -84,7 +87,6 @@ console.log(car);`,
       "In this example, we show two ways to create objects.\n\n1. Using an object literal, is like writing a quick list. You put all the information between curly braces {}. Each piece of information has a name (like 'name' or 'age') and a value.\n\n2. Using the Object constructor, is like building a box and then putting things into it one by one. You start with an empty object and then add information to it step by step.\n\nBoth methods create objects, which are very useful in programming because they let you keep related information together. For example, all the information about a person or a car is kept in one place, making it easy to use and understand.",
   },
   {
-    type: "Access",
     title: "Accessing Object Properties",
     description:
       "Once you have an object, you'll want to get information from it. This is called 'accessing' the object's properties. There are two main ways to do this in JavaScript, and they're both easy once you get the hang of it!",
@@ -349,13 +351,7 @@ export default function JavaScriptObjectsArrays() {
         title="Object Basics"
         id="object-basics"
         delay={0.8}
-        components={objectBasics.map((item) => ({
-          title: item.title,
-          desc: item.description,
-          examples: item.example,
-          output: item.output,
-          explanation: item.explanation,
-        }))}
+        components={objectBasics}
         language="javascript"
         icon={FaCube}
       />
@@ -364,13 +360,7 @@ export default function JavaScriptObjectsArrays() {
         title="Array Fundamentals"
         id="array-fundamentals"
         delay={0.9}
-        components={arrayFundamentals.map((item) => ({
-          title: item.title,
-          desc: item.description,
-          examples: item.example,
-          output: item.output,
-          explanation: item.explanation,
-        }))}
+        components={arrayFundamentals}
         language="javascript"
         icon={FaList}
       />

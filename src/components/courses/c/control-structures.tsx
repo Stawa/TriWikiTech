@@ -9,7 +9,10 @@ import {
 } from "react-icons/fa";
 import { PiLightbulbFilamentFill } from "react-icons/pi";
 
-import Single from "@components/courses/template/single";
+import {
+  Single,
+  type SingleItemProps,
+} from "@components/courses/template/single";
 import CourseContainer from "@components/courses/container";
 import CourseInfo from "@components/courses/template/info";
 import Courses from "@components/courses/c/navigation";
@@ -42,13 +45,13 @@ const topics = [
   },
 ];
 
-const ifStatements = [
+const ifStatements: SingleItemProps[] = [
   {
     title: "Basic If Statement",
-    desc: "The simplest form of decision making in C",
+    description: "The simplest form of decision making in C",
     explanation:
       "An if statement allows you to execute a block of code only if a certain condition is true.",
-    examples: `#include <stdio.h>
+    example: `#include <stdio.h>
 
 int main() {
     int x = 10;
@@ -61,10 +64,10 @@ int main() {
   },
   {
     title: "If-Else Statement",
-    desc: "Make decisions between two alternatives",
+    description: "Make decisions between two alternatives",
     explanation:
       "An if-else statement allows you to execute one block of code if the condition is true, and another if it's false.",
-    examples: `#include <stdio.h>
+    example: `#include <stdio.h>
 
 int main() {
     int age = 20;
@@ -79,13 +82,13 @@ int main() {
   },
 ];
 
-const switchStatements = [
+const switchStatements: SingleItemProps[] = [
   {
     title: "Basic Switch Statement",
-    desc: "Multi-way decision making using switch",
+    description: "Multi-way decision making using switch",
     explanation:
       "A switch statement allows you to select one of many code blocks to be executed.",
-    examples: `#include <stdio.h>
+    example: `#include <stdio.h>
 
 int main() {
     int day = 4;
@@ -114,13 +117,13 @@ int main() {
   },
 ];
 
-const forLoops = [
+const forLoops: SingleItemProps[] = [
   {
     title: "Basic For Loop",
-    desc: "Iterate a specific number of times",
+    description: "Iterate a specific number of times",
     explanation:
       "A for loop repeats a block of code a specified number of times.",
-    examples: `#include <stdio.h>
+    example: `#include <stdio.h>
 
 int main() {
     for (int i = 0; i < 5; i++) {
@@ -132,13 +135,13 @@ int main() {
   },
 ];
 
-const whileLoops = [
+const whileLoops: SingleItemProps[] = [
   {
     title: "While Loop",
-    desc: "Repeat a block of code while a condition is true",
+    description: "Repeat a block of code while a condition is true",
     explanation:
       "A while loop continues to execute a block of code as long as a specified condition is true.",
-    examples: `#include <stdio.h>
+    example: `#include <stdio.h>
 
 int main() {
     int i = 0;
@@ -152,10 +155,11 @@ int main() {
   },
   {
     title: "Do-While Loop",
-    desc: "Execute a block of code at least once, then repeat while a condition is true",
+    description:
+      "Execute a block of code at least once, then repeat while a condition is true",
     explanation:
       "A do-while loop is similar to a while loop, but it executes the code block at least once before checking the condition.",
-    examples: `#include <stdio.h>
+    example: `#include <stdio.h>
 
 int main() {
     int i = 0;
@@ -198,13 +202,7 @@ export default function CControlStructures() {
         title="If Statements in C"
         id="if-statements"
         delay={0.8}
-        components={ifStatements.map((item) => ({
-          title: item.title,
-          desc: item.desc,
-          examples: item.examples,
-          explanation: item.explanation,
-          output: item.output,
-        }))}
+        components={ifStatements}
         language="c"
         icon={FaQuestionCircle}
       />
@@ -213,13 +211,7 @@ export default function CControlStructures() {
         title="Switch Statements in C"
         id="switch-statements"
         delay={1.0}
-        components={switchStatements.map((item) => ({
-          title: item.title,
-          desc: item.desc,
-          examples: item.examples,
-          explanation: item.explanation,
-          output: item.output,
-        }))}
+        components={switchStatements}
         language="c"
         icon={FaExchangeAlt}
       />
@@ -228,13 +220,7 @@ export default function CControlStructures() {
         title="For Loops in C"
         id="for-loops"
         delay={1.2}
-        components={forLoops.map((item) => ({
-          title: item.title,
-          desc: item.desc,
-          examples: item.examples,
-          explanation: item.explanation,
-          output: item.output,
-        }))}
+        components={forLoops}
         language="c"
         icon={FaSyncAlt}
       />
@@ -243,13 +229,7 @@ export default function CControlStructures() {
         title="While Loops in C"
         id="while-loops"
         delay={1.4}
-        components={whileLoops.map((item) => ({
-          title: item.title,
-          desc: item.desc,
-          examples: item.examples,
-          explanation: item.explanation,
-          output: item.output,
-        }))}
+        components={whileLoops}
         language="c"
         icon={FaRedoAlt}
       />
