@@ -1,13 +1,19 @@
 "use client";
 
-import { FaCube, FaExchangeAlt, FaList, FaWrench } from "react-icons/fa";
 import Courses from "@components/courses/javascript/navigation";
 import CourseContainer from "@components/courses/container";
-import CourseOverview from "@components/courses/template/overview";
+import CourseInfo from "@components/courses/template/info";
 import Topics from "@components/courses/template/topics";
-import Reason from "@components/courses/template/reason";
-import BasicPrinting from "@components/courses/template/basic";
+import BasicPrinting from "@components/courses/template/single";
 import Multiple from "@components/courses/template/multiple";
+import {
+  FaCode,
+  FaCube,
+  FaExchangeAlt,
+  FaList,
+  FaWrench,
+} from "react-icons/fa";
+import { PiLightbulbFilamentFill } from "react-icons/pi";
 
 const topics = [
   {
@@ -321,18 +327,22 @@ export default function JavaScriptObjectsArrays() {
       courses={Courses}
       currentCourseLink="/courses/javascript/objects-arrays"
     >
-      <CourseOverview
+      <CourseInfo
+        title="Course Overview"
         id="course-overview"
         delay={0.3}
         description="In this course, you'll dive deep into JavaScript objects and arrays. We'll cover object creation and manipulation, array fundamentals, object methods, and advanced array operations. These concepts are crucial for working with complex data structures in JavaScript."
+        icon={FaCode}
       />
 
       <Topics id="topics" delay={0.5} topics={topics} />
 
-      <Reason
+      <CourseInfo
+        title="Why These Basics Matter"
         id="why-objects-arrays-matter"
         delay={0.7}
         description="Objects and arrays are fundamental data structures in JavaScript. They allow you to organize, store, and manipulate complex data efficiently. Mastering these concepts is crucial for building robust and scalable applications, working with APIs, and implementing advanced programming patterns."
+        icon={PiLightbulbFilamentFill}
       />
 
       <BasicPrinting

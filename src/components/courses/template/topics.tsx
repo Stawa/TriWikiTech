@@ -1,7 +1,8 @@
 import Link from "next/link";
 import React from "react";
 import Section from "@components/courses/section";
-import { FaArrowRight, FaLightbulb } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
+import { ImBook } from "react-icons/im";
 
 interface Topic {
   id: string;
@@ -19,7 +20,7 @@ interface TopicsProps {
 const Topics: React.FC<TopicsProps> = ({ id, delay, topics }) => (
   <Section id={id} delay={delay}>
     <h2 className="text-xl sm:text-2xl lg:text-3xl mt-8 mb-4 sm:mt-12 sm:mb-6 lg:mt-16 lg:mb-8 font-bold text-gray-900 dark:text-white tracking-wide flex items-center">
-      <FaLightbulb className="mr-2 sm:mr-3 text-blue-600 dark:text-blue-300" />
+      <ImBook className="mr-2 sm:mr-3 text-blue-600 dark:text-blue-300" />
       What You&apos;ll Learn
     </h2>
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">

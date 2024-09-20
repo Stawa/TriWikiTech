@@ -1,25 +1,32 @@
 import React from "react";
 import Section from "@components/courses/section";
-import { FaCode } from "react-icons/fa";
+import { IconType } from "react-icons";
 
-interface CourseOverviewProps {
+interface CourseInfoProps {
+  title: string;
+  description: string;
   id: string;
   delay: number;
-  description: string;
+  icon: IconType;
 }
 
-const CourseOverview: React.FC<CourseOverviewProps> = ({
+const CourseInfo: React.FC<CourseInfoProps> = ({
   id,
   delay,
+  title,
   description,
+  icon,
 }) => (
   <Section id={id} delay={delay}>
     <div className="bg-gradient-to-r from-blue-400 to-purple-400 dark:from-blue-600 dark:to-purple-600 rounded-xl shadow-xl overflow-hidden">
       <div className="bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 p-3 sm:p-4 lg:p-6">
         <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white tracking-wide flex items-center">
-          <FaCode className="text-blue-600 dark:text-blue-300 text-xl sm:text-2xl lg:text-3xl mr-3" />
+          {React.createElement(icon, {
+            className:
+              "text-blue-600 dark:text-blue-300 text-xl sm:text-2xl lg:text-3xl mr-3",
+          })}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-300 dark:to-purple-300">
-            Course Overview
+            {title}
           </span>
         </h2>
       </div>
@@ -32,4 +39,4 @@ const CourseOverview: React.FC<CourseOverviewProps> = ({
   </Section>
 );
 
-export default CourseOverview;
+export default CourseInfo;

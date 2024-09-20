@@ -1,12 +1,12 @@
 "use client";
 
-import { FaCode, FaExchangeAlt, FaSyncAlt } from "react-icons/fa";
 import Courses from "@components/courses/javascript/navigation";
 import CourseContainer from "@components/courses/container";
-import CourseOverview from "@components/courses/template/overview";
+import CourseInfo from "@components/courses/template/info";
 import Topics from "@components/courses/template/topics";
-import Reason from "@components/courses/template/reason";
-import BasicPrinting from "@components/courses/template/basic";
+import BasicPrinting from "@components/courses/template/single";
+import { FaCode, FaExchangeAlt, FaSyncAlt } from "react-icons/fa";
+import { PiLightbulbFilamentFill } from "react-icons/pi";
 
 const topics = [
   {
@@ -178,18 +178,22 @@ export default function JavaScriptControlStructures() {
       courses={Courses}
       currentCourseLink="/courses/javascript/control-structures"
     >
-      <CourseOverview
+      <CourseInfo
+        title="Course Overview"
         id="course-overview"
         delay={0.3}
         description="In this course, you'll learn about JavaScript control structures. We'll cover conditional statements, loops, and switch statements - essential tools for controlling the flow of your code and making decisions based on different conditions."
+        icon={FaCode}
       />
 
       <Topics id="topics" delay={0.5} topics={topics} />
 
-      <Reason
+      <CourseInfo
+        title="Why Control Structures Matter"
         id="why-control-structures-matter"
         delay={0.7}
         description="Control structures are fundamental to programming. They allow you to make decisions in your code, repeat actions, and choose different code paths based on conditions. Mastering these concepts will give you the power to create more complex and interactive JavaScript applications."
+        icon={PiLightbulbFilamentFill}
       />
 
       <BasicPrinting

@@ -1,14 +1,14 @@
 "use client";
 
-import { FaCode, FaCube, FaTerminal } from "react-icons/fa";
 import CourseContainer from "@components/courses/container";
-import CourseOverview from "@components/courses/template/overview";
+import CourseInfo from "@components/courses/template/info";
 import Courses from "@components/courses/javascript/navigation";
-import Reason from "@components/courses/template/reason";
 import Topics from "@components/courses/template/topics";
-import BasicPrinting from "@components/courses/template/basic";
+import BasicPrinting from "@components/courses/template/single";
 import Variables from "@components/courses/template/variable";
 import DataTypes from "@components/courses/template/types";
+import { FaCode, FaCube, FaTerminal } from "react-icons/fa";
+import { PiLightbulbFilamentFill } from "react-icons/pi";
 
 const topics = [
   {
@@ -392,18 +392,22 @@ export default function JavaScriptBasics() {
       courses={Courses}
       currentCourseLink="/courses/javascript/basics"
     >
-      <CourseOverview
+      <CourseInfo
+        title="Course Overview"
         id="course-overview"
         delay={0.3}
         description="In this course, you'll dive deep into JavaScript basics, covering console.log, variables, and data types. These fundamental concepts form the foundation for more advanced JavaScript programming."
+        icon={FaCode}
       />
 
       <Topics id="topics" delay={0.5} topics={topics} />
 
-      <Reason
+      <CourseInfo
+        title="Why These Basics Matter"
         id="why-basics-matter"
         delay={0.7}
         description="Understanding these fundamental concepts is crucial for any aspiring JavaScript developer. These basics form the foundation upon which more advanced concepts are built, enabling you to write efficient, clean, and powerful JavaScript code."
+        icon={PiLightbulbFilamentFill}
       />
 
       <BasicPrinting

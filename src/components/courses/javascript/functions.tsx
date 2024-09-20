@@ -1,5 +1,10 @@
 "use client";
 
+import Courses from "@components/courses/javascript/navigation";
+import CourseContainer from "@components/courses/container";
+import CourseInfo from "@components/courses/template/info";
+import Topics from "@components/courses/template/topics";
+import BasicPrinting from "@components/courses/template/single";
 import {
   FaCode,
   FaCube,
@@ -7,12 +12,7 @@ import {
   FaRocket,
   FaTerminal,
 } from "react-icons/fa";
-import Courses from "@components/courses/javascript/navigation";
-import CourseContainer from "@components/courses/container";
-import CourseOverview from "@components/courses/template/overview";
-import Topics from "@components/courses/template/topics";
-import Reason from "@components/courses/template/reason";
-import BasicPrinting from "@components/courses/template/basic";
+import { PiLightbulbFilamentFill } from "react-icons/pi";
 
 const topics = [
   {
@@ -285,18 +285,22 @@ export default function JavaScriptFunctions() {
       courses={Courses}
       currentCourseLink="/courses/javascript/functions"
     >
-      <CourseOverview
+      <CourseInfo
+        title="Course Overview"
         id="course-overview"
         delay={0.3}
         description="In this course, you'll dive deep into JavaScript functions - the building blocks of reusable code. We'll cover function declarations, parameters, return values, and the modern arrow function syntax. By mastering functions, you'll be able to write more efficient and organized JavaScript code."
+        icon={FaCode}
       />
 
       <Topics id="topics" delay={0.5} topics={topics} />
 
-      <Reason
+      <CourseInfo
+        title="Why Functions Matter"
         id="why-functions-matter"
         delay={0.7}
         description="Functions are at the heart of JavaScript programming. They allow you to write modular, reusable code, making your programs more efficient and easier to maintain. Understanding functions is crucial for any aspiring JavaScript developer, as they form the foundation for more advanced concepts like closures, callbacks, and asynchronous programming."
+        icon={PiLightbulbFilamentFill}
       />
 
       <BasicPrinting
