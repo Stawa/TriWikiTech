@@ -1,0 +1,63 @@
+{
+  "Home": {
+    "title": "Learn Programming with TriWikiTech",
+    "subtitle": "Master multiple programming languages with real-world examples on our comprehensive, interactive learning platform.",
+    "startJourney": "Start Your Journey",
+    "exploreCourses": "Explore Courses",
+    "exploreTools": "Explore Our Interactive Tools",
+    "learnNow": "Learn now",
+    "tryCompiler": "Try Compiler"
+  },
+  "Navbar": {
+    "Home": "Home",
+    "Courses": "Courses",
+    "Quiz": "Quiz",
+    "Compiler": "Compiler",
+    "Profile": "Profile",
+    "ViewProfile": "View Profile",
+    "Settings": "Settings",
+    "Login": "Login",
+    "Logout": "Logout",
+    "SwitchToLightMode": "Switch to Light Mode",
+    "SwitchToDarkMode": "Switch to Dark Mode",
+    "Language": "Language",
+    "English": "English",
+    "Indonesia": "Indonesia",
+    "Account": "Account",
+    "Preferences": "Preferences"
+  },
+  "Footer": {
+    "LearnCodeGrow": "Learn, Code, Grow",
+    "AllRightsReserved": "© {year} TriWikiTech. All rights reserved.",
+    "DesignedBy": "Designed by",
+    "TermsOfService": "Terms of Service",
+    "PrivacyPolicy": "Privacy Policy",
+    "Changelog": "Changelog"
+  },
+  "Courses": {
+    "title": "Explore Our Courses",
+    "subtitle": "Dive into our comprehensive programming courses designed to take you from beginner to expert. Choose your path and start coding today!",
+    "JavaScript": {
+      "title": "JavaScript Programming",
+      "description": "Dive into dynamic web development with JavaScript!"
+    },
+    "C": {
+      "title": "C Programming",
+      "description": "Master low-level programming with C!"
+    },
+    "CPP": {
+      "title": "C++ Programming",
+      "description": "Unlock the power of object-oriented programming with C++!"
+    },
+    "startLearning": "Start Learning"
+  },
+  "Upcoming": {
+    "title": "Coming Soon",
+    "workInProgress": "We're working on an exciting update for {name}. Stay tuned for the upcoming release!"
+  },
+  "Component": {
+    "HomeButton": {
+      "returnToHome": "Return to Home"
+    }
+  }
+}

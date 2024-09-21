@@ -1,0 +1,63 @@
+{
+  "Home": {
+    "title": "Belajar Pemrograman dengan TriWikiTech",
+    "subtitle": "Kuasai berbagai bahasa pemrograman dengan contoh dunia nyata di platform pembelajaran interaktif dan komprehensif kami.",
+    "startJourney": "Mulai Perjalanan Anda",
+    "exploreCourses": "Jelajahi Kursus",
+    "exploreTools": "Jelajahi Alat Interaktif Kami",
+    "learnNow": "Belajar sekarang",
+    "tryCompiler": "Coba Kompilator"
+  },
+  "Navbar": {
+    "Home": "Beranda",
+    "Courses": "Kursus",
+    "Quiz": "Kuis",
+    "Compiler": "Kompilator",
+    "Profile": "Profil",
+    "ViewProfile": "Lihat Profil",
+    "Settings": "Pengaturan",
+    "Login": "Masuk",
+    "Logout": "Keluar",
+    "SwitchToLightMode": "Beralih ke Mode Terang",
+    "SwitchToDarkMode": "Beralih ke Mode Gelap",
+    "Language": "Bahasa",
+    "English": "Inggris",
+    "Indonesia": "Indonesia",
+    "Account": "Akun",
+    "Preferences": "Preferensi"
+  },
+  "Footer": {
+    "LearnCodeGrow": "Belajar, Coding, Berkembang",
+    "AllRightsReserved": "© {year} TriWikiTech. Hak Cipta Dilindungi.",
+    "DesignedBy": "Desain oleh",
+    "TermsOfService": "Syarat & Ketentuan Layanan",
+    "PrivacyPolicy": "Kebijakan Privasi",
+    "Changelog": "Catatan Perubahan"
+  },
+  "Courses": {
+    "title": "Jelajahi Kursus Kami",
+    "subtitle": "Selami kursus pemrograman komprehensif kami yang dirancang untuk membawa Anda dari pemula menjadi ahli. Pilih jalur Anda dan mulai coding hari ini!",
+    "JavaScript": {
+      "title": "Pemrograman JavaScript",
+      "description": "Selami pengembangan web dinamis dengan JavaScript!"
+    },
+    "C": {
+      "title": "Pemrograman C",
+      "description": "Kuasai pemrograman tingkat rendah dengan C!"
+    },
+    "CPP": {
+      "title": "Pemrograman C++",
+      "description": "Buka kekuatan pemrograman berorientasi objek dengan C++!"
+    },
+    "startLearning": "Mulai Belajar"
+  },
+  "Upcoming": {
+    "title": "Segera Hadir",
+    "workInProgress": "Kami bekerja pada pembaruan yang menarik untuk {name}. Tunggu untuk rilis berikutnya!"
+  },
+  "Component": {
+    "HomeButton": {
+      "returnToHome": "Kembali ke Beranda"
+    }
+  }
+}

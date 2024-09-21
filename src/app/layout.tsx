@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { ThemeProvider } from "next-themes";
 import { Inter, Roboto_Mono } from "next/font/google";
-import "./globals.css";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
+import { ThemeProvider } from "next-themes";
 import Footer from "@default/components/footer";
 import Navbar from "@default/components/navbar";
+import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -49,19 +51,24 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en" suppressHydrationWarning={true}>
+    <html lang={locale} suppressHydrationWarning={true}>
       <body className={`${inter.variable} ${robotoMono.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system">
-          <Navbar />
-          {children}
-          <Footer />
-        </ThemeProvider>
+        <NextIntlClientProvider messages={messages}>
+          <ThemeProvider attribute="class" defaultTheme="system">
+            <Navbar />
+            {children}
+            <Footer />
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

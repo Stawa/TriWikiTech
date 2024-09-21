@@ -1,12 +1,13 @@
 "use client";
 
 import { ReactNode } from "react";
-import { motion } from "framer-motion";
-import Link from "next/link";
 import Image from "next/image";
-import Languages from "@data/langauges.json";
+import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { motion } from "framer-motion";
 import { IoNavigateOutline, IoNavigateSharp } from "react-icons/io5";
 import GridBackground from "@components/grid";
+import Languages from "@data/langauges.json";
 
 const Layout = ({ children }: { children: ReactNode }) => (
   <div className="relative min-h-screen overflow-hidden">
@@ -33,6 +34,8 @@ const createIcon = (path: string) => {
 };
 
 export default function Home() {
+  const t = useTranslations("Home");
+
   return (
     <Layout>
       <section className="container mx-auto px-4 py-12 md:py-24 text-center">
@@ -42,7 +45,7 @@ export default function Home() {
           transition={{ duration: 0.8 }}
           className="text-4xl md:text-5xl lg:text-7xl font-extrabold mb-4 md:mb-8 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-transparent bg-clip-text"
         >
-          Learn Programming with TriWikiTech
+          {t("title")}
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -50,8 +53,7 @@ export default function Home() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-lg md:text-xl lg:text-2xl text-gray-700 dark:text-gray-300 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed"
         >
-          Master multiple programming languages with real-world examples on our
-          comprehensive, interactive learning platform.
+          {t("subtitle")}
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -65,7 +67,7 @@ export default function Home() {
           >
             <IoNavigateOutline className="door-icon mr-2 md:mr-3 w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:hidden" />
             <IoNavigateSharp className="door-icon mr-2 md:mr-3 w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 hidden group-hover:block" />
-            <span className="relative z-10">Start Your Journey</span>
+            <span className="relative z-10">{t("startJourney")}</span>
           </Link>
           <Link
             href="/courses"
@@ -87,7 +89,7 @@ export default function Home() {
               <line x1="8" y1="12" x2="16" y2="12"></line>
             </svg>
             <span className="relative z-10 group-hover:text-white transition-colors duration-300">
-              Explore Courses
+              {t("exploreCourses")}
             </span>
           </Link>
         </motion.div>
@@ -100,7 +102,7 @@ export default function Home() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-center mb-8 md:mb-16 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-transparent bg-clip-text animate-gradient-x"
           >
-            Explore Our Interactive Tools
+            {t("exploreTools")}
           </motion.h2>
           <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
@@ -150,7 +152,7 @@ export default function Home() {
                       {createIcon(
                         "M278.9 511.5l-61-17.7c-6.4-1.8-10-8.5-8.2-14.9L346.2 8.7c1.8-6.4 8.5-10 14.9-8.2l61 17.7c6.4 1.8 10 8.5 8.2 14.9L293.8 503.3c-1.9 6.4-8.5 10.1-14.9 8.2zm-114-112.2l43.5-46.4c4.6-4.9 4.3-12.7-.8-17.2L117 256l90.6-79.7c5.1-4.5 5.5-12.3.8-17.2l-43.5-46.4c-4.5-4.8-12.1-5.1-17-.5L3.8 247.2c-5.1 4.7-5.1 12.8 0 17.5l144.1 135.1c4.9 4.6 12.5 4.4 17-.5zm327.2.6l144.1-135.1c5.1-4.7 5.1-12.8 0-17.5L492.1 112.1c-4.8-4.5-12.4-4.3-17 .5L431.6 159c-4.6 4.9-4.3 12.7.8 17.2L523 256l-90.6 79.7c-5.1 4.5-5.5 12.3-.8 17.2l43.5 46.4c4.5 4.9 12.1 5.1 17 .6z"
                       )}
-                      Learn now
+                      {t("learnNow")}
                     </motion.button>
                     <motion.button
                       className={`inline-flex items-center justify-center w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-md hover:shadow-lg text-lg ${
@@ -173,7 +175,7 @@ export default function Home() {
                       {createIcon(
                         "M255.03 261.65c6.25 6.25 16.38 6.25 22.63 0l11.31-11.31c6.25-6.25 6.25-16.38 0-22.63L253.25 192l35.71-35.72c6.25-6.25 6.25-16.38 0-22.63l-11.31-11.31c-6.25-6.25-16.38-6.25-22.63 0l-58.34 58.34c-6.25 6.25-6.25 16.38 0 22.63l58.35 58.34zm96.01-11.3l11.31 11.31c6.25 6.25 16.38 6.25 22.63 0l58.34-58.34c6.25-6.25 6.25-16.38 0-22.63l-58.34-58.34c-6.25-6.25-16.38-6.25-22.63 0l-11.31 11.31c-6.25 6.25-6.25 16.38 0 22.63L386.75 192l-35.71 35.72c-6.25 6.25-6.25 16.38 0 22.63zM624 416H381.54c-.74 19.81-14.71 32-32.74 32H288c-18.69 0-33.02-17.47-32.77-32H16c-8.8 0-16 7.2-16 16v16c0 35.2 28.8 64 64 64h512c35.2 0 64-28.8 64-64v-16c0-8.8-7.2-16-16-16zM576 48c0-26.4-21.6-48-48-48H112C85.6 0 64 21.6 64 48v336h512V48zm-64 272H128V64h384v256z"
                       )}
-                      Try Compiler
+                      {t("tryCompiler")}
                     </motion.button>
                   </div>
                 </div>

@@ -5,11 +5,13 @@ import { FaShieldAlt, FaBook } from "react-icons/fa";
 import { PiScrollFill } from "react-icons/pi";
 import { useState, useEffect } from "react";
 import Social from "@data/social.json";
+import { useTranslations } from "next-intl";
 
 const Footer = () => {
   const [latestCommitUrl, setLatestCommitUrl] = useState<string>(
     "https://github.com/Stawa/TriWikiTech/commits/dev"
   );
+  const t = useTranslations("Footer");
 
   useEffect(() => {
     const fetchLatestCommit = async () => {
@@ -113,7 +115,7 @@ const Footer = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-gray-600 dark:text-gray-300"
             >
-              Learn, Code, Grow
+              {t("LearnCodeGrow")}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 inline-block"
@@ -139,7 +141,7 @@ const Footer = () => {
         >
           <div className="text-center md:text-left mb-4 md:mb-0">
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-              © {new Date().getFullYear()} TriWikiTech. All rights reserved.
+              {t("AllRightsReserved", { year: new Date().getFullYear() })}
             </p>
             <p className="text-sm text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors duration-300">
               <svg
@@ -157,7 +159,7 @@ const Footer = () => {
                   d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
                 />
               </svg>
-              Designed by{" "}
+              {t("DesignedBy")}
               <a
                 href="https://github.com/YourGithubUsername"
                 target="_blank"
@@ -170,13 +172,13 @@ const Footer = () => {
           </div>
           <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 text-center">
             <FooterLink href="/tos" icon={FaBook}>
-              Terms of Service
+              {t("TermsOfService")}
             </FooterLink>
             <FooterLink href="/privacy" icon={FaShieldAlt}>
-              Privacy Policy
+              {t("PrivacyPolicy")}
             </FooterLink>
             <FooterLink href={latestCommitUrl} icon={PiScrollFill}>
-              Changelog
+              {t("Changelog")}
             </FooterLink>
           </div>
         </motion.div>

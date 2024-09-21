@@ -1,18 +1,19 @@
 "use client";
 
+import HomeButton from "@components/homeButton";
 import { motion } from "framer-motion";
 import { IconType } from "react-icons";
-import HomeButton from "./homeButton";
+import { useTranslations } from "next-intl";
 
 const ComingSoonScreen = ({
-  title,
-  description,
+  name,
   icon: Icon,
 }: {
-  title: string;
-  description: string;
+  name: string;
   icon: IconType;
 }) => {
+  const t = useTranslations("Upcoming");
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-black">
       <div className="text-center max-w-3xl mx-auto px-4 sm:px-5 py-6 sm:py-10">
@@ -28,7 +29,7 @@ const ComingSoonScreen = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            {title} Coming Soon
+            {name} {t("title")}
           </motion.h1>
           <motion.p
             className="text-sm sm:text-base md:text-lg mb-5 sm:mb-8 text-gray-700 dark:text-gray-300"
@@ -36,8 +37,7 @@ const ComingSoonScreen = ({
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            We&apos;re working on an exciting update for {title}. Stay tuned for
-            the upcoming release!
+            {t("workInProgress", { name: name })}
           </motion.p>
           <motion.div
             className="space-y-3 sm:space-y-5"
@@ -45,9 +45,6 @@ const ComingSoonScreen = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-              {description}
-            </p>
             <div className="flex justify-center">
               <HomeButton size="sm" />
             </div>

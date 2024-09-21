@@ -1,29 +1,30 @@
 "use client";
 
+import HomeButton from "@components/homeButton";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FaBook } from "react-icons/fa";
-import HomeButton from "@components/homeButton";
+import { useTranslations } from "next-intl";
 
 const courses = [
   {
-    title: "JavaScript Programming",
-    description: "Dive into dynamic web development with JavaScript!",
+    title: "JavaScript",
+    description: "JavaScript",
     image: "/lang/JS.svg",
     link: "/courses/javascript",
     color: "from-yellow-400 to-yellow-600",
   },
   {
-    title: "C Programming",
-    description: "Master low-level programming with C!",
+    title: "C",
+    description: "C",
     image: "/lang/C.svg",
     link: "/courses/c",
     color: "from-blue-400 to-blue-600",
   },
   {
-    title: "C++ Programming",
-    description: "Unlock the power of object-oriented programming with C++!",
+    title: "CPP",
+    description: "CPP",
     image: "/lang/CPP.svg",
     link: "/courses/cpp",
     color: "from-indigo-400 to-indigo-600",
@@ -53,6 +54,8 @@ const itemVariants = {
 };
 
 export default function Courses() {
+  const t = useTranslations("Courses");
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-black flex items-center justify-center overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
@@ -62,7 +65,7 @@ export default function Courses() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
-          Explore Our Courses
+          {t("title")}
         </motion.h1>
         <motion.p
           className="text-xl sm:text-2xl text-gray-700 dark:text-gray-300 mb-12 text-center max-w-3xl mx-auto"
@@ -70,8 +73,7 @@ export default function Courses() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Dive into our comprehensive programming courses designed to take you
-          from beginner to expert. Choose your path and start coding today!
+          {t("subtitle")}
         </motion.p>
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
@@ -90,7 +92,7 @@ export default function Courses() {
               >
                 <Image
                   src={course.image}
-                  alt={course.title}
+                  alt={t(`${course.title}.title`)}
                   width={100}
                   height={100}
                   className="object-contain filter drop-shadow-lg"
@@ -98,17 +100,17 @@ export default function Courses() {
               </div>
               <div className="p-6 flex flex-col flex-grow">
                 <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white text-center">
-                  {course.title}
+                  {t(`${course.title}.title`)}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-6 flex-grow text-center">
-                  {course.description}
+                  {t(`${course.title}.description`)}
                 </p>
                 <Link
                   href={course.link}
                   className="inline-flex items-center justify-center w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-md hover:shadow-lg text-lg"
                 >
                   <FaBook className="mr-2" />
-                  Start Learning
+                  {t("startLearning")}
                 </Link>
               </div>
             </motion.div>

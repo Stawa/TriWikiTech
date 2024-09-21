@@ -21,6 +21,10 @@ import {
 } from "react-icons/fa";
 import Image from "next/image";
 import Flag from "react-world-flags";
+import { useRouter } from "next/navigation";
+import { getUserLocale, setUserLocale } from "@default/services/locale";
+import { Locale } from "@default/i18n/config";
+import { useTranslations } from "next-intl";
 
 interface User {
   name: string;
@@ -59,11 +63,16 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("English");
+  const [selectedLanguage, setSelectedLanguage] = useState<Locale>("en");
   const [userLogin] = useState(false);
+  const router = useRouter();
+  const t = useTranslations("Navbar");
 
   useEffect(() => {
     setMounted(true);
+    getUserLocale().then((locale) => {
+      setSelectedLanguage(locale as Locale);
+    });
   }, []);
 
   useEffect(() => {
@@ -81,23 +90,29 @@ const Navbar = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
+  const changeLanguage = async (locale: Locale) => {
+    await setUserLocale(locale);
+    setSelectedLanguage(locale);
+    router.refresh();
+  };
+
   if (!mounted) return null;
 
   const navItems = [
-    { name: "Home", icon: FaHome },
-    { name: "Courses", icon: FaBook },
-    { name: "Quiz", icon: FaQuestionCircle },
-    { name: "Compiler", icon: FaLaptopCode },
+    { name: t("Home"), href: "/", icon: FaHome },
+    { name: t("Courses"), href: "/courses", icon: FaBook },
+    { name: t("Quiz"), href: "/quiz", icon: FaQuestionCircle },
+    { name: t("Compiler"), href: "/compiler", icon: FaLaptopCode },
   ];
 
   const userDropdownItems = [
     {
-      name: "View Profile",
+      name: t("ViewProfile"),
       icon: FaUser,
       href: "/profile",
     },
     {
-      name: "Settings",
+      name: t("Settings"),
       icon: FaCog,
       href: "/settings",
     },
@@ -105,7 +120,7 @@ const Navbar = () => {
 
   const guestDropdownItems = [
     {
-      name: "Login",
+      name: t("Login"),
       icon: FaUser,
       href: "/login",
     },
@@ -114,8 +129,16 @@ const Navbar = () => {
   const dropdownItems = userLogin ? userDropdownItems : guestDropdownItems;
 
   const languages = [
-    { name: "English", flagIcon: <Flag className="w-6 h-6" code="us" /> },
-    { name: "Indonesia", flagIcon: <Flag className="w-6 h-6" code="id" /> },
+    {
+      name: t("English"),
+      flagIcon: <Flag className="w-6 h-6" code="us" />,
+      locale: "en" as Locale,
+    },
+    {
+      name: t("Indonesia"),
+      flagIcon: <Flag className="w-6 h-6" code="id" />,
+      locale: "id" as Locale,
+    },
   ];
 
   return (
@@ -135,9 +158,7 @@ const Navbar = () => {
             {navItems.map((item) => (
               <Link
                 key={item.name}
-                href={
-                  item.name === "Home" ? "/" : `/${item.name.toLowerCase()}`
-                }
+                href={item.href}
                 className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white border-b-2 border-transparent hover:border-blue-500 transition duration-300 ease-in-out flex items-center"
               >
                 <item.icon className="mr-2 text-lg" />
@@ -189,7 +210,9 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   href={
-                    item.name === "Home" ? "/" : `/${item.name.toLowerCase()}`
+                    item.name === t("Home")
+                      ? "/"
+                      : `/${item.name.toLowerCase()}`
                   }
                   className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white border-l-2 border-transparent hover:border-blue-500 transition duration-300 ease-in-out flex items-center"
                   onClick={() => setIsOpen(false)}
@@ -217,12 +240,12 @@ const Navbar = () => {
                         quality={100}
                       />
                     </div>
-                    Profile
+                    {t("Profile")}
                   </>
                 ) : (
                   <>
                     <FaUser className="mr-3 text-lg" />
-                    Login
+                    {t("Login")}
                   </>
                 )}
               </button>
@@ -281,7 +304,7 @@ const Navbar = () => {
               <div className="px-6 flex-grow">
                 <div className="mb-4">
                   <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2">
-                    Account
+                    {t("Account")}
                   </h3>
                   {dropdownItems.map((item) => (
                     <Link
@@ -299,7 +322,7 @@ const Navbar = () => {
                 </div>
                 <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                   <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2">
-                    Preferences
+                    {t("Preferences")}
                   </h3>
                   <button
                     onClick={toggleTheme}
@@ -308,7 +331,9 @@ const Navbar = () => {
                     <span className="mr-4 text-xl text-blue-500 dark:text-blue-400">
                       {theme === "dark" ? <FaMoon /> : <FaSun />}
                     </span>
-                    Switch to {theme === "dark" ? "Light" : "Dark"} Mode
+                    {theme === "dark"
+                      ? t("SwitchToLightMode")
+                      : t("SwitchToDarkMode")}
                   </button>
                   <div className="mt-4 mb-4">
                     <button
@@ -319,7 +344,7 @@ const Navbar = () => {
                     >
                       <span className="flex items-center">
                         <FaGlobe className="mr-4 text-xl text-blue-500 dark:text-blue-400" />
-                        {selectedLanguage}
+                        {t("Language")}
                       </span>
                       <FaChevronDown
                         className={`transition-transform duration-200 ${isLanguageDropdownOpen ? "transform rotate-180" : ""}`}
@@ -331,13 +356,13 @@ const Navbar = () => {
                           <button
                             key={lang.name}
                             onClick={() => {
-                              setSelectedLanguage(lang.name);
+                              changeLanguage(lang.locale);
                               setIsLanguageDropdownOpen(false);
                             }}
                             className={`
                               block w-full text-left px-4 py-3 text-sm
                               ${
-                                selectedLanguage === lang.name
+                                selectedLanguage === lang.locale
                                   ? "bg-blue-500 text-white"
                                   : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                               }
@@ -350,7 +375,7 @@ const Navbar = () => {
                                 {lang.flagIcon}
                                 <span className="ml-2">{lang.name}</span>
                               </span>
-                              {selectedLanguage === lang.name && (
+                              {selectedLanguage === lang.locale && (
                                 <FaCheck className="text-white" />
                               )}
                             </div>
@@ -370,7 +395,7 @@ const Navbar = () => {
                     className="w-full text-left px-4 py-3 text-base text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition duration-150 ease-in-out flex items-center"
                   >
                     <FaSignOutAlt className="mr-4 text-xl" />
-                    Logout
+                    {t("Logout")}
                   </button>
                 </div>
               )}
