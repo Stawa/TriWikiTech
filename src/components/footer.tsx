@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import { FaShieldAlt, FaBook } from "react-icons/fa";
 import { PiScrollFill } from "react-icons/pi";
 import { useState, useEffect } from "react";
-import Social from "@data/social.json";
 import { useTranslations } from "next-intl";
+import Social from "@data/social.json";
 
 const Footer = () => {
   const [latestCommitUrl, setLatestCommitUrl] = useState<string>(
@@ -159,9 +159,9 @@ const Footer = () => {
                   d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
                 />
               </svg>
-              {t("DesignedBy")}
+              {t("DesignedBy")}{" "}
               <a
-                href="https://github.com/YourGithubUsername"
+                href="https://github.com/Stawa"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium hover:underline"
