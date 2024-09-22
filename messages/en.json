@@ -1,0 +1,399 @@
+{
+  "Home": {
+    "title": "Learn Programming with TriWikiTech",
+    "subtitle": "Master multiple programming languages with real-world examples on our comprehensive, interactive learning platform.",
+    "startJourney": "Start Your Journey",
+    "exploreCourses": "Explore Courses",
+    "exploreTools": "Explore Our Interactive Tools",
+    "learnNow": "Learn now",
+    "tryCompiler": "Try Compiler"
+  },
+  "Navbar": {
+    "Home": "Home",
+    "Courses": "Courses",
+    "Quiz": "Quiz",
+    "Compiler": "Compiler",
+    "Profile": "Profile",
+    "ViewProfile": "View Profile",
+    "Settings": "Settings",
+    "Login": "Login",
+    "Logout": "Logout",
+    "SwitchToLightMode": "Switch to Light Mode",
+    "SwitchToDarkMode": "Switch to Dark Mode",
+    "Language": "Language",
+    "English": "English",
+    "Indonesia": "Indonesia",
+    "Account": "Account",
+    "Preferences": "Preferences"
+  },
+  "Footer": {
+    "LearnCodeGrow": "Learn, Code, Grow",
+    "AllRightsReserved": "© {year} TriWikiTech. All rights reserved.",
+    "DesignedBy": "Designed by",
+    "TermsOfService": "Terms of Service",
+    "PrivacyPolicy": "Privacy Policy",
+    "Changelog": "Changelog"
+  },
+  "Courses": {
+    "title": "Explore Our Courses",
+    "subtitle": "Dive into our comprehensive programming courses designed to take you from beginner to expert. Choose your path and start coding today!",
+    "JavaScript": {
+      "title": "JavaScript Programming",
+      "description": "Dive into dynamic web development with JavaScript!"
+    },
+    "C": {
+      "title": "C Programming",
+      "description": "Master low-level programming with C!"
+    },
+    "CPP": {
+      "title": "C++ Programming",
+      "description": "Unlock the power of object-oriented programming with C++!"
+    },
+    "startLearning": "Start Learning",
+    "MainPage": {
+      "title": "Main Courses",
+      "description": "Explore our comprehensive programming courses designed to take you from beginner to expert.",
+      "WhatIs": "What is",
+      "KeyFeatures": "Key Features",
+      "WhyLearn": "Why Learn",
+      "CourseRoadmap": "Course Roadmap",
+      "StartLearning": "Start Learning",
+      "C": {
+        "title": "C Programming",
+        "description": "Master the foundations of modern computing through C programming",
+        "explanation": "C is a powerful, efficient, and flexible programming language that forms the backbone of many modern technologies. It provides low-level access to memory and hardware, making it ideal for system programming and developing high-performance applications.",
+        "whyLearn": "Learning C provides a deep understanding of how computers work at a low level. It's essential for system programming, embedded systems, and developing high-performance applications. C's influence on other languages makes it an excellent foundation for any programmer.",
+        "features": [
+          "Low-Level Memory Access",
+          "Efficient Performance",
+          "Portability",
+          "Extensive Standard Library",
+          "Structured Programming",
+          "Foundation for Other Languages"
+        ]
+      },
+      "JavaScript": {
+        "title": "JavaScript Mastery",
+        "description": "Unlock the power of modern web development",
+        "explanation": "JavaScript is a versatile, high-level programming language essential for creating dynamic and interactive web experiences. It powers modern web development, enabling complex features and responsive interfaces.",
+        "whyLearn": "As one of the most in-demand programming languages, JavaScript opens doors to numerous opportunities in web development. Master JavaScript to create cutting-edge applications and stay at the forefront of technology.",
+        "features": [
+          "Interactive UIs",
+          "Asynchronous Operations",
+          "DOM Manipulation",
+          "Client-Side Validation",
+          "Animations & Effects",
+          "Full-stack Development"
+        ]
+      }
+    }
+  },
+  "Upcoming": {
+    "title": "Coming Soon",
+    "workInProgress": "We're working on an exciting update for {name}. Stay tuned for the upcoming release!"
+  },
+  "Component": {
+    "HomeButton": {
+      "returnToHome": "Return to Home"
+    },
+    "CourseNavigationButtons": {
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "Template": {
+      "Topic": {
+        "title": "What You'll Learn",
+        "learnMore": "Learn More"
+      },
+      "Single": {
+        "output": "Output:",
+        "bestUseCase": "Best Use Case:",
+        "explanation": "Explanation:"
+      }
+    },
+    "Courses": {
+      "JavaScript": {
+        "Basics": {
+          "title": "JavaScript Basics",
+          "courseOverview": {
+            "title": "Course Overview",
+            "description": "In this course, you'll dive into the basics of JavaScript, covering console.log, variables, and data types. These fundamental concepts form the foundation for more advanced JavaScript programming."
+          },
+          "topics": {
+            "consolelog": {
+              "title": "Console.log",
+              "description": "Learn how to output data to the console"
+            },
+            "variables": {
+              "title": "Variables",
+              "description": "Learn about var, let, and const"
+            },
+            "dataTypes": {
+              "title": "Data Types",
+              "description": "Understand primitive and complex data types"
+            }
+          },
+          "whyBasicsMatter": {
+            "title": "Why These Basics Matter",
+            "description": "Understanding these basic concepts is crucial for any aspiring JavaScript developer. These fundamentals form the foundation upon which more advanced concepts are built, enabling you to write efficient, clean, and robust JavaScript code."
+          }
+        },
+        "ControlStructures": {
+          "title": "JavaScript Control Structures",
+          "courseOverview": {
+            "title": "Course Overview",
+            "description": "In this course, you'll learn about JavaScript control structures. We'll cover conditional statements, loops, and switch statements - essential tools for controlling the flow of your code and making decisions based on different conditions."
+          },
+          "topics": {
+            "conditionals": {
+              "title": "Conditional Statements",
+              "description": "Learn about if, else if, and else"
+            },
+            "loops": {
+              "title": "Loops",
+              "description": "Understand for, while, and do-while loops"
+            },
+            "switch": {
+              "title": "Switch Statements",
+              "description": "Master the switch-case structure"
+            }
+          },
+          "whyControlStructuresMatter": {
+            "title": "Why Control Structures Matter",
+            "description": "Control structures are the backbone of programming. They allow you to make decisions in your code, repeat actions, and choose different code paths based on conditions. Mastering these concepts will give you the power to create more complex and interactive JavaScript applications."
+          }
+        },
+        "Functions": {
+          "title": "JavaScript Functions",
+          "courseOverview": {
+            "title": "Course Overview",
+            "description": "In this course, you'll dive deep into JavaScript functions - the building blocks of reusable code. We'll cover function declarations, parameters, return values, and modern arrow function syntax. By mastering functions, you'll be able to write more efficient and organized JavaScript code."
+          },
+          "topics": {
+            "functionDeclaration": {
+              "title": "Function Declaration",
+              "description": "Learn how to declare and define functions"
+            },
+            "parametersArguments": {
+              "title": "Parameters & Arguments",
+              "description": "Understand how to pass data to functions"
+            },
+            "returnValues": {
+              "title": "Return Values",
+              "description": "Explore how functions can return results"
+            },
+            "arrowFunctions": {
+              "title": "Arrow Functions",
+              "description": "Master the concise arrow function syntax"
+            }
+          },
+          "whyFunctionsMatter": {
+            "title": "Why Functions Matter",
+            "description": "Functions are at the core of JavaScript programming. They allow you to write modular and reusable code, making your programs more efficient and manageable. Understanding functions is crucial for any aspiring JavaScript developer, as they form the basis for more advanced concepts like closures, callbacks, and asynchronous programming."
+          }
+        },
+        "ObjectsArrays": {
+          "title": "JavaScript Objects & Arrays",
+          "courseOverview": {
+            "title": "Course Overview",
+            "description": "In this course, you'll dive deep into JavaScript objects and arrays. We'll cover object creation and manipulation, array basics, object methods, and advanced array operations. These concepts are crucial for working with complex data structures in JavaScript."
+          },
+          "topics": {
+            "objectBasics": {
+              "title": "Object Basics",
+              "description": "Learn about object creation and property access"
+            },
+            "arrayBasics": {
+              "title": "Array Basics",
+              "description": "Understand array creation and manipulation"
+            },
+            "objectMethods": {
+              "title": "Object Methods",
+              "description": "Explore built-in object methods and custom functions"
+            },
+            "arrayOperations": {
+              "title": "Array Operations",
+              "description": "Dive into advanced array operations and transformations"
+            }
+          },
+          "whyObjectsArraysMatter": {
+            "title": "Why These Basics Matter",
+            "description": "Objects and arrays are fundamental data structures in JavaScript. They allow you to organize, store, and manipulate complex data efficiently. Mastering these concepts is crucial for building robust and scalable applications, working with APIs, and implementing advanced programming patterns."
+          }
+        }
+      },
+      "C": {
+        "Basics": {
+          "title": "C Basics",
+          "courseOverview": {
+            "title": "Course Overview",
+            "description": "Begin your sophisticated journey into C programming. Master the core elements: from elegant printing techniques to dynamic variables, versatile data types, and efficient I/O operations. This is your launch code to the C development universe."
+          },
+          "topics": {
+            "basicPrinting": {
+              "title": "Basic Printing",
+              "description": "Learn how to print 'Hello, World!' and other simple messages"
+            },
+            "variables": {
+              "title": "Variables",
+              "description": "Learn about variable declaration and initialization in C"
+            },
+            "dataTypes": {
+              "title": "Data Types",
+              "description": "Explore the various data types available in C"
+            },
+            "inputOutput": {
+              "title": "Basic Input/Output",
+              "description": "Master basic input and output operations in C"
+            }
+          },
+          "whyBasicsMatter": {
+            "title": "Why These Basics Matter",
+            "description": "Understanding these basic concepts is crucial for any aspiring C programmer. These fundamentals form the foundation upon which more advanced concepts are built, enabling you to write efficient, clean, and robust C code."
+          }
+        },
+        "ControlStructures": {
+          "title": "C Control Structures",
+          "courseOverview": {
+            "title": "Course Overview",
+            "description": "Dive into the world of C control structures. Master the art of decision-making with if statements and switch cases, and harness the power of iteration with for and while loops. These fundamental concepts are crucial for creating dynamic and efficient C programs."
+          },
+          "topics": {
+            "ifStatements": {
+              "title": "If Statements",
+              "description": "Learn how to make decisions in your code using if statements"
+            },
+            "switchStatements": {
+              "title": "Switch Statements",
+              "description": "Explore multi-way decision making with switch statements"
+            },
+            "forLoops": {
+              "title": "For Loops",
+              "description": "Master the art of iteration with for loops"
+            },
+            "whileLoops": {
+              "title": "While Loops",
+              "description": "Understand and implement while loops for conditional iteration"
+            }
+          },
+          "whyControlStructuresMatter": {
+            "title": "Why Control Structures Matter",
+            "description": "Understanding control structures is vital for any C programmer. These concepts form the backbone of program flow and logic, allowing you to create sophisticated, efficient, and robust C programs that can handle complex decision-making and repetitive tasks."
+          }
+        },
+        "Functions": {
+          "title": "C Functions",
+          "courseOverview": {
+            "title": "Course Overview",
+            "description": "Dive into the world of C functions. Master the art of function declaration, definition, and prototypes. Learn about parameter passing and return values. These fundamental concepts are crucial for creating modular, reusable, and efficient C programs."
+          },
+          "topics": {
+            "functionBasics": {
+              "title": "Function Basics",
+              "description": "Learn about function declaration and definition in C, including syntax and best practices"
+            },
+            "functionParameters": {
+              "title": "Function Parameters",
+              "description": "Understand how to pass arguments to functions, including pass-by-value and pass-by-reference techniques"
+            },
+            "returnValues": {
+              "title": "Return Values",
+              "description": "Explore how functions can return values in C, including various data types and multiple return values"
+            },
+            "functionPrototypes": {
+              "title": "Function Prototypes",
+              "description": "Learn about function prototypes and their importance in C programming for proper function declaration"
+            }
+          },
+          "whyFunctionsMatter": {
+            "title": "Why Functions Matter",
+            "description": "Understanding functions is crucial for any C programmer. These concepts form the backbone of modular programming, allowing you to create sophisticated, efficient, and maintainable C programs that can handle complex tasks through well-organized and reusable blocks of code."
+          }
+        },
+        "MemoryManagement": {
+          "title": "C Memory Management",
+          "courseOverview": {
+            "title": "Course Overview",
+            "description": "In this comprehensive course, you'll dive deep into memory management in C programming. We'll cover dynamic memory allocation, deallocation, and common memory-related issues. You'll learn how to effectively use functions like malloc(), calloc(), realloc(), and free(). We'll also explore best practices for managing memory and avoiding common pitfalls like memory leaks and buffer overflows. By mastering these concepts, you'll be able to write more efficient and robust C programs."
+          },
+          "topics": {
+            "dynamicAllocation": {
+              "title": "Dynamic Memory Allocation",
+              "description": "Learn about malloc(), calloc(), and realloc() functions"
+            },
+            "memoryDeallocation": {
+              "title": "Memory Deallocation",
+              "description": "Understand the importance of freeing allocated memory"
+            },
+            "memoryIssues": {
+              "title": "Common Memory Issues",
+              "description": "Explore memory leaks, dangling pointers, and buffer overflows"
+            },
+            "bestPractices": {
+              "title": "Best Practices",
+              "description": "Learn best practices for effective memory management"
+            }
+          },
+          "whyMemoryManagementMatters": {
+            "title": "Why Memory Management Matters",
+            "description": "Effective memory management is crucial in C programming. It allows you to optimize your program's performance, prevent memory leaks, and avoid crashes due to memory-related issues. Understanding how to dynamically allocate, use, and free memory gives you fine-grained control over your program's resource usage. These skills are essential for writing efficient, scalable, and robust C programs, especially for applications that handle large datasets or have long running times. Mastering memory management will make you a more proficient C programmer and is a fundamental skill for systems programming and low-level software development."
+          }
+        },
+        "Pointers": {
+          "title": "C Pointers",
+          "courseOverview": {
+            "title": "Course Overview",
+            "description": "In this comprehensive course, you'll dive deep into pointers, one of the most powerful features in C programming. We'll cover pointer basics, arithmetic, their relationship with arrays, and how they're used with functions. You'll learn how to effectively use pointers to manipulate memory, create dynamic data structures, and write more efficient code. By mastering these concepts, you'll be able to write more powerful and flexible C programs."
+          },
+          "topics": {
+            "pointerBasics": {
+              "title": "Pointer Basics",
+              "description": "Learn about pointer declaration, initialization, and basic operations"
+            },
+            "pointerArithmetic": {
+              "title": "Pointer Arithmetic",
+              "description": "Explore arithmetic operations with pointers"
+            },
+            "pointersAndArrays": {
+              "title": "Pointers and Arrays",
+              "description": "Understand the relationship between pointers and arrays"
+            },
+            "pointersAndFunctions": {
+              "title": "Pointers and Functions",
+              "description": "Learn how to use pointers with functions"
+            }
+          },
+          "whyPointersMatter": {
+            "title": "Why Pointers Matter",
+            "description": "Pointers are fundamental in C programming, enabling efficient memory management, dynamic data structures, and powerful programming techniques. Understanding pointers is crucial for writing efficient and flexible C code. They provide direct access to memory, enable dynamic memory allocation, and are essential for creating complex data structures like linked lists and trees. Mastering pointers will make you a more proficient C programmer and is a fundamental skill for systems programming and low-level software development."
+          }
+        },
+        "Advanced": {
+          "title": "Advanced C",
+          "courseOverview": {
+            "title": "Course Overview",
+            "description": "In this advanced C course, you'll deepen your understanding of C programming. We'll cover complex topics such as structures, file I/O, and preprocessor directives. This course will help you leverage the full power of C to write more sophisticated and efficient code."
+          },
+          "topics": {
+            "structures": {
+              "title": "Structures",
+              "description": "Learn about user-defined data types in C"
+            },
+            "fileIO": {
+              "title": "File I/O",
+              "description": "Explore file input and output operations in C"
+            },
+            "preprocessorDirectives": {
+              "title": "Preprocessor Directives",
+              "description": "Master preprocessor commands and macros in C"
+            }
+          },
+          "whyAdvancedPointersMatter": {
+            "title": "Why Advanced C Matters",
+            "description": "Understanding advanced C concepts opens doors to more sophisticated programming techniques in C. Structures allow for complex data organization. File I/O enables interaction with external data sources. Preprocessor directives offer powerful code manipulation before compilation. Mastering these topics will enhance your ability to write efficient, flexible, and robust C code, which is essential for low-level system development and high-performance applications."
+          }
+        }
+      }
+    }
+  }
+}
