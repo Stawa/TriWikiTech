@@ -1,16 +1,13 @@
 "use client";
 
 import CourseContainer from "@components/courses/container";
-import CourseInfo from "@components/courses/template/info";
 import Courses from "@components/courses/javascript/navigation";
-import Topics from "@components/courses/template/topics";
 import { Single } from "@components/courses/template/single";
 import { Variables } from "@components/courses/template/variable";
 import { DataTypes } from "@components/courses/template/types";
 import CreateCourseItems from "@components/courses/create";
 
 import { FaCode, FaCube, FaTerminal } from "react-icons/fa";
-import { PiLightbulbFilamentFill } from "react-icons/pi";
 import { useTranslations, useLocale } from "next-intl";
 import { Locale } from "@default/i18n/config";
 
@@ -503,25 +500,13 @@ console.log(person);`,
       authorInfo={{ date: "2024-09-15", title: t("title") }}
       courses={Courses(locale)}
       currentCourseLink="/courses/javascript/basics"
+      translations={"Component.Courses.Javascript.Basics"}
+      topics={topics}
+      whyIsItMatter={{
+        translations: "Component.Courses.Javascript.Basics.whyBasicsMatter",
+        id: "why-basics-matter",
+      }}
     >
-      <CourseInfo
-        title={t("courseOverview.title")}
-        id="course-overview"
-        delay={0.3}
-        description={t("courseOverview.description")}
-        icon={FaCode}
-      />
-
-      <Topics id="topics" delay={0.5} topics={topics} />
-
-      <CourseInfo
-        title={t("whyBasicsMatter.title")}
-        id="why-basics-matter"
-        delay={0.7}
-        description={t("whyBasicsMatter.description")}
-        icon={PiLightbulbFilamentFill}
-      />
-
       <Single
         title={t("topics.consolelog.title")}
         id="basic-printing"

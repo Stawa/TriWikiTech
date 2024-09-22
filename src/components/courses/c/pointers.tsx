@@ -7,8 +7,6 @@ import { TbPointer } from "react-icons/tb";
 
 import Courses from "@components/courses/c/navigation";
 import CourseContainer from "@components/courses/container";
-import CourseInfo from "@components/courses/template/info";
-import Topics from "@components/courses/template/topics";
 import {
   Multiple,
   type MultipleItem,
@@ -254,25 +252,13 @@ ptrdiff_t diff = ptr2 - ptr1;  // diff is 3`,
       authorInfo={{ date: "2024-09-15", title: t("title") }}
       courses={Courses(locale)}
       currentCourseLink="/courses/c/pointers"
+      translations={"Component.Courses.C.Pointers"}
+      topics={topics}
+      whyIsItMatter={{
+        translations: "Component.Courses.C.Pointers.whyPointersMatter",
+        id: "why-pointers-matter",
+      }}
     >
-      <CourseInfo
-        title={t("courseOverview.title")}
-        id="course-overview"
-        delay={0.3}
-        description={t("courseOverview.description")}
-        icon={TbPointer}
-      />
-
-      <Topics id="topics" delay={0.5} topics={topics} />
-
-      <CourseInfo
-        title={t("whyPointersMatter.title")}
-        id="why-pointers-matter"
-        delay={0.7}
-        description={t("whyPointersMatter.description")}
-        icon={FaMemory}
-      />
-
       <Multiple
         title={t("topics.pointerBasics.title")}
         id="pointer-basics"

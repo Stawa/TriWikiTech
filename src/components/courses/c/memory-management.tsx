@@ -1,22 +1,13 @@
 "use client";
 
-import { PiLightbulbFilamentFill } from "react-icons/pi";
-import {
-  FaCode,
-  FaLightbulb,
-  FaMemory,
-  FaRocket,
-  FaShieldAlt,
-} from "react-icons/fa";
+import { FaLightbulb, FaMemory, FaRocket, FaShieldAlt } from "react-icons/fa";
 
 import CourseContainer from "@components/courses/container";
-import CourseInfo from "@components/courses/template/info";
 import Courses from "@components/courses/c/navigation";
 import {
   Multiple,
   type MultipleItem,
 } from "@components/courses/template/multiple";
-import Topics from "@components/courses/template/topics";
 import CreateCourseItems from "@components/courses/create";
 import { useLocale, useTranslations } from "next-intl";
 import { Locale } from "@default/i18n/config";
@@ -262,25 +253,14 @@ export default function CMemoryManagement() {
       authorInfo={{ date: "2024-09-15", title: t("title") }}
       courses={Courses(locale)}
       currentCourseLink="/courses/c/memory-management"
+      translations={"Component.Courses.C.MemoryManagement"}
+      topics={topics}
+      whyIsItMatter={{
+        translations:
+          "Component.Courses.C.MemoryManagement.whyMemoryManagementMatters",
+        id: "why-memory-management-matters",
+      }}
     >
-      <CourseInfo
-        title={t("courseOverview.title")}
-        id="course-overview"
-        delay={0.3}
-        description={t("courseOverview.description")}
-        icon={FaCode}
-      />
-
-      <Topics id="topics" delay={0.5} topics={topics} />
-
-      <CourseInfo
-        title={t("whyMemoryManagementMatters.title")}
-        id="why-memory-management-matters"
-        delay={0.7}
-        description={t("whyMemoryManagementMatters.description")}
-        icon={PiLightbulbFilamentFill}
-      />
-
       <Multiple
         title={t("topics.dynamicAllocation.title")}
         id="dynamic-memory-allocation"

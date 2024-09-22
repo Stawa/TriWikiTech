@@ -1,12 +1,9 @@
 "use client";
 
 import { FaCode, FaExchangeAlt, FaLightbulb, FaRocket } from "react-icons/fa";
-import { PiLightbulbFilamentFill } from "react-icons/pi";
 
 import Courses from "@components/courses/c/navigation";
 import CourseContainer from "@components/courses/container";
-import CourseInfo from "@components/courses/template/info";
-import Topics from "@components/courses/template/topics";
 import {
   Single,
   type SingleItemProps,
@@ -261,25 +258,13 @@ export default function CFunctions() {
       authorInfo={{ date: "2024-09-15", title: t("title") }}
       courses={Courses(locale)}
       currentCourseLink="/courses/c/functions"
+      translations={"Component.Courses.C.Functions"}
+      topics={topics}
+      whyIsItMatter={{
+        translations: "Component.Courses.C.Functions.whyFunctionsMatter",
+        id: "why-functions-matter",
+      }}
     >
-      <CourseInfo
-        title={t("courseOverview.title")}
-        id="course-overview"
-        delay={0.3}
-        description={t("courseOverview.description")}
-        icon={FaCode}
-      />
-
-      <Topics id="topics" delay={0.5} topics={topics} />
-
-      <CourseInfo
-        title={t("whyFunctionsMatter.title")}
-        id="why-functions-matter"
-        delay={0.7}
-        description={t("whyFunctionsMatter.description")}
-        icon={PiLightbulbFilamentFill}
-      />
-
       <Single
         title={t("topics.functionBasics.title")}
         id="function-basics"

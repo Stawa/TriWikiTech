@@ -60,4 +60,4 @@ const Topics: React.FC<TopicsProps> = ({ id, delay, topics }) => {
   );
 };
 
-export default Topics;
+export { Topics, type Topic };

@@ -2,15 +2,12 @@
 
 import Courses from "@components/courses/javascript/navigation";
 import CourseContainer from "@components/courses/container";
-import CourseInfo from "@components/courses/template/info";
-import Topics from "@components/courses/template/topics";
 import CreateCourseItems from "@components/courses/create";
 import { Single } from "@components/courses/template/single";
 import { useTranslations, useLocale } from "next-intl";
 import { Locale } from "@default/i18n/config";
 
 import { FaCode, FaCube, FaRocket, FaTerminal } from "react-icons/fa";
-import { PiLightbulbFilamentFill } from "react-icons/pi";
 
 export default function JavaScriptFunctions() {
   const t = useTranslations("Component.Courses.JavaScript.Functions");
@@ -335,25 +332,14 @@ export default function JavaScriptFunctions() {
       }}
       courses={Courses(locale)}
       currentCourseLink="/courses/javascript/functions"
+      translations={"Component.Courses.JavaScript.Functions"}
+      topics={topics}
+      whyIsItMatter={{
+        translations:
+          "Component.Courses.JavaScript.Functions.whyFunctionsMatter",
+        id: "why-functions-matter",
+      }}
     >
-      <CourseInfo
-        title={t("courseOverview.title")}
-        id="course-overview"
-        delay={0.3}
-        description={t("courseOverview.description")}
-        icon={FaCode}
-      />
-
-      <Topics id="topics" delay={0.5} topics={topics} />
-
-      <CourseInfo
-        title={t("whyFunctionsMatter.title")}
-        id="why-functions-matter"
-        delay={0.7}
-        description={t("whyFunctionsMatter.description")}
-        icon={PiLightbulbFilamentFill}
-      />
-
       <Single
         id="function-declaration"
         delay={0.8}

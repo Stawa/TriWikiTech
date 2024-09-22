@@ -1,22 +1,18 @@
 "use client";
 
 import {
-  FaCode,
   FaExchangeAlt,
   FaQuestionCircle,
   FaRedoAlt,
   FaSyncAlt,
 } from "react-icons/fa";
-import { PiLightbulbFilamentFill } from "react-icons/pi";
 
 import {
   Single,
   type SingleItemProps,
 } from "@components/courses/template/single";
 import CourseContainer from "@components/courses/container";
-import CourseInfo from "@components/courses/template/info";
 import Courses from "@components/courses/c/navigation";
-import Topics from "@components/courses/template/topics";
 import CreateCourseItems from "@components/courses/create";
 import { useLocale, useTranslations } from "next-intl";
 import { Locale } from "@default/i18n/config";
@@ -175,25 +171,14 @@ export default function CControlStructures() {
       authorInfo={{ date: "2024-09-15", title: t("title") }}
       courses={Courses(locale)}
       currentCourseLink="/courses/c/control-structures"
+      translations={"Component.Courses.C.ControlStructures"}
+      topics={topics}
+      whyIsItMatter={{
+        translations:
+          "Component.Courses.C.ControlStructures.whyControlStructuresMatter",
+        id: "why-control-structures-matter",
+      }}
     >
-      <CourseInfo
-        title={t("courseOverview.title")}
-        id="course-overview"
-        delay={0.3}
-        description={t("courseOverview.description")}
-        icon={FaCode}
-      />
-
-      <Topics id="topics" delay={0.5} topics={topics} />
-
-      <CourseInfo
-        title={t("whyControlStructuresMatter.title")}
-        id="why-control-structures-matter"
-        delay={0.7}
-        description={t("whyControlStructuresMatter.description")}
-        icon={PiLightbulbFilamentFill}
-      />
-
       <Single
         title={t("topics.ifStatements.title")}
         id="if-statements"

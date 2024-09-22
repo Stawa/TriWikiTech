@@ -2,22 +2,13 @@
 
 import Courses from "@components/courses/javascript/navigation";
 import CourseContainer from "@components/courses/container";
-import CourseInfo from "@components/courses/template/info";
-import Topics from "@components/courses/template/topics";
 import CreateCourseItems from "@components/courses/create";
 import { Single } from "@components/courses/template/single";
 import { Multiple } from "@components/courses/template/multiple";
 import { useTranslations, useLocale } from "next-intl";
 import { Locale } from "@default/i18n/config";
 
-import {
-  FaCode,
-  FaCube,
-  FaExchangeAlt,
-  FaList,
-  FaWrench,
-} from "react-icons/fa";
-import { PiLightbulbFilamentFill } from "react-icons/pi";
+import { FaCube, FaExchangeAlt, FaList, FaWrench } from "react-icons/fa";
 
 export default function JavaScriptObjectsArrays() {
   const t = useTranslations("Component.Courses.JavaScript.ObjectsArrays");
@@ -242,25 +233,14 @@ export default function JavaScriptObjectsArrays() {
       }}
       courses={Courses(locale)}
       currentCourseLink="/courses/javascript/objects-arrays"
+      translations={"Component.Courses.JavaScript.ObjectsArrays"}
+      topics={topics}
+      whyIsItMatter={{
+        translations:
+          "Component.Courses.JavaScript.ObjectsArrays.whyObjectsArraysMatter",
+        id: "why-objects-arrays-matter",
+      }}
     >
-      <CourseInfo
-        title={t("courseOverview.title")}
-        id="course-overview"
-        delay={0.3}
-        description={t("courseOverview.description")}
-        icon={FaCode}
-      />
-
-      <Topics id="topics" delay={0.5} topics={topics} />
-
-      <CourseInfo
-        title={t("whyObjectsArraysMatter.title")}
-        id="why-objects-arrays-matter"
-        delay={0.7}
-        description={t("whyObjectsArraysMatter.description")}
-        icon={PiLightbulbFilamentFill}
-      />
-
       <Single
         id="object-basics"
         delay={0.8}

@@ -1,14 +1,11 @@
 "use client";
 
-import { FaCode, FaRocket } from "react-icons/fa";
 import { RiFileTextLine } from "react-icons/ri";
 import { PiTreeStructure } from "react-icons/pi";
 import { TbCpu } from "react-icons/tb";
 
 import Courses from "@components/courses/c/navigation";
 import CourseContainer from "@components/courses/container";
-import CourseInfo from "@components/courses/template/info";
-import Topics from "@components/courses/template/topics";
 import {
   Multiple,
   type MultipleItem,
@@ -201,25 +198,13 @@ export default function CAdvanced() {
       authorInfo={{ date: "2024-09-15", title: t("title") }}
       courses={Courses(locale)}
       currentCourseLink="/courses/c/advanced"
+      translations={"Component.Courses.C.Advanced"}
+      topics={topics}
+      whyIsItMatter={{
+        translations: "Component.Courses.C.Advanced.whyAdvancedPointersMatter",
+        id: "why-advanced-pointers-matter",
+      }}
     >
-      <CourseInfo
-        title={t("courseOverview.title")}
-        id="course-overview"
-        delay={0.3}
-        description={t("courseOverview.description")}
-        icon={FaCode}
-      />
-
-      <Topics id="topics" delay={0.5} topics={topics} />
-
-      <CourseInfo
-        title={t("whyAdvancedPointersMatter.title")}
-        id="why-advanced-pointers-matter"
-        delay={0.7}
-        description={t("whyAdvancedPointersMatter.description")}
-        icon={FaRocket}
-      />
-
       <Multiple
         title={t("topics.structures.title")}
         id="structures"

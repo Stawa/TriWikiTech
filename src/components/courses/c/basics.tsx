@@ -1,6 +1,5 @@
 "use client";
 
-import { PiLightbulbFilamentFill } from "react-icons/pi";
 import {
   FaCode,
   FaCube,
@@ -14,13 +13,11 @@ import {
   type SingleItemProps,
 } from "@components/courses/template/single";
 import CourseContainer from "@components/courses/container";
-import CourseInfo from "@components/courses/template/info";
 import Courses from "@components/courses/c/navigation";
 import {
   InputOutput,
   InputOutputType,
 } from "@components/courses/template/input";
-import Topics from "@components/courses/template/topics";
 import {
   Variables,
   type VariableItem,
@@ -341,25 +338,13 @@ export default function CBasics() {
       authorInfo={{ date: "2024-09-15", title: t("title") }}
       courses={Courses(locale)}
       currentCourseLink="/courses/c/basics"
+      translations={"Component.Courses.C.Basics"}
+      topics={topics}
+      whyIsItMatter={{
+        translations: "Component.Courses.C.Basics.whyBasicsMatter",
+        id: "why-basics-matter",
+      }}
     >
-      <CourseInfo
-        title={t("courseOverview.title")}
-        id="course-overview"
-        delay={0.3}
-        description={t("courseOverview.description")}
-        icon={FaCode}
-      />
-
-      <Topics id="topics" delay={0.5} topics={topics} />
-
-      <CourseInfo
-        title={t("whyBasicsMatter.title")}
-        id="why-basics-matter"
-        delay={0.7}
-        description={t("whyBasicsMatter.description")}
-        icon={PiLightbulbFilamentFill}
-      />
-
       <Single
         title={t("topics.basicPrinting.title")}
         id="basic-printing"

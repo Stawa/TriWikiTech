@@ -2,15 +2,12 @@
 
 import Courses from "@components/courses/javascript/navigation";
 import CourseContainer from "@components/courses/container";
-import CourseInfo from "@components/courses/template/info";
-import Topics from "@components/courses/template/topics";
 import CreateCourseItems from "@components/courses/create";
 import { Single } from "@components/courses/template/single";
 import { useTranslations, useLocale } from "next-intl";
 import { Locale } from "@default/i18n/config";
 
 import { FaCode, FaExchangeAlt, FaSyncAlt } from "react-icons/fa";
-import { PiLightbulbFilamentFill } from "react-icons/pi";
 
 export default function JavaScriptControlStructures() {
   const t = useTranslations("Component.Courses.JavaScript.ControlStructures");
@@ -158,25 +155,14 @@ export default function JavaScriptControlStructures() {
       }}
       courses={Courses(locale)}
       currentCourseLink="/courses/javascript/control-structures"
+      translations={"Component.Courses.JavaScript.ControlStructures"}
+      topics={topics}
+      whyIsItMatter={{
+        translations:
+          "Component.Courses.JavaScript.ControlStructures.whyControlStructuresMatter",
+        id: "why-control-structures-matter",
+      }}
     >
-      <CourseInfo
-        title={t("courseOverview.title")}
-        id="course-overview"
-        delay={0.3}
-        description={t("courseOverview.description")}
-        icon={FaCode}
-      />
-
-      <Topics id="topics" delay={0.5} topics={topics} />
-
-      <CourseInfo
-        title={t("whyControlStructuresMatter.title")}
-        id="why-control-structures-matter"
-        delay={0.7}
-        description={t("whyControlStructuresMatter.description")}
-        icon={PiLightbulbFilamentFill}
-      />
-
       <Single
         id="conditionals"
         delay={0.8}
