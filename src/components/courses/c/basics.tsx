@@ -338,10 +338,10 @@ export default function CBasics() {
       authorInfo={{ date: "2024-09-15", title: t("title") }}
       courses={Courses(locale)}
       currentCourseLink="/courses/c/basics"
-      translations={"Component.Courses.C.Basics"}
+      translations={t}
       topics={topics}
       whyIsItMatter={{
-        translations: "Component.Courses.C.Basics.whyBasicsMatter",
+        translations: "whyBasicsMatter",
         id: "why-basics-matter",
       }}
     >

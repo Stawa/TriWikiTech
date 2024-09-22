@@ -155,11 +155,10 @@ export default function JavaScriptControlStructures() {
       }}
       courses={Courses(locale)}
       currentCourseLink="/courses/javascript/control-structures"
-      translations={"Component.Courses.JavaScript.ControlStructures"}
+      translations={t}
       topics={topics}
       whyIsItMatter={{
-        translations:
-          "Component.Courses.JavaScript.ControlStructures.whyControlStructuresMatter",
+        translations: "whyControlStructuresMatter",
         id: "why-control-structures-matter",
       }}
     >

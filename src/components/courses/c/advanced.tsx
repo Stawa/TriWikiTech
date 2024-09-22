@@ -198,10 +198,10 @@ export default function CAdvanced() {
       authorInfo={{ date: "2024-09-15", title: t("title") }}
       courses={Courses(locale)}
       currentCourseLink="/courses/c/advanced"
-      translations={"Component.Courses.C.Advanced"}
+      translations={t}
       topics={topics}
       whyIsItMatter={{
-        translations: "Component.Courses.C.Advanced.whyAdvancedPointersMatter",
+        translations: "whyAdvancedPointersMatter",
         id: "why-advanced-pointers-matter",
       }}
     >

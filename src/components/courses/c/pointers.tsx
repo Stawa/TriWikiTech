@@ -252,10 +252,10 @@ ptrdiff_t diff = ptr2 - ptr1;  // diff is 3`,
       authorInfo={{ date: "2024-09-15", title: t("title") }}
       courses={Courses(locale)}
       currentCourseLink="/courses/c/pointers"
-      translations={"Component.Courses.C.Pointers"}
+      translations={t}
       topics={topics}
       whyIsItMatter={{
-        translations: "Component.Courses.C.Pointers.whyPointersMatter",
+        translations: "whyPointersMatter",
         id: "why-pointers-matter",
       }}
     >

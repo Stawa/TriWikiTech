@@ -233,11 +233,10 @@ export default function JavaScriptObjectsArrays() {
       }}
       courses={Courses(locale)}
       currentCourseLink="/courses/javascript/objects-arrays"
-      translations={"Component.Courses.JavaScript.ObjectsArrays"}
+      translations={t}
       topics={topics}
       whyIsItMatter={{
-        translations:
-          "Component.Courses.JavaScript.ObjectsArrays.whyObjectsArraysMatter",
+        translations: "whyObjectsArraysMatter",
         id: "why-objects-arrays-matter",
       }}
     >

@@ -7,7 +7,7 @@ import {
   FaLightbulb,
   FaRocket,
 } from "react-icons/fa";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import GridBackground from "@components/grid";
 import Section from "@default/components/courses/section";
@@ -15,6 +15,23 @@ import {
   Course,
   CourseNavigationButtons,
 } from "@default/components/courses/buttons";
+import { Locale } from "@default/i18n/config";
+
+interface PageContent {
+  header: {
+    title: string;
+    description: string;
+    explanation: string;
+    whyLearn: string;
+  };
+  features: string[];
+}
+
+interface ContentProps {
+  locale: Locale;
+  translations: any;
+  length: number;
+}
 
 interface HeaderProps {
   title: string;
@@ -28,6 +45,21 @@ interface CourseContainerProps {
   features: string[];
   courses: Course[];
 }
+
+const getPageContent = (items: ContentProps): PageContent => {
+  const header = {
+    title: items.translations("title"),
+    description: items.translations("description"),
+    explanation: items.translations("explanation"),
+    whyLearn: items.translations("whyLearn"),
+  };
+
+  const features: string[] = Array.from({ length: items.length }, (_, i) =>
+    items.translations(`features.${i}`)
+  );
+
+  return { header, features };
+};
 
 const CourseContainer = ({
   header,
@@ -161,4 +193,4 @@ const CourseContainer = ({
   );
 };
 
-export default CourseContainer;
+export { CourseContainer, getPageContent };

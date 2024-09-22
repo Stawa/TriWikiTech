@@ -171,11 +171,10 @@ export default function CControlStructures() {
       authorInfo={{ date: "2024-09-15", title: t("title") }}
       courses={Courses(locale)}
       currentCourseLink="/courses/c/control-structures"
-      translations={"Component.Courses.C.ControlStructures"}
+      translations={t}
       topics={topics}
       whyIsItMatter={{
-        translations:
-          "Component.Courses.C.ControlStructures.whyControlStructuresMatter",
+        translations: "whyControlStructuresMatter",
         id: "why-control-structures-matter",
       }}
     >

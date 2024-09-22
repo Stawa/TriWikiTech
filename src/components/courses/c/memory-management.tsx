@@ -253,11 +253,10 @@ export default function CMemoryManagement() {
       authorInfo={{ date: "2024-09-15", title: t("title") }}
       courses={Courses(locale)}
       currentCourseLink="/courses/c/memory-management"
-      translations={"Component.Courses.C.MemoryManagement"}
+      translations={t}
       topics={topics}
       whyIsItMatter={{
-        translations:
-          "Component.Courses.C.MemoryManagement.whyMemoryManagementMatters",
+        translations: "whyMemoryManagementMatters",
         id: "why-memory-management-matters",
       }}
     >

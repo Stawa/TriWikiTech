@@ -1,25 +1,20 @@
 "use client";
 
-import CourseContainer from "@main/src/app/courses/main";
 import Courses from "@components/courses/c/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { CourseContainer, getPageContent } from "@main/src/app/courses/main";
 import { Locale } from "@default/i18n/config";
+
+import { useLocale, useTranslations } from "next-intl";
 
 const CCourses = () => {
   const locale = useLocale() as Locale;
   const t = useTranslations("Courses.MainPage.C");
 
-  const header = {
-    title: t("title"),
-    description: t("description"),
-    explanation: t("explanation"),
-    whyLearn: t("whyLearn"),
-  };
-
-  const features = [];
-  for (let i = 0; i < 6; i++) {
-    features.push(t(`features.${i}`));
-  }
+  const { header, features } = getPageContent({
+    locale,
+    translations: t,
+    length: 6,
+  });
 
   return (
     <CourseContainer

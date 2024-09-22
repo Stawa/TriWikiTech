@@ -332,11 +332,10 @@ export default function JavaScriptFunctions() {
       }}
       courses={Courses(locale)}
       currentCourseLink="/courses/javascript/functions"
-      translations={"Component.Courses.JavaScript.Functions"}
+      translations={t}
       topics={topics}
       whyIsItMatter={{
-        translations:
-          "Component.Courses.JavaScript.Functions.whyFunctionsMatter",
+        translations: "whyFunctionsMatter",
         id: "why-functions-matter",
       }}
     >

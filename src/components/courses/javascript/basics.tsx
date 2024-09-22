@@ -500,10 +500,10 @@ console.log(person);`,
       authorInfo={{ date: "2024-09-15", title: t("title") }}
       courses={Courses(locale)}
       currentCourseLink="/courses/javascript/basics"
-      translations={"Component.Courses.Javascript.Basics"}
+      translations={t}
       topics={topics}
       whyIsItMatter={{
-        translations: "Component.Courses.Javascript.Basics.whyBasicsMatter",
+        translations: "whyBasicsMatter",
         id: "why-basics-matter",
       }}
     >

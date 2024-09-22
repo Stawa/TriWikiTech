@@ -258,10 +258,10 @@ export default function CFunctions() {
       authorInfo={{ date: "2024-09-15", title: t("title") }}
       courses={Courses(locale)}
       currentCourseLink="/courses/c/functions"
-      translations={"Component.Courses.C.Functions"}
+      translations={t}
       topics={topics}
       whyIsItMatter={{
-        translations: "Component.Courses.C.Functions.whyFunctionsMatter",
+        translations: "whyFunctionsMatter",
         id: "why-functions-matter",
       }}
     >

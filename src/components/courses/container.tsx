@@ -9,7 +9,6 @@ import { Topics, type Topic } from "@components/courses/template/topics";
 
 import { motion } from "framer-motion";
 import { FaCode } from "react-icons/fa";
-import { useTranslations } from "next-intl";
 import { PiLightbulbFilamentFill } from "react-icons/pi";
 
 interface CourseContainerProps {
@@ -17,7 +16,7 @@ interface CourseContainerProps {
   children: React.ReactNode;
   courses: Course[];
   currentCourseLink: string;
-  translations: string;
+  translations: any;
   topics: Topic[];
   whyIsItMatter: {
     translations: string;
@@ -34,8 +33,6 @@ const CourseContainer: React.FC<CourseContainerProps> = ({
   topics,
   whyIsItMatter,
 }) => {
-  const t = useTranslations(translations);
-
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-gray-100 to-indigo-100 dark:from-gray-900 dark:to-indigo-900 text-gray-900 dark:text-gray-100">
       <GridBackground />
@@ -50,18 +47,20 @@ const CourseContainer: React.FC<CourseContainerProps> = ({
             <AuthorInfo date={authorInfo.date} title={authorInfo.title} />
           </motion.header>
           <CourseInfo
-            title={t("courseOverview.title")}
+            title={translations("courseOverview.title")}
             id="course-overview"
             delay={0.3}
-            description={t("courseOverview.description")}
+            description={translations("courseOverview.description")}
             icon={FaCode}
           />
           <Topics id="topics" delay={0.5} topics={topics} />
           <CourseInfo
-            title={t(`${whyIsItMatter.translations}.title`)}
+            title={translations(`${whyIsItMatter.translations}.title`)}
             id={whyIsItMatter.id}
             delay={0.7}
-            description={t(`${whyIsItMatter.translations}.description`)}
+            description={translations(
+              `${whyIsItMatter.translations}.description`
+            )}
             icon={PiLightbulbFilamentFill}
           />
           {children}
