@@ -1,9 +1,10 @@
-import React from "react";
 import CourseSection from "@components/courses/template/section";
 import HighlightCode from "@components/highlight";
+import { useTranslations } from "next-intl";
+import React from "react";
 import { IconType } from "react-icons";
 
-interface DataTypeExample {
+interface DataTypeItem {
   title: string;
   description: string;
   example: string;
@@ -18,7 +19,7 @@ interface DataTypeExample {
 
 interface DataTypeCategory {
   type: string;
-  examples: DataTypeExample[];
+  examples: DataTypeItem[];
 }
 
 interface DataTypesProps {
@@ -38,6 +39,8 @@ const DataTypes: React.FC<DataTypesProps> = ({
   title,
   icon,
 }) => {
+  const t = useTranslations("Component.Template.DataType");
+
   return (
     <CourseSection id={id} delay={delay} title={title} icon={icon}>
       {content.map((category, index) => (
@@ -47,7 +50,7 @@ const DataTypes: React.FC<DataTypesProps> = ({
         >
           <div className="bg-white bg-opacity-20 dark:bg-black dark:bg-opacity-20 p-6 sm:p-8">
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white tracking-wide">
-              {category.type} Data Types
+              {category.type} {t("dataType")}
             </h3>
           </div>
           <div className="p-6 sm:p-8 bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur-lg">
@@ -70,7 +73,7 @@ const DataTypes: React.FC<DataTypesProps> = ({
                     {dataTypeExample.formatSpecifier && (
                       <div className="bg-blue-100 dark:bg-blue-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
                         <p className="text-base sm:text-lg font-bold text-blue-600 dark:text-blue-400 mb-2 sm:mb-3">
-                          Format Specifier
+                          {t("formatSpecifier")}
                         </p>
                         <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
                           {dataTypeExample.formatSpecifier}
@@ -80,7 +83,7 @@ const DataTypes: React.FC<DataTypesProps> = ({
                     {dataTypeExample.dataType && (
                       <div className="bg-green-100 dark:bg-green-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
                         <p className="text-base sm:text-lg font-bold text-green-600 dark:text-green-400 mb-2 sm:mb-3">
-                          Data Type
+                          {t("dataType")}
                         </p>
                         <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
                           {dataTypeExample.dataType}
@@ -90,7 +93,7 @@ const DataTypes: React.FC<DataTypesProps> = ({
                     {dataTypeExample.range && (
                       <div className="bg-purple-100 dark:bg-purple-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
                         <p className="text-base sm:text-lg font-bold text-purple-600 dark:text-purple-400 mb-2 sm:mb-3">
-                          Range
+                          {t("range")}
                         </p>
                         <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
                           {dataTypeExample.range}
@@ -100,7 +103,7 @@ const DataTypes: React.FC<DataTypesProps> = ({
                     {dataTypeExample.size && (
                       <div className="bg-orange-100 dark:bg-orange-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
                         <p className="text-base sm:text-lg font-bold text-orange-600 dark:text-orange-400 mb-2 sm:mb-3">
-                          Size
+                          {t("size")}
                         </p>
                         <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
                           {dataTypeExample.size}
@@ -110,7 +113,7 @@ const DataTypes: React.FC<DataTypesProps> = ({
                   </div>
                   <div className="mt-6 sm:mt-8 bg-yellow-100 dark:bg-yellow-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
                     <p className="text-base sm:text-lg font-bold text-yellow-800 dark:text-yellow-200 mb-2 sm:mb-3">
-                      Explanation
+                      {t("explanation")}
                     </p>
                     <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200 whitespace-pre-line">
                       {dataTypeExample.explanation}
@@ -118,7 +121,7 @@ const DataTypes: React.FC<DataTypesProps> = ({
                   </div>
                   <div className="mt-4 sm:mt-6 bg-indigo-100 dark:bg-indigo-900/50 p-4 sm:p-6 lg:p-8 rounded-xl backdrop-filter backdrop-blur-lg">
                     <p className="text-base sm:text-lg font-bold text-indigo-800 dark:text-indigo-200 mb-2 sm:mb-3">
-                      Best Use Case
+                      {t("bestUseCase")}
                     </p>
                     <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
                       {dataTypeExample.bestUseCase}
@@ -134,4 +137,4 @@ const DataTypes: React.FC<DataTypesProps> = ({
   );
 };
 
-export { DataTypes, type DataTypeCategory };
+export { DataTypes, type DataTypeItem, type DataTypeCategory };

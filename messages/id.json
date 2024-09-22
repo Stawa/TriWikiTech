@@ -49,7 +49,44 @@
       "title": "Pemrograman C++",
       "description": "Buka kekuatan pemrograman berorientasi objek dengan C++!"
     },
-    "startLearning": "Mulai Belajar"
+    "startLearning": "Mulai Belajar",
+    "MainPage": {
+      "title": "Kursus Utama",
+      "description": "Jelajahi kursus pemrograman komprehensif kami yang dirancang untuk membawa Anda dari pemula menjadi ahli.",
+      "WhatIs": "Apa itu",
+      "KeyFeatures": "Fitur Utama",
+      "WhyLearn": "Mengapa Belajar",
+      "CourseRoadmap": "Peta Perjalanan Kursus",
+      "StartLearning": "Mulai Belajar",
+      "C": {
+        "title": "Pemrograman C",
+        "description": "Kuasai dasar komputasi modern melalui pemrograman C",
+        "explanation": "C adalah bahasa pemrograman yang kuat, efisien, dan fleksibel yang membentuk tulang punggung banyak teknologi modern. Ini memberikan akses tingkat rendah ke memori dan perangkat keras, membuatnya ideal untuk pemrograman sistem dan mengembangkan aplikasi berkinerja tinggi.",
+        "whyLearn": "Mempelajari C memberikan pemahaman mendalam tentang cara kerja komputer pada tingkat rendah. Ini penting untuk pemrograman sistem, sistem tertanam, dan mengembangkan aplikasi berkinerja tinggi. Pengaruh C pada bahasa lain menjadikannya dasar yang sangat baik bagi programmer manapun.",
+        "features": [
+          "Akses Memori Tingkat Rendah",
+          "Kinerja Efisien",
+          "Portabilitas",
+          "Pustaka Standar yang Luas",
+          "Pemrograman Terstruktur",
+          "Dasar untuk Bahasa Lain"
+        ]
+      },
+      "JavaScript": {
+        "title": "Penguasaan JavaScript",
+        "description": "Buka kekuatan pengembangan web modern",
+        "explanation": "JavaScript adalah bahasa pemrograman serbaguna dan tingkat tinggi yang penting untuk menciptakan pengalaman web yang dinamis dan interaktif. Ini mendukung pengembangan web modern, memungkinkan fitur-fitur kompleks dan antarmuka yang responsif.",
+        "whyLearn": "Sebagai salah satu bahasa pemrograman yang paling diminati, JavaScript membuka pintu ke berbagai peluang dalam pengembangan web. Kuasai JavaScript untuk membuat aplikasi mutakhir dan tetap berada di garis depan teknologi.",
+        "features": [
+          "UI Interaktif",
+          "Operasi Asinkron",
+          "Manipulasi DOM",
+          "Validasi Sisi Klien",
+          "Animasi & Efek",
+          "Pengembangan Full-stack"
+        ]
+      }
+    }
   },
   "Upcoming": {
     "title": "Segera Hadir",
@@ -58,6 +95,333 @@
   "Component": {
     "HomeButton": {
       "returnToHome": "Kembali ke Beranda"
+    },
+    "CourseNavigationButtons": {
+      "previous": "Sebelumnya",
+      "next": "Selanjutnya"
+    },
+    "Template": {
+      "Topic": {
+        "title": "Apa yang Akan Anda Pelajari",
+        "learnMore": "Pelajari Lebih Lanjut"
+      },
+      "Single": {
+        "output": "Output",
+        "bestUseCase": "Kasus Penggunaan Terbaik",
+        "explanation": "Penjelasan"
+      },
+      "Multiple": {
+        "output": "Output",
+        "explanation": "Penjelasan"
+      },
+      "DataType": {
+        "formatSpecifier": "Format Spesifier",
+        "dataType": "Tipe Data",
+        "range": "Rentang",
+        "size": "Ukuran",
+        "explanation": "Penjelasan",
+        "bestUseCase": "Kasus Penggunaan Terbaik"
+      },
+      "Variable": {
+        "steps": "Langkah-langkah",
+        "goodExample": "Contoh yang Baik",
+        "goodExplanation": "Penjelasan Contoh yang Baik",
+        "badExample": "Contoh yang Buruk",
+        "badExplanation": "Penjelasan Contoh yang Buruk",
+        "tips": "Tips",
+        "syntax": "Sintaks Deklarasi Variabel"
+      },
+      "InputOutput": {
+        "formatSpecifier": "Format Spesifier",
+        "safetyNote": "Catatan Keamanan",
+        "tip": "Tip",
+        "explanation": "Penjelasan",
+        "bestUseCase": "Kasus Penggunaan Terbaik"
+      }
+    },
+    "Courses": {
+      "JavaScript": {
+        "Basics": {
+          "title": "Dasar-Dasar JavaScript",
+          "courseOverview": {
+            "title": "Ringkasan Kursus",
+            "description": "Dalam kursus ini, Anda akan mendalami dasar-dasar JavaScript, mencakup console.log, variabel, dan tipe data. Konsep-konsep fundamental ini membentuk dasar untuk pemrograman JavaScript yang lebih lanjut."
+          },
+          "topics": {
+            "consolelog": {
+              "title": "Console.log",
+              "description": "Pelajari cara mengeluarkan data ke konsol"
+            },
+            "variables": {
+              "title": "Variabel",
+              "description": "Pelajari tentang var, let, dan const"
+            },
+            "dataTypes": {
+              "title": "Tipe Data",
+              "description": "Pahami tipe data primitif dan kompleks"
+            }
+          },
+          "whyBasicsMatter": {
+            "title": "Mengapa Dasar-Dasar Ini Penting",
+            "description": "Memahami konsep-konsep dasar ini sangat penting bagi setiap calon pengembang JavaScript. Dasar-dasar ini membentuk fondasi di mana konsep-konsep yang lebih lanjut dibangun, memungkinkan Anda untuk menulis kode JavaScript yang efisien, bersih, dan kuat."
+          }
+        },
+        "ControlStructures": {
+          "title": "Struktur Kontrol JavaScript",
+          "courseOverview": {
+            "title": "Ringkasan Kursus",
+            "description": "Dalam kursus ini, Anda akan mempelajari tentang struktur kontrol JavaScript. Kita akan membahas pernyataan kondisional, perulangan, dan pernyataan switch - alat-alat penting untuk mengontrol alur kode Anda dan membuat keputusan berdasarkan kondisi yang berbeda."
+          },
+          "topics": {
+            "conditionals": {
+              "title": "Pernyataan Kondisional",
+              "description": "Pelajari tentang if, else if, dan else"
+            },
+            "loops": {
+              "title": "Perulangan",
+              "description": "Pahami perulangan for, while, dan do-while"
+            },
+            "switch": {
+              "title": "Pernyataan Switch",
+              "description": "Kuasai struktur switch-case"
+            }
+          },
+          "whyControlStructuresMatter": {
+            "title": "Mengapa Struktur Kontrol Penting",
+            "description": "Struktur kontrol adalah dasar dari pemrograman. Mereka memungkinkan Anda untuk membuat keputusan dalam kode Anda, mengulangi tindakan, dan memilih jalur kode yang berbeda berdasarkan kondisi. Menguasai konsep-konsep ini akan memberi Anda kekuatan untuk membuat aplikasi JavaScript yang lebih kompleks dan interaktif."
+          }
+        },
+        "Functions": {
+          "title": "Fungsi JavaScript",
+          "courseOverview": {
+            "title": "Ringkasan Kursus",
+            "description": "Dalam kursus ini, Anda akan mendalami fungsi JavaScript - blok pembangun kode yang dapat digunakan kembali. Kita akan membahas deklarasi fungsi, parameter, nilai kembali, dan sintaks fungsi panah modern. Dengan menguasai fungsi, Anda akan dapat menulis kode JavaScript yang lebih efisien dan terorganisir."
+          },
+          "topics": {
+            "functionDeclaration": {
+              "title": "Deklarasi Fungsi",
+              "description": "Pelajari cara mendeklarasikan dan mendefinisikan fungsi"
+            },
+            "parametersArguments": {
+              "title": "Parameter & Argumen",
+              "description": "Pahami cara meneruskan data ke fungsi"
+            },
+            "returnValues": {
+              "title": "Nilai Kembali",
+              "description": "Jelajahi bagaimana fungsi dapat mengembalikan hasil"
+            },
+            "arrowFunctions": {
+              "title": "Fungsi Panah",
+              "description": "Kuasai sintaks fungsi panah yang ringkas"
+            }
+          },
+          "whyFunctionsMatter": {
+            "title": "Mengapa Fungsi Penting",
+            "description": "Fungsi adalah inti dari pemrograman JavaScript. Mereka memungkinkan Anda untuk menulis kode modular dan dapat digunakan kembali, membuat program Anda lebih efisien dan mudah dikelola. Memahami fungsi sangat penting bagi setiap calon pengembang JavaScript, karena mereka membentuk dasar untuk konsep yang lebih lanjut seperti penutupan, panggilan balik, dan pemrograman asinkron."
+          }
+        },
+        "ObjectsArrays": {
+          "title": "Objek & Array JavaScript",
+          "courseOverview": {
+            "title": "Ringkasan Kursus",
+            "description": "Dalam kursus ini, Anda akan mendalami objek dan array JavaScript. Kita akan membahas pembuatan dan manipulasi objek, dasar-dasar array, metode objek, dan operasi array lanjutan. Konsep-konsep ini sangat penting untuk bekerja dengan struktur data kompleks dalam JavaScript."
+          },
+          "topics": {
+            "objectBasics": {
+              "title": "Dasar-dasar Objek",
+              "description": "Pelajari cara membuat dan memanipulasi objek JavaScript"
+            },
+            "arrayFundamentals": {
+              "title": "Dasar-dasar Array",
+              "description": "Kuasai cara bekerja dengan array dan metodenya"
+            },
+            "objectMethods": {
+              "title": "Metode Objek",
+              "description": "Jelajahi metode objek bawaan dan fungsi kustom"
+            },
+            "arrayOperations": {
+              "title": "Operasi Array",
+              "description": "Dalami operasi dan transformasi array lanjutan"
+            }
+          },
+          "whyObjectsArraysMatter": {
+            "title": "Mengapa Dasar-dasar Ini Penting",
+            "description": "Objek dan array adalah struktur data fundamental dalam JavaScript. Mereka memungkinkan Anda untuk mengatur, menyimpan, dan memanipulasi data kompleks secara efisien. Menguasai konsep-konsep ini sangat penting untuk membangun aplikasi yang kuat dan dapat diskalakan, bekerja dengan API, dan menerapkan pola pemrograman lanjutan."
+          }
+        }
+      },
+      "C": {
+        "Basics": {
+          "title": "Dasar-dasar C",
+          "courseOverview": {
+            "title": "Ringkasan Kursus",
+            "description": "Mulailah perjalanan canggih Anda ke dalam pemrograman C. Kuasai elemen-elemen inti: dari teknik pencetakan yang elegan hingga variabel dinamis, tipe data serbaguna, dan operasi I/O yang efisien. Ini adalah kode peluncuran Anda untuk alam semesta pengembangan C."
+          },
+          "topics": {
+            "basicPrinting": {
+              "title": "Pencetakan Dasar",
+              "description": "Pelajari cara mencetak 'Hello, World!' dan pesan sederhana lainnya"
+            },
+            "variables": {
+              "title": "Variabel",
+              "description": "Pelajari tentang deklarasi dan inisialisasi variabel dalam C"
+            },
+            "dataTypes": {
+              "title": "Tipe Data",
+              "description": "Jelajahi berbagai tipe data yang tersedia di C"
+            },
+            "inputOutput": {
+              "title": "Input/Output Dasar",
+              "description": "Kuasai operasi input dan output dasar dalam C"
+            }
+          },
+          "whyBasicsMatter": {
+            "title": "Mengapa Dasar-dasar Ini Penting",
+            "description": "Memahami konsep-konsep dasar ini sangat penting bagi setiap calon programmer C. Dasar-dasar ini membentuk fondasi di mana konsep-konsep yang lebih lanjut dibangun, memungkinkan Anda untuk menulis kode C yang efisien, bersih, dan kuat."
+          }
+        },
+        "ControlStructures": {
+          "title": "Struktur Kontrol C",
+          "courseOverview": {
+            "title": "Ringkasan Kursus",
+            "description": "Selami dunia struktur kontrol C. Kuasai seni pengambilan keputusan dengan pernyataan if dan switch case, dan manfaatkan kekuatan iterasi dengan loop for dan while. Konsep-konsep fundamental ini sangat penting untuk membuat program C yang dinamis dan efisien."
+          },
+          "topics": {
+            "ifStatements": {
+              "title": "Pernyataan If",
+              "description": "Pelajari cara membuat keputusan dalam kode Anda menggunakan pernyataan if"
+            },
+            "switchStatements": {
+              "title": "Pernyataan Switch",
+              "description": "Jelajahi pengambilan keputusan multi-arah dengan pernyataan switch"
+            },
+            "forLoops": {
+              "title": "Loop For",
+              "description": "Kuasai seni iterasi dengan loop for"
+            },
+            "whileLoops": {
+              "title": "Loop While",
+              "description": "Pahami dan implementasikan loop while untuk iterasi bersyarat"
+            }
+          },
+          "whyControlStructuresMatter": {
+            "title": "Mengapa Struktur Kontrol Penting",
+            "description": "Memahami struktur kontrol sangat penting bagi setiap programmer C. Konsep-konsep ini membentuk tulang punggung alur dan logika program, memungkinkan Anda untuk membuat program C yang canggih, efisien, dan kuat yang dapat menangani pengambilan keputusan kompleks dan tugas-tugas berulang."
+          }
+        },
+        "Functions": {
+          "title": "Fungsi C",
+          "courseOverview": {
+            "title": "Ringkasan Kursus",
+            "description": "Selami dunia fungsi C. Kuasai seni deklarasi fungsi, definisi, dan prototipe. Pelajari tentang pengiriman parameter dan nilai kembali. Konsep-konsep dasar ini sangat penting untuk membuat program C yang modular, dapat digunakan kembali, dan efisien."
+          },
+          "topics": {
+            "functionBasics": {
+              "title": "Dasar-dasar",
+              "description": "Pelajari tentang deklarasi dan definisi fungsi dalam C, termasuk sintaks dan praktik terbaik"
+            },
+            "functionParameters": {
+              "title": "Argumen",
+              "description": "Pahami cara mengirim argumen ke fungsi, termasuk teknik pass-by-value dan pass-by-reference"
+            },
+            "returnValues": {
+              "title": "Nilai Kembali",
+              "description": "Jelajahi bagaimana fungsi dapat mengembalikan nilai dalam C, termasuk berbagai tipe data dan beberapa nilai kembali"
+            },
+            "functionPrototypes": {
+              "title": "Prototipe",
+              "description": "Pelajari tentang prototipe fungsi dan pentingnya dalam pemrograman C untuk deklarasi fungsi yang tepat"
+            }
+          },
+          "whyFunctionsMatter": {
+            "title": "Mengapa Fungsi Penting",
+            "description": "Memahami fungsi sangat penting bagi setiap programmer C. Konsep-konsep ini membentuk tulang punggung pemrograman modular, memungkinkan Anda untuk membuat program C yang canggih, efisien, dan mudah dipelihara yang dapat menangani tugas-tugas kompleks melalui blok kode yang terorganisir dengan baik dan dapat digunakan kembali."
+          }
+        },
+        "MemoryManagement": {
+          "title": "Manajemen Memori C",
+          "courseOverview": {
+            "title": "Ringkasan Kursus",
+            "description": "Dalam kursus komprehensif ini, Anda akan mendalami manajemen memori dalam pemrograman C. Kita akan membahas alokasi memori dinamis, dealokasi, dan masalah umum terkait memori. Anda akan belajar cara menggunakan fungsi seperti malloc(), calloc(), realloc(), dan free() secara efektif. Kita juga akan mengeksplorasi praktik terbaik untuk mengelola memori dan menghindari jebakan umum seperti kebocoran memori dan buffer overflow. Dengan menguasai konsep-konsep ini, Anda akan dapat menulis program C yang lebih efisien dan kuat."
+          },
+          "topics": {
+            "dynamicAllocation": {
+              "title": "Alokasi Memori Dinamis",
+              "description": "Pelajari tentang fungsi malloc(), calloc(), dan realloc()"
+            },
+            "memoryDeallocation": {
+              "title": "Dealokasi Memori",
+              "description": "Pahami pentingnya membebaskan memori yang telah dialokasikan"
+            },
+            "memoryIssues": {
+              "title": "Masalah Memori Umum",
+              "description": "Jelajahi kebocoran memori, pointer menggantung, dan buffer overflow"
+            },
+            "bestPractices": {
+              "title": "Praktik Terbaik",
+              "description": "Pelajari praktik terbaik untuk mengelola memori secara efektif"
+            }
+          },
+          "whyMemoryManagementMatters": {
+            "title": "Mengapa Manajemen Memori Penting",
+            "description": "Manajemen memori yang efektif sangat penting dalam pemrograman C. Hal ini memungkinkan Anda untuk mengoptimalkan kinerja program Anda, mencegah kebocoran memori, dan menghindari crash akibat masalah terkait memori. Memahami cara mengalokasikan, menggunakan, dan membebaskan memori secara dinamis memberi Anda kontrol yang detail atas penggunaan sumber daya program Anda. Keterampilan ini penting untuk menulis program C yang efisien, dapat diskalakan, dan kuat, terutama untuk aplikasi yang menangani dataset besar atau memiliki waktu eksekusi yang lama. Menguasai manajemen memori akan membuat Anda menjadi programmer C yang lebih mahir dan merupakan keterampilan fundamental untuk pemrograman sistem dan pengembangan perangkat lunak tingkat rendah."
+          }
+        },
+        "Pointers": {
+          "title": "Pointer C",
+          "courseOverview": {
+            "title": "Ringkasan Kursus",
+            "description": "Dalam kursus komprehensif ini, Anda akan mendalami pointer, salah satu fitur paling kuat dalam pemrograman C. Kita akan membahas dasar-dasar pointer, aritmetika, hubungannya dengan array, dan bagaimana penggunaannya dengan fungsi. Anda akan belajar cara menggunakan pointer secara efektif untuk memanipulasi memori, membuat struktur data dinamis, dan menulis kode yang lebih efisien. Dengan menguasai konsep-konsep ini, Anda akan dapat menulis program C yang lebih kuat dan fleksibel."
+          },
+          "topics": {
+            "pointerBasics": {
+              "title": "Dasar-dasar Pointer",
+              "description": "Pelajari tentang deklarasi pointer, inisialisasi, dan operasi dasar"
+            },
+            "pointerArithmetic": {
+              "title": "Aritmetika Pointer",
+              "description": "Jelajahi operasi aritmetika dengan pointer"
+            },
+            "pointersAndArrays": {
+              "title": "Pointer dan Array",
+              "description": "Pahami hubungan antara pointer dan array"
+            },
+            "pointersAndFunctions": {
+              "title": "Pointer dan Fungsi",
+              "description": "Pelajari cara menggunakan pointer dengan fungsi"
+            }
+          },
+          "whyPointersMatter": {
+            "title": "Mengapa Pointer Penting",
+            "description": "Pointer adalah fundamental dalam pemrograman C, memungkinkan manajemen memori yang efisien, struktur data dinamis, dan teknik pemrograman yang kuat. Memahami pointer sangat penting untuk menulis kode C yang efisien dan fleksibel. Mereka memberikan akses langsung ke memori, memungkinkan alokasi memori dinamis, dan penting untuk membuat struktur data kompleks seperti linked list dan pohon. Menguasai pointer akan membuat Anda menjadi programmer C yang lebih mahir dan merupakan keterampilan fundamental untuk pemrograman sistem dan pengembangan perangkat lunak tingkat rendah."
+          }
+        },
+        "Advanced": {
+          "title": "Pointer Lanjutan",
+          "courseOverview": {
+            "title": "Ringkasan Kursus",
+            "description": "Dalam kursus pointer lanjutan ini, Anda akan memperdalam pemahaman Anda tentang pointer dalam C. Kita akan membahas topik-topik kompleks seperti pointer ke pointer, pointer ke fungsi, dan penggunaan pointer dalam struktur data dinamis. Kursus ini akan membantu Anda memanfaatkan kekuatan penuh dari pointer untuk menulis kode C yang lebih canggih dan efisien."
+          },
+          "topics": {
+            "structures": {
+              "title": "Struktur",
+              "description": "Pelajari tentang tipe data yang didefinisikan pengguna dalam C"
+            },
+            "fileIO": {
+              "title": "File I/O",
+              "description": "Jelajahi operasi input dan output file dalam C"
+            },
+            "preprocessorDirectives": {
+              "title": "Direktif Preprocessor",
+              "description": "Kuasai perintah preprocessor dan makro dalam C"
+            }
+          },
+          "whyAdvancedPointersMatter": {
+            "title": "Mengapa Pointer Lanjutan Penting",
+            "description": "Memahami konsep pointer lanjutan membuka pintu ke teknik pemrograman yang lebih canggih dalam C. Pointer ke pointer memungkinkan manipulasi struktur data multi-dimensi yang kompleks. Pointer fungsi memungkinkan implementasi callback dan pemrograman yang lebih modular. Pointer void menawarkan fleksibilitas dalam menangani berbagai jenis data. Menguasai topik-topik ini akan meningkatkan kemampuan Anda untuk menulis kode C yang efisien, fleksibel, dan kuat, yang sangat penting untuk pengembangan sistem tingkat rendah dan aplikasi kinerja tinggi."
+          }
+        }
+      }
     }
   }
 }

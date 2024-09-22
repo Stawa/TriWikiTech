@@ -2,6 +2,7 @@ import React from "react";
 import Section from "@components/courses/section";
 import HighlightCode from "@components/highlight";
 import { IconType } from "react-icons";
+import { useTranslations } from "next-intl";
 
 interface MultipleItem {
   type: string;
@@ -31,6 +32,8 @@ const Multiple: React.FC<MultipleProps> = ({
   icon: Icon,
   language,
 }) => {
+  const t = useTranslations("Component.Template.Multiple");
+
   return (
     <Section id={id} delay={delay}>
       <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-900 dark:text-white tracking-wide flex items-center">
@@ -66,7 +69,7 @@ const Multiple: React.FC<MultipleProps> = ({
                 </div>
                 <div className="mt-3">
                   <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                    Output:
+                    {t("Component.Template.Multiple.output")}
                   </h4>
                   <div className="rounded-xl overflow-hidden shadow-inner">
                     <HighlightCode
@@ -77,7 +80,7 @@ const Multiple: React.FC<MultipleProps> = ({
                 </div>
                 <div className="mt-4">
                   <h4 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                    Explanation:
+                    {t("Component.Template.Multiple.explanation")}
                   </h4>
                   <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-line">
                     {example.explanation}

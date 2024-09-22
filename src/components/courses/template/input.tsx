@@ -1,6 +1,7 @@
 import { FaExclamationTriangle, FaLightbulb } from "react-icons/fa";
 import Section from "@components/courses/section";
 import HighlightCode from "@components/highlight";
+import { useTranslations } from "next-intl";
 
 interface InputOutputExample {
   function: string;
@@ -26,13 +27,15 @@ interface InputOutputProps {
   inputOutputExamples: InputOutputType[];
 }
 
-export default function InputOutput({
+function InputOutput({
   id,
   delay,
   title,
   icon: Icon,
   inputOutputExamples,
 }: InputOutputProps) {
+  const t = useTranslations("Component.Template.InputOutput");
+
   return (
     <Section id={id} delay={delay}>
       <h3 className="text-2xl sm:text-3xl lg:text-4xl mt-12 mb-6 sm:mt-16 sm:mb-8 lg:mt-20 lg:mb-10 font-extrabold text-gray-800 dark:text-white tracking-wide flex items-center">
@@ -71,7 +74,7 @@ export default function InputOutput({
                     </div>
                     {example.formatSpecifier && (
                       <p className="mt-3 sm:mt-4 text-sm sm:text-base text-blue-600 dark:text-blue-300">
-                        Format Specifier:{" "}
+                        {t("formatSpecifier")}:{" "}
                         <code className="bg-blue-100 dark:bg-blue-800/30 px-2 sm:px-3 py-1 sm:py-2 rounded">
                           {example.formatSpecifier}
                         </code>
@@ -80,18 +83,22 @@ export default function InputOutput({
                     {example.safetyNote && (
                       <p className="mt-3 sm:mt-4 text-sm sm:text-base text-yellow-600 dark:text-yellow-300 bg-yellow-100 dark:bg-yellow-800/20 p-3 sm:p-4 rounded-xl flex items-center">
                         <FaExclamationTriangle className="mr-2 flex-shrink-0" />
-                        <span>Safety Note: {example.safetyNote}</span>
+                        <span>
+                          {t("safetyNote")}: {example.safetyNote}
+                        </span>
                       </p>
                     )}
                     {example.tip && (
                       <p className="mt-3 sm:mt-4 text-sm sm:text-base text-green-600 dark:text-green-300 bg-green-100 dark:bg-green-800/20 p-3 sm:p-4 rounded-xl flex items-center">
                         <FaLightbulb className="mr-2 flex-shrink-0" />
-                        <span>Tip: {example.tip}</span>
+                        <span>
+                          {t("tip")}: {example.tip}
+                        </span>
                       </p>
                     )}
                     <div className="mt-4 sm:mt-6 bg-indigo-100 dark:bg-indigo-900/20 p-4 sm:p-6 rounded-xl">
                       <p className="text-base sm:text-lg font-bold text-indigo-600 dark:text-indigo-300 mb-2">
-                        Explanation:
+                        {t("explanation")}:
                       </p>
                       <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
                         {example.explanation}
@@ -99,7 +106,7 @@ export default function InputOutput({
                     </div>
                     <div className="mt-4 sm:mt-6 bg-green-100 dark:bg-green-900/20 p-4 sm:p-6 rounded-xl">
                       <p className="text-base sm:text-lg font-bold text-green-600 dark:text-green-300 mb-2">
-                        Best Use Case:
+                        {t("bestUseCase")}:
                       </p>
                       <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
                         {example.bestUseCase}
@@ -115,3 +122,5 @@ export default function InputOutput({
     </Section>
   );
 }
+
+export { InputOutput, type InputOutputType };

@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FaArrowLeft, FaArrowRight, FaHome } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 
 interface Course {
   title: string;
-  desc: string;
+  description: string;
   link: string;
   icon: JSX.Element;
 }
@@ -18,6 +19,7 @@ const CourseNavigationButtons: React.FC<CourseNavigationButtonsProps> = ({
   courses,
   currentIndex,
 }) => {
+  const t = useTranslations();
   const previousCourse = courses[currentIndex - 1];
   const nextCourse = courses[currentIndex + 1];
 
@@ -52,7 +54,10 @@ const CourseNavigationButtons: React.FC<CourseNavigationButtonsProps> = ({
           {icon}
         </span>
       )}
-      <span className="truncate">{course?.title || fallbackText}</span>
+      <span className="truncate">
+        {course?.title ||
+          t(`Component.CourseNavigationButtons.${fallbackText}`)}
+      </span>
       {isNext && (
         <span className="ml-2 transition-transform group-hover:translate-x-1">
           {icon}
@@ -74,18 +79,18 @@ const CourseNavigationButtons: React.FC<CourseNavigationButtonsProps> = ({
       {renderButton(
         previousCourse,
         <FaArrowLeft className="text-lg flex-shrink-0" />,
-        "Previous"
+        "previous"
       )}
       {showMiddleHomeButton &&
         renderButton(
           courses[courses.length - 1],
           <FaHome className="text-lg flex-shrink-0" />,
-          "Home"
+          t("Component.HomeButton.returnToHome")
         )}
       {renderButton(
         nextCourse,
         <FaArrowRight className="text-lg flex-shrink-0" />,
-        "Next",
+        "next",
         true
       )}
     </motion.div>

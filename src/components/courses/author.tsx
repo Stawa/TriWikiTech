@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useLocale } from "next-intl";
 
 interface AuthorInfoProps {
   date: string;
@@ -36,7 +37,7 @@ const AuthorInfo = ({ date, title }: AuthorInfoProps) => (
             title={`Written on ${date}`}
             className="text-gray-600 dark:text-gray-400"
           >
-            {new Date(date).toLocaleDateString("en-US", {
+            {new Date(date).toLocaleDateString(useLocale(), {
               day: "2-digit",
               month: "long",
               year: "numeric",

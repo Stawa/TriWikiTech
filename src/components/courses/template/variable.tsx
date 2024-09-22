@@ -1,7 +1,8 @@
 import React from "react";
+import { IconType } from "react-icons";
+import { useTranslations } from "next-intl";
 import CourseSection from "@components/courses/template/section";
 import HighlightCode from "@components/highlight";
-import { IconType } from "react-icons";
 
 interface VariableItem {
   title: string;
@@ -12,7 +13,7 @@ interface VariableItem {
   wrongExample: string;
   wrongExplanation: string;
   tips: string[];
-  scratch: string;
+  syntax: string;
 }
 
 interface VariablesProps {
@@ -30,6 +31,8 @@ const Variables: React.FC<VariablesProps> = ({
   delay,
   icon,
 }) => {
+  const t = useTranslations("Component.Template.Variable");
+
   return (
     <CourseSection id={id} delay={delay} title={title} icon={icon}>
       {variables.map((item, index) => (
@@ -47,7 +50,7 @@ const Variables: React.FC<VariablesProps> = ({
               {item.description}
             </p>
             <h4 className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">
-              Steps:
+              {t("steps")}
             </h4>
             <ul className="list-disc list-inside mb-6 sm:mb-8 space-y-2">
               {item.steps.map((step, stepIndex) => (
@@ -60,35 +63,35 @@ const Variables: React.FC<VariablesProps> = ({
               ))}
             </ul>
             <h4 className="text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400 mb-4">
-              Good Example:
+              {t("goodExample")}
             </h4>
             <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
               <HighlightCode content={item.example} language={"c"} />
             </div>
             <div className="bg-blue-100 dark:bg-blue-900/50 p-4 sm:p-6 rounded-xl mb-6">
               <p className="text-base sm:text-lg font-bold text-blue-800 dark:text-blue-200 mb-2">
-                Good Example Explanation:
+                {t("goodExplanation")}
               </p>
               <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200 whitespace-pre-line">
                 {item.explanation}
               </p>
             </div>
             <h4 className="text-xl sm:text-2xl font-bold text-red-600 dark:text-red-400 mb-4">
-              Bad Example:
+              {t("badExample")}
             </h4>
             <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
               <HighlightCode content={item.wrongExample} language={"c"} />
             </div>
             <div className="bg-red-100 dark:bg-red-900/50 p-4 sm:p-6 rounded-xl mb-6">
               <p className="text-base sm:text-lg font-bold text-red-800 dark:text-red-200 mb-2">
-                Bad Example Explanation:
+                {t("badExplanation")}
               </p>
               <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
                 {item.wrongExplanation}
               </p>
             </div>
             <h4 className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">
-              Tips:
+              {t("tips")}
             </h4>
             <ul className="list-disc list-inside mb-6 sm:mb-8 space-y-2">
               {item.tips.map((tip, tipIndex) => (
@@ -102,10 +105,10 @@ const Variables: React.FC<VariablesProps> = ({
             </ul>
             <div className="bg-yellow-100 dark:bg-yellow-900/50 p-4 sm:p-6 rounded-xl mb-6">
               <p className="text-base sm:text-lg font-bold text-yellow-800 dark:text-yellow-200 mb-2">
-                Variable Declaration Syntax:
+                {t("syntax")}
               </p>
               <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200">
-                {item.scratch}
+                {item.syntax}
               </p>
             </div>
           </div>

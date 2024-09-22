@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Roboto_Mono } from "next/font/google";
+import { Arimo } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
@@ -7,17 +7,7 @@ import Footer from "@default/components/footer";
 import Navbar from "@default/components/navbar";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
-
-const robotoMono = Roboto_Mono({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-roboto-mono",
-});
+const arimo = Arimo({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://triwikitech.my.id"),
@@ -61,7 +51,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning={true}>
-      <body className={`${inter.variable} ${robotoMono.variable} antialiased`}>
+      <body className={`${arimo.className} antialiased`}>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system">
             <Navbar />

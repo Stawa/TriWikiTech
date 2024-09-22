@@ -1,7 +1,8 @@
 import React from "react";
+import { IconType } from "react-icons";
+import { useTranslations } from "next-intl";
 import CourseSection from "@components/courses/template/section";
 import HighlightCode from "@components/highlight";
-import { IconType } from "react-icons";
 
 interface SingleItemProps {
   title: string;
@@ -29,6 +30,7 @@ const Single: React.FC<SingleProps> = ({
   delay,
   icon,
 }) => {
+  const t = useTranslations("Component.Template.Single");
   return (
     <CourseSection id={id} delay={delay} title={title} icon={icon}>
       {components.map((item, index) => (
@@ -50,7 +52,7 @@ const Single: React.FC<SingleProps> = ({
             </div>
             <div className="mb-6 sm:mb-8">
               <h4 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                Output:
+                {t("output")}
               </h4>
               <div className="mb-6 sm:mb-8 rounded-xl overflow-hidden shadow-inner">
                 <HighlightCode content={item.output} language={language} />
@@ -62,7 +64,7 @@ const Single: React.FC<SingleProps> = ({
             {item.bestUseCase && (
               <div className="bg-blue-100 dark:bg-blue-900/50 p-4 sm:p-6 rounded-xl">
                 <p className="text-base sm:text-lg font-bold text-blue-800 dark:text-blue-200 mb-2">
-                  Best Use Case:
+                  {t("bestUseCase")}
                 </p>
                 <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200 whitespace-pre-line">
                   {item.bestUseCase}
