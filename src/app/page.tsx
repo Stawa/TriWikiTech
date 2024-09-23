@@ -1,13 +1,16 @@
 "use client";
 
-import { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { ReactNode } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { motion } from "framer-motion";
+import { FaBook, FaCode } from "react-icons/fa";
 import { IoNavigateOutline, IoNavigateSharp } from "react-icons/io5";
+
 import GridBackground from "@components/grid";
 import Languages from "@data/langauges.json";
+import { Locale } from "@default/i18n/config";
 
 const Layout = ({ children }: { children: ReactNode }) => (
   <div className="relative min-h-screen overflow-hidden">
@@ -16,25 +19,9 @@ const Layout = ({ children }: { children: ReactNode }) => (
   </div>
 );
 
-const createIcon = (path: string) => {
-  return (
-    <svg
-      stroke="currentColor"
-      fill="currentColor"
-      strokeWidth="0"
-      viewBox="0 0 640 512"
-      className="mr-3"
-      height="1.2em"
-      width="1.2em"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d={path} />
-    </svg>
-  );
-};
-
 export default function Home() {
   const t = useTranslations("Home");
+  const locale = useLocale() as Locale;
 
   return (
     <Layout>
@@ -95,7 +82,12 @@ export default function Home() {
         </motion.div>
       </section>
       <section id="start" className="container mx-auto px-4 py-12 md:py-24">
-        <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="container mx-auto px-4"
+        >
           <motion.h2
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -105,84 +97,77 @@ export default function Home() {
             {t("exploreTools")}
           </motion.h2>
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, staggerChildren: 0.1 }}
+            transition={{ duration: 0.5, staggerChildren: 0.1 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12 md:px-4 lg:px-6"
           >
-            {Languages.map((language) => (
+            {Languages.map((course, index) => (
               <motion.div
-                key={language.title}
-                className={`bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col h-full`}
-                style={{ borderTop: `4px solid ${language.color}` }}
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col"
               >
-                <div
-                  className={`p-8 bg-gradient-to-br ${language.color} flex items-center justify-center h-48`}
+                <motion.div
+                  className={`p-6 md:p-8 bg-gradient-to-br ${course.color} flex items-center justify-center w-full`}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
                 >
                   <Image
-                    src={`/lang/${language.name}.svg`}
-                    alt={language.title}
+                    src={course.image}
+                    alt={course.title}
                     width={100}
                     height={100}
-                    className="object-contain filter drop-shadow-lg"
+                    className="object-contain filter drop-shadow-lg w-20 h-20 md:w-28 md:h-28"
                   />
-                </div>
-                <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white text-center">
-                    {language.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-6 flex-grow text-center">
-                    {language.description}
-                  </p>
-                  <div className="space-y-4">
-                    <motion.button
-                      className={`inline-flex items-center justify-center w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-md hover:shadow-lg text-lg ${
-                        !language.wiki.available &&
-                        "opacity-50 cursor-not-allowed"
-                      }`}
-                      disabled={!language.wiki.available}
-                      whileHover={{ scale: language.wiki.available ? 1.05 : 1 }}
-                      whileTap={{ scale: language.wiki.available ? 0.95 : 1 }}
-                      onClick={() => {
-                        if (language.wiki.available) {
-                          window.location.href = language.wiki.href;
-                        }
-                      }}
+                </motion.div>
+                <div className="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                  <div>
+                    <motion.h3
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.5 }}
+                      className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 text-gray-800 dark:text-white"
                     >
-                      {createIcon(
-                        "M278.9 511.5l-61-17.7c-6.4-1.8-10-8.5-8.2-14.9L346.2 8.7c1.8-6.4 8.5-10 14.9-8.2l61 17.7c6.4 1.8 10 8.5 8.2 14.9L293.8 503.3c-1.9 6.4-8.5 10.1-14.9 8.2zm-114-112.2l43.5-46.4c4.6-4.9 4.3-12.7-.8-17.2L117 256l90.6-79.7c5.1-4.5 5.5-12.3.8-17.2l-43.5-46.4c-4.5-4.8-12.1-5.1-17-.5L3.8 247.2c-5.1 4.7-5.1 12.8 0 17.5l144.1 135.1c4.9 4.6 12.5 4.4 17-.5zm327.2.6l144.1-135.1c5.1-4.7 5.1-12.8 0-17.5L492.1 112.1c-4.8-4.5-12.4-4.3-17 .5L431.6 159c-4.6 4.9-4.3 12.7.8 17.2L523 256l-90.6 79.7c-5.1 4.5-5.5 12.3-.8 17.2l43.5 46.4c4.5 4.9 12.1 5.1 17 .6z"
-                      )}
-                      {t("learnNow")}
-                    </motion.button>
-                    <motion.button
-                      className={`inline-flex items-center justify-center w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-md hover:shadow-lg text-lg ${
-                        !language.compiler.available &&
-                        "opacity-50 cursor-not-allowed"
-                      }`}
-                      disabled={!language.compiler.available}
-                      whileHover={{
-                        scale: language.compiler.available ? 1.05 : 1,
-                      }}
-                      whileTap={{
-                        scale: language.compiler.available ? 0.95 : 1,
-                      }}
-                      onClick={() => {
-                        if (language.compiler.available) {
-                          window.location.href = language.compiler.href;
-                        }
-                      }}
+                      {course.title}
+                    </motion.h3>
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.5, delay: 0.2 }}
+                      className="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-6"
                     >
-                      {createIcon(
-                        "M255.03 261.65c6.25 6.25 16.38 6.25 22.63 0l11.31-11.31c6.25-6.25 6.25-16.38 0-22.63L253.25 192l35.71-35.72c6.25-6.25 6.25-16.38 0-22.63l-11.31-11.31c-6.25-6.25-16.38-6.25-22.63 0l-58.34 58.34c-6.25 6.25-6.25 16.38 0 22.63l58.35 58.34zm96.01-11.3l11.31 11.31c6.25 6.25 16.38 6.25 22.63 0l58.34-58.34c6.25-6.25 6.25-16.38 0-22.63l-58.34-58.34c-6.25-6.25-16.38-6.25-22.63 0l-11.31 11.31c-6.25 6.25-6.25 16.38 0 22.63L386.75 192l-35.71 35.72c-6.25 6.25-6.25 16.38 0 22.63zM624 416H381.54c-.74 19.81-14.71 32-32.74 32H288c-18.69 0-33.02-17.47-32.77-32H16c-8.8 0-16 7.2-16 16v16c0 35.2 28.8 64 64 64h512c35.2 0 64-28.8 64-64v-16c0-8.8-7.2-16-16-16zM576 48c0-26.4-21.6-48-48-48H112C85.6 0 64 21.6 64 48v336h512V48zm-64 272H128V64h384v256z"
-                      )}
-                      {t("tryCompiler")}
-                    </motion.button>
+                      {course.description[locale]}
+                    </motion.p>
                   </div>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="flex flex-col space-y-3"
+                  >
+                    <Link
+                      href={course.link}
+                      className="flex-1 inline-flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-md hover:shadow-lg text-base"
+                    >
+                      <FaBook className="mr-3 text-lg" />
+                      {t("learnNow")}
+                    </Link>
+                    <Link
+                      href={course.compiler.href}
+                      className="flex-1 inline-flex items-center justify-center bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-md hover:shadow-lg text-base"
+                    >
+                      <FaCode className="mr-3 text-lg" />
+                      {t("tryCompiler")}
+                    </Link>
+                  </motion.div>
                 </div>
               </motion.div>
             ))}
           </motion.div>
-        </div>
+        </motion.div>
       </section>
     </Layout>
   );

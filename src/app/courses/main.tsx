@@ -7,7 +7,7 @@ import {
   FaLightbulb,
   FaRocket,
 } from "react-icons/fa";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import GridBackground from "@components/grid";
 import Section from "@default/components/courses/section";

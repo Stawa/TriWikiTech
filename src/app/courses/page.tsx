@@ -1,35 +1,12 @@
 "use client";
 
+import Languages from "@data/langauges.json";
 import HomeButton from "@components/homeButton";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FaBook } from "react-icons/fa";
 import { useTranslations } from "next-intl";
-
-const courses = [
-  {
-    title: "JavaScript",
-    description: "JavaScript",
-    image: "/lang/JS.svg",
-    link: "/courses/javascript",
-    color: "from-yellow-400 to-yellow-600",
-  },
-  {
-    title: "C",
-    description: "C",
-    image: "/lang/C.svg",
-    link: "/courses/c",
-    color: "from-blue-400 to-blue-600",
-  },
-  {
-    title: "CPP",
-    description: "CPP",
-    image: "/lang/CPP.svg",
-    link: "/courses/cpp",
-    color: "from-indigo-400 to-indigo-600",
-  },
-];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -81,7 +58,7 @@ export default function Courses() {
           initial="hidden"
           animate="visible"
         >
-          {courses.map((course, index) => (
+          {Languages.map((course, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
@@ -92,7 +69,7 @@ export default function Courses() {
               >
                 <Image
                   src={course.image}
-                  alt={t(`${course.title}.title`)}
+                  alt={course.title}
                   width={100}
                   height={100}
                   className="object-contain filter drop-shadow-lg"
@@ -100,10 +77,10 @@ export default function Courses() {
               </div>
               <div className="p-6 flex flex-col flex-grow">
                 <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white text-center">
-                  {t(`${course.title}.title`)}
+                  {t(`${course.name}.title`)}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-6 flex-grow text-center">
-                  {t(`${course.title}.description`)}
+                  {t(`${course.name}.description`)}
                 </p>
                 <Link
                   href={course.link}
