@@ -49,7 +49,7 @@ function createIcon(path: string) {
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
-  const [state, setState] = useState({
+  const initialState = {
     isLanguageDropdownOpen: false,
     isOpen: false,
     isSidebarOpen: false,
@@ -57,7 +57,8 @@ const Navbar = () => {
     selectedLanguage: "en" as Locale,
     userLogin: false,
     loggedInUser: null as User | null,
-  });
+  };
+  const [state, setState] = useState(initialState);
   const router = useRouter();
   const t = useTranslations("Navbar");
 
