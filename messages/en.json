@@ -106,9 +106,37 @@
         "learnMore": "Learn More"
       },
       "Single": {
-        "output": "Output:",
-        "bestUseCase": "Best Use Case:",
-        "explanation": "Explanation:"
+        "output": "Output",
+        "bestUseCase": "Best Use Case",
+        "explanation": "Explanation"
+      },
+      "Multiple": {
+        "output": "Output",
+        "explanation": "Explanation"
+      },
+      "DataType": {
+        "formatSpecifier": "Format Specifier",
+        "dataType": "Data Type",
+        "range": "Range",
+        "size": "Size",
+        "explanation": "Explanation",
+        "bestUseCase": "Best Use Case"
+      },
+      "Variable": {
+        "steps": "Steps",
+        "goodExample": "Good Example",
+        "goodExplanation": "Good Example Explanation",
+        "badExample": "Bad Example",
+        "badExplanation": "Bad Example Explanation",
+        "tips": "Tips",
+        "syntax": "Variable Declaration Syntax"
+      },
+      "InputOutput": {
+        "formatSpecifier": "Format Specifier",
+        "safetyNote": "Safety Note",
+        "tip": "Tip",
+        "explanation": "Explanation",
+        "bestUseCase": "Best Use Case"
       }
     },
     "Courses": {
