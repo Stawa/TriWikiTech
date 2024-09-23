@@ -8,9 +8,9 @@ import { motion } from "framer-motion";
 import { FaBook, FaCode } from "react-icons/fa";
 import { IoNavigateOutline, IoNavigateSharp } from "react-icons/io5";
 
-import GridBackground from "@components/grid";
 import { Locale } from "@default/i18n/config";
 import Languages from "@default/app/language";
+import GridBackground from "@components/grid";
 
 const Layout = ({ children }: { children: ReactNode }) => (
   <div className="relative min-h-screen overflow-hidden">
@@ -52,8 +52,8 @@ export default function Home() {
             href="/#start"
             className="group relative inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-bold text-base md:text-lg transition duration-300 hover:shadow-lg hover:scale-105 transform overflow-hidden"
           >
-            <IoNavigateOutline className="door-icon mr-2 md:mr-3 w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:hidden" />
-            <IoNavigateSharp className="door-icon mr-2 md:mr-3 w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 hidden group-hover:block" />
+            <IoNavigateOutline className="mr-2 md:mr-3 w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 group-hover:hidden" />
+            <IoNavigateSharp className="mr-2 md:mr-3 w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 hidden group-hover:block" />
             <span className="relative z-10">{t("startJourney")}</span>
           </Link>
           <Link

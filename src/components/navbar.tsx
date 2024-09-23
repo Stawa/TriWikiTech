@@ -25,18 +25,8 @@ import { useRouter } from "next/navigation";
 import { getUserLocale, setUserLocale } from "@default/services/locale";
 import { Locale } from "@default/i18n/config";
 import { useTranslations } from "next-intl";
-
-interface User {
-  name: string;
-  email: string;
-  avatar: string;
-}
-
-const sampleUser: User = {
-  name: "Stawa",
-  email: "stawadev@gmail.com",
-  avatar: "https://avatars.githubusercontent.com/u/69102292?v=4",
-};
+import { getUserData, type User } from "./user";
+import { userSignOut } from "@default/app/login/redirect";
 
 function createIcon(path: string) {
   return (
@@ -64,14 +54,28 @@ const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<Locale>("en");
-  const [userLogin] = useState(false);
+  const [userLogin, setUserLogin] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
   const router = useRouter();
   const t = useTranslations("Navbar");
+
+  const handleSignOut = async () => {
+    setIsSidebarOpen(false);
+    await userSignOut();
+    window.location.reload();
+  };
 
   useEffect(() => {
     setMounted(true);
     getUserLocale().then((locale) => {
       setSelectedLanguage(locale as Locale);
+    });
+
+    getUserData().then((user) => {
+      if (user) {
+        setLoggedInUser(user);
+        setUserLogin(true);
+      }
     });
   }, []);
 
@@ -172,7 +176,7 @@ const Navbar = () => {
               {userLogin ? (
                 <div className="w-8 h-8 relative">
                   <Image
-                    src="https://avatars.githubusercontent.com/u/69102292?v=4"
+                    src={loggedInUser?.avatar || ""}
                     alt="User Avatar"
                     layout="fill"
                     objectFit="cover"
@@ -232,7 +236,7 @@ const Navbar = () => {
                   <>
                     <div className="relative w-8 h-8 mr-3">
                       <Image
-                        src="https://avatars.githubusercontent.com/u/69102292?v=4"
+                        src={loggedInUser?.avatar || ""}
                         alt="User Avatar"
                         layout="fill"
                         objectFit="cover"
@@ -279,10 +283,10 @@ const Navbar = () => {
                   {createIcon("M6 18L18 6M6 6l12 12")}
                 </button>
                 {userLogin && (
-                  <div className="flex items-center mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-                    <div className="w-16 h-16 relative mr-4">
+                  <div className="flex items-center mt-4 mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
+                    <div className="flex-shrink-0 w-16 h-16 relative mr-4">
                       <Image
-                        src={sampleUser.avatar}
+                        src={loggedInUser?.avatar || ""}
                         alt="User Avatar"
                         layout="fill"
                         objectFit="cover"
@@ -290,12 +294,12 @@ const Navbar = () => {
                         quality={100}
                       />
                     </div>
-                    <div>
-                      <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
-                        {sampleUser.name}
+                    <div className="flex-grow">
+                      <h2 className="text-xl font-semibold text-gray-800 dark:text-white break-words">
+                        {loggedInUser?.name}
                       </h2>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">
-                        {sampleUser.email}
+                      <p className="text-sm text-gray-600 dark:text-gray-300 break-words">
+                        {loggedInUser?.email}
                       </p>
                     </div>
                   </div>
@@ -389,9 +393,7 @@ const Navbar = () => {
               {userLogin && (
                 <div className="px-6 py-4 mt-auto border-t border-gray-200 dark:border-gray-700">
                   <button
-                    onClick={() => {
-                      setIsSidebarOpen(false);
-                    }}
+                    onClick={handleSignOut}
                     className="w-full text-left px-4 py-3 text-base text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition duration-150 ease-in-out flex items-center"
                   >
                     <FaSignOutAlt className="mr-4 text-xl" />

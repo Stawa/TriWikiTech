@@ -18,10 +18,17 @@ A live version of the website can be accessed at [TriWikiTech](https://triwikite
 | Python Course       | Planned                   | Python programming course  | ❌     |
 | C Course            | Completed + Future Update | C language fundamentals    | 🔄     |
 | C++ Course          | Planned                   | C++ and OOP course         | ❌     |
-| User Authentication | Planned                   | Sign-up and login          | ❌     |
-| Switch Language     | In Progress               | Switch between languages   | 🚧     |
+| User Authentication | Planned                   | Sign-up and login          | 🚧     |
+| Switch Language     | Completed + Future Update | Switch between languages   | 🔄     |
 | Progress Tracking   | Planned                   | Course completion tracking | ❌     |
 | Code Compiler       | Planned                   | In-browser code execution  | ❌     |
+
+Ideas:
+
+- [ ] Add switch language feature (for example, switch between C and C++ in the code compiler)
+- [ ] Add a file system for the code compiler (for example, app.py, app.c, etc.)
+- [ ] Use xterm.js for the output/input of the code compiler
+- [ ] Add live output/input of the code compiler
 
 Legend:
 
