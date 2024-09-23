@@ -49,15 +49,32 @@ function createIcon(path: string) {
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
-  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState<Locale>("en");
-  const [userLogin, setUserLogin] = useState(false);
-  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
+  const [state, setState] = useState({
+    isLanguageDropdownOpen: false,
+    isOpen: false,
+    isSidebarOpen: false,
+    mounted: false,
+    selectedLanguage: "en" as Locale,
+    userLogin: false,
+    loggedInUser: null as User | null,
+  });
   const router = useRouter();
   const t = useTranslations("Navbar");
+
+  const setIsLanguageDropdownOpen = (value: boolean) =>
+    setState((prevState) => ({ ...prevState, isLanguageDropdownOpen: value }));
+  const setIsOpen = (value: boolean) =>
+    setState((prevState) => ({ ...prevState, isOpen: value }));
+  const setIsSidebarOpen = (value: boolean) =>
+    setState((prevState) => ({ ...prevState, isSidebarOpen: value }));
+  const setMounted = (value: boolean) =>
+    setState((prevState) => ({ ...prevState, mounted: value }));
+  const setSelectedLanguage = (value: Locale) =>
+    setState((prevState) => ({ ...prevState, selectedLanguage: value }));
+  const setUserLogin = (value: boolean) =>
+    setState((prevState) => ({ ...prevState, userLogin: value }));
+  const setLoggedInUser = (value: User | null) =>
+    setState((prevState) => ({ ...prevState, loggedInUser: value }));
 
   const handleSignOut = async () => {
     setIsSidebarOpen(false);
@@ -80,7 +97,7 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    if (isSidebarOpen) {
+    if (state.isSidebarOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
@@ -88,7 +105,7 @@ const Navbar = () => {
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, [isSidebarOpen]);
+  }, [state.isSidebarOpen]);
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -100,7 +117,7 @@ const Navbar = () => {
     router.refresh();
   };
 
-  if (!mounted) return null;
+  if (!state.mounted) return null;
 
   const navItems = [
     { name: t("Home"), href: "/", icon: FaHome },
@@ -130,7 +147,9 @@ const Navbar = () => {
     },
   ];
 
-  const dropdownItems = userLogin ? userDropdownItems : guestDropdownItems;
+  const dropdownItems = state.userLogin
+    ? userDropdownItems
+    : guestDropdownItems;
 
   const languages = [
     {
@@ -173,10 +192,10 @@ const Navbar = () => {
               onClick={() => setIsSidebarOpen(true)}
               className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white border-b-2 border-transparent hover:border-blue-500 transition duration-300 ease-in-out flex items-center"
             >
-              {userLogin ? (
+              {state.userLogin ? (
                 <div className="w-8 h-8 relative">
                   <Image
-                    src={loggedInUser?.avatar || ""}
+                    src={state.loggedInUser?.avatar || ""}
                     alt="User Avatar"
                     layout="fill"
                     objectFit="cover"
@@ -191,17 +210,17 @@ const Navbar = () => {
           </div>
           <button
             className="md:hidden bg-gray-200 dark:bg-gray-800 p-2 rounded-md text-gray-700 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white transition-transform duration-300 ease-in-out transform hover:scale-110"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => setIsOpen(!state.isOpen)}
           >
             <span className="sr-only">Open main menu</span>
             {createIcon(
-              isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"
+              state.isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"
             )}
           </button>
         </div>
       </div>
       <AnimatePresence>
-        {isOpen && (
+        {state.isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
@@ -232,11 +251,11 @@ const Navbar = () => {
                 }}
                 className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white border-l-2 border-transparent hover:border-blue-500 transition duration-300 ease-in-out flex items-center"
               >
-                {userLogin ? (
+                {state.userLogin ? (
                   <>
                     <div className="relative w-8 h-8 mr-3">
                       <Image
-                        src={loggedInUser?.avatar || ""}
+                        src={state.loggedInUser?.avatar || ""}
                         alt="User Avatar"
                         layout="fill"
                         objectFit="cover"
@@ -258,7 +277,7 @@ const Navbar = () => {
         )}
       </AnimatePresence>
       <AnimatePresence>
-        {isSidebarOpen && (
+        {state.isSidebarOpen && (
           <>
             <motion.div
               initial={{ opacity: 0 }}
@@ -282,11 +301,11 @@ const Navbar = () => {
                 >
                   {createIcon("M6 18L18 6M6 6l12 12")}
                 </button>
-                {userLogin && (
+                {state.userLogin && (
                   <div className="flex items-center mt-4 mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
                     <div className="flex-shrink-0 w-16 h-16 relative mr-4">
                       <Image
-                        src={loggedInUser?.avatar || ""}
+                        src={state.loggedInUser?.avatar || ""}
                         alt="User Avatar"
                         layout="fill"
                         objectFit="cover"
@@ -296,10 +315,10 @@ const Navbar = () => {
                     </div>
                     <div className="flex-grow">
                       <h2 className="text-xl font-semibold text-gray-800 dark:text-white break-words">
-                        {loggedInUser?.name}
+                        {state.loggedInUser?.name}
                       </h2>
                       <p className="text-sm text-gray-600 dark:text-gray-300 break-words">
-                        {loggedInUser?.email}
+                        {state.loggedInUser?.email}
                       </p>
                     </div>
                   </div>
@@ -342,7 +361,7 @@ const Navbar = () => {
                   <div className="mt-4 mb-4">
                     <button
                       onClick={() =>
-                        setIsLanguageDropdownOpen(!isLanguageDropdownOpen)
+                        setIsLanguageDropdownOpen(!state.isLanguageDropdownOpen)
                       }
                       className="w-full text-left px-4 py-3 text-base text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition duration-150 ease-in-out flex items-center justify-between"
                     >
@@ -351,10 +370,10 @@ const Navbar = () => {
                         {t("Language")}
                       </span>
                       <FaChevronDown
-                        className={`transition-transform duration-200 ${isLanguageDropdownOpen ? "transform rotate-180" : ""}`}
+                        className={`transition-transform duration-200 ${state.isLanguageDropdownOpen ? "transform rotate-180" : ""}`}
                       />
                     </button>
-                    {isLanguageDropdownOpen && (
+                    {state.isLanguageDropdownOpen && (
                       <div className="mt-2 w-full bg-white dark:bg-gray-800 rounded-md shadow-lg overflow-hidden">
                         {languages.map((lang, index) => (
                           <button
@@ -366,7 +385,7 @@ const Navbar = () => {
                             className={`
                               block w-full text-left px-4 py-3 text-sm
                               ${
-                                selectedLanguage === lang.locale
+                                state.selectedLanguage === lang.locale
                                   ? "bg-blue-500 text-white"
                                   : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                               }
@@ -379,7 +398,7 @@ const Navbar = () => {
                                 {lang.flagIcon}
                                 <span className="ml-2">{lang.name}</span>
                               </span>
-                              {selectedLanguage === lang.locale && (
+                              {state.selectedLanguage === lang.locale && (
                                 <FaCheck className="text-white" />
                               )}
                             </div>
@@ -390,7 +409,7 @@ const Navbar = () => {
                   </div>
                 </div>
               </div>
-              {userLogin && (
+              {state.userLogin && (
                 <div className="px-6 py-4 mt-auto border-t border-gray-200 dark:border-gray-700">
                   <button
                     onClick={handleSignOut}

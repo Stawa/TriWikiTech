@@ -2,7 +2,7 @@
 
 [![wakatime](https://wakatime.com/badge/user/8e41e222-7cda-4906-ae81-3345f4b184cd/project/1b290161-7cf2-499d-84a8-c53a999cad25.svg)](https://wakatime.com/badge/user/8e41e222-7cda-4906-ae81-3345f4b184cd/project/1b290161-7cf2-499d-84a8-c53a999cad25)
 [![CodeFactor](https://www.codefactor.io/repository/github/stawa/triwikitech/badge)](https://www.codefactor.io/repository/github/stawa/triwikitech)
-![GitHub branch status](https://img.shields.io/github/checks-status/stawa/TriWikiTech/dev?logo=github)
+![GitHub branch status](https://img.shields.io/github/checks-status/stawa/TriWikiTech/main?logo=github)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/stawa/TriWikiTech?logo=github)
 
 This is the repository for the TriWikiTech website. Still under development. If you have encountered any issues, please create an issue on GitHub.
