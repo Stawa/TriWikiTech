@@ -1,6 +1,6 @@
 "use client";
 
-import Languages from "@data/langauges.json";
+import Languages from "@default/app/language";
 import HomeButton from "@components/homeButton";
 import Image from "next/image";
 import Link from "next/link";

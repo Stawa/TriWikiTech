@@ -9,8 +9,8 @@ import { FaBook, FaCode } from "react-icons/fa";
 import { IoNavigateOutline, IoNavigateSharp } from "react-icons/io5";
 
 import GridBackground from "@components/grid";
-import Languages from "@data/langauges.json";
 import { Locale } from "@default/i18n/config";
+import Languages from "@default/app/language";
 
 const Layout = ({ children }: { children: ReactNode }) => (
   <div className="relative min-h-screen overflow-hidden">
