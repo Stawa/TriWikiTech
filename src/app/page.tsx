@@ -1,27 +1,16 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import Image from "next/image";
+import Link from "next/link";
 import { ReactNode } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { motion } from "framer-motion";
+import { FaBook, FaCode } from "react-icons/fa";
 import { IoNavigateOutline, IoNavigateSharp } from "react-icons/io5";
 
 import { Locale } from "@default/i18n/config";
 import Languages from "@default/app/language";
-
-const Link = dynamic(() => import("next/link"), { ssr: false });
-const Image = dynamic(() => import("next/image"), { ssr: false });
-const GridBackground = dynamic(() => import("@components/grid"), {
-  ssr: false,
-});
-const FaBook = dynamic(
-  () => import("react-icons/fa").then((mod) => mod.FaBook),
-  { ssr: false }
-);
-const FaCode = dynamic(
-  () => import("react-icons/fa").then((mod) => mod.FaCode),
-  { ssr: false }
-);
+import GridBackground from "@components/grid";
 
 const Layout = ({ children }: { children: ReactNode }) => (
   <div className="relative min-h-screen overflow-hidden">
