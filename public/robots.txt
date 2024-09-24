@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://triwikitech.my.id/sitemap.xml

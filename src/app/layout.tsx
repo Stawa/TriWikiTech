@@ -42,6 +42,28 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://triwikitech.my.id",
   },
+  keywords: [
+    "programming",
+    "learning",
+    "triwikitech",
+    "compiler",
+    "interactive",
+    "try",
+    "language",
+    "now",
+    "c",
+    "code",
+    "quizzes",
+    "coding",
+    "online tools",
+    "practice",
+    "tutorials",
+    "algorithms",
+    "data structures",
+    "web development",
+    "mobile app development",
+    "artificial intelligence",
+  ],
 };
 
 export default async function RootLayout({
