@@ -7,7 +7,7 @@ import Footer from "@default/components/footer";
 import Navbar from "@default/components/navbar";
 import "./globals.css";
 
-const arimo = Arimo({ subsets: ["latin"] });
+const arimo = Arimo({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://triwikitech.my.id"),

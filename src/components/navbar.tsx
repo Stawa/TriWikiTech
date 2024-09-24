@@ -213,9 +213,7 @@ const Navbar = () => {
           <button
             className="md:hidden bg-gray-200 dark:bg-gray-800 p-2 rounded-md text-gray-700 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white transition-transform duration-300 ease-in-out transform hover:scale-110"
             onClick={() => setIsOpen(!state.isOpen)}
-            aria-label={
-              state.isOpen ? t("Close Main Menu") : t("Open Main Menu")
-            }
+            aria-label={state.isOpen ? "Close Main Menu" : "Open Main Menu"}
           >
             <span className="sr-only">Open main menu</span>
             {createIcon(
