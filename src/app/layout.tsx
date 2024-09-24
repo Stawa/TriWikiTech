@@ -39,6 +39,9 @@ export const metadata: Metadata = {
       },
     ],
   },
+  alternates: {
+    canonical: "https://triwikitech.my.id",
+  },
 };
 
 export default async function RootLayout({
@@ -51,6 +54,9 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning={true}>
+      <head>
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+      </head>
       <body className={`${arimo.className} antialiased`}>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system">
