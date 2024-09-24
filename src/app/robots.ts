@@ -1,6 +1,8 @@
-const baseUrl = "https://triwikitech.my.id";
+import type { MetadataRoute } from "next";
 
-export default function robots() {
+const BASE_URL = "https://triwikitech.my.id";
+
+export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
@@ -8,7 +10,7 @@ export default function robots() {
         allow: "/",
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
+    sitemap: `${BASE_URL}/sitemap.xml`,
+    host: BASE_URL,
   };
 }
