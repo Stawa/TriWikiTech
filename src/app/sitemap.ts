@@ -1,108 +1,70 @@
 import { MetadataRoute } from "next";
+import fs from "fs";
+import path from "path";
+import JavaScriptCourses from "@components/courses/javascript/navigation";
+import CCourse from "@components/courses/c/navigation";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: "https://triwikitech.my.id/",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "daily",
-      priority: 1,
-    },
-    {
-      url: "https://triwikitech.my.id/courses",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: "https://triwikitech.my.id/tos",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: "https://triwikitech.my.id/privacy",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: "https://triwikitech.my.id/courses/javascript",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "weekly",
-      priority: 0.64,
-    },
-    {
-      url: "https://triwikitech.my.id/courses/c",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "weekly",
-      priority: 0.64,
-    },
-    {
-      url: "https://triwikitech.my.id/courses/cpp",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "weekly",
-      priority: 0.64,
-    },
-    {
-      url: "https://triwikitech.my.id/courses/javascript/basics",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "monthly",
-      priority: 0.51,
-    },
-    {
-      url: "https://triwikitech.my.id/courses/javascript/control-structures",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "monthly",
-      priority: 0.51,
-    },
-    {
-      url: "https://triwikitech.my.id/courses/javascript/functions",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "monthly",
-      priority: 0.51,
-    },
-    {
-      url: "https://triwikitech.my.id/courses/javascript/objects-arrays",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "monthly",
-      priority: 0.51,
-    },
-    {
-      url: "https://triwikitech.my.id/courses/c/basics",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "monthly",
-      priority: 0.51,
-    },
-    {
-      url: "https://triwikitech.my.id/courses/c/control-structures",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "monthly",
-      priority: 0.51,
-    },
-    {
-      url: "https://triwikitech.my.id/courses/c/functions",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "monthly",
-      priority: 0.51,
-    },
-    {
-      url: "https://triwikitech.my.id/courses/c/pointers",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "monthly",
-      priority: 0.51,
-    },
-    {
-      url: "https://triwikitech.my.id/courses/c/memory-management",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "monthly",
-      priority: 0.51,
-    },
-    {
-      url: "https://triwikitech.my.id/courses/c/advanced",
-      lastModified: new Date("2024-09-22T16:25:15+00:00"),
-      changeFrequency: "monthly",
-      priority: 0.51,
-    },
+const BASE_URL = "https://triwikitech.my.id";
+const PAGES_DIRECTORY = path.join(process.cwd(), "src", "app");
+
+function getPages(dir: string, baseRoute: string = ""): string[] {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const route = path.join(baseRoute, entry.name.replace(/\.tsx?$/, ""));
+    if (entry.isDirectory()) return getPages(path.join(dir, entry.name), route);
+    if (entry.isFile() && /^(page|layout)\.tsx?$/.test(entry.name)) {
+      return route === "" ? "/" : route;
+    }
+    return [];
+  });
+}
+
+function createSitemapEntry(
+  route: string,
+  priority: number
+): MetadataRoute.Sitemap[number] {
+  const normalizedRoute =
+    route === "/" || route === "" ? "" : normalizeRoute(route);
+  const url = `${BASE_URL}${normalizedRoute}`;
+
+  return {
+    url,
+    lastModified: new Date(),
+    changeFrequency: "daily" as const,
+    priority,
+  };
+}
+
+function normalizeRoute(route: string): string {
+  return (
+    "/" +
+    route
+      .replace(/\\/g, "/")
+      .replace(/\/page$/, "")
+      .replace(/^page$/, "")
+  );
+}
+
+async function fetchDynamicRoutes(): Promise<string[]> {
+  return [...JavaScriptCourses("en"), ...CCourse("en")].map((course) =>
+    course.link.replace(/^\//, "")
+  );
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const staticPages = getPages(PAGES_DIRECTORY).filter(
+    (page) => !page.includes("[...not_found]") && !page.includes("[courseId]")
+  );
+  const dynamicRoutes = await fetchDynamicRoutes();
+
+  const entries = [
+    createSitemapEntry("", 1),
+    ...Array.from(
+      new Set([
+        ...staticPages.filter((page) => page !== "page"),
+        ...dynamicRoutes,
+      ])
+    ).map((route) => createSitemapEntry(route, 0.8)),
   ];
+
+  return entries.sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0));
 }
