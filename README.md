@@ -23,6 +23,13 @@ A live version of the website can be accessed at [TriWikiTech](https://triwikite
 | Progress Tracking   | Planned                   | Course completion tracking | ❌     |
 | Code Compiler       | Planned                   | In-browser code execution  | ❌     |
 
+Current issues:
+
+- [ ] Optimize performance of the website
+  - [ ] Optimize Homepage
+  - [ ] Optimize Course Pages
+  - [ ] Optimize Components
+
 Ideas:
 
 - [ ] Add switch language feature (for example, switch between C and C++ in the code compiler)
