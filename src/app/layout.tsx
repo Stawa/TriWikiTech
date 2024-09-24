@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s - TriWikiTech",
   },
   description:
-    "TriWikiTech is an interactive platform for learning programming languages, taking quizzes to test your knowledge, and using online compilers for hands-on coding practice.",
+    "TriWikiTech: Learn programming, take quizzes, and practice coding with interactive tools and online compilers.",
   icons: {
     icon: ["/favicon.ico?v=4"],
     apple: ["/apple-touch-icon.png"],
