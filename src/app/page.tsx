@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { ReactNode } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { motion } from "framer-motion";
@@ -10,7 +11,11 @@ import { IoNavigateOutline, IoNavigateSharp } from "react-icons/io5";
 
 import { Locale } from "@default/i18n/config";
 import Languages from "@default/app/language";
-import GridBackground from "@components/grid";
+
+const GridBackground = dynamic(() => import("@components/grid"), {
+  loading: () => <p>Loading...</p>,
+  ssr: false,
+});
 
 const Layout = ({ children }: { children: ReactNode }) => (
   <div className="relative min-h-screen overflow-hidden">
@@ -120,6 +125,7 @@ export default function Home() {
                     alt={course.title}
                     width={100}
                     height={100}
+                    priority={true}
                     className="object-contain filter drop-shadow-lg w-20 h-20 md:w-28 md:h-28"
                   />
                 </motion.div>
