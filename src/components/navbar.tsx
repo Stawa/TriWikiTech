@@ -192,6 +192,7 @@ const Navbar = () => {
             <button
               onClick={() => setIsSidebarOpen(true)}
               className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white border-b-2 border-transparent hover:border-blue-500 transition duration-300 ease-in-out flex items-center"
+              aria-label={state.userLogin ? t("Open User Menu") : t("Login")}
             >
               {state.userLogin ? (
                 <div className="w-8 h-8 relative">
@@ -212,6 +213,9 @@ const Navbar = () => {
           <button
             className="md:hidden bg-gray-200 dark:bg-gray-800 p-2 rounded-md text-gray-700 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white transition-transform duration-300 ease-in-out transform hover:scale-110"
             onClick={() => setIsOpen(!state.isOpen)}
+            aria-label={
+              state.isOpen ? t("Close Main Menu") : t("Open Main Menu")
+            }
           >
             <span className="sr-only">Open main menu</span>
             {createIcon(
@@ -251,6 +255,7 @@ const Navbar = () => {
                   setIsSidebarOpen(true);
                 }}
                 className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white border-l-2 border-transparent hover:border-blue-500 transition duration-300 ease-in-out flex items-center"
+                aria-label={state.userLogin ? t("Open User Menu") : t("Login")}
               >
                 {state.userLogin ? (
                   <>
@@ -287,6 +292,7 @@ const Navbar = () => {
               transition={{ duration: 0.3 }}
               className="fixed inset-0 bg-black z-40"
               onClick={() => setIsSidebarOpen(false)}
+              aria-label={t("Close Sidebar")}
             />
             <motion.div
               initial={{ x: "100%" }}
@@ -299,6 +305,7 @@ const Navbar = () => {
                 <button
                   onClick={() => setIsSidebarOpen(false)}
                   className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors duration-200"
+                  aria-label={t("Close Sidebar")}
                 >
                   {createIcon("M6 18L18 6M6 6l12 12")}
                 </button>
@@ -351,6 +358,11 @@ const Navbar = () => {
                   <button
                     onClick={toggleTheme}
                     className="w-full text-left px-4 py-3 text-base text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition duration-150 ease-in-out flex items-center mb-2"
+                    aria-label={
+                      theme === "dark"
+                        ? t("Switch to Light Mode")
+                        : t("Switch to Dark Mode")
+                    }
                   >
                     <span className="mr-4 text-xl text-blue-500 dark:text-blue-400">
                       {theme === "dark" ? <FaMoon /> : <FaSun />}
@@ -365,6 +377,7 @@ const Navbar = () => {
                         setIsLanguageDropdownOpen(!state.isLanguageDropdownOpen)
                       }
                       className="w-full text-left px-4 py-3 text-base text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition duration-150 ease-in-out flex items-center justify-between"
+                      aria-label={t("Select Language")}
                     >
                       <span className="flex items-center">
                         <FaGlobe className="mr-4 text-xl text-blue-500 dark:text-blue-400" />
@@ -393,6 +406,7 @@ const Navbar = () => {
                               ${index !== 0 ? "border-t border-gray-200 dark:border-gray-700" : ""}
                               transition duration-150 ease-in-out
                             `}
+                            aria-label={lang.name}
                           >
                             <div className="flex items-center justify-between">
                               <span className="flex items-center">
@@ -415,6 +429,7 @@ const Navbar = () => {
                   <button
                     onClick={handleSignOut}
                     className="w-full text-left px-4 py-3 text-base text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition duration-150 ease-in-out flex items-center"
+                    aria-label={t("Logout")}
                   >
                     <FaSignOutAlt className="mr-4 text-xl" />
                     {t("Logout")}

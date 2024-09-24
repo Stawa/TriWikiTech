@@ -27,17 +27,17 @@ export default function Home() {
     <Layout>
       <section className="container mx-auto px-4 py-12 md:py-24 text-center">
         <motion.h1
+          whileInView={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5 }}
           className="text-4xl md:text-5xl lg:text-7xl font-extrabold mb-4 md:mb-8 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-transparent bg-clip-text"
         >
           {t("title")}
         </motion.h1>
         <motion.p
+          whileInView={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
           className="text-lg md:text-xl lg:text-2xl text-gray-700 dark:text-gray-300 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed"
         >
           {t("subtitle")}
