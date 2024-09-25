@@ -206,6 +206,7 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 href={item.href}
+                prefetch={false}
                 className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white border-b-2 border-transparent hover:border-blue-500 transition duration-300 ease-in-out flex items-center"
               >
                 <item.icon className="mr-2 text-lg" />
@@ -259,6 +260,7 @@ const Navbar = () => {
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-200 dark:border-gray-700">
               {navItems.map((item) => (
                 <Link
+                  prefetch={false}
                   key={item.name}
                   href={
                     item.name === t("Home")
@@ -364,6 +366,7 @@ const Navbar = () => {
                   </h3>
                   {dropdownItems.map((item) => (
                     <Link
+                      prefetch={false}
                       key={item.name}
                       href={item.href}
                       className="block px-4 py-3 text-base text-gray-800 dark:text-gray-200 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-md transition duration-150 ease-in-out flex items-center mb-2"
