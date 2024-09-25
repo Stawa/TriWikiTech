@@ -3,9 +3,15 @@ import { Arimo } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
-import Footer from "@default/components/footer";
-import Navbar from "@default/components/navbar";
+import dynamic from "next/dynamic";
 import "./globals.css";
+
+const Footer = dynamic(() => import("@default/components/footer"), {
+  ssr: false,
+});
+const Navbar = dynamic(() => import("@default/components/navbar"), {
+  ssr: false,
+});
 
 const arimo = Arimo({
   subsets: ["latin"],
