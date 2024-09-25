@@ -2,14 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ReactNode } from "react";
+import dynamic from "next/dynamic";
+import { ReactNode, useMemo } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { FaBook, FaCode } from "react-icons/fa";
 import { IoNavigateOutline, IoNavigateSharp } from "react-icons/io5";
 
 import { Locale } from "@default/i18n/config";
 import Languages from "@default/app/language";
-import GridBackground from "@components/grid";
+
+const GridBackground = dynamic(() => import("@components/grid"), {
+  ssr: false,
+});
 
 const Layout = ({ children }: { children: ReactNode }) => (
   <div className="relative min-h-screen overflow-hidden">
@@ -21,6 +25,8 @@ const Layout = ({ children }: { children: ReactNode }) => (
 export default function Home() {
   const t = useTranslations("Home");
   const locale = useLocale() as Locale;
+
+  const memoizedLanguages = useMemo(() => Languages, []);
 
   return (
     <Layout>
@@ -71,7 +77,7 @@ export default function Home() {
             {t("exploreTools")}
           </h2>
           <div className="animate-smooth-reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12 md:px-4 lg:px-6">
-            {Languages.map((course, index) => (
+            {memoizedLanguages.map((course, index) => (
               <div
                 key={index}
                 className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col"
@@ -83,10 +89,11 @@ export default function Home() {
                     <Image
                       src={course.image}
                       alt={course.title}
-                      layout="fill"
-                      objectFit="contain"
+                      fill
+                      sizes="(max-width: 768px) 80px, 112px"
+                      style={{ objectFit: "contain" }}
                       className="filter"
-                      priority={true}
+                      loading="lazy"
                     />
                   </div>
                 </div>
