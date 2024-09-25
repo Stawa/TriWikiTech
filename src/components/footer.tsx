@@ -87,9 +87,9 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <FooterSection>
           <div>
-            <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
+            <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
               TriWikiTech
-            </h3>
+            </h2>
             <p className="text-gray-600 dark:text-gray-300">
               {t("LearnCodeGrow")}
               <svg
@@ -141,21 +141,30 @@ const Footer = () => {
               </a>
             </p>
           </div>
-          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 text-center">
-            <FooterLink href="/tos" target="_self" icon={FaBook}>
-              {t("TermsOfService")}
-            </FooterLink>
-            <FooterLink href="/privacy" target="_self" icon={FaShieldAlt}>
-              {t("PrivacyPolicy")}
-            </FooterLink>
-            <FooterLink
-              href={latestCommitUrl}
-              icon={PiScrollFill}
-              target="_blank"
-            >
-              {t("Changelog")}
-            </FooterLink>
-          </div>
+          <nav aria-label="Footer links">
+            <h3 className="sr-only">Footer Links</h3>
+            <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 text-center">
+              <li>
+                <FooterLink href="/tos" target="_self" icon={FaBook}>
+                  {t("TermsOfService")}
+                </FooterLink>
+              </li>
+              <li>
+                <FooterLink href="/privacy" target="_self" icon={FaShieldAlt}>
+                  {t("PrivacyPolicy")}
+                </FooterLink>
+              </li>
+              <li>
+                <FooterLink
+                  href={latestCommitUrl}
+                  icon={PiScrollFill}
+                  target="_blank"
+                >
+                  {t("Changelog")}
+                </FooterLink>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </footer>
