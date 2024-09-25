@@ -30,9 +30,7 @@ const Footer = () => {
   }, []);
 
   const FooterSection = ({ children }: { children: React.ReactNode }) => (
-    <div className="animate-smooth-reveal-long flex justify-between items-center">
-      {children}
-    </div>
+    <div className="flex justify-between items-center">{children}</div>
   );
 
   const SocialLinks = () => (
@@ -41,7 +39,7 @@ const Footer = () => {
         <a
           key={index}
           href={socialItem.url}
-          className={`animate-slide-in-right delay-${index * 100}ms text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition duration-300 flex items-center mr-4 mb-2 sm:mb-0`}
+          className="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition duration-300 flex items-center mr-4 mb-2 sm:mb-0"
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Visit our ${socialItem.name} page`}
@@ -89,10 +87,10 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <FooterSection>
           <div>
-            <h3 className="animate-slide-in-left delay-200 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
+            <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
               TriWikiTech
             </h3>
-            <p className="animate-slide-in-left delay-400 text-gray-600 dark:text-gray-300">
+            <p className="text-gray-600 dark:text-gray-300">
               {t("LearnCodeGrow")}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +109,7 @@ const Footer = () => {
           </div>
           <SocialLinks />
         </FooterSection>
-        <div className="animate-smooth-reveal-long mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 flex flex-col md:flex-row justify-between items-center">
           <div className="text-center md:text-left mb-4 md:mb-0">
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
               {t("AllRightsReserved", { year: new Date().getFullYear() })}

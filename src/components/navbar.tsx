@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -25,7 +26,7 @@ import { useRouter } from "next/navigation";
 import { getUserLocale, setUserLocale } from "@default/services/locale";
 import { Locale } from "@default/i18n/config";
 import { useTranslations } from "next-intl";
-import { getUserData, type User } from "./user";
+import { getUserData, type User } from "@components/user";
 import { userSignOut } from "@default/app/login/redirect";
 
 function createIcon(path: string) {
@@ -193,7 +194,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <Link
             href="/"
-            className="flex-shrink-0 transition-transform duration-300 ease-in-out hover:scale-105"
+            className="flex-shrink-0 hover:scale-105 transition-transform duration-300 ease-in-out"
           >
             <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400 flex items-center">
               <IoMdCode className="mr-2 text-3xl" />
@@ -223,9 +224,9 @@ const Navbar = () => {
                   <Image
                     src={state.loggedInUser?.avatar || ""}
                     alt="User Avatar"
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-full"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="rounded-full object-cover"
                     quality={100}
                   />
                 </div>
@@ -235,7 +236,7 @@ const Navbar = () => {
             </button>
           </div>
           <button
-            className="md:hidden bg-gray-200 dark:bg-gray-800 p-2 rounded-md text-gray-700 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white transition-transform duration-300 ease-in-out transform hover:scale-110"
+            className="md:hidden bg-gray-200 dark:bg-gray-800 p-2 rounded-md text-gray-700 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white hover:scale-110 transition-transform duration-300 ease-in-out"
             onClick={() => setIsOpen(!state.isOpen)}
             aria-label={state.isOpen ? "Close Main Menu" : "Open Main Menu"}
           >
@@ -277,7 +278,7 @@ const Navbar = () => {
                   setIsSidebarOpen(true);
                 }}
                 className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white border-l-2 border-transparent hover:border-blue-500 transition duration-300 ease-in-out flex items-center"
-                aria-label={state.userLogin ? t("Open User Menu") : t("Login")}
+                aria-label={state.userLogin ? "Open User Menu" : "Login"}
               >
                 {state.isLoading ? (
                   <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500 mr-3"></div>
@@ -287,9 +288,9 @@ const Navbar = () => {
                       <Image
                         src={state.loggedInUser?.avatar || ""}
                         alt="User Avatar"
-                        layout="fill"
-                        objectFit="cover"
-                        className="rounded-full"
+                        fill
+                        sizes="100%"
+                        className="rounded-full object-cover"
                         quality={100}
                       />
                     </div>
@@ -316,40 +317,40 @@ const Navbar = () => {
               transition={{ duration: 0.3 }}
               className="fixed inset-0 bg-black z-40"
               onClick={() => setIsSidebarOpen(false)}
-              aria-label={t("Close Sidebar")}
+              aria-label={"Close Sidebar"}
             />
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.3 }}
-              className="fixed inset-y-0 right-0 w-80 max-w-full bg-white dark:bg-gray-800 shadow-lg z-50 flex flex-col overflow-y-auto"
+              className="fixed inset-y-0 right-0 w-80 max-w-full bg-gradient-to-br from-white to-gray-100 dark:from-gray-800 dark:to-gray-900 shadow-lg z-50 flex flex-col overflow-y-auto"
             >
               <div className="px-6 pt-6 flex-shrink-0">
                 <button
                   onClick={() => setIsSidebarOpen(false)}
-                  className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors duration-200"
-                  aria-label={t("Close Sidebar")}
+                  className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200"
+                  aria-label={"Close Sidebar"}
                 >
                   {createIcon("M6 18L18 6M6 6l12 12")}
                 </button>
                 {state.userLogin && (
-                  <div className="flex items-center mt-4 mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center mt-4 mb-4 pb-4 border-b border-gray-300 dark:border-gray-600">
                     <div className="flex-shrink-0 w-16 h-16 relative mr-4">
                       <Image
                         src={state.loggedInUser?.avatar || ""}
                         alt="User Avatar"
-                        layout="fill"
-                        objectFit="cover"
-                        className="rounded-full"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="rounded-full ring-2 ring-blue-500 dark:ring-blue-400 object-cover"
                         quality={100}
                       />
                     </div>
                     <div className="flex-grow">
-                      <h2 className="text-xl font-semibold text-gray-800 dark:text-white break-words">
+                      <h2 className="text-xl font-semibold text-gray-900 dark:text-white break-words">
                         {state.loggedInUser?.name}
                       </h2>
-                      <p className="text-sm text-gray-600 dark:text-gray-300 break-words">
+                      <p className="text-sm text-gray-700 dark:text-gray-300 break-words">
                         {state.loggedInUser?.email}
                       </p>
                     </div>
@@ -358,37 +359,37 @@ const Navbar = () => {
               </div>
               <div className="px-6 flex-grow">
                 <div className="mb-4">
-                  <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2">
+                  <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase mb-2">
                     {t("Account")}
                   </h3>
                   {dropdownItems.map((item) => (
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="block px-4 py-3 text-base text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition duration-150 ease-in-out flex items-center mb-2"
+                      className="block px-4 py-3 text-base text-gray-800 dark:text-gray-200 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-md transition duration-150 ease-in-out flex items-center mb-2"
                       onClick={() => setIsSidebarOpen(false)}
                     >
                       {item.icon && (
-                        <item.icon className="mr-4 text-xl text-blue-500 dark:text-blue-400" />
+                        <item.icon className="mr-4 text-xl text-blue-600 dark:text-blue-400" />
                       )}
                       {item.name}
                     </Link>
                   ))}
                 </div>
-                <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2">
+                <div className="pt-4 border-t border-gray-300 dark:border-gray-600">
+                  <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase mb-2">
                     {t("Preferences")}
                   </h3>
                   <button
                     onClick={toggleTheme}
-                    className="w-full text-left px-4 py-3 text-base text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition duration-150 ease-in-out flex items-center mb-2"
+                    className="w-full text-left px-4 py-3 text-base text-gray-800 dark:text-gray-200 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-md transition duration-150 ease-in-out flex items-center mb-2"
                     aria-label={
                       theme === "dark"
-                        ? t("Switch to Light Mode")
-                        : t("Switch to Dark Mode")
+                        ? "Switch to Light Mode"
+                        : "Switch to Dark Mode"
                     }
                   >
-                    <span className="mr-4 text-xl text-blue-500 dark:text-blue-400">
+                    <span className="mr-4 text-xl text-yellow-500 dark:text-yellow-400">
                       {theme === "dark" ? <FaMoon /> : <FaSun />}
                     </span>
                     {theme === "dark"
@@ -400,11 +401,11 @@ const Navbar = () => {
                       onClick={() =>
                         setIsLanguageDropdownOpen(!state.isLanguageDropdownOpen)
                       }
-                      className="w-full text-left px-4 py-3 text-base text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition duration-150 ease-in-out flex items-center justify-between"
-                      aria-label={t("Select Language")}
+                      className="w-full text-left px-4 py-3 text-base text-gray-800 dark:text-gray-200 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-md transition duration-150 ease-in-out flex items-center justify-between"
+                      aria-label={"Select Language"}
                     >
                       <span className="flex items-center">
-                        <FaGlobe className="mr-4 text-xl text-blue-500 dark:text-blue-400" />
+                        <FaGlobe className="mr-4 text-xl text-green-600 dark:text-green-400" />
                         {t("Language")}
                       </span>
                       <FaChevronDown
@@ -420,16 +421,19 @@ const Navbar = () => {
                               changeLanguage(lang.locale);
                               setIsLanguageDropdownOpen(false);
                             }}
-                            className={`
-                              block w-full text-left px-4 py-3 text-sm
-                              ${
-                                state.selectedLanguage === lang.locale
-                                  ? "bg-blue-500 text-white"
-                                  : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                              }
-                              ${index !== 0 ? "border-t border-gray-200 dark:border-gray-700" : ""}
-                              transition duration-150 ease-in-out
-                            `}
+                            className={clsx(
+                              "block w-full text-left px-4 py-3 text-sm",
+                              {
+                                "bg-blue-600 text-white":
+                                  state.selectedLanguage === lang.locale,
+                                "text-gray-800 dark:text-gray-200 hover:bg-blue-100 dark:hover:bg-blue-900":
+                                  state.selectedLanguage !== lang.locale,
+                              },
+                              index !== 0
+                                ? "border-t border-gray-200 dark:border-gray-700"
+                                : "",
+                              "transition duration-150 ease-in-out"
+                            )}
                             aria-label={lang.name}
                           >
                             <div className="flex items-center justify-between">
@@ -449,11 +453,11 @@ const Navbar = () => {
                 </div>
               </div>
               {state.userLogin && (
-                <div className="px-6 py-4 mt-auto border-t border-gray-200 dark:border-gray-700">
+                <div className="px-6 py-4 mt-auto border-t border-gray-300 dark:border-gray-600">
                   <button
                     onClick={handleSignOut}
-                    className="w-full text-left px-4 py-3 text-base text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition duration-150 ease-in-out flex items-center"
-                    aria-label={t("Logout")}
+                    className="w-full text-left px-4 py-3 text-base text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900 rounded-md transition duration-150 ease-in-out flex items-center"
+                    aria-label={"Logout"}
                   >
                     <FaSignOutAlt className="mr-4 text-xl" />
                     {t("Logout")}

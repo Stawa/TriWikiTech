@@ -123,7 +123,7 @@ const LoginPage = () => {
             </button>
             <button
               onClick={handleGoogleLogin}
-              className="bg-blue-700 hover:bg-blue-800 mt-2 flex items-center justify-center w-full text-white py-3 rounded-md transition-colors"
+              className="bg-white hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 mt-2 flex items-center justify-center w-full text-gray-800 dark:text-white py-3 rounded-md transition-colors border border-gray-300 dark:border-gray-600"
             >
               <svg
                 className="h-4 w-4 mr-2"
