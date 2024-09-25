@@ -15,20 +15,14 @@ const Footer = () => {
   useEffect(() => {
     const fetchLatestCommit = async () => {
       try {
-        const response = await fetch(
-          "https://api.github.com/repos/Stawa/TriWikiTech/commits/main"
-        );
+        const response = await fetch("/api/github");
         if (!response.ok) {
-          throw new Error(
-            `Failed to fetch latest commit: ${response.status} ${response.statusText}`
-          );
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const data = await response.json();
-        setLatestCommitUrl(
-          `https://github.com/Stawa/TriWikiTech/commit/${data.sha}`
-        );
+        const { latestCommitUrl } = await response.json();
+        setLatestCommitUrl(latestCommitUrl);
       } catch (error) {
-        console.error("Error fetching latest commit:", error);
+        console.error("Failed to fetch latest commit:", error);
       }
     };
 
