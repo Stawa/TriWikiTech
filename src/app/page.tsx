@@ -93,7 +93,7 @@ export default function Home() {
                       sizes="(max-width: 768px) 80px, 112px"
                       style={{ objectFit: "contain" }}
                       className="filter"
-                      loading="lazy"
+                      priority
                     />
                   </div>
                 </div>
