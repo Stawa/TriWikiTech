@@ -57,6 +57,7 @@ const Navbar = () => {
     selectedLanguage: "en" as Locale,
     userLogin: false,
     loggedInUser: null as User | null,
+    isLoading: true,
   };
   const [state, setState] = useState(initialState);
   const router = useRouter();
@@ -76,6 +77,8 @@ const Navbar = () => {
     setState((prevState) => ({ ...prevState, userLogin: value }));
   const setLoggedInUser = (value: User | null) =>
     setState((prevState) => ({ ...prevState, loggedInUser: value }));
+  const setIsLoading = (value: boolean) =>
+    setState((prevState) => ({ ...prevState, isLoading: value }));
 
   const handleSignOut = async () => {
     setIsSidebarOpen(false);
@@ -84,17 +87,26 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    setMounted(true);
-    getUserLocale().then((locale) => {
-      setSelectedLanguage(locale as Locale);
-    });
+    const initializeNavbar = async () => {
+      setIsLoading(true);
+      try {
+        const locale = await getUserLocale();
+        setSelectedLanguage(locale as Locale);
 
-    getUserData().then((user) => {
-      if (user) {
-        setLoggedInUser(user);
-        setUserLogin(true);
+        const user = await getUserData();
+        if (user) {
+          setLoggedInUser(user);
+          setUserLogin(true);
+        }
+      } catch (error) {
+        console.error("Error initializing navbar:", error);
+      } finally {
+        setMounted(true);
+        setIsLoading(false);
       }
-    });
+    };
+
+    initializeNavbar();
   }, []);
 
   useEffect(() => {
@@ -117,8 +129,6 @@ const Navbar = () => {
     setSelectedLanguage(locale);
     router.refresh();
   };
-
-  if (!state.mounted) return null;
 
   const navItems = [
     { name: t("Home"), href: "/", icon: FaHome },
@@ -165,6 +175,18 @@ const Navbar = () => {
     },
   ];
 
+  if (!state.mounted) {
+    return (
+      <div className="h-16 bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-black shadow-md border-b border-blue-500">
+        <div className="container mx-auto px-4 h-full flex items-center justify-center">
+          <p className="text-gray-600 dark:text-gray-400 font-medium">
+            Loading...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <nav className="bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-black shadow-md border-b border-blue-500 transition-colors duration-300">
       <div className="container mx-auto px-4">
@@ -194,7 +216,9 @@ const Navbar = () => {
               className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white border-b-2 border-transparent hover:border-blue-500 transition duration-300 ease-in-out flex items-center"
               aria-label={state.userLogin ? t("Open User Menu") : t("Login")}
             >
-              {state.userLogin ? (
+              {state.isLoading ? (
+                <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500"></div>
+              ) : state.userLogin ? (
                 <div className="w-8 h-8 relative">
                   <Image
                     src={state.loggedInUser?.avatar || ""}
@@ -255,7 +279,9 @@ const Navbar = () => {
                 className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white border-l-2 border-transparent hover:border-blue-500 transition duration-300 ease-in-out flex items-center"
                 aria-label={state.userLogin ? t("Open User Menu") : t("Login")}
               >
-                {state.userLogin ? (
+                {state.isLoading ? (
+                  <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500 mr-3"></div>
+                ) : state.userLogin ? (
                   <>
                     <div className="relative w-8 h-8 mr-3">
                       <Image
