@@ -214,7 +214,7 @@ const Navbar = () => {
             <button
               onClick={() => setIsSidebarOpen(true)}
               className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white border-b-2 border-transparent hover:border-blue-500 transition duration-300 ease-in-out flex items-center"
-              aria-label={state.userLogin ? t("Open User Menu") : t("Login")}
+              aria-label={state.userLogin ? "Open User Menu" : "Login"}
             >
               {state.isLoading ? (
                 <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500"></div>

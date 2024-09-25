@@ -7,7 +7,15 @@ import Footer from "@default/components/footer";
 import Navbar from "@default/components/navbar";
 import "./globals.css";
 
-const arimo = Arimo({ subsets: ["latin"], display: "swap" });
+const arimo = Arimo({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-arimo",
+  fallback: ["sans-serif"],
+  adjustFontFallback: false,
+  style: ["normal"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://triwikitech.my.id"),
@@ -40,7 +48,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://triwikitech.my.id",
+    canonical: "/",
   },
   keywords: [
     "programming",

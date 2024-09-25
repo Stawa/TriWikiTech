@@ -94,6 +94,8 @@ export default function Home() {
                       style={{ objectFit: "contain" }}
                       className="filter"
                       priority
+                      fetchPriority="high"
+                      loading="eager"
                     />
                   </div>
                 </div>
