@@ -28,10 +28,10 @@ export default function Home() {
         <h1 className="animate-text-reveal text-4xl md:text-5xl lg:text-7xl font-extrabold mb-4 md:mb-8 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-transparent bg-clip-text">
           {t("title")}
         </h1>
-        <p className="animate-text-reveal-from-down text-lg md:text-xl lg:text-2xl text-gray-700 dark:text-gray-300 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed">
+        <p className="animate-text-reveal text-lg md:text-xl lg:text-2xl text-gray-700 dark:text-gray-300 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed">
           {t("subtitle")}
         </p>
-        <div className="animate-text-reveal-from-down flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 md:space-x-6">
+        <div className="animate-text-reveal flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 md:space-x-6">
           <Link
             href="/#start"
             className="group relative inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-bold text-base md:text-lg transition duration-300 hover:shadow-lg hover:scale-105 transform overflow-hidden"
@@ -67,7 +67,7 @@ export default function Home() {
       </section>
       <section id="start" className="container mx-auto px-4 py-12 md:py-24">
         <div className="container mx-auto px-4">
-          <h2 className="animate-text-reveal-from-down text-3xl md:text-4xl lg:text-5xl font-extrabold text-center mb-8 md:mb-16 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-transparent bg-clip-text">
+          <h2 className="animate-text-reveal text-3xl md:text-4xl lg:text-5xl font-extrabold text-center mb-8 md:mb-16 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-transparent bg-clip-text">
             {t("exploreTools")}
           </h2>
           <div className="animate-smooth-reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12 md:px-4 lg:px-6">
