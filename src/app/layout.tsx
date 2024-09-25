@@ -6,6 +6,10 @@ import { ThemeProvider } from "next-themes";
 import dynamic from "next/dynamic";
 import "./globals.css";
 
+const CanonicalUrl = dynamic(() => import("@default/components/canonical"), {
+  ssr: false,
+});
+
 const Footer = dynamic(() => import("@default/components/footer"), {
   ssr: false,
 });
@@ -53,9 +57,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-  alternates: {
-    canonical: "/",
-  },
   keywords: [
     "programming",
     "learning",
@@ -87,11 +88,11 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
   const messages = await getMessages();
-
   return (
     <html lang={locale} suppressHydrationWarning={true}>
       <head>
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+        <CanonicalUrl />
       </head>
       <body className={`${arimo.className} antialiased`}>
         <NextIntlClientProvider messages={messages}>
