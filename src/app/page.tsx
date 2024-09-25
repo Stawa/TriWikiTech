@@ -79,14 +79,16 @@ export default function Home() {
                 <div
                   className={`p-6 md:p-8 bg-gradient-to-br ${course.color} flex items-center justify-center w-full`}
                 >
-                  <Image
-                    src={course.image}
-                    alt={course.title}
-                    width={100}
-                    height={100}
-                    priority={true}
-                    className="object-contain filter drop-shadow-lg w-20 h-20 md:w-28 md:h-28"
-                  />
+                  <div className="relative w-20 h-20 md:w-28 md:h-28 drop-shadow-lg">
+                    <Image
+                      src={course.image}
+                      alt={course.title}
+                      layout="fill"
+                      objectFit="contain"
+                      className="filter"
+                      priority={true}
+                    />
+                  </div>
                 </div>
                 <div className="p-6 md:p-8 flex flex-col justify-between flex-grow">
                   <div>
