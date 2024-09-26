@@ -27,7 +27,7 @@ import { getUserLocale, setUserLocale } from "@default/services/locale";
 import { Locale } from "@default/i18n/config";
 import { useTranslations } from "next-intl";
 import { getUserData, type User } from "@components/user";
-import { userSignOut } from "@default/app/login/redirect";
+import { userSignOut } from "@app/login/redirect";
 
 function createIcon(path: string) {
   return (

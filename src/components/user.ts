@@ -6,6 +6,7 @@ interface User {
   name: string;
   email: string;
   avatar: string;
+  isPublic: boolean;
 }
 
 async function getUserData(): Promise<User | null> {
@@ -17,6 +18,7 @@ async function getUserData(): Promise<User | null> {
     name: name ?? "",
     email: email ?? "",
     avatar: avatar ?? "",
+    isPublic: false,
   };
 }
 

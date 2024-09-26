@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FaCode, FaGithub, FaGoogle } from "react-icons/fa";
+import { FaCode, FaGithub } from "react-icons/fa";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
-import { signInWithProvider } from "@default/app/login/redirect";
+import { signInWithProvider } from "@app/login/redirect";
 import GridBackground from "@components/grid";
 
 const Layout = ({ children }: { children: React.ReactNode }) => (

@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-const NotFound = dynamic(() => import("@default/app/[...not_found]/404"), {
+const NotFound = dynamic(() => import("@app/[...not_found]/404"), {
   ssr: false,
 });
 

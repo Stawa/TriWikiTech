@@ -6,7 +6,7 @@ import { FaBook, FaCode } from "react-icons/fa";
 import { IoNavigateOutline, IoNavigateSharp } from "react-icons/io5";
 
 import { Locale } from "@default/i18n/config";
-import Languages from "@default/app/language";
+import Languages from "@app/language";
 
 const Image = lazy(() => import("next/image"));
 const Link = lazy(() => import("next/link"));

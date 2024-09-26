@@ -19,6 +19,7 @@
     ],
     "paths": {
       "@default/*": ["./src/*"],
+      "@app/*": ["./src/app/*"],
       "@components/*": ["./src/components/*"],
       "@data/*": ["./data/*"],
       "@main/*": ["./*"]

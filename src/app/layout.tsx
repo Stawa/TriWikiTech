@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { arimo } from "@default/app/fonts";
+import { arimo } from "@app/fonts";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
 import dynamic from "next/dynamic";
 import "./globals.css";
 
-const CanonicalUrl = dynamic(() => import("@default/components/canonical"), {
+const CanonicalUrl = dynamic(() => import("@components/canonical"), {
   ssr: false,
 });
 
-const Footer = dynamic(() => import("@default/components/footer"), {
+const Footer = dynamic(() => import("@components/footer"), {
   ssr: false,
 });
-const Navbar = dynamic(() => import("@default/components/navbar"), {
+const Navbar = dynamic(() => import("@components/navbar"), {
   ssr: false,
 });
 
