@@ -18,4 +18,4 @@ async function userSignOut() {
   await signOut();
 }
 
-export { signInWithProvider, userSignOut };
+export { signInWithProvider, userSignOut, type SignInWithProviderProps };

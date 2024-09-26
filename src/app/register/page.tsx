@@ -1,8 +1,10 @@
 "use client";
 
-import ComingSoonScreen from "@components/upcoming";
-import { FaUserPlus } from "react-icons/fa";
+import React from "react";
+import AuthTemplate from "@app/register/template";
 
-export default function Register() {
-  return <ComingSoonScreen name="Register" icon={FaUserPlus} />;
-}
+const RegisterPage: React.FC = () => {
+  return <AuthTemplate />;
+};
+
+export default RegisterPage;
