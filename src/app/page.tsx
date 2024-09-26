@@ -35,7 +35,11 @@ export default function Home() {
           {t("subtitle")}
         </p>
         <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 md:space-x-6">
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="h-12 w-40 bg-gray-200 animate-pulse rounded-full"></div>
+            }
+          >
             <Link
               href="/#start"
               className="group relative inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-bold text-base md:text-lg transition duration-300 hover:shadow-lg hover:scale-105 transform overflow-hidden"
@@ -82,10 +86,14 @@ export default function Home() {
                 className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col"
               >
                 <div
-                  className={`p-6 md:p-8 bg-gradient-to-br ${course.color} flex items-center justify-center w-full`}
+                  className={`p-6 md:p-8 bg-gradient-to-br ${course.color} flex items-center justify-center w-full h-40 md:h-48`}
                 >
                   <div className="relative w-20 h-20 md:w-28 md:h-28 drop-shadow-lg">
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense
+                      fallback={
+                        <div className="w-full h-full bg-gray-200 animate-pulse rounded-full"></div>
+                      }
+                    >
                       <Image
                         src={course.image}
                         alt={course.title}
@@ -110,7 +118,11 @@ export default function Home() {
                     </p>
                   </div>
                   <div className="flex flex-col space-y-3">
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense
+                      fallback={
+                        <div className="h-12 w-full bg-gray-200 animate-pulse rounded-lg"></div>
+                      }
+                    >
                       <Link
                         href={course.link}
                         className="flex-1 inline-flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-md hover:shadow-lg text-base"
