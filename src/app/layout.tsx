@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Arimo } from "next/font/google";
+import { arimo } from "@default/app/fonts";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
@@ -15,16 +15,6 @@ const Footer = dynamic(() => import("@default/components/footer"), {
 });
 const Navbar = dynamic(() => import("@default/components/navbar"), {
   ssr: false,
-});
-
-const arimo = Arimo({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-arimo",
-  fallback: ["sans-serif"],
-  adjustFontFallback: false,
-  style: ["normal"],
 });
 
 export const metadata: Metadata = {
