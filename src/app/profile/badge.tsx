@@ -9,7 +9,7 @@ const ProfileVisibilityBadge: React.FC<ProfileVisibilityBadgeProps> = ({
 }) => {
   const badgeConfig = {
     icon: isPublic ? MdPublic : MdLock,
-    text: isPublic ? "Public Profile" : "Private Profile",
+    text: isPublic ? "Public" : "Private",
     gradientColors: isPublic
       ? "from-green-400 to-green-600"
       : "from-red-400 to-red-600",

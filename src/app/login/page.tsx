@@ -23,11 +23,11 @@ const LoginPage = () => {
   };
 
   const handleGithubLogin = async () => {
-    await signInWithProvider({ provider: "github", redirectTo: "/" });
+    await signInWithProvider({ provider: "github", redirectTo: "/profile" });
   };
 
   const handleGoogleLogin = async () => {
-    await signInWithProvider({ provider: "google", redirectTo: "/" });
+    await signInWithProvider({ provider: "google", redirectTo: "/profile" });
   };
 
   return (
