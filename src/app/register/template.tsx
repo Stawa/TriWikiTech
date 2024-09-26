@@ -23,15 +23,18 @@ const InputField = ({
   id,
   type,
   label,
+  autocomplete,
 }: {
   id: string;
   type: string;
   label: string;
+  autocomplete: string;
 }) => (
   <div className="relative mb-4 sm:mb-6">
     <input
       type={type}
       id={id}
+      autoComplete={autocomplete}
       className="peer h-12 sm:h-14 w-full border-2 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 placeholder-transparent focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 rounded-lg px-4 hover:border-blue-500 dark:hover:border-blue-400 transition-colors duration-300"
       placeholder=" "
     />
@@ -55,7 +58,8 @@ const PasswordField = ({
     <input
       type={showPassword ? "text" : "password"}
       id="password"
-      className="peer h-12 sm:h-14 w-full border-2 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 placeholder-transparent focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 rounded-lg px-4 pr-12 hover:border-blue-500 dark:hover:border-blue-400 transition-colors duration-300"
+      autoComplete="current-password"
+      className="peer h-12 sm:h-14 w-full border-2 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 placeholder-transparent focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 rounded-lg px-4 pr-16 hover:border-blue-500 dark:hover:border-blue-400 transition-colors duration-300"
       placeholder=" "
     />
     <label
@@ -67,12 +71,13 @@ const PasswordField = ({
     <button
       type="button"
       onClick={togglePasswordVisibility}
-      className="absolute inset-y-0 right-3 flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
+      className="absolute inset-y-0 right-0 flex items-center justify-center w-14 h-full text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
+      aria-label={showPassword ? "Hide password" : "Show password"}
     >
       {showPassword ? (
-        <VscEyeClosed size={20} className="sm:text-2xl" />
+        <VscEyeClosed size={24} className="sm:text-3xl" />
       ) : (
-        <VscEye size={20} className="sm:text-2xl" />
+        <VscEye size={24} className="sm:text-3xl" />
       )}
     </button>
   </div>
@@ -85,9 +90,15 @@ const SubmitButton = ({ isRegister }: { isRegister: boolean }) => (
   >
     {isRegister ? "Register" : "Login"}
     {isRegister ? (
-      <FaUserPlus className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+      <FaUserPlus
+        className="ml-2 transition-transform duration-300 group-hover:translate-x-1"
+        aria-hidden="true"
+      />
     ) : (
-      <FaArrowRightToBracket className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+      <FaArrowRightToBracket
+        className="ml-2 transition-transform duration-300 group-hover:translate-x-1"
+        aria-hidden="true"
+      />
     )}
   </button>
 );
@@ -99,7 +110,7 @@ const AuthLinks = ({ isRegister }: { isRegister: boolean }) => (
     {isRegister ? (
       <a
         href="/login"
-        className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline transition duration-300 font-medium"
+        className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline transition duration-300 font-medium p-2"
       >
         Already have an account? Login
       </a>
@@ -107,13 +118,13 @@ const AuthLinks = ({ isRegister }: { isRegister: boolean }) => (
       <>
         <a
           href="/register"
-          className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline transition duration-300 font-medium"
+          className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline transition duration-300 font-medium p-2"
         >
           Register
         </a>
         <a
           href="#"
-          className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline transition duration-300 font-medium"
+          className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline transition duration-300 font-medium p-2"
         >
           Reset Password
         </a>
@@ -138,6 +149,7 @@ const SocialAuthButton = ({
         ? "bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-950 dark:hover:bg-zinc-900 text-white"
         : "bg-white hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600"
     } mt-2 flex items-center justify-center w-full py-3 sm:py-4 rounded-lg transition-all duration-300 text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95`}
+    aria-label={`${provider === "github" ? "GitHub" : "Google"} authentication`}
   >
     {children}
   </button>
@@ -163,17 +175,35 @@ const AuthTemplate: React.FC = () => {
       <div className="flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-md backdrop-blur-lg bg-opacity-90 dark:bg-opacity-90">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 text-center text-gray-900 dark:text-gray-100">
-            <FaCode className="inline-block mb-1 mr-2 text-blue-600 dark:text-blue-400" />
+            <FaCode
+              className="inline-block mb-1 mr-2 text-blue-600 dark:text-blue-400"
+              aria-hidden="true"
+            />
             TriWikiTech
           </h2>
           <form>
             {isRegister && (
               <>
-                <InputField id="username" type="text" label="Username" />
-                <InputField id="displayName" type="text" label="Display Name" />
+                <InputField
+                  id="username"
+                  type="text"
+                  label="Username"
+                  autocomplete="username"
+                />
+                <InputField
+                  id="displayName"
+                  type="text"
+                  label="Display Name"
+                  autocomplete="name"
+                />
               </>
             )}
-            <InputField id="email" type="email" label="Email Address" />
+            <InputField
+              id="email"
+              type="email"
+              label="Email Address"
+              autocomplete="email"
+            />
             <PasswordField
               showPassword={showPassword}
               togglePasswordVisibility={togglePasswordVisibility}
@@ -190,7 +220,10 @@ const AuthTemplate: React.FC = () => {
               <hr className="flex-grow border-gray-300 dark:border-gray-600" />
             </div>
             <SocialAuthButton provider="github" onClick={handleGithubAuth}>
-              <FaGithub className="mr-2 mb-0.5 text-xl sm:text-2xl" />
+              <FaGithub
+                className="mr-2 mb-0.5 text-xl sm:text-2xl"
+                aria-hidden="true"
+              />
               {isRegister ? "Register" : "Login"} with GitHub
             </SocialAuthButton>
             <SocialAuthButton provider="google" onClick={handleGoogleAuth}>
@@ -198,6 +231,7 @@ const AuthTemplate: React.FC = () => {
                 className="h-5 w-5 sm:h-6 sm:w-6 mr-2"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="-0.5 0 48 48"
+                aria-hidden="true"
               >
                 <g
                   id="Icons"

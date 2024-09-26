@@ -26,7 +26,7 @@ A live version of the website can be accessed at [TriWikiTech](https://triwikite
 Current issues:
 
 - [ ] Optimize performance of the website
-  - [ ] Optimize Homepage
+  - [x] Optimize Homepage
   - [ ] Optimize Course Pages
   - [ ] Optimize Components
 
