@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
 import dynamic from "next/dynamic";
+import Script from "next/script";
 import "./globals.css";
 
 const CanonicalUrl = dynamic(() => import("@components/canonical"), {
@@ -83,6 +84,18 @@ export default async function RootLayout({
       <head>
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <CanonicalUrl />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XYL68P0QK4"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XYL68P0QK4');
+          `}
+        </Script>
       </head>
       <body className={`${arimo.className} antialiased`}>
         <NextIntlClientProvider messages={messages}>
