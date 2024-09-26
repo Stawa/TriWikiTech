@@ -14,16 +14,10 @@ const GridBackground = lazy(() => import("@components/grid"));
 
 const Layout = ({ children }: { children: ReactNode }) => (
   <div className="relative min-h-screen overflow-hidden">
-    <Suspense
-      fallback={
-        <div className="h-screen w-full bg-gray-100 dark:bg-gray-900" />
-      }
-    >
+    <Suspense fallback={<div>Loading...</div>}>
       <GridBackground />
     </Suspense>
-    <div className="relative z-10">
-      <div className="min-h-screen">{children}</div>
-    </div>
+    <div className="relative z-10">{children}</div>
   </div>
 );
 
