@@ -6,6 +6,7 @@ import CCourse from "@components/courses/c/navigation";
 
 const BASE_URL = "https://triwikitech.my.id";
 const PAGES_DIRECTORY = path.join(process.cwd(), "src", "app");
+const PUBLIC_DIRECTORY = path.join(process.cwd(), "public");
 
 function getPages(dir: string, baseRoute: string = ""): string[] {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -18,12 +19,21 @@ function getPages(dir: string, baseRoute: string = ""): string[] {
   });
 }
 
+function getImages(dir: string): string[] {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    if (entry.isDirectory()) return getImages(path.join(dir, entry.name));
+    if (entry.isFile() && /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(entry.name)) {
+      return path.relative(PUBLIC_DIRECTORY, path.join(dir, entry.name));
+    }
+    return [];
+  });
+}
+
 function createSitemapEntry(
   route: string,
   priority: number
 ): MetadataRoute.Sitemap[number] {
-  const normalizedRoute =
-    route === "/" || route === "" ? "" : normalizeRoute(route);
+  const normalizedRoute = normalizeRoute(route);
   const url = `${BASE_URL}${normalizedRoute}`;
 
   return {
@@ -35,13 +45,13 @@ function createSitemapEntry(
 }
 
 function normalizeRoute(route: string): string {
-  return (
-    "/" +
-    route
-      .replace(/\\/g, "/")
-      .replace(/\/page$/, "")
-      .replace(/^page$/, "")
-  );
+  return route === "/" || route === ""
+    ? ""
+    : "/" +
+        route
+          .replace(/\\/g, "/")
+          .replace(/\/page$/, "")
+          .replace(/^page$/, "");
 }
 
 async function fetchDynamicRoutes(): Promise<string[]> {
@@ -55,15 +65,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     (page) => !page.includes("[...not_found]") && !page.includes("[courseId]")
   );
   const dynamicRoutes = await fetchDynamicRoutes();
+  const images = getImages(PUBLIC_DIRECTORY);
+
+  const allRoutes = new Set([
+    "",
+    ...staticPages.filter((page) => page !== "page"),
+    ...dynamicRoutes,
+  ]);
 
   const entries = [
-    createSitemapEntry("", 1),
-    ...Array.from(
-      new Set([
-        ...staticPages.filter((page) => page !== "page"),
-        ...dynamicRoutes,
-      ])
-    ).map((route) => createSitemapEntry(route, 0.8)),
+    ...Array.from(allRoutes).map((route) =>
+      createSitemapEntry(route, route === "" ? 1 : 0.8)
+    ),
+    ...images.map((image) => createSitemapEntry(image, 0.5)),
   ];
 
   return entries.sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0));
