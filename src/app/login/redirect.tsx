@@ -3,19 +3,24 @@
 import { signIn, signOut } from "@main/auth";
 
 interface SignInWithProviderProps {
-  provider: "github" | "google";
-  redirectTo: string;
+  provider: "github" | "google" | "credentials";
+  formData?: {
+    email: string;
+    password: string;
+    redirect: boolean;
+  };
 }
 
 async function signInWithProvider({
   provider,
-  redirectTo,
+  formData,
 }: SignInWithProviderProps) {
-  await signIn(provider, { redirectTo });
+  const signInOptions = provider === "credentials" ? { ...formData } : {};
+  return await signIn(provider, { ...signInOptions, redirectTo: `/complete-profile` });
 }
 
 async function userSignOut() {
-  await signOut();
+  await signOut({ redirectTo: "/" });
 }
 
 export { signInWithProvider, userSignOut, type SignInWithProviderProps };

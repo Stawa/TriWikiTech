@@ -19,8 +19,8 @@ import {
   FaGlobe,
   FaChevronDown,
   FaCheck,
+  FaCookieBite,
 } from "react-icons/fa";
-import Image from "next/image";
 import Flag from "react-world-flags";
 import { useRouter } from "next/navigation";
 import { getUserLocale, setUserLocale } from "@default/services/locale";
@@ -28,6 +28,8 @@ import { Locale } from "@default/i18n/config";
 import { useTranslations } from "next-intl";
 import { getUserData, type User } from "@components/user";
 import { userSignOut } from "@app/login/redirect";
+import ProfileImage from "@app/profile/image";
+import { setCookieConsent, getCookieConsent } from "@components/cookies/cookie";
 
 function createIcon(path: string) {
   return (
@@ -59,6 +61,8 @@ const Navbar = () => {
     userLogin: false,
     loggedInUser: null as User | null,
     isLoading: true,
+    cookieConsent: null as string | null,
+    isCookieDropdownOpen: false,
   };
   const [state, setState] = useState(initialState);
   const router = useRouter();
@@ -80,6 +84,10 @@ const Navbar = () => {
     setState((prevState) => ({ ...prevState, loggedInUser: value }));
   const setIsLoading = (value: boolean) =>
     setState((prevState) => ({ ...prevState, isLoading: value }));
+  const setCookieConsentState = (value: string | null) =>
+    setState((prevState) => ({ ...prevState, cookieConsent: value }));
+  const setIsCookieDropdownOpen = (value: boolean) =>
+    setState((prevState) => ({ ...prevState, isCookieDropdownOpen: value }));
 
   const handleSignOut = async () => {
     setIsSidebarOpen(false);
@@ -99,6 +107,9 @@ const Navbar = () => {
           setLoggedInUser(user);
           setUserLogin(true);
         }
+
+        const consent = await getCookieConsent();
+        setCookieConsentState(consent || null);
       } catch (error) {
         console.error("Error initializing navbar:", error);
       } finally {
@@ -129,6 +140,11 @@ const Navbar = () => {
     await setUserLocale(locale);
     setSelectedLanguage(locale);
     router.refresh();
+  };
+
+  const handleCookieConsent = async (consent: string) => {
+    await setCookieConsent(consent);
+    setCookieConsentState(consent);
   };
 
   const navItems = [
@@ -222,14 +238,7 @@ const Navbar = () => {
                 <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500"></div>
               ) : state.userLogin ? (
                 <div className="w-8 h-8 relative">
-                  <Image
-                    src={state.loggedInUser?.avatar || ""}
-                    alt="User Avatar"
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="rounded-full object-cover"
-                    quality={100}
-                  />
+                  <ProfileImage {...(state.loggedInUser as User)} />
                 </div>
               ) : (
                 <FaUser className="text-lg" />
@@ -287,14 +296,7 @@ const Navbar = () => {
                 ) : state.userLogin ? (
                   <>
                     <div className="relative w-8 h-8 mr-3">
-                      <Image
-                        src={state.loggedInUser?.avatar || ""}
-                        alt="User Avatar"
-                        fill
-                        sizes="100%"
-                        className="rounded-full object-cover"
-                        quality={100}
-                      />
+                      <ProfileImage {...(state.loggedInUser as User)} />
                     </div>
                     {t("Profile")}
                   </>
@@ -339,14 +341,7 @@ const Navbar = () => {
                 {state.userLogin && (
                   <div className="flex items-center mt-4 mb-4 pb-4 border-b border-gray-300 dark:border-gray-600">
                     <div className="flex-shrink-0 w-16 h-16 relative mr-4">
-                      <Image
-                        src={state.loggedInUser?.avatar || ""}
-                        alt="User Avatar"
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="rounded-full ring-2 ring-blue-500 dark:ring-blue-400 object-cover"
-                        quality={100}
-                      />
+                      <ProfileImage {...(state.loggedInUser as User)} />
                     </div>
                     <div className="flex-grow">
                       <h2 className="text-xl font-semibold text-gray-900 dark:text-white break-words">
@@ -450,6 +445,50 @@ const Navbar = () => {
                             </div>
                           </button>
                         ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="mt-4 mb-4">
+                    <button
+                      onClick={() =>
+                        setState((prevState) => ({
+                          ...prevState,
+                          isCookieDropdownOpen: !prevState.isCookieDropdownOpen,
+                        }))
+                      }
+                      className="w-full text-left px-4 py-3 text-base text-gray-800 dark:text-gray-200 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-md transition duration-150 ease-in-out flex items-center justify-between"
+                      aria-label={t("CookieManagement")}
+                    >
+                      <span className="flex items-center">
+                        <FaCookieBite className="mr-4 text-xl text-amber-600 dark:text-amber-400" />
+                        {t("CookieManagement")}
+                      </span>
+                      <FaChevronDown
+                        className={`transition-transform duration-200 ${state.isCookieDropdownOpen ? "transform rotate-180" : ""}`}
+                      />
+                    </button>
+                    {state.isCookieDropdownOpen && (
+                      <div className="mt-2 w-full bg-white dark:bg-gray-800 rounded-md shadow-lg overflow-hidden">
+                        <button
+                          onClick={() => handleCookieConsent("true")}
+                          className={`w-full text-left px-4 py-3 text-sm ${
+                            state.cookieConsent === "true"
+                              ? "bg-green-500 text-white"
+                              : "text-gray-800 dark:text-gray-200 hover:bg-green-200 dark:hover:bg-green-700"
+                          } transition duration-150 ease-in-out`}
+                        >
+                          {t("Accept")}
+                        </button>
+                        <button
+                          onClick={() => handleCookieConsent("false")}
+                          className={`w-full text-left px-4 py-3 text-sm ${
+                            state.cookieConsent === "false"
+                              ? "bg-red-500 text-white"
+                              : "text-gray-800 dark:text-gray-200 hover:bg-red-200 dark:hover:bg-red-700"
+                          } transition duration-150 ease-in-out`}
+                        >
+                          {t("Reject")}
+                        </button>
                       </div>
                     )}
                   </div>

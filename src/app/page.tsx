@@ -1,20 +1,24 @@
 "use client";
 
-import { ReactNode, lazy, Suspense } from "react";
+import dynamic from "next/dynamic";
+import { ReactNode, Suspense } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { FaBook, FaCode } from "react-icons/fa";
 import { IoNavigateOutline, IoNavigateSharp } from "react-icons/io5";
 
 import { Locale } from "@default/i18n/config";
 import Languages from "@app/language";
+import Loading from "@default/components/loading";
 
-const Image = lazy(() => import("next/image"));
-const Link = lazy(() => import("next/link"));
-const GridBackground = lazy(() => import("@components/grid"));
+const Image = dynamic(() => import("next/image"), { suspense: true });
+const Link = dynamic(() => import("next/link"), { suspense: true });
+const GridBackground = dynamic(() => import("@components/grid"), {
+  suspense: true,
+});
 
 const Layout = ({ children }: { children: ReactNode }) => (
   <div className="relative min-h-screen overflow-hidden">
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <GridBackground />
     </Suspense>
     <div className="relative z-10">{children}</div>

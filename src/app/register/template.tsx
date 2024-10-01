@@ -1,12 +1,20 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
-import { usePathname } from "next/navigation";
-import { FaCode, FaGithub, FaUserPlus } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { FaCode, FaGithub, FaUserPlus, FaCheck, FaTimes } from "react-icons/fa";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { signInWithProvider } from "@app/login/redirect";
+import {
+  checkAndAddUser,
+  checkEmailExists,
+  checkUsernameExists,
+} from "./check";
+import { Report, Loading, Notify } from "notiflix";
+import { useTranslations } from "next-intl";
+import { getUserData } from "@default/components/user";
 
 const GridBackground = dynamic(() => import("@components/grid"), {
   ssr: false,
@@ -24,114 +32,189 @@ const InputField = ({
   type,
   label,
   autocomplete,
+  value,
+  onChange,
+  isValid,
+  errorMessage,
 }: {
   id: string;
   type: string;
   label: string;
   autocomplete: string;
-}) => (
-  <div className="relative mb-4 sm:mb-6">
-    <input
-      type={type}
-      id={id}
-      autoComplete={autocomplete}
-      className="peer h-12 sm:h-14 w-full border-2 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 placeholder-transparent focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 rounded-lg px-4 hover:border-blue-500 dark:hover:border-blue-400 transition-colors duration-300"
-      placeholder=" "
-    />
-    <label
-      htmlFor={id}
-      className="absolute rounded-lg left-3 -top-3 text-gray-600 dark:text-gray-400 text-sm transition-all scale-75 origin-[0] bg-white dark:bg-gray-800 px-2"
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isValid: boolean | null;
+  errorMessage: string;
+}) => {
+  const inputClasses = `peer h-12 sm:h-14 w-full border-2 ${
+    value === ""
+      ? "border-gray-300 dark:border-gray-600"
+      : isValid === false
+        ? "border-red-500 dark:border-red-400"
+        : "border-green-500 dark:border-green-400"
+  } text-gray-900 dark:text-gray-100 placeholder-transparent focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 rounded-lg px-4 hover:border-blue-500 dark:hover:border-blue-400 transition-colors duration-300`;
+
+  return (
+    <div
+      className={`relative ${
+        isValid || value === "" ? "mb-4 md:mb-2" : "mb-20 md:mb-12"
+      }`}
     >
-      {label}
-    </label>
-  </div>
-);
+      <input
+        type={type}
+        id={id}
+        name={id}
+        autoComplete={autocomplete}
+        value={value}
+        onChange={onChange}
+        className={inputClasses}
+        placeholder=" "
+      />
+      <label
+        htmlFor={id}
+        className="absolute rounded-lg left-3 -top-3 text-gray-600 dark:text-gray-400 text-sm transition-all scale-75 origin-[0] bg-white dark:bg-gray-800 px-2"
+      >
+        {label}
+      </label>
+      {isValid !== null && value !== "" && (
+        <span
+          className={`absolute ${id === "password" ? "right-14" : "right-3"} top-1/2 transform -translate-y-1/2 flex items-center`}
+        >
+          {isValid ? (
+            <FaCheck className="text-green-500 w-5 h-5 block align-middle" />
+          ) : (
+            <FaTimes className="text-red-500 w-5 h-5 block align-middle" />
+          )}
+        </span>
+      )}
+      {!isValid && value !== "" && errorMessage && (
+        <p className="absolute mt-1 left-0 text-xs text-red-500">
+          {errorMessage}
+        </p>
+      )}
+    </div>
+  );
+};
 
 const PasswordField = ({
   showPassword,
   togglePasswordVisibility,
+  value,
+  onChange,
+  isValid,
+  errorMessage,
 }: {
   showPassword: boolean;
   togglePasswordVisibility: () => void;
-}) => (
-  <div className="relative mb-6 sm:mb-8">
-    <input
-      type={showPassword ? "text" : "password"}
-      id="password"
-      autoComplete="current-password"
-      className="peer h-12 sm:h-14 w-full border-2 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 placeholder-transparent focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 rounded-lg px-4 pr-16 hover:border-blue-500 dark:hover:border-blue-400 transition-colors duration-300"
-      placeholder=" "
-    />
-    <label
-      htmlFor="password"
-      className="absolute rounded-lg left-3 -top-3 text-gray-600 dark:text-gray-400 text-sm transition-all scale-75 origin-[0] bg-white dark:bg-gray-800 px-2"
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isValid: boolean | null;
+  errorMessage: string;
+}) => {
+  const t = useTranslations("Auth");
+  return (
+    <div
+      className={`relative ${
+        isValid || value === "" ? "mb-4 md:mb-2" : "mb-20 md:mb-12"
+      }`}
     >
-      Password
-    </label>
+      <InputField
+        id="password"
+        type={showPassword ? "text" : "password"}
+        label={t("password")}
+        autocomplete="current-password"
+        value={value}
+        onChange={onChange}
+        isValid={isValid}
+        errorMessage={errorMessage}
+      />
+      <button
+        type="button"
+        onClick={togglePasswordVisibility}
+        className="absolute inset-y-0 right-0 flex items-center justify-center w-14 h-full text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
+        aria-label={showPassword ? t("hidePassword") : t("showPassword")}
+      >
+        {showPassword ? (
+          <VscEyeClosed size={24} className="sm:text-3xl" />
+        ) : (
+          <VscEye size={24} className="sm:text-3xl" />
+        )}
+      </button>
+    </div>
+  );
+};
+
+const SubmitButton = ({
+  isRegister,
+  isLoading,
+}: {
+  isRegister: boolean;
+  isLoading: boolean;
+}) => {
+  const t = useTranslations("Auth");
+  return (
     <button
-      type="button"
-      onClick={togglePasswordVisibility}
-      className="absolute inset-y-0 right-0 flex items-center justify-center w-14 h-full text-gray-600 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
-      aria-label={showPassword ? "Hide password" : "Show password"}
+      type="submit"
+      disabled={isLoading}
+      className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 mt-2 flex items-center justify-center w-full text-white py-3 sm:py-4 rounded-lg transition-all duration-300 text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
     >
-      {showPassword ? (
-        <VscEyeClosed size={24} className="sm:text-3xl" />
+      {isLoading ? (
+        <span className="flex items-center">
+          {t("loading")}
+          <span className="ml-2 inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+        </span>
       ) : (
-        <VscEye size={24} className="sm:text-3xl" />
+        <>
+          {isRegister ? t("register") : t("login")}
+          {isRegister ? (
+            <FaUserPlus
+              className="ml-2 transition-transform duration-300 group-hover:translate-x-1"
+              aria-hidden="true"
+            />
+          ) : (
+            <FaArrowRightToBracket
+              className="ml-2 transition-transform duration-300 group-hover:translate-x-1"
+              aria-hidden="true"
+            />
+          )}
+        </>
       )}
     </button>
-  </div>
-);
+  );
+};
 
-const SubmitButton = ({ isRegister }: { isRegister: boolean }) => (
-  <button
-    type="submit"
-    className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 mt-2 flex items-center justify-center w-full text-white py-3 sm:py-4 rounded-lg transition-all duration-300 text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95"
-  >
-    {isRegister ? "Register" : "Login"}
-    {isRegister ? (
-      <FaUserPlus
-        className="ml-2 transition-transform duration-300 group-hover:translate-x-1"
-        aria-hidden="true"
-      />
-    ) : (
-      <FaArrowRightToBracket
-        className="ml-2 transition-transform duration-300 group-hover:translate-x-1"
-        aria-hidden="true"
-      />
-    )}
-  </button>
-);
-
-const AuthLinks = ({ isRegister }: { isRegister: boolean }) => (
-  <div
-    className={`mt-4 sm:mt-6 text-center ${isRegister ? "flex justify-center" : "flex justify-between"}`}
-  >
-    {isRegister ? (
-      <a
-        href="/login"
-        className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline transition duration-300 font-medium p-2"
-      >
-        Already have an account? Login
-      </a>
-    ) : (
-      <>
+const AuthLinks = ({ isRegister }: { isRegister: boolean }) => {
+  const t = useTranslations("Auth");
+  return (
+    <div
+      className={`mt-4 sm:mt-6 text-center ${isRegister ? "flex justify-center" : "flex justify-between"}`}
+    >
+      {isRegister ? (
         <a
-          href="/register"
+          href="/login"
           className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline transition duration-300 font-medium p-2"
         >
-          Register
+          {t("alreadyHaveAccount")}
         </a>
-        <a
-          href="#"
-          className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline transition duration-300 font-medium p-2"
-        >
-          Reset Password
-        </a>
-      </>
-    )}
-  </div>
-);
+      ) : (
+        <>
+          <a
+            href="/register"
+            className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline transition duration-300 font-medium p-2"
+          >
+            {t("register")}
+          </a>
+          <a
+            href="#"
+            className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline transition duration-300 font-medium p-2"
+          >
+            {t("resetPassword")}
+          </a>
+        </>
+      )}
+    </div>
+  );
+};
 
 const SocialAuthButton = ({
   provider,
@@ -155,19 +238,222 @@ const SocialAuthButton = ({
   </button>
 );
 
+const useFormValidation = (isRegister: boolean) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [emailValid, setEmailValid] = useState<boolean | null>(null);
+  const [usernameValid, setUsernameValid] = useState<boolean | null>(null);
+  const [passwordValid, setPasswordValid] = useState<boolean | null>(null);
+  const [displayNameValid, setDisplayNameValid] = useState<boolean | null>(
+    null
+  );
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [usernameError, setUsernameError] = useState<string | null>(null);
+  const [acceptTerms, setAcceptTerms] = useState(false);
+
+  const t = useTranslations("Auth");
+
+  useEffect(() => {
+    const validateEmail = async () => {
+      if (email.length === 0) {
+        setEmailValid(null);
+        setEmailError(null);
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        setEmailValid(false);
+        setEmailError(t("invalidEmail"));
+        return;
+      }
+
+      const { emailExists, emailInUseWithDifferentProvider } =
+        await checkEmailExists(email, !isRegister);
+
+      if (emailInUseWithDifferentProvider) {
+        setEmailValid(false);
+        setEmailError(t("emailInUseWithDifferentProvider"));
+      } else if (isRegister && emailExists) {
+        setEmailValid(false);
+        setEmailError(t("emailAlreadyRegistered"));
+      } else {
+        setEmailValid(true);
+        setEmailError(null);
+      }
+    };
+
+    validateEmail();
+  }, [email, isRegister, t]);
+
+  useEffect(() => {
+    const validateUsername = async () => {
+      if (username.length > 0) {
+        const usernameExists = await checkUsernameExists(username);
+        const isValid = /^[a-zA-Z0-9]+$/.test(username);
+        setUsernameValid(!usernameExists && isValid);
+        if (usernameExists) {
+          setUsernameError(t("usernameExists"));
+        } else if (!isValid) {
+          setUsernameError(t("usernameError"));
+        } else {
+          setUsernameError(null);
+        }
+      } else {
+        setUsernameValid(null);
+        setUsernameError(null);
+      }
+    };
+    validateUsername();
+  }, [username, t]);
+
+  useEffect(() => {
+    const validatePassword = () => {
+      if (password.length > 0) {
+        const regex =
+          /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])(?!.*[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}]).{8,}$/u;
+        setPasswordValid(regex.test(password));
+      } else {
+        setPasswordValid(null);
+      }
+    };
+    validatePassword();
+  }, [password]);
+
+  useEffect(() => {
+    const validateDisplayName = () => {
+      if (displayName.length > 0) {
+        const regex = /^[a-zA-Z0-9 ]{1,16}$/;
+        setDisplayNameValid(regex.test(displayName));
+      } else {
+        setDisplayNameValid(null);
+      }
+    };
+    validateDisplayName();
+  }, [displayName]);
+
+  return {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    username,
+    setUsername,
+    displayName,
+    setDisplayName,
+    emailValid,
+    usernameValid,
+    passwordValid,
+    displayNameValid,
+    emailError,
+    usernameError,
+    acceptTerms,
+    setAcceptTerms,
+  };
+};
+
 const AuthTemplate: React.FC = () => {
-  const [showPassword, setShowPassword] = useState(false);
+  const t = useTranslations("Auth");
+  const router = useRouter();
   const pathname = usePathname();
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const isRegister = pathname === "/register";
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const userData = await getUserData();
+      if (userData) {
+        router.push(`/profile/${userData.name}`);
+      }
+    };
+    checkSession();
+  }, [router]);
+
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    username,
+    setUsername,
+    displayName,
+    setDisplayName,
+    emailValid,
+    usernameValid,
+    passwordValid,
+    displayNameValid,
+    emailError,
+    usernameError,
+    acceptTerms,
+    setAcceptTerms,
+  } = useFormValidation(isRegister);
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
-  const handleGithubAuth = async () => {
-    await signInWithProvider({ provider: "github", redirectTo: "/profile" });
+  const handleProviderAuth = async (provider: "github" | "google") => {
+    await signInWithProvider({ provider });
   };
 
-  const handleGoogleAuth = async () => {
-    await signInWithProvider({ provider: "google", redirectTo: "/profile" });
+  const handleGithubAuth = () => handleProviderAuth("github");
+  const handleGoogleAuth = () => handleProviderAuth("google");
+
+  const handleCredentialsAuth = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
+
+    if (
+      !emailValid ||
+      !passwordValid ||
+      (isRegister && (!usernameValid || !displayNameValid || !acceptTerms))
+    ) {
+      Report.failure(t("formError"), t("formErrorMessage"), t("ok"));
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      if (isRegister) {
+        await checkAndAddUser(email, username, displayName, password, false);
+        Notify.success(t("registrationSuccess"));
+        router.push(`/login`);
+      } else {
+        await signInWithProvider({
+          provider: "credentials",
+          formData: { email, password, redirect: false },
+        });
+        const userData = await getUserData();
+        if (userData) {
+          Notify.success(t("loginSuccess"));
+          router.push(`/profile/${userData.name}`);
+        } else {
+          router.push("/");
+        }
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message === "EmailInUseWithDifferentProvider") {
+          Report.failure(
+            t("signInError"),
+            t("emailInUseWithDifferentProvider"),
+            t("ok")
+          );
+        } else if (error.message === "EmailAlreadyExists") {
+          Report.failure(t("signInError"), t("emailAlreadyExists"), t("ok"));
+        } else {
+          Report.failure(t("signInError"), t("incorrectCredentials"), t("ok"));
+        }
+      } else {
+        Report.failure(t("signInError"), t("unexpectedError"), t("ok"));
+      }
+    } finally {
+      setIsLoading(false);
+      Loading.remove();
+    }
   };
 
   return (
@@ -181,41 +467,81 @@ const AuthTemplate: React.FC = () => {
             />
             TriWikiTech
           </h2>
-          <form>
+          <form onSubmit={handleCredentialsAuth}>
             {isRegister && (
               <>
                 <InputField
                   id="username"
                   type="text"
-                  label="Username"
+                  label={t("username")}
                   autocomplete="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  isValid={usernameValid}
+                  errorMessage={usernameError || ""}
                 />
                 <InputField
                   id="displayName"
                   type="text"
-                  label="Display Name"
+                  label={t("displayName")}
                   autocomplete="name"
+                  value={displayName}
+                  onChange={(e) => setDisplayName(e.target.value)}
+                  isValid={displayNameValid}
+                  errorMessage={t("displayNameError")}
                 />
               </>
             )}
             <InputField
               id="email"
               type="email"
-              label="Email Address"
+              label={t("email")}
               autocomplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              isValid={emailValid}
+              errorMessage={emailError || ""}
             />
             <PasswordField
               showPassword={showPassword}
               togglePasswordVisibility={togglePasswordVisibility}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              isValid={passwordValid}
+              errorMessage={t("passwordRequirements")}
             />
-            <SubmitButton isRegister={isRegister} />
+            {isRegister && (
+              <div className="flex items-center mb-4">
+                <input
+                  type="checkbox"
+                  id="acceptTerms"
+                  checked={acceptTerms}
+                  onChange={(e) => setAcceptTerms(e.target.checked)}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <label
+                  htmlFor="acceptTerms"
+                  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  {t("acceptTerms")}
+                  <a
+                    href="/tos"
+                    className="text-blue-600 hover:underline dark:text-blue-500"
+                  >
+                    {t("termsOfService")}
+                  </a>
+                  <span className="text-red-500 ml-1">*</span>
+                </label>
+              </div>
+            )}
+            <SubmitButton isRegister={isRegister} isLoading={isLoading} />
             <AuthLinks isRegister={isRegister} />
           </form>
           <div className="mt-6 sm:mt-8 text-center">
             <div className="flex items-center my-4 sm:my-6">
               <hr className="flex-grow border-gray-300 dark:border-gray-600" />
               <span className="px-4 text-gray-600 dark:text-gray-400 font-medium text-sm sm:text-base">
-                or
+                {t("or")}
               </span>
               <hr className="flex-grow border-gray-300 dark:border-gray-600" />
             </div>
@@ -224,7 +550,9 @@ const AuthTemplate: React.FC = () => {
                 className="mr-2 mb-0.5 text-xl sm:text-2xl"
                 aria-hidden="true"
               />
-              {isRegister ? "Register" : "Login"} with GitHub
+              {isRegister
+                ? t("registerWith", { provider: "GitHub" })
+                : t("loginWith", { provider: "GitHub" })}
             </SocialAuthButton>
             <SocialAuthButton provider="google" onClick={handleGoogleAuth}>
               <svg
@@ -272,7 +600,11 @@ const AuthTemplate: React.FC = () => {
                   </g>
                 </g>
               </svg>
-              <span>{isRegister ? "Register" : "Login"} with Google</span>
+              <span>
+                {isRegister
+                  ? t("registerWith", { provider: "Google" })
+                  : t("loginWith", { provider: "Google" })}
+              </span>
             </SocialAuthButton>
           </div>
         </div>

@@ -16,9 +16,9 @@ A live version of the website can be accessed at [TriWikiTech](https://triwikite
 | Homepage            | Completed                 | Main landing page          | ✅     |
 | JavaScript Course   | Completed + Future Update | Interactive JS lessons     | 🔄     |
 | Python Course       | Planned                   | Python programming course  | ❌     |
-| C Course            | Completed + Future Update | C language fundamentals    | 🔄     |
+| C Course            | Completed                 | C language fundamentals    | ✅     |
 | C++ Course          | Planned                   | C++ and OOP course         | ❌     |
-| User Authentication | Planned                   | Sign-up and login          | 🚧     |
+| User Authentication | Completed + Future Update | Sign-up and login          | 🔄     |
 | Switch Language     | Completed + Future Update | Switch between languages   | 🔄     |
 | Progress Tracking   | Planned                   | Course completion tracking | ❌     |
 | Code Compiler       | Planned                   | In-browser code execution  | ❌     |
@@ -26,9 +26,18 @@ A live version of the website can be accessed at [TriWikiTech](https://triwikite
 Current issues:
 
 - [ ] Optimize performance of the website
+
   - [x] Optimize Homepage
   - [ ] Optimize Course Pages
   - [ ] Optimize Components
+
+- [ ] Refactor code
+
+- [ ] Rework design of the website
+  - [ ] Rework Login page
+  - [ ] Rework Register page
+  - [ ] Rework Reset page
+  - [ ] Rework Profile page
 
 Ideas:
 

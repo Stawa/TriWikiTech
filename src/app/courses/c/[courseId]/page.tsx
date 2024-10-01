@@ -1,10 +1,9 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, notFound } from "next/navigation";
 import CBasics from "@components/courses/c/basics";
 import CFunctions from "@components/courses/c/functions";
 import CPointers from "@components/courses/c/pointers";
-import NotFound from "@app/[...not_found]/404";
 import CMemoryManagement from "@components/courses/c/memory-management";
 import CAdvanced from "@components/courses/c/advanced";
 import CControlStructures from "@components/courses/c/control-structures";
@@ -24,7 +23,7 @@ export default function CCourse() {
     courseComponents[courseId as keyof typeof courseComponents];
 
   if (!CourseComponent) {
-    return <NotFound />;
+    return notFound();
   }
 
   return <CourseComponent />;
