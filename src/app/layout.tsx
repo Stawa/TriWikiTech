@@ -54,6 +54,13 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "TriWikiTech - Program Wiki",
+    description:
+      "Interactive platform for learning programming languages and testing your knowledge.",
+    images: ["/android-chrome-192x192.png"],
+  },
   keywords: [
     "programming",
     "learning",
