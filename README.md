@@ -16,7 +16,7 @@ A live version of the website can be accessed at [TriWikiTech](https://triwikite
 | Homepage            | Completed                 | Main landing page          | ✅     |
 | JavaScript Course   | Completed + Future Update | Interactive JS lessons     | 🔄     |
 | Python Course       | Planned                   | Python programming course  | ❌     |
-| C Course            | Completed                 | C language fundamentals    | ✅     |
+| C Course            | Completed + Future Update | C language fundamentals    | 🔄     |
 | C++ Course          | Planned                   | C++ and OOP course         | ❌     |
 | User Authentication | Completed + Future Update | Sign-up and login          | 🔄     |
 | Switch Language     | Completed + Future Update | Switch between languages   | 🔄     |
@@ -42,6 +42,8 @@ Current issues:
 
 Ideas:
 
+- [ ] Create a logo for the website
+- [ ] Create a open graph for the website
 - [ ] Add switch language feature (for example, switch between C and C++ in the code compiler)
 - [ ] Add a file system for the code compiler (for example, app.py, app.c, etc.)
 - [ ] Use xterm.js for the output/input of the code compiler

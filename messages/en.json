@@ -124,6 +124,74 @@
     "strong": "Strong",
     "veryStrong": "Very Strong"
   },
+  "StatusPage": {
+    "title": "Project Status",
+    "featureProgress": "Feature Progress",
+    "futureIdeas": "Future Ideas",
+    "updatesPlanned": "Updates Planned",
+    "percentResolved": "{percentage}% Resolved",
+    "percentImplemented": "{percentage}% Implemented",
+    "percentComplete": "{percentage}% Complete",
+    "features": {
+      "homepage": {
+        "name": "Homepage",
+        "description": "Main landing page"
+      },
+      "javascriptCourse": {
+        "name": "JavaScript Course",
+        "description": "Interactive JS lessons"
+      },
+      "pythonCourse": {
+        "name": "Python Course",
+        "description": "Python programming course"
+      },
+      "cCourse": {
+        "name": "C Course",
+        "description": "C language fundamentals"
+      },
+      "cppCourse": {
+        "name": "C++ Course",
+        "description": "C++ and OOP course"
+      },
+      "userAuthentication": {
+        "name": "User Authentication",
+        "description": "Sign-up and login"
+      },
+      "switchLanguage": {
+        "name": "Switch Language",
+        "description": "Switch between languages"
+      },
+      "progressTracking": {
+        "name": "Progress Tracking",
+        "description": "Course completion tracking"
+      },
+      "codeCompiler": {
+        "name": "Code Compiler",
+        "description": "In-browser code execution"
+      },
+      "fileSystem": {
+        "name": "File System",
+        "description": "File system for code compiler"
+      },
+      "liveOutput": {
+        "name": "Live Output",
+        "description": "Live output/input from code compiler"
+      }
+    },
+    "knownIssues": {
+      "title": "Known Issues",
+      "optimizePerformance": "Optimize website performance",
+      "refactorCode": "Refactor code",
+      "reworkDesign": "Rework website design"
+    },
+    "ideas": {
+      "createLogo": "Create a logo for the website",
+      "createOpenGraph": "Create open graph for the website",
+      "useXtermJs": "Use xterm.js for code compiler output/input",
+      "addSwitchLanguage": "Add switch language feature",
+      "addFileSystem": "Add file system for code compiler"
+    }
+  },
   "Courses": {
     "title": "Explore Our Courses",
     "subtitle": "Dive into our comprehensive programming courses designed to take you from beginner to expert. Choose your path and start coding today!",

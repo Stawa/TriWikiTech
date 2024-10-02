@@ -124,6 +124,74 @@
     "strong": "Kuat",
     "veryStrong": "Sangat Kuat"
   },
+  "StatusPage": {
+    "title": "Status Proyek",
+    "featureProgress": "Progres Fitur",
+    "futureIdeas": "Ide Masa Depan",
+    "updatesPlanned": "Pembaruan yang Diplanir",
+    "percentResolved": "{percentage}% Terselesaikan",
+    "percentImplemented": "{percentage}% Terimplementasi",
+    "percentComplete": "{percentage}% Selesai",
+    "features": {
+      "homepage": {
+        "name": "Beranda",
+        "description": "Halaman utama"
+      },
+      "javascriptCourse": {
+        "name": "Kursus JavaScript",
+        "description": "Pelajaran JS interaktif"
+      },
+      "pythonCourse": {
+        "name": "Kursus Python",
+        "description": "Kursus pemrograman Python"
+      },
+      "cCourse": {
+        "name": "Kursus C",
+        "description": "Dasar-dasar bahasa C"
+      },
+      "cppCourse": {
+        "name": "Kursus C++",
+        "description": "Kursus C++ dan OOP"
+      },
+      "userAuthentication": {
+        "name": "Autentikasi Pengguna",
+        "description": "Pendaftaran dan masuk"
+      },
+      "switchLanguage": {
+        "name": "Ganti Bahasa",
+        "description": "Beralih antar bahasa"
+      },
+      "progressTracking": {
+        "name": "Pelacakan Kemajuan",
+        "description": "Pelacakan penyelesaian kursus"
+      },
+      "codeCompiler": {
+        "name": "Kompilator Kode",
+        "description": "Eksekusi kode dalam browser"
+      },
+      "fileSystem": {
+        "name": "Sistem Berkas",
+        "description": "Sistem berkas untuk kompilator kode"
+      },
+      "liveOutput": {
+        "name": "Output Langsung",
+        "description": "Output/input langsung dari kompilator kode"
+      }
+    },
+    "knownIssues": {
+      "title": "Masalah yang Diketahui",
+      "optimizePerformance": "Optimalkan kinerja situs web",
+      "refactorCode": "Refaktor kode",
+      "reworkDesign": "Perbaiki desain situs web"
+    },
+    "ideas": {
+      "createLogo": "Buat logo untuk situs web",
+      "createOpenGraph": "Buat open graph untuk situs web",
+      "useXtermJs": "Gunakan xterm.js untuk output/input kompilator kode",
+      "addSwitchLanguage": "Tambahkan fitur ganti bahasa",
+      "addFileSystem": "Tambahkan sistem berkas untuk kompilator kode"
+    }
+  },
   "Courses": {
     "title": "Jelajahi Kursus Kami",
     "subtitle": "Selami kursus pemrograman komprehensif kami yang dirancang untuk membawa Anda dari pemula menjadi ahli. Pilih jalur Anda dan mulai coding hari ini!",
