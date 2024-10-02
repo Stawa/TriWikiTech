@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import JavaScriptCourses from "@components/courses/javascript/navigation";
 import CCourse from "@components/courses/c/navigation";
+import { firestoreService } from "@main/lib/firestore";
 
 const BASE_URL = "https://triwikitech.my.id";
 const PAGES_DIRECTORY = path.join(process.cwd(), "src", "app");
@@ -29,15 +30,22 @@ function getImages(dir: string): string[] {
   });
 }
 
+async function getUsers(): Promise<string[]> {
+  const usersSnapshot = await firestoreService.queryCollection(
+    "users",
+    "name",
+    "!=",
+    null
+  );
+  return usersSnapshot.map((user) => user.name as string);
+}
+
 function createSitemapEntry(
   route: string,
   priority: number
 ): MetadataRoute.Sitemap[number] {
-  const normalizedRoute = normalizeRoute(route);
-  const url = `${BASE_URL}${normalizedRoute}`;
-
   return {
-    url,
+    url: `${BASE_URL}${normalizeRoute(route)}`,
     lastModified: new Date(),
     changeFrequency: "daily" as const,
     priority,
@@ -62,10 +70,11 @@ async function fetchDynamicRoutes(): Promise<string[]> {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = getPages(PAGES_DIRECTORY).filter(
-    (page) => !page.includes("[...not_found]") && !page.includes("[courseId]")
+    (page) => !page.includes("[")
   );
   const dynamicRoutes = await fetchDynamicRoutes();
   const images = getImages(PUBLIC_DIRECTORY);
+  const users = await getUsers();
 
   const allRoutes = new Set([
     "",
@@ -78,6 +87,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       createSitemapEntry(route, route === "" ? 1 : 0.8)
     ),
     ...images.map((image) => createSitemapEntry(image, 0.5)),
+    ...users.map((user) => createSitemapEntry(user, 0.3)),
   ];
 
   return entries.sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0));
