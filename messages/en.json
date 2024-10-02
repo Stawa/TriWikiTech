@@ -89,7 +89,7 @@
     "DesignedBy": "Designed by",
     "TermsOfService": "Terms of Service",
     "PrivacyPolicy": "Privacy Policy",
-    "Changelog": "Changelog"
+    "Status": "Status"
   },
   "CookieBanner": {
     "message": "We use cookies to ensure you get the best experience on our website. By continuing, you agree to our use of cookies.",
@@ -98,7 +98,7 @@
   },
   "NotFound": {
     "title": "404 - Page Not Found",
-    "message": "Oops! The page you&apos;re looking for doesn&apos;t exist or has been moved.",
+    "message": "Oops! The page you're looking for doesn't exist or has been moved.",
     "backToHome": "Back to Home"
   },
   "Reset": {

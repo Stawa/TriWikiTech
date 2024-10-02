@@ -75,6 +75,9 @@ async function addUser(
     lastSignIn: new Date(),
     isPublic: false,
     bio: "",
+    badges: ["Member"],
+    createdAt: new Date(),
+    progress: {},
   };
 
   await firestoreService.addDocument(

@@ -5,15 +5,23 @@ import { firestoreService } from "@main/lib/firestore";
 
 interface User {
   id: string;
-  name: string;
-  displayName: string;
-  email: string;
-  image: string;
+  name: string | null;
+  displayName: string | null;
+  email: string | null;
+  image: string | null;
   provider: string;
   providerAccountId: string;
   lastSignIn: Date;
   isPublic: boolean;
   bio: string;
+  badges: string[];
+  createdAt: Date;
+  progress: {
+    [key: string]: {
+      completed: boolean;
+      progress: number;
+    };
+  };
 }
 
 async function getUserData(): Promise<User | null> {
@@ -38,6 +46,9 @@ async function getUserData(): Promise<User | null> {
       lastSignIn: userDoc.lastSignIn.toDate(),
       isPublic: userDoc.isPublic ?? false,
       bio: userDoc.bio,
+      badges: userDoc.badges ?? [],
+      progress: userDoc.progress ?? {},
+      createdAt: userDoc.createdAt.toDate(),
     };
   } catch (error) {
     console.error("Error fetching user data from Firestore:", error);

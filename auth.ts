@@ -8,6 +8,7 @@ import {
   firestoreAdapter,
   firestoreAuth,
 } from "@main/lib/firestore";
+import { User as CustomUser } from "@components/user";
 
 const providers = {
   github: "github",
@@ -114,7 +115,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         );
 
         if (existingUser.length === 0 && account.provider !== "credentials") {
-          const customUserData = {
+          const customUserData: CustomUser = {
             id: userId,
             name: null,
             displayName: null,
@@ -125,6 +126,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             lastSignIn: new Date(),
             bio: "",
             isPublic: false,
+            badges: ["Member"],
+            progress: {},
+            createdAt: new Date(),
           };
           await updateUserData(userId, customUserData);
         } else {

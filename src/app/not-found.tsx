@@ -22,7 +22,7 @@ export default function NotFound() {
           </p>
           <nav className="space-y-3 sm:space-y-5">
             <div className="flex justify-center">
-              <Suspense fallback={<div>{t("loading")}</div>}>
+              <Suspense fallback={<div>Loading...</div>}>
                 <Link
                   href="/"
                   className="inline-flex items-center bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-full transition duration-300 text-xs sm:text-sm"

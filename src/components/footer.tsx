@@ -1,33 +1,11 @@
 "use client";
 
-import { FaShieldAlt, FaBook } from "react-icons/fa";
-import { PiScrollFill } from "react-icons/pi";
-import { useState, useEffect } from "react";
+import { FaShieldAlt, FaBook, FaChartBar } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 import Social from "@data/social.json";
 
 const Footer = () => {
-  const [latestCommitUrl, setLatestCommitUrl] = useState<string>(
-    "https://github.com/Stawa/TriWikiTech/commits/main"
-  );
   const t = useTranslations("Footer");
-
-  useEffect(() => {
-    const fetchLatestCommit = async () => {
-      try {
-        const response = await fetch("/api/github");
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const { latestCommitUrl } = await response.json();
-        setLatestCommitUrl(latestCommitUrl);
-      } catch (error) {
-        console.error("Failed to fetch latest commit:", error);
-      }
-    };
-
-    fetchLatestCommit();
-  }, []);
 
   const FooterSection = ({ children }: { children: React.ReactNode }) => (
     <div className="flex justify-between items-center">{children}</div>
@@ -64,18 +42,15 @@ const Footer = () => {
   const FooterLink = ({
     href,
     icon: Icon,
-    target,
     children,
   }: {
     href: string;
     icon: React.ElementType;
     children: React.ReactNode;
-    target: "_blank" | "_self";
   }) => (
     <a
       href={href}
       className="text-sm text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-300 flex items-center justify-center md:justify-start"
-      target={target}
     >
       <Icon className="mr-2" aria-hidden="true" />
       {children}
@@ -145,22 +120,18 @@ const Footer = () => {
             <h3 className="sr-only">Footer Links</h3>
             <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 text-center">
               <li>
-                <FooterLink href="/tos" target="_self" icon={FaBook}>
+                <FooterLink href="/tos" icon={FaBook}>
                   {t("TermsOfService")}
                 </FooterLink>
               </li>
               <li>
-                <FooterLink href="/privacy" target="_self" icon={FaShieldAlt}>
+                <FooterLink href="/privacy" icon={FaShieldAlt}>
                   {t("PrivacyPolicy")}
                 </FooterLink>
               </li>
               <li>
-                <FooterLink
-                  href={latestCommitUrl}
-                  icon={PiScrollFill}
-                  target="_blank"
-                >
-                  {t("Changelog")}
+                <FooterLink href="/status" icon={FaChartBar}>
+                  {t("Status")}
                 </FooterLink>
               </li>
             </ul>

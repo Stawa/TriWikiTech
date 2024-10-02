@@ -30,6 +30,9 @@ export async function getUserByUsername(
       lastSignIn: userDoc.lastSignIn.toDate(),
       isPublic: userDoc.isPublic ?? false,
       bio: userDoc.bio,
+      badges: userDoc.badges ?? [],
+      createdAt: userDoc.createdAt.toDate(),
+      progress: userDoc.progress ?? {},
     };
   } catch (error) {
     console.error("Error fetching user data from Firestore:", error);
