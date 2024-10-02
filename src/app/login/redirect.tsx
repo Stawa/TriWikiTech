@@ -16,7 +16,10 @@ async function signInWithProvider({
   formData,
 }: SignInWithProviderProps) {
   const signInOptions = provider === "credentials" ? { ...formData } : {};
-  return await signIn(provider, { ...signInOptions, redirectTo: `/complete-profile` });
+  return await signIn(provider, {
+    ...signInOptions,
+    redirectTo: `/complete-profile`,
+  });
 }
 
 async function userSignOut() {

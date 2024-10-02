@@ -38,6 +38,7 @@ Current issues:
   - [ ] Rework Register page
   - [ ] Rework Reset page
   - [ ] Rework Profile page
+  - [ ] Rework Complete Profile page
 
 Ideas:
 

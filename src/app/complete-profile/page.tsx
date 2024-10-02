@@ -49,7 +49,10 @@ const CompleteProfile = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "displayName" && value.length > 16) return;
-    setProfile((prev) => ({ ...prev, [name]: name === "name" ? value.toLowerCase() : value }));
+    setProfile((prev) => ({
+      ...prev,
+      [name]: name === "name" ? value.toLowerCase() : value,
+    }));
   };
 
   const validateField = async (field: string, value: string) => {
