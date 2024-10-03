@@ -28,7 +28,7 @@ interface Badge {
 }
 
 const ModifyBadges: { [key: string]: Badge } = {
-  Admin: {
+  Developer: {
     name: "Developer",
     color: "bg-red-600",
     icon: <FaShieldAlt />,
