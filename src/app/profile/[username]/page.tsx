@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import { User, getUserData } from "@components/user";
 import { FiEdit, FiMail, FiSettings } from "react-icons/fi";
-import { FaUserCircle, FaLock, FaUserShield, FaFlask } from "react-icons/fa";
+import { FaUserCircle, FaLock, FaShieldAlt, FaFlask } from "react-icons/fa";
 import { IoMdPerson } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { getUserByUsername } from "./handle";
@@ -22,16 +22,16 @@ interface ProfileInfoProps {
 }
 
 interface Badge {
-  name: "Admin" | "Member" | "Beta Tester";
+  name: "Developer" | "Member" | "Beta Tester";
   color: string;
   icon: React.ReactNode;
 }
 
 const ModifyBadges: { [key: string]: Badge } = {
   Admin: {
-    name: "Admin",
+    name: "Developer",
     color: "bg-red-600",
-    icon: <FaUserShield />,
+    icon: <FaShieldAlt />,
   },
   Member: {
     name: "Member",
