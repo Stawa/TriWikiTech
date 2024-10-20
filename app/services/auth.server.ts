@@ -48,6 +48,7 @@ function createUserProfile(
     lastSignIn: new Date(),
     badges: [],
     progress: {},
+    displayedBadges: [],
   };
 }
 
