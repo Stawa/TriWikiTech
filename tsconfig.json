@@ -8,9 +8,6 @@
     "**/.client/**/*.tsx"
   ],
   "compilerOptions": {
-<<<<<<< Updated upstream
-    "lib": ["dom", "dom.iterable", "esnext"],
-=======
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": ["@remix-run/node", "vite/client"],
     "isolatedModules": true,
@@ -21,27 +18,15 @@
     "resolveJsonModule": true,
     "target": "ES2022",
     "strict": true,
->>>>>>> Stashed changes
     "allowJs": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-<<<<<<< Updated upstream
-      "@default/*": ["./src/*"],
-      "@components/*": ["./src/components/*"],
-      "@data/*": ["./data/*"],
-      "@main/*": ["./*"]
-    }
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
-=======
       "~/*": ["./app/*"]
     },
 
     // Vite takes care of building everything, not tsc.
     "noEmit": true
   }
->>>>>>> Stashed changes
 }

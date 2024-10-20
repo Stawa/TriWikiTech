@@ -6,29 +6,10 @@
 
 TriWikiTech is a website currently in development. Visit the live version at [TriWikiTech](https://triwikitech.my.id). For any issues, please open a GitHub issue.
 
-<<<<<<< Updated upstream
-You can visit the unreleased website at [TriWikiTech](https://beta.triwikitech.com).
-=======
 ## 📋 Project Status
->>>>>>> Stashed changes
 
 ### 🐛 Known Issues
 
-<<<<<<< Updated upstream
-| Feature             | Status                    | Description                | Status |
-| ------------------- | ------------------------- | -------------------------- | ------ |
-| Homepage            | Completed                 | Main landing page          | ✅     |
-| JavaScript Course   | Completed + Future Update | Interactive JS lessons     | 🔄     |
-| Python Course       | Planned                   | Python programming course  | ❌     |
-| C Course            | Completed + Future Update | C language fundamentals    | 🔄     |
-| C++ Course          | Planned                   | C++ and OOP course         | ❌     |
-| User Authentication | Planned                   | Sign-up and login          | ❌     |
-| Switch Language     | In Progress               | Switch between languages   | 🚧     |
-| Progress Tracking   | Planned                   | Course completion tracking | ❌     |
-| Code Compiler       | Planned                   | In-browser code execution  | ❌     |
-
-Legend:
-=======
 - ✅ Login rewrite over existing data (Resolved)
 - ❌ Register page missing data
 - ✅ Navbar issues with Root (Resolved)
@@ -74,7 +55,6 @@ Legend:
   - [x] Dark Mode
 
 #### Privacy and Compliance
->>>>>>> Stashed changes
 
 - [ ] Develop and implement a cookie consent mechanism
 - [ ] Create a privacy policy page
