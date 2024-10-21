@@ -1,0 +1,11 @@
+name = "triwikitech_rewrite"
+
+compatibility_date = "2024-10-21"
+main = "./build/server/index.js"
+workers_dev=true
+
+[site]
+bucket = "./build/client"
+
+[build]
+command = "npm run build"
