@@ -61,7 +61,7 @@ function ErrorPage({ statusCode, message }: ErrorPageProps) {
           <motion.h1 className="text-3xl font-bold text-indigo-400 mb-2">
             Oops!
           </motion.h1>
-          <motion.p className="text-lg">We've hit a learning curve</motion.p>
+          <motion.p className="text-lg">{"We've hit a learning curve"}</motion.p>
         </motion.div>
         <motion.div
           variants={itemVariants}

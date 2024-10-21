@@ -40,7 +40,7 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isDarkMode, toggleTheme } = useTheme();
   const isUserEmpty = !user || Object.keys(user).length === 0;
-  const navigationItems = useMemo(() => getNavigationItems(), [translations]);
+  const navigationItems = useMemo(() => getNavigationItems(), []);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 

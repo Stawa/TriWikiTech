@@ -10,7 +10,19 @@ import { FaXTwitter } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { Link } from "@remix-run/react";
 
-function Footer({ translations }: { translations: any }) {
+interface FooterProps {
+  translations: {
+    learnCodeGrow: string;
+    allRightsReserved: string;
+    designedBy: string;
+    footerLinks: {
+      termsOfService: string;
+      privacyPolicy: string;
+    };
+  };
+}
+
+function Footer({ translations }: FooterProps) {
   return (
     <footer className="bg-gray-100 dark:bg-gray-900 border-t-2 border-indigo-500 text-gray-800 dark:text-gray-200 font-sans">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-24 3xl:px-32 py-8 sm:py-12 lg:py-16">

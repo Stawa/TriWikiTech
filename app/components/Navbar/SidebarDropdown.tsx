@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
+import { Transition } from "@headlessui/react";
 
 interface SidebarDropdownProps {
   icon: React.ReactElement;
@@ -24,20 +25,32 @@ function SidebarDropdown({
   );
 
   return (
-    <div className="relative mb-2">
+    <div className="mb-2">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full text-left px-4 py-3 text-base text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-700 hover:text-indigo-900 dark:hover:text-white rounded-md transition duration-150 ease-in-out flex items-center bg-white dark:bg-gray-800"
+        className={`w-full text-left px-4 py-3 text-base text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-700 hover:text-indigo-900 dark:hover:text-white transition duration-150 ease-in-out flex items-center bg-indigo-200 dark:bg-gray-800 ${
+          isOpen 
+            ? 'rounded-t-md border-t border-x border-indigo-300 dark:border-indigo-500' 
+            : 'rounded-md border border-transparent'
+        }`}
       >
         {React.cloneElement(icon, {
           className: "mr-4 text-xl",
         })}
         {label}
-        <FaChevronDown className="ml-auto" />
+        <FaChevronDown className={`ml-auto transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
-      {isOpen && (
-        <div className="mt-1 w-full bg-white dark:bg-gray-800 border border-indigo-300 dark:border-indigo-500 rounded-md shadow-lg">
-          {options.map((option) => (
+      <Transition
+        show={isOpen}
+        enter="transition ease-out duration-200"
+        enterFrom="opacity-0 max-h-0"
+        enterTo="opacity-100 max-h-[500px]"
+        leave="transition ease-in duration-150"
+        leaveFrom="opacity-100 max-h-[500px]"
+        leaveTo="opacity-0 max-h-0"
+      >
+        <div className="bg-white dark:bg-gray-800 border-x border-b border-indigo-300 dark:border-indigo-500 rounded-b-md shadow-lg overflow-hidden">
+          {options.map((option, index) => (
             <button
               key={option.value}
               onClick={() => {
@@ -57,7 +70,7 @@ function SidebarDropdown({
                 option.value === currentValue
                   ? "opacity-50 cursor-not-allowed"
                   : ""
-              }`}
+              } ${index === options.length - 1 ? 'rounded-b-md' : ''}`}
               disabled={
                 option.value === currentLanguage ||
                 option.value === currentValue
@@ -70,7 +83,7 @@ function SidebarDropdown({
             </button>
           ))}
         </div>
-      )}
+      </Transition>
     </div>
   );
 }

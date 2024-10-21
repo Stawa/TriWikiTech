@@ -64,7 +64,7 @@ interface FirestoreService {
     collection: string,
     field: string,
     operator: WhereFilterOp,
-    value: any
+    value: unknown
   ) => Promise<DocumentData[]>;
 }
 

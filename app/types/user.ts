@@ -10,7 +10,7 @@ interface UserProfile {
   createdAt: Date;
   lastSignIn: Date;
   badges: string[];
-  progress: Record<string, any>;
+  progress: object;
   displayedBadges: string[];
 }
 

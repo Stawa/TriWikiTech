@@ -9,7 +9,16 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-function StackedAreaChart({ data }: { data: any[] }) {
+interface StackedAreaChartProps {
+  data: {
+    name: string;
+    courses: number;
+    projects: number;
+    challenges: number;
+  }[];
+}
+
+function StackedAreaChart({ data }: StackedAreaChartProps) {
   const chartColors = {
     courses: "#4CAF50", // Green
     projects: "#2196F3", // Blue

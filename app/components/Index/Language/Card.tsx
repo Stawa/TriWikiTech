@@ -10,7 +10,7 @@ interface LanguageCardProps {
   courseLink: string;
   compilerLink: string;
   color: string;
-  translations: any;
+  translations: Record<string, string>;
 }
 
 function LanguageCard({

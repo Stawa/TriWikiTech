@@ -1,4 +1,4 @@
-import { createCookieSessionStorage } from "@remix-run/node";
+import { createCookieSessionStorage, Session } from "@remix-run/node";
 
 const sessionStorage = createCookieSessionStorage({
   cookie: {
@@ -25,11 +25,11 @@ async function createSession(userId: string) {
   return session;
 }
 
-async function commitSession(session: any) {
+async function commitSession(session: Session) {
   return sessionStorage.commitSession(session);
 }
 
-async function destroySession(session: any) {
+async function destroySession(session: Session) {
   return sessionStorage.destroySession(session);
 }
 

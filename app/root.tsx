@@ -68,6 +68,16 @@ interface DocumentProps {
   translations?: Record<string, Record<string, string>>;
 }
 
+interface FooterTranslations {
+  learnCodeGrow: string;
+  allRightsReserved: string;
+  designedBy: string;
+  footerLinks: {
+    termsOfService: string;
+    privacyPolicy: string;
+  };
+}
+
 function Document({
   children,
   showNavAndFooter = true,
@@ -98,7 +108,11 @@ function Document({
         {children}
         {showNavAndFooter && (
           <Suspense fallback={<div>Loading...</div>}>
-            <Footer translations={translations.footer} />
+            <Footer
+              translations={
+                translations.footer as unknown as FooterTranslations
+              }
+            />
           </Suspense>
         )}
         <ScrollRestoration />
@@ -110,13 +124,13 @@ function Document({
 
 export default function App() {
   const loaderData = useLoaderData<{
-    user: Record<string, any> | undefined;
+    user: Record<string, unknown> | undefined;
     translations: Record<string, Record<string, string>>;
     locale: string;
   }>();
   const convertedUser =
     loaderData?.user?.user && Object.keys(loaderData.user.user).length > 0
-      ? convertToUserProfile(loaderData.user.user)
+      ? convertToUserProfile(loaderData.user.user as Record<string, unknown>)
       : null;
 
   useChangeLanguage(loaderData.locale);

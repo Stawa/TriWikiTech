@@ -236,7 +236,7 @@ export default function Login() {
               Register
             </a>
             <a
-              href="#"
+              href="/reset"
               className="text-xs sm:text-sm text-green-500 hover:text-green-600 hover:underline transition duration-300 font-medium p-2"
             >
               Reset Password

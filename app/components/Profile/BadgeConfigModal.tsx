@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { UserProfile } from "~/types/user";
 import {
   Dialog,
@@ -7,7 +7,6 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 
 function BadgeConfigModal({

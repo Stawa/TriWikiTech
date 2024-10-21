@@ -65,7 +65,7 @@ async function handleBotRequest(
     const { pipe, abort } = renderToPipeableStream(
       <I18nextProvider i18n={i18next}>
         <RemixServer
-          context={remixContext as any}
+          context={remixContext}
           url={request.url}
           abortDelay={ABORT_DELAY}
         />
@@ -119,7 +119,7 @@ async function handleBrowserRequest(
     const { pipe, abort } = renderToPipeableStream(
       <I18nextProvider i18n={i18next}>
         <RemixServer
-          context={remixContext as any}
+          context={remixContext}
           url={request.url}
           abortDelay={ABORT_DELAY}
         />

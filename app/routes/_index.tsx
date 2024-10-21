@@ -123,7 +123,10 @@ export default function Index() {
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               <Suspense fallback={<div>Loading features...</div>}>
-                <FeatureMain Index={Index} getFeatures={getFeatures} />
+                <FeatureMain
+                  Index={Index}
+                  getFeatures={() => getFeatures({ translations: Index })}
+                />
               </Suspense>
             </motion.div>
           </motion.section>
@@ -160,7 +163,17 @@ export default function Index() {
   );
 }
 
-function getLanguages({ translations }: { translations: any }) {
+interface LanguageCardProps {
+  translations: {
+    languages: {
+      [key: string]: {
+        description: string;
+      };
+    };
+  };
+}
+
+function getLanguages({ translations }: LanguageCardProps) {
   return [
     {
       name: "JavaScript",
@@ -213,7 +226,18 @@ function getLanguages({ translations }: { translations: any }) {
   ];
 }
 
-function getFeatures({ translations }: { translations: any }) {
+interface FeatureProps {
+  translations: {
+    features: {
+      [key: string]: {
+        title: string;
+        description: string;
+      };
+    };
+  };
+}
+
+function getFeatures({ translations }: FeatureProps) {
   return [
     {
       icon: <MdLightbulb />,

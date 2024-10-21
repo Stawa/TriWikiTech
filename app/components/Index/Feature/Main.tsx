@@ -1,11 +1,18 @@
 import { motion } from "framer-motion";
 import FeatureItem from "./Items";
 
+interface Feature {
+  icon: React.ReactNode;
+  title: string;
+  color: string;
+  description: string;
+}
+
 interface FeatureMainProps {
   Index: {
-    whyTriWikiTechStandsOut: string;
+    [key: string]: string;
   };
-  getFeatures: (args: { translations: any }) => any[];
+  getFeatures: (args: { translations: Record<string, string> }) => Feature[];
 }
 
 function FeatureMain({ Index, getFeatures }: FeatureMainProps) {
