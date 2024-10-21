@@ -1,16 +1,11 @@
-import {
-  vitePlugin as remix,
-  cloudflareDevProxyVitePlugin as remixCloudflareDevProxy,
-} from "@remix-run/dev";
+import { vitePlugin as remix } from "@remix-run/dev";
+import { installGlobals } from "@remix-run/node";
+import { vercelPreset } from "@vercel/remix/vite";
 import { defineConfig, loadEnv } from "vite";
 import { envOnlyMacros } from "vite-env-only";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-declare module "@remix-run/cloudflare" {
-  interface Future {
-    v3_singleFetch: true;
-  }
-}
+installGlobals();
 
 export default defineConfig(({ mode }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
@@ -19,7 +14,6 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [
-      remixCloudflareDevProxy(),
       envOnlyMacros(),
       remix({
         future: {
@@ -29,17 +23,10 @@ export default defineConfig(({ mode }) => {
           v3_singleFetch: true,
           v3_lazyRouteDiscovery: true,
         },
+        presets: [vercelPreset()],
       }),
       tsconfigPaths(),
     ],
-    ssr: {
-      resolve: {
-        conditions: ["workerd", "worker", "browser"],
-      },
-    },
-    resolve: {
-      mainFields: ["browser", "module", "main"],
-    },
     build: {
       outDir: "build",
       chunkSizeWarningLimit: 1000,
