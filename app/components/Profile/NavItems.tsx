@@ -22,9 +22,7 @@ function NavItem({
         onClick={(e) => {
           e.preventDefault();
           onClick();
-          navigate(href, {
-            replace: true,
-          });
+          navigate(href, { replace: true });
         }}
         className={`
             flex items-center justify-center w-full
@@ -32,7 +30,7 @@ function NavItem({
             ${
               isActive
                 ? "bg-indigo-600 text-white shadow-lg transform scale-105"
-                : "text-indigo-300 hover:bg-indigo-700 hover:bg-opacity-20 hover:text-indigo-200"
+                : "text-indigo-700 hover:bg-indigo-100 hover:text-indigo-800 dark:text-indigo-300 dark:hover:bg-indigo-700 dark:hover:bg-opacity-20 dark:hover:text-indigo-200"
             }
           `}
       >

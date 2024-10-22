@@ -17,7 +17,7 @@ interface StackedAreaChartProps {
     challenges: number;
   }[];
 }
-
+  
 function StackedAreaChart({ data }: StackedAreaChartProps) {
   const chartColors = {
     courses: "#4CAF50", // Green
@@ -26,27 +26,27 @@ function StackedAreaChart({ data }: StackedAreaChartProps) {
   };
 
   return (
-    <div className="bg-gray-900 p-4 rounded-lg">
+    <div className="bg-white dark:bg-gray-900 p-4 rounded-lg">
       <ResponsiveContainer width="100%" height={300}>
         <AreaChart
           data={data}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
-          <CartesianGrid strokeDasharray="3 3" stroke="#444" />
-          <XAxis dataKey="name" stroke="#fff" />
-          <YAxis stroke="#fff" />
+          <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
+          <XAxis dataKey="name" stroke="#333" />
+          <YAxis stroke="#333" />
           <Tooltip
             contentStyle={{
-              backgroundColor: "#333",
-              border: "1px solid #555",
+              backgroundColor: "#fff",
+              border: "1px solid #ccc",
               borderRadius: "4px",
-              color: "#fff",
+              color: "#333",
             }}
           />
           <Legend
             wrapperStyle={{
               paddingTop: "10px",
-              color: "#fff",
+              color: "#333",
             }}
           />
           <Area

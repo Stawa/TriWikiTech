@@ -1,6 +1,7 @@
 import { Link } from "@remix-run/react";
-import { FaArrowLeft, FaHammer } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { HiMiniWrenchScrewdriver } from "react-icons/hi2";
 
 interface ComingSoonProps {
   title: string;
@@ -37,7 +38,7 @@ export default function ComingSoon({
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 text-indigo-100 font-sans">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-indigo-100 font-sans">
       <motion.div
         className="text-center max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-24 3xl:px-32 py-8 sm:py-16 lg:py-24"
         variants={containerVariants}
@@ -46,16 +47,16 @@ export default function ComingSoon({
       >
         <motion.div className="space-y-6" variants={containerVariants}>
           <motion.div variants={itemVariants}>
-            <FaHammer className="text-5xl sm:text-6xl md:text-8xl mx-auto text-indigo-400" />
+            <HiMiniWrenchScrewdriver className="text-5xl sm:text-6xl md:text-8xl mx-auto text-indigo-600 dark:text-indigo-400" />
           </motion.div>
           <motion.h1
-            className="text-2xl sm:text-3xl md:text-5xl font-extrabold mb-4 sm:mb-6 text-indigo-300"
+            className="text-2xl sm:text-3xl md:text-5xl font-extrabold mb-4 sm:mb-6 text-indigo-700 dark:text-indigo-300"
             variants={itemVariants}
           >
             {title}
           </motion.h1>
           <motion.p
-            className="text-base sm:text-lg md:text-xl mb-6 sm:mb-10 text-indigo-200"
+            className="text-base sm:text-lg md:text-xl mb-6 sm:mb-10 text-gray-600 dark:text-indigo-200"
             variants={itemVariants}
           >
             {description}
