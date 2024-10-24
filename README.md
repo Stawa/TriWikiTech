@@ -25,10 +25,10 @@ TriWikiTech is a website currently in development. Visit the live version at [Tr
 #### Localization
 
 - [ ] Implement translations for:
-  - [ ] Main Page
+  - [x] Main Page
   - [ ] Profile Page
-  - [ ] Login Page
-  - [ ] Register Page
+  - [x] Login Page
+  - [x] Register Page
   - [ ] Settings Page
 
 #### Courses

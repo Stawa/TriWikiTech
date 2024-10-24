@@ -32,13 +32,14 @@ const sessionStorage = createCookieSessionStorage({
 
 function createUserProfile(
   userCredential: UserCredential,
-  providerName: string
+  providerName: string,
+  displayName?: string
 ): UserProfile {
   const userId = `${providerName}:${userCredential.user.uid}`;
   return {
     id: userId,
     name: userCredential.user.displayName || "",
-    displayName: userCredential.user.displayName || "",
+    displayName: displayName || userCredential.user.displayName || "",
     email: userCredential.user.email || "",
     image: userCredential.user.photoURL || "",
     bio: "",
@@ -58,9 +59,9 @@ async function handleAuthentication(
 ): Promise<string> {
   const userCredential = await authMethod();
   const userId = `${providerName}:${userCredential.user.uid}`;
-  
+
   const existingUser = await firestoreService.getDocument("users", userId);
-  
+
   if (!existingUser) {
     const userProfile = createUserProfile(userCredential, providerName);
     await firestoreService.setDocument("users", userId, userProfile);
@@ -75,14 +76,22 @@ async function handleAuthentication(
   return sessionStorage.commitSession(session);
 }
 
-async function register(email: string, password: string): Promise<string> {
+async function register(
+  email: string,
+  password: string,
+  displayName: string
+): Promise<string> {
   const userCredential = await createUserWithEmailAndPassword(
     auth,
     email,
     password
   );
   const token = await userCredential.user.getIdToken();
-  const userProfile = createUserProfile(userCredential, "credentials");
+  const userProfile = createUserProfile(
+    userCredential,
+    displayName,
+    "credentials"
+  );
 
   await firestoreService.setDocument("users", userProfile.id, userProfile);
 

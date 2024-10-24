@@ -84,12 +84,12 @@ function Sidebar({
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "tween", duration: 0.3 }}
-            className={`fixed inset-y-0 right-0 ${isDarkMode ? 'bg-gray-900 text-blue-300' : 'bg-white text-gray-800'} shadow-lg z-50 flex flex-col overflow-y-auto w-full md:w-80 md:pointer-events-auto md:border-l ${isDarkMode ? 'md:border-blue-500' : 'md:border-gray-300'}`}
+            className="fixed inset-y-0 right-0 bg-white dark:bg-gray-900 text-gray-800 dark:text-blue-300 shadow-lg z-50 flex flex-col overflow-y-auto w-full md:w-80 md:pointer-events-auto md:border-l md:border-gray-300 dark:md:border-blue-500"
           >
             <div className="px-6 pt-6 flex-shrink-0 mb-6">
               <button
                 onClick={toggleSidebar}
-                className={`absolute top-4 right-4 ${isDarkMode ? 'text-blue-300 hover:text-blue-200' : 'text-gray-600 hover:text-gray-800'} transition-colors duration-200`}
+                className="absolute top-4 right-4 text-red-600 hover:text-red-800 transition-colors duration-200"
                 aria-label="Close Sidebar"
               >
                 <FaTimes className="h-6 w-6" />
@@ -98,7 +98,10 @@ function Sidebar({
                 {user ? (
                   <UserSidebarContent user={user} />
                 ) : (
-                  <LoginPrompt translations={translations} />
+                  <LoginPrompt
+                    translations={translations}
+                    onNavigate={handleNavigate}
+                  />
                 )}
               </Suspense>
             </div>
@@ -124,7 +127,7 @@ function Sidebar({
               <SidebarSection title={translations.Settings}>
                 <button
                   onClick={toggleTheme}
-                  className={`w-full text-left px-4 py-3 text-base ${isDarkMode ? 'text-blue-300 hover:bg-blue-600 hover:text-white' : 'text-gray-700 hover:bg-gray-200 hover:text-gray-900'} rounded-md transition duration-150 ease-in-out flex items-center mb-2`}
+                  className="w-full text-left px-4 py-3 text-base dark:text-blue-300 dark:hover:bg-blue-600 dark:hover:text-white text-gray-700 hover:bg-gray-200 hover:text-gray-900 rounded-md transition duration-150 ease-in-out flex items-center mb-2"
                   aria-label={
                     isDarkMode
                       ? translations.SwitchToLightMode
@@ -173,11 +176,11 @@ function Sidebar({
               </SidebarSection>
             </div>
             {user && (
-              <div className={`px-6 py-4 mt-auto border-t ${isDarkMode ? 'border-blue-500' : 'border-gray-300'}`}>
+              <div className="px-6 py-4 mt-auto border-t border-gray-300 dark:border-blue-500">
                 <Form method="get" action="/logout" onSubmit={handleLogout}>
                   <button
                     type="submit"
-                    className={`w-full text-left px-4 py-3 text-base ${isDarkMode ? 'text-blue-300 hover:bg-blue-600 hover:text-white' : 'text-gray-700 hover:bg-gray-200 hover:text-gray-900'} rounded-md transition duration-150 ease-in-out flex items-center`}
+                    className="w-full text-left px-4 py-3 text-base text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-blue-300 dark:hover:bg-blue-600 dark:hover:text-white rounded-md transition duration-150 ease-in-out flex items-center"
                     aria-label={translations.Logout}
                   >
                     <FaSignOutAlt className="mr-4 text-xl" />

@@ -5,6 +5,9 @@ export default {
   content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      aspectRatio: {
+        "4/3": "9 / 16",
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
@@ -23,5 +26,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/aspect-ratio")],
 } satisfies Config;
