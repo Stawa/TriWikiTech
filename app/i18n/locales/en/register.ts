@@ -41,5 +41,11 @@ export default {
     emailAlreadyExists: "The following email already exists",
     defaultError: "An error occurred during registration",
     externalLoginNotImplemented: "External login not implemented yet.",
+    emailAlreadyInUse: "The following email already exists",
+    defaultErrorDuringRegistration: "An error occurred during registration",
+    usernameRequirements:
+      "Username must be 3-16 characters long and contain only lowercase letters, numbers, and underscores.",
+    displayNameRequirements:
+      "Display name must be 3-24 characters long and contain only letters, numbers, and spaces.",
   },
 };

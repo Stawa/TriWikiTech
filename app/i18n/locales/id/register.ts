@@ -41,5 +41,11 @@ export default {
     emailAlreadyExists: "Email berikut sudah terdaftar",
     defaultError: "Terjadi kesalahan saat pendaftaran",
     externalLoginNotImplemented: "Login eksternal belum diimplementasikan.",
+    emailAlreadyInUse: "Email berikut sudah terdaftar",
+    defaultErrorDuringRegistration: "Terjadi kesalahan saat pendaftaran",
+    usernameRequirements:
+      "Username harus terdiri dari 3-16 karakter dan hanya boleh mengandung huruf kecil, angka, dan garis bawah.",
+    displayNameRequirements:
+      "Nama tampilan harus terdiri dari 3-24 karakter dan hanya boleh mengandung huruf, angka, dan spasi.",
   },
 };

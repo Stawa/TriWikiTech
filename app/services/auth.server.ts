@@ -33,13 +33,14 @@ const sessionStorage = createCookieSessionStorage({
 function createUserProfile(
   userCredential: UserCredential,
   providerName: string,
+  username?: string,
   displayName?: string
 ): UserProfile {
   const userId = `${providerName}:${userCredential.user.uid}`;
   return {
     id: userId,
-    name: userCredential.user.displayName || "",
-    displayName: displayName || userCredential.user.displayName || "",
+    name: username || "",
+    displayName: displayName || "",
     email: userCredential.user.email || "",
     image: userCredential.user.photoURL || "",
     bio: "",
@@ -79,6 +80,7 @@ async function handleAuthentication(
 async function register(
   email: string,
   password: string,
+  username: string,
   displayName: string
 ): Promise<string> {
   const userCredential = await createUserWithEmailAndPassword(
@@ -89,8 +91,9 @@ async function register(
   const token = await userCredential.user.getIdToken();
   const userProfile = createUserProfile(
     userCredential,
-    displayName,
-    "credentials"
+    "credentials",
+    username,
+    displayName
   );
 
   await firestoreService.setDocument("users", userProfile.id, userProfile);
