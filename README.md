@@ -11,7 +11,7 @@ TriWikiTech is a website currently in development. Visit the live version at [Tr
 ### 🐛 Known Issues
 
 - ✅ Login rewrite over existing data (Resolved)
-- ❌ Register page missing data
+- ✅ Register page missing data
 - ✅ Navbar issues with Root (Resolved)
 
 ### 🚀 Upcoming Features

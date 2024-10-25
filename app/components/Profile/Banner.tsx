@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { FaUserCircle, FaEnvelope, FaEdit, FaMedal } from "react-icons/fa";
+import {
+  FaUserCircle,
+  FaEnvelope,
+  FaEdit,
+  FaMedal,
+  FaUser,
+} from "react-icons/fa";
 import { UserProfile } from "~/types/user";
 import BadgeConfigModal from "./BadgeConfigModal";
 
@@ -51,18 +57,32 @@ function ProfileHeader({
   return (
     <div className="flex flex-col items-center mb-4 lg:mb-6">
       <div className="w-24 h-24 lg:w-32 lg:h-32 relative mb-2 lg:mb-4">
-        <img
-          alt={user.displayName}
-          src={user.image || "https://via.placeholder.com/128"}
-          className="rounded-full object-cover border-4 border-indigo-400 shadow-xl"
-          style={{
-            position: "absolute",
-            height: "100%",
-            width: "100%",
-            inset: 0,
-            color: "transparent",
-          }}
-        />
+        {user.image ? (
+          <img
+            alt={user.displayName}
+            src={user.image}
+            className="rounded-full object-cover border-4 border-indigo-400 shadow-xl"
+            style={{
+              position: "absolute",
+              height: "100%",
+              width: "100%",
+              inset: 0,
+              color: "transparent",
+            }}
+          />
+        ) : (
+          <div
+            className="rounded-full border-4 border-indigo-400 shadow-xl bg-indigo-100 dark:bg-indigo-800 flex items-center justify-center"
+            style={{
+              position: "absolute",
+              height: "100%",
+              width: "100%",
+              inset: 0,
+            }}
+          >
+            <FaUser className="text-4xl text-indigo-500 dark:text-indigo-300" />
+          </div>
+        )}
       </div>
       <h2 className="text-2xl lg:text-3xl font-bold text-indigo-600 dark:text-indigo-300 mb-1 lg:mb-2">
         {user.displayName}
@@ -100,7 +120,8 @@ function ProfileContact({ email }: { email: string }) {
   return (
     <div className="border-t border-gray-300 dark:border-indigo-600 pt-3 lg:pt-4">
       <p className="text-gray-700 dark:text-indigo-300 text-sm lg:text-base flex items-center mb-3 lg:mb-4">
-        <FaEnvelope className="mr-2 text-indigo-500 dark:text-indigo-400" /> {email}
+        <FaEnvelope className="mr-2 text-indigo-500 dark:text-indigo-400" />{" "}
+        {email}
       </p>
     </div>
   );

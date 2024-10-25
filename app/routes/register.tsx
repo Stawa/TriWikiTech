@@ -8,7 +8,7 @@ import {
 } from "@remix-run/node";
 import { motion } from "framer-motion";
 
-import { register } from "~/services/auth.server";
+import { login, register } from "~/services/auth.server";
 import getTranslation from "~/utils/getTranslation.server";
 import BackgroundSVG from "~/components/Auth/Background";
 import AuthForm from "~/components/Auth/Form";
@@ -82,16 +82,23 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   try {
-    const sessionToken = await register(email, password, username, displayName);
+    const registerResponse = await register(
+      email,
+      password,
+      username,
+      displayName
+    );
 
-    if (!sessionToken) {
+    if (!registerResponse) {
       return json(
         { error: translations.errors.registrationFailed },
         { status: 401 }
       );
     }
 
-    return redirect("/", {
+    const sessionToken = await login(email, password);
+
+    return redirect(`/profile/${username}`, {
       headers: {
         "Set-Cookie": sessionToken,
       },
