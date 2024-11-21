@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { NavLink } from "@remix-run/react";
-import { FaChevronRight } from "react-icons/fa";
+import { FaChevronRight, FaMoon, FaSun, FaUser } from "react-icons/fa";
+import { startTransition } from "react";
 
 interface MobileMenuProps {
   isMenuOpen: boolean;
@@ -9,6 +9,7 @@ interface MobileMenuProps {
   toggleSidebar: () => void;
   isDarkMode: boolean;
   translations: Record<string, string>;
+  onNavigate: (to: string) => void;
 }
 
 function MobileMenu({
@@ -18,6 +19,7 @@ function MobileMenu({
   toggleSidebar,
   isDarkMode,
   translations,
+  onNavigate,
 }: MobileMenuProps) {
   return (
     <AnimatePresence>
@@ -26,35 +28,43 @@ function MobileMenu({
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.3 }}
-          className="mt-4 md:hidden"
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="mt-4 md:hidden rounded-lg overflow-hidden shadow-xl border border-indigo-500/20"
         >
-          {navigationItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className="block w-full text-left py-2 px-4 hover:bg-indigo-600 hover:text-white transition-colors duration-200 border-b border-indigo-300 bg-indigo-900 bg-opacity-20 flex items-center"
+          <div className="bg-gray-50 dark:bg-gray-800 divide-y divide-indigo-500/20">
+            {navigationItems.map((item) => (
+              <button
+                key={item.to}
+                onClick={() => onNavigate(item.to)}
+                className="block w-full text-left py-3 px-4 hover:bg-indigo-500 hover:text-white transition-all duration-200 text-gray-700 dark:text-gray-200 flex items-center"
+              >
+                <FaChevronRight className="mr-3 text-xs" />
+                <span className="font-medium">{translations[item.label]}</span>
+              </button>
+            ))}
+            <button
+              onClick={() => startTransition(toggleTheme)}
+              className="block w-full text-left py-3 px-4 hover:bg-indigo-500 hover:text-white transition-all duration-200 
+                text-gray-700 dark:text-gray-200 flex items-center group"
             >
-              <FaChevronRight className="mr-2 text-xs text-indigo-300" />
-              <span>{translations[item.label]}</span>
-            </NavLink>
-          ))}
-          <button
-            onClick={toggleTheme}
-            className="block w-full text-left py-2 px-4 hover:bg-indigo-600 hover:text-white transition-colors duration-200 border-b border-indigo-300 bg-indigo-900 bg-opacity-20"
-          >
-            <FaChevronRight className="mr-2 text-xs inline text-indigo-300" />
-            {isDarkMode
-              ? translations.LightMode
-              : translations.DarkMode}
-          </button>
-          <button
-            onClick={toggleSidebar}
-            className="block w-full text-left py-2 px-4 hover:bg-indigo-600 hover:text-white transition-colors duration-200 border-b border-indigo-300 bg-indigo-900 bg-opacity-20"
-          >
-            <FaChevronRight className="mr-2 text-xs inline text-indigo-300" />
-            {translations.UserMenu}
-          </button>
+              {isDarkMode ? (
+                <FaSun className="mr-3 text-amber-500 group-hover:text-white" />
+              ) : (
+                <FaMoon className="mr-3 text-indigo-500 group-hover:text-white" />
+              )}
+              <span className="font-medium">
+                {isDarkMode ? translations.LightMode : translations.DarkMode}
+              </span>
+            </button>
+            <button
+              onClick={() => startTransition(toggleSidebar)}
+              className="block w-full text-left py-3 px-4 hover:bg-indigo-500 hover:text-white transition-all duration-200 
+                text-gray-700 dark:text-gray-200 flex items-center group"
+            >
+              <FaUser className="mr-3 text-indigo-500 group-hover:text-white" />
+              <span className="font-medium">{translations.UserMenu}</span>
+            </button>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

@@ -1,44 +1,65 @@
 import { Link } from "@remix-run/react";
-import { FaSignInAlt, FaUser } from "react-icons/fa";
+import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
 
-function LoginPrompt({
-  translations,
-  onNavigate,
-}: {
+interface LoginPromptProps {
   translations: Record<string, string>;
   onNavigate: () => void;
-}) {
+}
+
+function LoginPrompt({ translations, onNavigate }: LoginPromptProps) {
   return (
-    <div className="flex flex-col items-center justify-center h-full bg-gradient-to-br from-blue-50 to-purple-50 dark:from-indigo-900 dark:via-purple-900 dark:to-fuchsia-900 p-3 sm:p-6 rounded-lg shadow-2xl transition-all duration-300">
-      <div className="flex justify-center mb-4">
-        <div className="bg-gradient-to-r from-indigo-400 to-purple-500 dark:from-pink-500 dark:to-indigo-600 rounded-full p-3 shadow-lg">
-          <FaUser className="text-2xl text-white" />
+    <div className="relative w-full max-w-md mx-auto p-4 pt-12 rounded-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-lg shadow-lg border border-indigo-100/50 dark:border-indigo-900/50">
+      <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/3">
+        <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 p-[2px] shadow-md hover:shadow-indigo-500/30 dark:hover:shadow-indigo-400/30 transition-all duration-300">
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full animate-spin-slow opacity-30"></div>
+          <div className="relative w-full h-full rounded-full bg-white dark:bg-gray-800 flex items-center justify-center">
+            <FaUserPlus className="text-2xl text-indigo-500 dark:text-indigo-400" />
+          </div>
         </div>
       </div>
-      <h2 className="text-xl sm:text-2xl text-center font-bold text-gray-800 dark:text-fuchsia-100 mb-2">
-        {translations.WelcomeBack}
-      </h2>
-      <p className="text-center mb-4 text-gray-600 dark:text-indigo-200 text-xs sm:text-sm max-w-xs">
-        {translations.PleaseLogIn}
-      </p>
-      <Link
-        to="/login"
-        onClick={onNavigate}
-        className="bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-fuchsia-600 dark:to-indigo-600 text-white px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-300 hover:from-indigo-700 hover:to-purple-700 dark:hover:from-fuchsia-700 dark:hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex items-center justify-center w-full max-w-xs shadow-lg hover:shadow-xl"
-      >
-        <FaSignInAlt className="mr-2" />
-        {translations.LogIn}
-      </Link>
-      <p className="mt-4 text-xs text-gray-500 dark:text-fuchsia-200">
-        {translations.NewUser}{" "}
-        <Link
-          to="/register"
-          onClick={onNavigate}
-          className="text-indigo-600 hover:text-purple-500 dark:text-pink-400 dark:hover:text-indigo-300 font-medium transition-colors duration-300"
-        >
-          {translations.SignUp}
-        </Link>
-      </p>
+
+      <div className="mt-14 text-center">
+        <h2 className="text-xl font-bold mb-2 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
+          {translations.WelcomeBack}
+        </h2>
+
+        <p className="text-sm text-gray-600 dark:text-gray-300 mb-6 max-w-sm mx-auto">
+          {translations.PleaseLogIn}
+        </p>
+
+        <div className="flex flex-col gap-3">
+          <Link
+            to="/login"
+            onClick={onNavigate}
+            className="group relative overflow-hidden w-full px-4 py-2.5 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2
+              bg-gradient-to-r from-indigo-500 to-purple-500 
+              hover:from-indigo-600 hover:to-purple-600
+              text-white shadow-md hover:shadow-lg
+              transform hover:-translate-y-0.5 active:translate-y-0"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+            <FaSignInAlt className="text-sm flex-shrink-0" />
+            <span className="whitespace-nowrap">{translations.LogIn}</span>
+          </Link>
+
+          <Link
+            to="/register"
+            onClick={onNavigate}
+            className="group relative overflow-hidden w-full px-4 py-2.5 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2
+              bg-gradient-to-r from-gray-50 to-gray-100 
+              dark:from-gray-800 dark:to-gray-700
+              text-gray-700 dark:text-gray-200 
+              border border-gray-200 dark:border-gray-600
+              hover:border-indigo-200 dark:hover:border-indigo-800
+              shadow hover:shadow-md
+              transform hover:-translate-y-0.5 active:translate-y-0"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/0 via-indigo-500/5 to-indigo-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+            <FaUserPlus className="text-sm flex-shrink-0" />
+            <span className="whitespace-nowrap">{translations.SignUp}</span>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

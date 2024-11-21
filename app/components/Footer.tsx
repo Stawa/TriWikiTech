@@ -24,18 +24,18 @@ interface FooterProps {
 
 function Footer({ translations }: FooterProps) {
   return (
-    <footer className="bg-gray-100 dark:bg-gray-900 border-t-2 border-indigo-500 text-gray-800 dark:text-gray-200 font-sans">
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-24 3xl:px-32 py-8 sm:py-12 lg:py-16">
-        <div className="flex flex-col sm:flex-row justify-between items-center space-y-6 sm:space-y-0">
-          <div className="text-center sm:text-left">
-            <h2 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+    <footer className="bg-gray-50 dark:bg-gray-900 border-t-2 border-indigo-500/30 text-gray-800 dark:text-gray-200 font-sans">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-24 3xl:px-32 py-12 sm:py-16 lg:py-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+          <div className="space-y-4">
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
               TriWikiTech
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 flex items-center justify-center sm:justify-start mt-2">
+            <p className="text-gray-700 dark:text-gray-300 flex items-center text-lg">
               {translations.learnCodeGrow}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 ml-1 text-indigo-600 dark:text-indigo-400"
+                className="h-5 w-5 ml-2 text-indigo-600 dark:text-indigo-400"
                 viewBox="0 0 20 20"
                 fill="currentColor"
                 aria-hidden="true"
@@ -48,31 +48,58 @@ function Footer({ translations }: FooterProps) {
               </svg>
             </p>
           </div>
-          <div className="flex justify-center sm:justify-end space-x-4">
-            <SocialLink
-              href="https://github.com/Stawa/TriWikiTech"
-              icon={<FaGithub />}
-              label="GitHub"
-            />
-            <SocialLink
-              href="https://x.com/StawaDev"
-              icon={<FaXTwitter />}
-              label="Twitter"
-            />
-            <SocialLink
-              href="mailto:stawa@admin.triwikitech.my.id"
-              icon={<FaEnvelope />}
-              label="Email"
-            />
+
+          <div className="space-y-4">
+            <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400">
+              Connect With Us
+            </h3>
+            <div className="flex space-x-6">
+              <SocialLink
+                href="https://github.com/Stawa/TriWikiTech"
+                icon={<FaGithub />}
+                label="GitHub"
+              />
+              <SocialLink
+                href="https://x.com/StawaDev"
+                icon={<FaXTwitter />}
+                label="Twitter"
+              />
+              <SocialLink
+                href="mailto:stawa@admin.triwikitech.my.id"
+                icon={<FaEnvelope />}
+                label="Email"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400">
+              Quick Links
+            </h3>
+            <nav aria-label="Footer links">
+              <ul className="space-y-3">
+                <FooterLink
+                  href="/tos"
+                  icon={<FaFileContract />}
+                  label={translations.footerLinks.termsOfService}
+                />
+                <FooterLink
+                  href="/privacy"
+                  icon={<FaShieldAlt />}
+                  label={translations.footerLinks.privacyPolicy}
+                />
+              </ul>
+            </nav>
           </div>
         </div>
-        <div className="mt-8 pt-8 border-t border-indigo-200 dark:border-indigo-700 flex flex-col sm:flex-row justify-between items-center space-y-6 sm:space-y-0">
-          <div className="text-center sm:text-left">
+
+        <div className="mt-12 pt-8 border-t-2 border-indigo-200/30 dark:border-indigo-700/30">
+          <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
             <p className="text-sm text-gray-600 dark:text-gray-400">
               © {new Date().getFullYear()} {translations.allRightsReserved}
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors duration-300 flex items-center justify-center sm:justify-start mt-2">
-              <FaPencilAlt className="mr-1 text-indigo-600 dark:text-indigo-400" />
+            <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center">
+              <FaPencilAlt className="mr-2 text-indigo-600 dark:text-indigo-400" />
               {translations.designedBy}
               <Link
                 to="https://github.com/Stawa"
@@ -82,21 +109,6 @@ function Footer({ translations }: FooterProps) {
               </Link>
             </p>
           </div>
-          <nav aria-label="Footer links" className="w-full sm:w-auto">
-            <h3 className="sr-only">Footer Links</h3>
-            <ul className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 text-center sm:text-left">
-              <FooterLink
-                href="/tos"
-                icon={<FaFileContract />}
-                label={translations.footerLinks.termsOfService}
-              />
-              <FooterLink
-                href="/privacy"
-                icon={<FaShieldAlt />}
-                label={translations.footerLinks.privacyPolicy}
-              />
-            </ul>
-          </nav>
         </div>
       </div>
     </footer>
@@ -113,13 +125,15 @@ function SocialLink({ href, icon, label }: SocialLinkProps) {
   return (
     <motion.a
       href={href}
-      className="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300 flex items-center"
+      className="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-150"
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Visit our ${label} page`}
-      whileHover={{ y: -2 }}
+      whileHover={{ scale: 1.1, y: -2 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ duration: 0.1 }}
     >
-      {React.cloneElement(icon, { className: "w-5 h-5 sm:w-6 sm:h-6" })}
+      {React.cloneElement(icon, { className: "w-6 h-6 sm:w-7 sm:h-7" })}
     </motion.a>
   );
 }
@@ -132,15 +146,16 @@ interface FooterLinkProps {
 
 function FooterLink({ href, icon, label }: FooterLinkProps) {
   return (
-    <li className="w-full sm:w-auto">
+    <li>
       <Link
         to={href}
-        className="text-sm text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors duration-300 flex items-center justify-center sm:justify-start"
+        className="group text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors duration-150 flex items-center"
       >
         {React.cloneElement(icon, {
-          className: "mr-2 w-4 h-4 text-indigo-600 dark:text-indigo-400",
+          className:
+            "mr-2 w-5 h-5 text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform",
         })}
-        {label}
+        <span className="text-sm">{label}</span>
       </Link>
     </li>
   );

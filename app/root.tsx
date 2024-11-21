@@ -10,16 +10,15 @@ import {
   useRouteError,
 } from "@remix-run/react";
 import { useChangeLanguage } from "remix-i18next/react";
-import { lazy, Suspense } from "react";
+
 import type { UserProfile } from "~/types/user";
 import { convertToUserProfile } from "~/utils/convert";
 import { getUser } from "~/utils/getUser";
 import { getCookie } from "~/utils/cookie";
+import Footer from "~/components/Footer";
+import Navbar from "~/components/Navbar";
+import ErrorPage from "~/components/404";
 import "~/tailwind.css";
-
-const Footer = lazy(() => import("~/components/Footer"));
-const Navbar = lazy(() => import("~/components/Navbar"));
-const ErrorPage = lazy(() => import("~/components/404"));
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -97,23 +96,17 @@ function Document({
       </head>
       <body>
         {showNavAndFooter && (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Navbar
-              translations={translations.navbar}
-              user={user}
-              currentLanguage={locale}
-            />
-          </Suspense>
+          <Navbar
+            translations={translations.navbar}
+            user={user}
+            currentLanguage={locale}
+          />
         )}
         {children}
         {showNavAndFooter && (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Footer
-              translations={
-                translations.footer as unknown as FooterTranslations
-              }
-            />
-          </Suspense>
+          <Footer
+            translations={translations.footer as unknown as FooterTranslations}
+          />
         )}
         <ScrollRestoration />
         <Scripts />
@@ -162,9 +155,7 @@ export function ErrorBoundary() {
       is404={errorDetails.statusCode === 404}
       user={null}
     >
-      <Suspense fallback={<div>Loading...</div>}>
-        <ErrorPage {...errorDetails} />
-      </Suspense>
+      <ErrorPage {...errorDetails} />
     </Document>
   );
 }

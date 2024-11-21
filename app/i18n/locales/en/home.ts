@@ -7,9 +7,15 @@ export default {
     subtitle:
       "Experience a revolutionary interactive coding platform designed for learners, educators, and professionals. Transform your skills and shape the future of technology.",
     startJourney: "Start Your Journey",
+    exploreLearn: "Explore & Learn",
     exploreFeatures: "Explore Features",
-    whyStandOut: "Why TriWikiTech Stands Out",
-    featuredLanguages: "Featured Programming Languages",
+    whyStandOut: "Discover Our Key Features",
+    whyStandOutDescription:
+      "Unlock tools and resources that make TriWikiTech the ultimate coding companion for students, teachers, and professionals.",
+    featuredTools: "Languages & Tools",
+    featuredLanguages: "Programming Languages We Support",
+    featuredLanguagesDescription:
+      "Start your coding journey with our curated selection of languages, suitable for both beginners and experts.",
     startLearning: "Start Learning",
     openCompiler: "Open Compiler",
     languages: {
@@ -41,45 +47,15 @@ export default {
       },
     },
     features: {
-      AILearning: {
-        title: "AI-Powered Learning",
-        description:
-          "Leverage cutting-edge AI to personalize your learning experience and receive intelligent recommendations.",
-      },
       MultiLanguage: {
         title: "Multi-Language Support",
         description:
           "Learn and practice multiple programming languages on a single platform, from beginners to advanced levels.",
       },
-      KnowledgeHub: {
-        title: "Knowledge Hub",
-        description:
-          "Access a vast repository of coding resources, tutorials, and best practices to enhance your skills.",
-      },
       AdaptiveLearning: {
         title: "Adaptive Learning",
         description:
           "Experience a learning path that adapts to your progress and learning style for optimal growth.",
-      },
-      CollaborativeCoding: {
-        title: "Collaborative Coding",
-        description:
-          "Engage in real-time collaborative coding sessions with peers and mentors to solve complex problems together.",
-      },
-      SkillProgression: {
-        title: "Skill Progression",
-        description:
-          "Track your coding journey with detailed analytics and milestone achievements to boost your motivation.",
-      },
-      CourseCreation: {
-        title: "Course Creation",
-        description:
-          "Empower educators to create and share custom coding courses tailored to specific learning objectives.",
-      },
-      LearningAnalytics: {
-        title: "Learning Analytics",
-        description:
-          "Gain insights into your learning patterns and areas for improvement with advanced analytics tools.",
       },
       CodeReview: {
         title: "Code Review",

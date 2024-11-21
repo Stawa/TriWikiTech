@@ -25,63 +25,92 @@ function SidebarDropdown({
   );
 
   return (
-    <div className="mb-2">
+    <div className="relative mb-3 group">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full text-left px-4 py-3 text-base text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-700 hover:text-indigo-900 dark:hover:text-white transition duration-150 ease-in-out flex items-center bg-indigo-200 dark:bg-gray-800 ${
-          isOpen 
-            ? 'rounded-t-md border-t border-x border-indigo-300 dark:border-indigo-500' 
-            : 'rounded-md border border-transparent'
-        }`}
+        className={`w-full text-left px-5 py-3.5 text-base
+          transition-all duration-300 ease-in-out flex items-center
+          rounded-xl
+          ${
+            isOpen
+              ? "bg-gradient-to-r from-indigo-100/90 to-purple-100/90 dark:from-indigo-900/60 dark:to-purple-900/60 shadow-lg ring-2 ring-indigo-400/30 dark:ring-indigo-500/40"
+              : "bg-gradient-to-r from-indigo-50/80 to-purple-50/80 dark:from-indigo-900/30 dark:to-purple-900/30 hover:ring-1 hover:ring-indigo-400/20 dark:hover:ring-indigo-500/30"
+          }
+          hover:shadow-md hover:scale-[1.01] active:scale-[0.99]
+          text-indigo-800 dark:text-indigo-200`}
+        aria-expanded={isOpen}
+        aria-controls="dropdown-options"
       >
-        {React.cloneElement(icon, {
-          className: "mr-4 text-xl",
-        })}
-        {label}
-        <FaChevronDown className={`ml-auto transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+        <span
+          className="mr-4 text-xl p-2.5 rounded-xl bg-gradient-to-br from-indigo-200/70 to-purple-200/70 
+          dark:from-indigo-800/40 dark:to-purple-800/40
+          text-indigo-700 dark:text-indigo-300 group-hover:from-indigo-300/70 group-hover:to-purple-300/70
+          dark:group-hover:from-indigo-700/40 dark:group-hover:to-purple-700/40 
+          transition-all duration-300 shadow-sm"
+        >
+          {icon}
+        </span>
+        <span className="font-medium tracking-wide">{label}</span>
+        <FaChevronDown
+          className={`ml-auto transform transition-all duration-300 text-indigo-600 dark:text-indigo-400
+            ${
+              isOpen ? "rotate-180" : ""
+            } group-hover:text-indigo-800 dark:group-hover:text-indigo-200`}
+        />
       </button>
       <Transition
         show={isOpen}
-        enter="transition ease-out duration-200"
-        enterFrom="opacity-0 max-h-0"
-        enterTo="opacity-100 max-h-[500px]"
-        leave="transition ease-in duration-150"
-        leaveFrom="opacity-100 max-h-[500px]"
-        leaveTo="opacity-0 max-h-0"
+        enter="transition ease-out duration-300"
+        enterFrom="opacity-0 translate-y-2"
+        enterTo="opacity-100 translate-y-0"
+        leave="transition ease-in duration-200"
+        leaveFrom="opacity-100 translate-y-0"
+        leaveTo="opacity-0 translate-y-2"
       >
-        <div className="bg-white dark:bg-gray-800 border-x border-b border-indigo-300 dark:border-indigo-500 rounded-b-md shadow-lg overflow-hidden">
-          {options.map((option, index) => (
-            <button
-              key={option.value}
-              onClick={() => {
-                if (
-                  option.value !== currentLanguage &&
-                  option.value !== currentValue
-                ) {
-                  onSelect(option.value);
-                  setSelectedValue(option.value);
-                }
-                setIsOpen(false);
-              }}
-              className={`block w-full text-left px-4 py-2 text-sm text-indigo-600 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-600 hover:text-indigo-800 dark:hover:text-white transition-colors duration-150 flex items-center ${
-                selectedValue === option.value ? "bg-indigo-200 dark:bg-indigo-700 text-indigo-800 dark:text-white" : ""
-              } ${
-                option.value === currentLanguage ||
-                option.value === currentValue
-                  ? "opacity-50 cursor-not-allowed"
-                  : ""
-              } ${index === options.length - 1 ? 'rounded-b-md' : ''}`}
-              disabled={
-                option.value === currentLanguage ||
-                option.value === currentValue
-              }
-            >
-              {React.cloneElement(option.icon, {
-                className: "mr-2 text-lg w-6 h-6",
-              })}
-              {option.label}
-            </button>
-          ))}
+        <div
+          className="relative w-full mt-2.5 bg-gradient-to-br from-white to-indigo-50/50 
+          dark:from-gray-800 dark:to-indigo-900/30 rounded-xl
+          shadow-xl ring-1 ring-indigo-300/30 dark:ring-indigo-500/20
+          overflow-hidden transform origin-top"
+        >
+          {options.map((option, index) => {
+            const isSelected = selectedValue === option.value;
+            const isDisabled =
+              option.value === currentLanguage || option.value === currentValue;
+
+            return (
+              <button
+                key={option.value}
+                onClick={() => {
+                  if (!isDisabled) {
+                    onSelect(option.value);
+                    setSelectedValue(option.value);
+                    setIsOpen(false);
+                  }
+                }}
+                className={`block w-full text-left px-5 py-3.5 text-sm
+                  transition-all duration-300 flex items-center
+                  ${
+                    isSelected
+                      ? "bg-gradient-to-r from-indigo-100/90 to-purple-100/90 dark:from-indigo-800/60 dark:to-purple-800/60 text-indigo-900 dark:text-white font-medium"
+                      : "text-indigo-700 dark:text-indigo-200 hover:bg-gradient-to-r hover:from-indigo-50/50 hover:to-purple-50/50 dark:hover:from-indigo-700/30 dark:hover:to-purple-700/30"
+                  }
+                  ${isDisabled ? "opacity-50 cursor-not-allowed" : ""}
+                  first:rounded-t-xl last:rounded-b-xl`}
+                disabled={isDisabled}
+              >
+                <span
+                  className="p-2 rounded-lg bg-gradient-to-br from-indigo-100/70 to-purple-100/70 
+                  dark:from-indigo-800/40 dark:to-purple-800/40 mr-3 shadow-sm"
+                >
+                  {React.cloneElement(option.icon, {
+                    className: "w-5 h-5 text-indigo-700 dark:text-indigo-300",
+                  })}
+                </span>
+                {option.label}
+              </button>
+            );
+          })}
         </div>
       </Transition>
     </div>

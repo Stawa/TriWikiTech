@@ -7,9 +7,15 @@ export default {
     subtitle:
       "Rasakan platform coding interaktif revolusioner yang dirancang untuk pelajar, pendidik, dan profesional. Transformasikan keterampilan Anda dan bentuk masa depan teknologi.",
     startJourney: "Mulai Perjalanan Anda",
+    exploreLearn: "Jelajahi & Belajar",
     exploreFeatures: "Jelajahi Fitur",
-    whyStandOut: "Mengapa TriWikiTech Menonjol",
-    featuredLanguages: "Bahasa Pemrograman Unggulan",
+    whyStandOut: "Temukan Fitur Utama Kami",
+    whyStandOutDescription:
+      "Buka alat dan sumber daya yang membuat TriWikiTech menjadi teman coding terbaik untuk pelajar, guru, dan profesional.",
+    featuredTools: "Bahasa & Alat",
+    featuredLanguages: "Bahasa Pemrograman yang Kami Dukung",
+    featuredLanguagesDescription:
+      "Mulai perjalanan coding Anda dengan pilihan bahasa yang kami kurasi, cocok untuk pemula maupun ahli.",
     startLearning: "Mulai Belajar",
     openCompiler: "Buka Kompilator",
     languages: {
