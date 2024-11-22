@@ -54,7 +54,7 @@ export default function Index() {
             className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center"
           >
             <Link
-              to="/courses"
+              to="/#featured-languages"
               className="bg-white text-blue-600 font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl transition-all duration-300 text-base sm:text-lg inline-flex items-center justify-center shadow-lg hover:shadow-blue-500/30 group relative overflow-hidden transform hover:-translate-y-1"
             >
               <span className="relative z-10 transition-colors duration-300 group-hover:text-indigo-600">
@@ -91,16 +91,14 @@ export default function Index() {
         </div>
       </header>
 
-      <main
-        id="learn-more"
-        className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
-      >
+      <main className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="relative z-10 max-w-7xl mx-auto">
           <motion.section
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="mb-32 sm:mb-40"
+            id="learn-more"
           >
             <div className="flex flex-col items-center">
               <span className="px-4 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium rounded-full mb-6">
@@ -161,6 +159,7 @@ export default function Index() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mb-32 sm:mb-40"
+            id="featured-languages"
           >
             <div className="flex flex-col items-center">
               <span className="px-4 py-1.5 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-sm font-medium rounded-full mb-6">

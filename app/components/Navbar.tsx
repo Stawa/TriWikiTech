@@ -23,7 +23,7 @@ const MobileMenu = lazy(() => import("~/components/Navbar/MobileMenu"));
 
 function getNavigationItems() {
   return [
-    { to: "/courses", label: "Courses" },
+    { to: "/#featured-languages", label: "Courses" },
     { to: "/quizzes", label: "Quizzes" },
     { to: "/compiler", label: "Compiler" },
   ];
