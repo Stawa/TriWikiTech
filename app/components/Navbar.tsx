@@ -45,8 +45,17 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  const toggleSidebar = () =>
-    startTransition(() => setIsSidebarOpen(!isSidebarOpen));
+  const toggleSidebar = () => {
+    startTransition(() => {
+      setIsSidebarOpen(!isSidebarOpen);
+      if (!isSidebarOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'auto';
+      }
+    });
+  };
+  
   const toggleMenu = () => startTransition(() => setIsMenuOpen(!isMenuOpen));
 
   const changeLanguage = (lng: string) => {
@@ -81,9 +90,7 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
         ) {
           startTransition(() => {
             setIsSidebarOpen(false);
-            if (window.innerWidth < 768) {
-              document.body.style.overflow = "auto";
-            }
+            document.body.style.overflow = 'auto';
           });
         }
       }
