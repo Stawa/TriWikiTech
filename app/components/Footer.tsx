@@ -27,11 +27,11 @@ function Footer({ translations }: FooterProps) {
     <footer className="bg-gray-50 dark:bg-gray-900 border-t-2 border-indigo-500/30 text-gray-800 dark:text-gray-200 font-sans">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-24 3xl:px-32 py-12 sm:py-16 lg:py-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-          <div className="space-y-4">
+          <div className="space-y-4 text-center sm:text-left">
             <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
               TriWikiTech
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 flex items-center text-lg">
+            <p className="text-gray-700 dark:text-gray-300 flex items-center text-lg justify-center sm:justify-start">
               {translations.learnCodeGrow}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -49,11 +49,11 @@ function Footer({ translations }: FooterProps) {
             </p>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-4 text-center sm:text-left">
             <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400">
               Connect With Us
             </h3>
-            <div className="flex space-x-6">
+            <div className="flex space-x-6 justify-center sm:justify-start">
               <SocialLink
                 href="https://github.com/Stawa/TriWikiTech"
                 icon={<FaGithub />}
@@ -72,12 +72,12 @@ function Footer({ translations }: FooterProps) {
             </div>
           </div>
 
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400">
+          <div className="space-y-4 text-center sm:col-span-2 lg:col-span-1 lg:text-left">
+            <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400 sm:text-center lg:text-left">
               Quick Links
             </h3>
             <nav aria-label="Footer links">
-              <ul className="space-y-3">
+              <ul className="space-y-3 sm:flex sm:justify-center sm:space-y-0 sm:space-x-8 lg:block lg:space-y-3 lg:space-x-0">
                 <FooterLink
                   href="/tos"
                   icon={<FaFileContract />}
@@ -95,15 +95,16 @@ function Footer({ translations }: FooterProps) {
 
         <div className="mt-12 pt-8 border-t-2 border-indigo-200/30 dark:border-indigo-700/30">
           <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-600 dark:text-gray-400 text-center sm:text-left">
               © {new Date().getFullYear()} {translations.allRightsReserved}
             </p>
-            <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center">
+            <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center justify-center sm:justify-start">
               <FaPencilAlt className="mr-2 text-indigo-600 dark:text-indigo-400" />
               {translations.designedBy}
               <Link
                 to="https://github.com/Stawa"
                 className="font-medium hover:underline ml-1 text-indigo-600 dark:text-indigo-400"
+                target="_blank"
               >
                 Stawa
               </Link>
@@ -142,11 +143,12 @@ interface FooterLinkProps {
   href: string;
   icon: React.ReactElement;
   label: string;
+  className?: string;
 }
 
-function FooterLink({ href, icon, label }: FooterLinkProps) {
+function FooterLink({ href, icon, label, className = "" }: FooterLinkProps) {
   return (
-    <li>
+    <li className={`flex justify-center sm:justify-start ${className}`}>
       <Link
         to={href}
         className="group text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors duration-150 flex items-center"
