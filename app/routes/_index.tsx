@@ -1,14 +1,14 @@
-import { Suspense } from "react";
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, MetaFunction, useLoaderData } from "@remix-run/react";
 import { motion } from "framer-motion";
-import { IoNavigateOutline, IoNavigateSharp } from "react-icons/io5";
 import {
   FaArrowRight,
   FaCode,
   FaGraduationCap,
   FaLaptopCode,
 } from "react-icons/fa";
+import { IoNavigateOutline, IoNavigateSharp } from "react-icons/io5";
+import { Suspense } from "react";
 import getTranslation from "~/utils/getTranslation.server";
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => [
