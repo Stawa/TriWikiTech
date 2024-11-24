@@ -8,16 +8,6 @@ export function useTheme() {
     return false;
   });
 
-  useEffect(() => {
-    const root = window.document.documentElement;
-    if (isDarkMode) {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-  }, [isDarkMode]);
-
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
   };

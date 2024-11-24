@@ -20,6 +20,11 @@ import Navbar from "~/components/Navbar";
 import ErrorPage from "~/components/404";
 import "~/tailwind.css";
 
+const themeScript = `
+  let isDark = localStorage.getItem('theme') === 'dark';
+  if (isDark) document.documentElement.classList.add('dark');
+`;
+
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -86,13 +91,17 @@ function Document({
   translations = {},
 }: DocumentProps) {
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning={true}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {is404 && <title>TriWikiTech - 404</title>}
         <Meta />
         <Links />
+        <script
+          dangerouslySetInnerHTML={{ __html: themeScript }}
+          suppressHydrationWarning={true}
+        />
       </head>
       <body>
         {showNavAndFooter && (
