@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
 import {
-  FaShieldAlt,
   FaBalanceScale,
   FaUserShield,
   FaChevronRight,
   FaFileContract,
-  FaCheckCircle,
+  FaArrowRight,
 } from "react-icons/fa";
 import { IoDocumentText } from "react-icons/io5";
 import { MetaFunction } from "@remix-run/react";
@@ -231,7 +230,7 @@ export default function TOS() {
                 className="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 Contact Support Team
-                <FaFileContract className="ml-2" />
+                <FaArrowRight className="ml-2" />
               </motion.a>
             </div>
           </motion.div>

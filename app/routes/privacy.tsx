@@ -6,6 +6,7 @@ import {
   FaChevronRight,
   FaEye,
   FaCheckCircle,
+  FaArrowRight,
 } from "react-icons/fa";
 import { IoShieldCheckmark } from "react-icons/io5";
 import { MetaFunction } from "@remix-run/react";
@@ -295,7 +296,7 @@ export default function Privacy() {
                 className="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 Contact Privacy Team
-                <FaLock className="ml-2" />
+                <FaArrowRight className="ml-2" />
               </motion.a>
             </div>
           </motion.div>

@@ -6,6 +6,7 @@ import {
   FaBriefcase,
   FaChevronDown,
   FaArrowRight,
+  FaSearch,
 } from "react-icons/fa";
 import { IoInfinite } from "react-icons/io5";
 import { GiScrollUnfurled } from "react-icons/gi";
@@ -13,35 +14,53 @@ import { GiAtom } from "react-icons/gi";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function JavaScriptCourse() {
+export const JavaScriptCourseMeta = {
+  title: "TriWikiTech | JavaScript Course",
+  description:
+    "Master JavaScript with our comprehensive course. Learn modern best practices, advanced concepts, and build real-world applications.",
+};
+
+export function JavaScriptCourse() {
   const [openCategory, setOpenCategory] = useState<number>(0);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [filterLevel, setFilterLevel] = useState<string>("");
 
   const courseModules = [
     {
       id: 1,
       category: "Getting Started",
+      icon: (
+        <FaGraduationCap className="text-2xl text-blue-600 dark:text-blue-400" />
+      ),
       modules: [
         {
-          title: "Introduction to JavaScript",
-          description:
-            "Learn about JavaScript's history, ecosystem and setup your development environment",
+          title: "Setup & Installation",
+          description: "Set up your JavaScript development environment",
           duration: "2 hours",
           level: "Beginner",
-          href: "/courses/javascript/introduction",
+          href: "/courses/javascript/setup",
         },
         {
-          title: "Development Tools & Environment",
+          title: "Writing Your First JavaScript Code",
+          description: "Write and run your first JavaScript program",
+          duration: "2 hours",
+          level: "Beginner",
+          href: "/courses/javascript/first-code",
+        },
+        {
+          title: "Variables & Data Types",
           description:
-            "Master essential developer tools, code editors and debugging techniques",
+            "Learn about JavaScript variables, primitive data types, type conversion, and basic operations",
           duration: "3 hours",
           level: "Beginner",
-          href: "/courses/javascript/development-tools",
+          href: "/courses/javascript/variables",
         },
       ],
     },
     {
       id: 2,
       category: "Core Fundamentals",
+      icon: <GiAtom className="text-2xl text-blue-600 dark:text-blue-400" />,
       modules: [
         {
           title: "Variables & Data Types",
@@ -64,6 +83,9 @@ export default function JavaScriptCourse() {
     {
       id: 3,
       category: "Advanced Concepts",
+      icon: (
+        <FaBriefcase className="text-2xl text-blue-600 dark:text-blue-400" />
+      ),
       modules: [
         {
           title: "Object-Oriented JavaScript",
@@ -86,6 +108,9 @@ export default function JavaScriptCourse() {
     {
       id: 4,
       category: "Modern JavaScript",
+      icon: (
+        <IoInfinite className="text-2xl text-blue-600 dark:text-blue-400" />
+      ),
       modules: [
         {
           title: "ES6+ Features",
@@ -105,6 +130,24 @@ export default function JavaScriptCourse() {
       ],
     },
   ];
+
+  const filteredModules = courseModules
+    .map((category) => ({
+      ...category,
+      modules: category.modules.filter((module) => {
+        const matchesSearch =
+          module.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          module.description
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          category.category.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesLevel =
+          !filterLevel ||
+          module.level.toLowerCase() === filterLevel.toLowerCase();
+        return matchesSearch && matchesLevel;
+      }),
+    }))
+    .filter((category) => category.modules.length > 0);
 
   return (
     <div className="w-full min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
@@ -388,95 +431,172 @@ export default function JavaScriptCourse() {
             fundamentals to advanced full-stack development. Master modern web
             technologies through hands-on projects and real-world applications.
           </p>
-        </div>
-        <div className="space-y-8">
-          {courseModules.map((category, categoryIndex) => (
-            <div key={category.id}>
-              <button
-                onClick={() =>
-                  setOpenCategory(
-                    openCategory === categoryIndex ? -1 : categoryIndex
-                  )
-                }
-                className="w-full"
-              >
-                <div className="flex items-center gap-2 py-2 cursor-pointer">
-                  <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                    {category.category}
-                  </h3>
-                  <div className="h-[1px] flex-1 bg-gradient-to-r from-blue-200 to-transparent dark:from-blue-800"></div>
-                  <motion.div
-                    animate={{
-                      rotate: openCategory === categoryIndex ? 180 : 0,
-                    }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <FaChevronDown className="text-gray-500 dark:text-gray-400" />
-                  </motion.div>
-                </div>
-              </button>
 
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{
-                  height: openCategory === categoryIndex ? "auto" : 0,
-                  opacity: openCategory === categoryIndex ? 1 : 0,
-                }}
-                transition={{ duration: 0.3 }}
-                className="overflow-hidden"
+          {/* Search and Filter Section */}
+          <div className="flex flex-col sm:flex-row gap-6 mt-12 rounded-2xl mx-auto">
+            <div className="relative flex-1 group">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-indigo-400/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <input
+                type="text"
+                placeholder="Search modules..."
+                className="w-full px-5 py-4 rounded-xl border-2 border-blue-200/40 dark:border-blue-700/40 bg-white/80 dark:bg-gray-800/80 text-gray-900 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 transition-all duration-300 backdrop-blur-sm relative z-10 placeholder:text-gray-500 dark:placeholder:text-gray-400"
+                onChange={(e) => setSearchQuery(e.target.value)}
+                value={searchQuery}
+              />
+              <FaSearch className="absolute right-5 top-1/2 -translate-y-1/2 text-blue-500/70 dark:text-blue-400/70 z-10" />
+            </div>
+
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-400/20 to-violet-400/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <select
+                className="w-full sm:w-48 px-5 py-4 rounded-xl border-2 border-blue-200/40 dark:border-blue-700/40 bg-white/80 dark:bg-gray-800/80 text-gray-900 dark:text-white focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 transition-all duration-300 backdrop-blur-sm relative z-10 cursor-pointer appearance-none"
+                onChange={(e) => setFilterLevel(e.target.value)}
+                value={filterLevel}
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
-                  {category.modules.map((module, index) => (
-                    <motion.div
-                      key={index}
-                      whileHover={{
-                        boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)",
-                        borderColor: "rgba(59, 130, 246, 0.5)",
-                      }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 15,
-                      }}
-                      className="bg-white dark:bg-gray-900 rounded-lg p-4 shadow-sm border border-blue-100/20 dark:border-blue-700/50 transition-colors duration-300 hover:bg-blue-50/30 dark:hover:bg-blue-900/20"
-                    >
-                      <div className="flex items-start gap-3">
-                        <div className="w-10 h-10 flex-shrink-0 bg-blue-500 rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                          <FaGraduationCap className="text-lg text-white" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <Link
-                            to={module.href}
-                            className="text-base font-medium text-gray-900 dark:text-gray-100 mb-1 truncate transition-colors duration-300 hover:text-blue-600 dark:hover:text-blue-400 block"
-                          >
+                <option value="">All Levels</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+              <FaChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 text-blue-500/70 dark:text-blue-400/70 pointer-events-none z-10" />
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          {filterLevel ? (
+            // Filtered view
+            <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 backdrop-blur-sm border border-blue-100/20 dark:border-blue-700/50 shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/40 dark:to-indigo-900/40 flex items-center justify-center">
+                  <FaGraduationCap className="text-2xl text-blue-600 dark:text-blue-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  {filterLevel.charAt(0).toUpperCase() + filterLevel.slice(1)} Level
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {filteredModules.flatMap((category) =>
+                  category.modules
+                    .filter(
+                      (module) =>
+                        module.level.toLowerCase() === filterLevel.toLowerCase()
+                    )
+                    .map((module, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-blue-900/5 rounded-xl p-5 shadow-sm border border-blue-100/20 dark:border-blue-700/30 hover:shadow-md hover:border-blue-200/30 dark:hover:border-blue-600/40 transition-all duration-200"
+                      >
+                        <Link
+                          to={module.href}
+                          className="block h-full"
+                        >
+                          <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                             {module.title}
-                          </Link>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-2">
+                          </h4>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
                             {module.description}
                           </p>
-                          <div className="flex items-center gap-2 flex-wrap text-xs">
-                            <span className="inline-flex items-center text-gray-500 dark:text-gray-400">
-                              <FaClock className="mr-1" /> {module.duration}
+                          <div className="flex items-center gap-3 text-sm">
+                            <span className="inline-flex items-center text-blue-600 dark:text-blue-400">
+                              <FaClock className="mr-1" />
+                              {module.duration}
                             </span>
-                            <span className="px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 transition-colors duration-300 hover:bg-blue-100 dark:hover:bg-blue-800/40">
+                            <span className="text-gray-400">•</span>
+                            <span className="text-indigo-600 dark:text-indigo-400">
                               {module.level}
                             </span>
                           </div>
-                          <Link
-                            to={module.href}
-                            className="inline-flex items-center mt-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
-                          >
-                            Start Learning
-                            <FaArrowRight className="ml-1 text-xs" />
-                          </Link>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
+                        </Link>
+                      </motion.div>
+                    ))
+                )}
+              </div>
             </div>
-          ))}
+          ) : (
+            // Category view
+            filteredModules.map((category, categoryIndex) => (
+              <div
+                key={category.id}
+                className="bg-white dark:bg-gray-900 rounded-2xl p-6 backdrop-blur-sm border border-blue-100/20 dark:border-blue-700/50 shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <button
+                  onClick={() =>
+                    setOpenCategory(
+                      openCategory === categoryIndex ? -1 : categoryIndex
+                    )
+                  }
+                  className="w-full group"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/40 dark:to-indigo-900/40 flex items-center justify-center group-hover:from-blue-200 group-hover:to-indigo-200 dark:group-hover:from-blue-800/40 dark:group-hover:to-indigo-800/40 transition-all duration-300">
+                      {category.icon}
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      {category.category}
+                    </h3>
+                    <motion.div
+                      animate={{
+                        rotate: openCategory === categoryIndex ? 180 : 0,
+                      }}
+                      transition={{ duration: 0.2 }}
+                      className="ml-auto"
+                    >
+                      <FaChevronDown className="text-gray-400 dark:text-gray-500 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors" />
+                    </motion.div>
+                  </div>
+                </button>
+
+                <motion.div
+                  initial={false}
+                  animate={{
+                    height: openCategory === categoryIndex ? "auto" : 0,
+                    opacity: openCategory === categoryIndex ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.2 }}
+                  className="overflow-hidden"
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
+                    {category.modules.map((module, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-blue-900/5 rounded-xl p-5 shadow-sm border border-blue-100/20 dark:border-blue-700/30 hover:shadow-md hover:border-blue-200/30 dark:hover:border-blue-600/40 transition-all duration-200"
+                      >
+                        <Link
+                          to={module.href}
+                          className="block h-full"
+                        >
+                          <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                            {module.title}
+                          </h4>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                            {module.description}
+                          </p>
+                          <div className="flex items-center gap-3 text-sm">
+                            <span className="inline-flex items-center text-blue-600 dark:text-blue-400">
+                              <FaClock className="mr-1" />
+                              {module.duration}
+                            </span>
+                            <span className="text-gray-400">•</span>
+                            <span className="text-indigo-600 dark:text-indigo-400">
+                              {module.level}
+                            </span>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
+            ))
+          )}
         </div>
       </section>
     </div>
