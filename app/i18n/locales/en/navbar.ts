@@ -19,4 +19,6 @@ export default {
   LogIn: "Log In",
   SwitchToLightMode: "Switch to Light Mode",
   SwitchToDarkMode: "Switch to Dark Mode",
+  SwitchToSystemMode: "Switch to System Mode",
+  Theme: "Theme",
 };

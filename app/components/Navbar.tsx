@@ -39,7 +39,7 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { isDarkMode, toggleTheme } = useTheme();
+  const { isDarkMode, toggleTheme, theme } = useTheme();
   const isUserEmpty = !user || Object.keys(user).length === 0;
   const navigationItems = useMemo(() => getNavigationItems(), []);
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -49,13 +49,13 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
     startTransition(() => {
       setIsSidebarOpen(!isSidebarOpen);
       if (!isSidebarOpen) {
-        document.body.style.overflow = 'hidden';
+        document.body.style.overflow = "hidden";
       } else {
-        document.body.style.overflow = 'auto';
+        document.body.style.overflow = "auto";
       }
     });
   };
-  
+
   const toggleMenu = () => startTransition(() => setIsMenuOpen(!isMenuOpen));
 
   const changeLanguage = (lng: string) => {
@@ -90,7 +90,7 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
         ) {
           startTransition(() => {
             setIsSidebarOpen(false);
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = "auto";
           });
         }
       }
@@ -181,6 +181,8 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
             translations={translations}
             currentLanguage={currentLanguage}
             changeLanguage={changeLanguage}
+            toggleTheme={toggleTheme}
+            theme={theme}
           />
         </Suspense>
       </div>

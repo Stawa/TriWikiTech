@@ -19,4 +19,6 @@ export default {
   LogIn: "Masuk",
   SwitchToLightMode: "Beralih ke Mode Terang",
   SwitchToDarkMode: "Beralih ke Mode Gelap",
+  SwitchToSystemMode: "Beralih ke Mode Sistem",
+  Theme: "Tema",
 };

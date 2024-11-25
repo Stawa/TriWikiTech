@@ -12,6 +12,7 @@ import {
   FaCheck,
   FaBan,
   FaArrowRight,
+  FaDesktop,
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import SidebarSection from "./SideBarSection";
@@ -20,7 +21,6 @@ import SidebarDropdown from "./SidebarDropdown";
 import Flag from "react-world-flags";
 import { Form, useNavigate, useSubmit } from "@remix-run/react";
 import { getCookie, setCookie } from "~/utils/cookie";
-import { useTheme } from "~/hooks/useTheme";
 
 const UserSidebarContent = lazy(
   () => import("~/components/Navbar/UserSidebarContent")
@@ -35,6 +35,8 @@ interface SidebarProps {
   translations: Record<string, string>;
   currentLanguage: string;
   changeLanguage: (lng: string) => void;
+  toggleTheme: (newTheme?: string) => void;
+  theme: string;
 }
 
 function Sidebar({
@@ -45,10 +47,11 @@ function Sidebar({
   translations,
   currentLanguage,
   changeLanguage,
+  toggleTheme,
+  theme,
 }: SidebarProps) {
   const navigate = useNavigate();
   const submit = useSubmit();
-  const { isDarkMode, toggleTheme } = useTheme();
   const [cookiePreference, setCookiePreference] = useState(() => {
     return getCookie("cookiePreference") || "opt-out";
   });
@@ -145,41 +148,31 @@ function Sidebar({
                   </SidebarSection>
                 )}
                 <SidebarSection title={translations.Settings}>
-                  <button
-                    onClick={toggleTheme}
-                    className="w-full text-left px-5 py-3.5 text-base
-                      transition-all duration-300 ease-in-out flex items-center
-                      rounded-xl mb-3
-                      bg-gradient-to-r from-indigo-50/80 to-purple-50/80 
-                      dark:from-indigo-900/30 dark:to-purple-900/30
-                      hover:from-indigo-100/90 hover:to-purple-100/90
-                      dark:hover:from-indigo-800/60 dark:hover:to-purple-800/60
-                      hover:shadow-md hover:scale-[1.01] active:scale-[0.99]
-                      hover:ring-1 hover:ring-indigo-400/20 dark:hover:ring-indigo-500/30
-                      text-indigo-800 dark:text-indigo-200 group"
-                    aria-label={
-                      isDarkMode
-                        ? translations.SwitchToLightMode
-                        : translations.SwitchToDarkMode
-                    }
-                  >
-                    <span
-                      className="mr-4 text-xl p-2.5 rounded-xl
-                        bg-gradient-to-br from-indigo-200/70 to-purple-200/70 
-                        dark:from-indigo-800/40 dark:to-purple-800/40
-                        text-indigo-700 dark:text-indigo-300 
-                        group-hover:from-indigo-300/70 group-hover:to-purple-300/70
-                        dark:group-hover:from-indigo-700/40 dark:group-hover:to-purple-700/40 
-                        transition-all duration-300 shadow-sm"
-                    >
-                      {isDarkMode ? <FaSun /> : <FaMoon />}
-                    </span>
-                    <span className="font-medium tracking-wide">
-                      {isDarkMode
-                        ? translations.SwitchToLightMode
-                        : translations.SwitchToDarkMode}
-                    </span>
-                  </button>
+                  <SidebarDropdown
+                    icon={<FaMoon />}
+                    label={translations.Theme}
+                    options={[
+                      {
+                        value: "light",
+                        label: translations.SwitchToLightMode,
+                        icon: <FaSun />,
+                      },
+                      {
+                        value: "dark",
+                        label: translations.SwitchToDarkMode,
+                        icon: <FaMoon />,
+                      },
+                      {
+                        value: "system",
+                        label: translations.SwitchToSystemMode,
+                        icon: <FaDesktop />,
+                      },
+                    ]}
+                    onSelect={(value) => {
+                      toggleTheme(value);
+                    }}
+                    currentValue={theme}
+                  />
                   <SidebarDropdown
                     icon={<FaGlobe />}
                     label={translations.Language}
@@ -239,7 +232,9 @@ function Sidebar({
                       <div className="p-2 xs:p-2.5 rounded-xl bg-gradient-to-br from-red-50 to-red-100/70 dark:from-red-900/40 dark:to-red-800/40 group-hover:from-red-100 group-hover:to-red-200/80 dark:group-hover:from-red-800/50 dark:group-hover:to-red-700/50 group-hover:scale-110 transition-all duration-300 ease-out">
                         <FaSignOutAlt className="text-red-600 dark:text-red-400 text-lg xs:text-xl" />
                       </div>
-                      <span className="font-semibold">{translations.Logout}</span>
+                      <span className="font-semibold">
+                        {translations.Logout}
+                      </span>
                     </div>
                     <FaArrowRight className="opacity-0 group-hover:opacity-100 transform translate-x-3 group-hover:translate-x-0 transition-all duration-300 ease-out text-lg xs:text-xl" />
                   </button>

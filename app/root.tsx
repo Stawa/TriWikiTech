@@ -1,5 +1,6 @@
 import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import {
+  ClientLoaderFunctionArgs,
   isRouteErrorResponse,
   Links,
   Meta,
@@ -18,12 +19,8 @@ import { getCookie } from "~/utils/cookie";
 import Footer from "~/components/Footer";
 import Navbar from "~/components/Navbar";
 import ErrorPage from "~/components/404";
+import { useTheme } from "~/hooks/useTheme";
 import "~/tailwind.css";
-
-const themeScript = `
-  let isDark = localStorage.getItem('theme') === 'dark';
-  if (isDark) document.documentElement.classList.add('dark');
-`;
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -42,6 +39,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const user = await getUser(request);
   const { host, protocol } = new URL(request.url);
   const locale = getCookie("language", request) ?? "en";
+  const theme = getCookie("theme", request) ?? "light";
 
   const navbarTranslationsUrl = `${protocol}//${host}/api/locales?lng=${locale}&ns=navbar`;
   const footerTranslationsUrl = `${protocol}//${host}/api/locales?lng=${locale}&ns=footer`;
@@ -60,7 +58,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     footer: footerTranslations,
   };
 
-  return { user, locale, translations };
+  return { user, locale, translations, theme };
 };
 
 interface DocumentProps {
@@ -70,6 +68,7 @@ interface DocumentProps {
   locale?: string;
   user: UserProfile | null;
   translations?: Record<string, Record<string, string>>;
+  theme?: string;
 }
 
 interface FooterTranslations {
@@ -89,19 +88,20 @@ function Document({
   locale = "en",
   user,
   translations = {},
+  theme = "light",
 }: DocumentProps) {
   return (
-    <html lang={locale} suppressHydrationWarning={true}>
+    <html
+      lang={locale}
+      suppressHydrationWarning={true}
+      className={theme === "dark" ? "dark" : ""}
+    >
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {is404 && <title>TriWikiTech - 404</title>}
         <Meta />
         <Links />
-        <script
-          dangerouslySetInnerHTML={{ __html: themeScript }}
-          suppressHydrationWarning={true}
-        />
       </head>
       <body>
         {showNavAndFooter && (
@@ -129,6 +129,7 @@ export default function App() {
     user: Record<string, unknown> | undefined;
     translations: Record<string, Record<string, string>>;
     locale: string;
+    theme: string;
   }>();
   const convertedUser =
     loaderData?.user?.user && Object.keys(loaderData.user.user).length > 0
@@ -142,6 +143,7 @@ export default function App() {
       locale={loaderData.locale}
       user={convertedUser}
       translations={loaderData.translations}
+      theme={loaderData.theme}
     >
       <Outlet />
     </Document>
@@ -163,6 +165,7 @@ export function ErrorBoundary() {
       showNavAndFooter={false}
       is404={errorDetails.statusCode === 404}
       user={null}
+      theme="system"
     >
       <ErrorPage {...errorDetails} />
     </Document>
