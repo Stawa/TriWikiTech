@@ -81,11 +81,11 @@ export function FirstJavaScriptCode() {
                 </div>
                 <div className="h-4 w-px bg-gray-300 dark:bg-gray-600"></div>
                 <time
-                  dateTime="2024-09-15"
-                  title="Written on September 15, 2024"
+                  dateTime="2024-11-25"
+                  title="Written on November 25, 2024"
                   className="text-gray-600 dark:text-gray-400 text-sm"
                 >
-                  September 15, 2024
+                  November 25, 2024
                 </time>
               </div>
             </div>

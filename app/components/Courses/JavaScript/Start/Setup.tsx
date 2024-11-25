@@ -50,16 +50,19 @@ export function JavaScriptSetup() {
       name: "ESLint",
       description: "JavaScript code linting utility",
       icon: "/courses/eslint.svg",
+      link: "https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint",
     },
     {
       name: "Prettier",
       description: "Code formatter that ensures consistent style",
       icon: "/courses/prettier.png",
+      link: "https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode",
     },
     {
       name: "JavaScript (ES6) Code Snippets",
       description: "Snippets for quick JavaScript coding",
       icon: "/courses/js-snippets.png",
+      link: "https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets",
     },
   ];
 
@@ -134,11 +137,11 @@ export function JavaScriptSetup() {
                 </div>
                 <div className="h-4 w-px bg-gray-300 dark:bg-gray-600"></div>
                 <time
-                  dateTime="2024-09-15"
-                  title="Written on September 15, 2024"
+                  dateTime="2024-11-25"
+                  title="Written on November 25, 2024"
                   className="text-gray-600 dark:text-gray-400 text-sm"
                 >
-                  September 15, 2024
+                  November 25, 2024
                 </time>
               </div>
             </div>
@@ -358,7 +361,7 @@ export function JavaScriptSetup() {
                   </p>
 
                   <a
-                    href={`https://marketplace.visualstudio.com/items?itemName=${extension.name}`}
+                    href={extension.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
