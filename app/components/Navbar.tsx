@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "@remix-run/react";
-import { AnimatePresence, motion } from "framer-motion";
-import { FaGraduationCap } from "react-icons/fa";
+import { FaBars, FaGraduationCap } from "react-icons/fa";
 import {
   lazy,
   startTransition,
@@ -16,10 +15,6 @@ import { useTheme } from "~/hooks/useTheme";
 
 const DesktopMenu = lazy(() => import("~/components/Navbar/DesktopMenu"));
 const Sidebar = lazy(() => import("~/components/Navbar/Sidebar"));
-const MobileMenuButton = lazy(
-  () => import("~/components/Navbar/MobileMenuButton")
-);
-const MobileMenu = lazy(() => import("~/components/Navbar/MobileMenu"));
 
 function getNavigationItems() {
   return [
@@ -134,39 +129,16 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
                   <div className="h-6 w-6 bg-gray-200 animate-pulse rounded" />
                 }
               >
-                <MobileMenuButton
-                  toggleMenu={toggleMenu}
-                  isMenuOpen={isMenuOpen}
-                />
+                <button
+                  onClick={toggleSidebar}
+                  className="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                  aria-label="Toggle menu"
+                >
+                  <FaBars className="h-5 w-5" />
+                </button>
               </Suspense>
             </div>
           </div>
-          <AnimatePresence>
-            {isMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Suspense
-                  fallback={
-                    <div className="h-48 bg-gray-200 animate-pulse rounded mt-4" />
-                  }
-                >
-                  <MobileMenu
-                    isMenuOpen={isMenuOpen}
-                    navigationItems={navigationItems}
-                    toggleSidebar={toggleSidebar}
-                    toggleTheme={toggleTheme}
-                    isDarkMode={isDarkMode}
-                    translations={translations}
-                    onNavigate={handleNavigation}
-                  />
-                </Suspense>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
         <Suspense
           fallback={

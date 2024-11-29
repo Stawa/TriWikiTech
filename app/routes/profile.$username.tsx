@@ -6,7 +6,6 @@ import {
   redirect,
 } from "@remix-run/node";
 import { useLoaderData, useLocation, Link } from "@remix-run/react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   FaShieldAlt,
   FaGraduationCap,
@@ -22,6 +21,9 @@ import {
   FaReact,
   FaJs,
   FaHistory,
+  FaUserSlash,
+  FaFolder,
+  FaHome,
 } from "react-icons/fa";
 import { IoMdPerson } from "react-icons/io";
 import { firestoreService } from "~/services/firebase.server";
@@ -30,7 +32,7 @@ import { UserProfile } from "~/types/user";
 import { SiTypescript } from "react-icons/si";
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => [
-  { title: `TriWikiTech | ${data.user.name}` },
+  { title: `TriWikiTech | ${data.user.name || "Not Found"}` },
   {
     name: "description",
     content: `Check out ${data.user.displayName}'s profile on TriWikiTech! Join us to learn, code, and grow together.`,
@@ -41,15 +43,22 @@ interface LoaderData {
   user: UserProfile;
   error?: string;
   recentCourses: string[];
-  isOwnProfile: boolean;
 }
 
 const Badges = {
-  Developer: <FaShieldAlt />,
-  Member: <IoMdPerson />,
-  Beta: <FaStar />,
-  Expert: <FaGraduationCap />,
-  Achiever: <FaTrophy />,
+  Developer: {
+    icon: <FaShieldAlt />,
+    label: "Developer",
+    color: "bg-blue-500",
+  },
+  Member: { icon: <IoMdPerson />, label: "Member", color: "bg-green-500" },
+  Beta: { icon: <FaStar />, label: "Beta Tester", color: "bg-yellow-500" },
+  Expert: {
+    icon: <FaGraduationCap />,
+    label: "Expert",
+    color: "bg-purple-500",
+  },
+  Achiever: { icon: <FaTrophy />, label: "Achiever", color: "bg-orange-500" },
 };
 
 export const loader: LoaderFunction = async ({
@@ -63,29 +72,20 @@ export const loader: LoaderFunction = async ({
   }
 
   try {
-    const session = await getSession(request);
-    const currentUserId = session.get("userId");
     const userData = await getUserData(username);
-    const isOwnProfile = currentUserId === userData.user.id;
 
-    return {
-      ...userData,
-      isOwnProfile,
-    };
+    return userData;
   } catch (error) {
     console.error("Error fetching user data:", error);
     return {
       user: {} as UserProfile,
       error: "An error occurred while fetching user data",
       recentCourses: [],
-      isOwnProfile: false,
     };
   }
 };
 
-async function getUserData(
-  username: string
-): Promise<Omit<LoaderData, "isOwnProfile">> {
+async function getUserData(username: string): Promise<LoaderData> {
   const [userData] = await firestoreService.queryCollection(
     "users",
     "name",
@@ -101,16 +101,9 @@ async function getUserData(
     };
   }
 
-  const recentCourses = [
-    "Introduction to TypeScript",
-    "Advanced React Patterns",
-    "Node.js Performance Optimization",
-    "GraphQL Fundamentals",
-  ];
-
   return {
     user: userData as UserProfile,
-    recentCourses,
+    recentCourses: [],
   };
 }
 
@@ -124,10 +117,10 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Profile() {
-  const { user, error, recentCourses, isOwnProfile } =
-    useLoaderData<LoaderData>();
+  const { user, error, recentCourses } = useLoaderData<LoaderData>();
   const location = useLocation();
   const [activeTab, setActiveTab] = useState("overview");
+  const [isImageLoading, setIsImageLoading] = useState(true);
 
   useEffect(() => {
     const hash = location.hash.slice(1);
@@ -142,140 +135,172 @@ export default function Profile() {
     ) {
       setActiveTab(hash);
     }
+    setTimeout(() => {
+      setIsImageLoading(false);
+    }, 2000);
   }, [location.hash]);
 
   if (error === "User not found") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            User Not Found
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400 mb-8">
-            The user you're looking for doesn't exist.
-          </p>
-          <Link
-            to="/"
-            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
-          >
-            Return Home
-          </Link>
+      <div className="min-h-screen bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-blue-950">
+        <div className="flex items-center justify-center min-h-screen px-4 py-12 sm:px-6 lg:px-8">
+          <div className="relative w-full max-w-lg sm:max-w-xl lg:max-w-2xl">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-indigo-400/20 dark:from-blue-500/10 dark:to-indigo-500/10 blur-3xl" />
+            <div className="relative text-center p-6 sm:p-8 lg:p-12 bg-white/90 dark:bg-gray-900/90 backdrop-blur-2xl rounded-3xl shadow-2xl border border-blue-100/50 dark:border-blue-800/50 ring-1 ring-blue-200/50 dark:ring-blue-700/50">
+              <div className="mb-6 sm:mb-8 lg:mb-10">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 mx-auto mb-4 sm:mb-6 lg:mb-8 bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-400 dark:to-indigo-500 rounded-full flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
+                  <FaUserSlash className="text-white text-4xl sm:text-5xl lg:text-6xl" />
+                </div>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400 mb-3 sm:mb-4 lg:mb-6">
+                  User Not Found
+                </h1>
+                <p className="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 mb-6 sm:mb-8 lg:mb-10 max-w-md mx-auto">
+                  The user you're looking for doesn't exist or may have been
+                  removed.
+                </p>
+              </div>
+              <Link
+                to="/"
+                className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-sm sm:text-base lg:text-lg font-semibold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 dark:from-blue-500 dark:via-indigo-500 dark:to-purple-500 dark:hover:from-blue-600 dark:hover:via-indigo-600 dark:hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-indigo-500/25 dark:hover:shadow-indigo-600/20 transform hover:scale-[1.02] active:scale-[0.98]"
+              >
+                Return Home
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   const tabs = [
-    { id: "overview", icon: <FaChartLine />, label: "Overview" },
-    { id: "courses", icon: <FaBook />, label: "Courses" },
-    { id: "projects", icon: <FaLaptopCode />, label: "Projects" },
-    { id: "challenges", icon: <FaCode />, label: "Challenges" },
-    { id: "achievements", icon: <FaMedal />, label: "Achievements" },
+    {
+      id: "overview",
+      icon: (
+        <FaHome className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 dark:text-blue-400" />
+      ),
+      label: "Overview",
+    },
+    {
+      id: "courses",
+      icon: (
+        <FaGraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 dark:text-emerald-400" />
+      ),
+      label: "Courses",
+    },
+    {
+      id: "projects",
+      icon: (
+        <FaFolder className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600 dark:text-purple-400" />
+      ),
+      label: "Projects",
+    },
+    {
+      id: "challenges",
+      icon: (
+        <FaTrophy className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600 dark:text-indigo-400" />
+      ),
+      label: "Challenges",
+    },
+    {
+      id: "achievements",
+      icon: (
+        <FaStar className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600 dark:text-amber-400" />
+      ),
+      label: "Achievements",
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-2xl shadow-lg border border-blue-100/20 dark:border-blue-700/50 hover:shadow-xl transition-all duration-300 overflow-hidden">
-          {/* Header */}
-          <div className="relative h-36 sm:h-48 lg:h-72">
-            {/* Gradient Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-600 to-violet-600">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent mix-blend-overlay" />
-            </div>
-
-            {/* Overlay Gradient */}
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white/95 dark:from-gray-900/95 via-white/70 dark:via-gray-900/70 to-transparent" />
-          </div>
-
-          <div className="relative px-4 sm:px-8 lg:px-12 pb-8 -mt-24 sm:-mt-32">
-            <div className="flex flex-col items-center lg:flex-row lg:items-end lg:space-x-12">
+    <div className="min-h-screen bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-blue-950">
+      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
+        <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-2xl shadow-xl border border-blue-100/20 dark:border-blue-700/50 ring-1 ring-blue-100/30 dark:ring-blue-700/30">
+          <div className="relative px-4 sm:px-6 lg:px-8 xl:px-12 pt-6 sm:pt-8 pb-6 sm:pb-8">
+            <div className="flex flex-col md:flex-row md:items-start md:space-x-8">
               {/* Profile Image */}
-              <div className="relative">
-                <div className="w-28 h-28 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full border-4 border-white dark:border-gray-800 overflow-hidden bg-white dark:bg-gray-700 shadow-2xl transform hover:scale-105 transition-transform duration-300 ring-8 ring-white/20 dark:ring-gray-800/20">
+              <div className="relative mx-auto">
+                <div className="w-32 h-32 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-48 xl:h-48 rounded-2xl border-4 border-white dark:border-gray-800 overflow-hidden bg-gray-50 dark:bg-gray-800 shadow-lg">
+                  {isImageLoading && (
+                    <div className="absolute inset-0 animate-pulse rounded-2xl bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800" />
+                  )}
                   {user.image ? (
                     <img
                       src={user.image}
-                      alt={user.displayName}
-                      className="w-full h-full object-cover"
-                      loading="eager"
+                      alt={`${user.displayName}'s profile picture`}
+                      className={`w-full h-full object-cover transition-opacity duration-300 ${
+                        isImageLoading ? 'opacity-0' : 'opacity-100'
+                      }`}
+                      onLoad={() => setIsImageLoading(false)}
+                      loading="lazy"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-600">
-                      <span className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white drop-shadow-lg">
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-700 dark:from-blue-600 dark:to-blue-800">
+                      <span className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white">
                         {user.displayName.charAt(0).toUpperCase()}
                       </span>
                     </div>
                   )}
                 </div>
-
-                {/* Badges */}
-                <div className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 flex flex-wrap justify-end gap-1 sm:gap-2">
-                  {Object.entries(Badges).map(
-                    ([type, icon]) =>
-                      user.badges?.includes(type) && (
-                        <div
-                          key={type}
-                          className="inline-flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 rounded-lg bg-white dark:bg-gray-800 text-indigo-600 dark:text-indigo-400 shadow-lg border border-indigo-100 dark:border-indigo-800 backdrop-blur-sm hover:scale-110 transition-transform duration-300"
-                          title={type}
-                        >
-                          {icon}
-                        </div>
-                      )
-                  )}
-                </div>
               </div>
 
               {/* Profile Info */}
-              <div className="mt-4 sm:mt-6 lg:mt-0 flex-1 text-center lg:text-left">
-                <div className="space-y-4 sm:space-y-6">
-                  <div className="flex flex-col items-center lg:items-start lg:flex-row lg:justify-between">
-                    <div className="flex flex-col lg:max-w-3xl">
-                      <h1 className="text-2xl sm:text-4xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 dark:from-white dark:via-gray-200 dark:to-gray-300 mb-2 sm:mb-4 drop-shadow-sm">
+              <div className="mt-6 md:mt-0 flex-1 self-center">
+                <div className="space-y-4">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                    <div className="text-center md:text-left">
+                      <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 dark:from-white dark:via-gray-200 dark:to-gray-300">
                         {user.displayName}
                       </h1>
-                      <p className="text-base sm:text-lg lg:text-xl text-gray-700 dark:text-gray-300 font-medium leading-relaxed">
+                      <p className="mt-2 text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-2xl">
                         {user.bio || (
-                          <span className="italic text-gray-500 dark:text-gray-400">
-                            Passionate developer exploring web technologies and building amazing experiences. Focused on React, TypeScript and modern web development.
+                          <span className="italic">
+                            Passionate developer exploring web technologies and
+                            building amazing experiences.
                           </span>
                         )}
                       </p>
                     </div>
-                    <div className="flex gap-4 mt-4 lg:mt-0">
+                    <div className="flex justify-center md:justify-end gap-3 mt-4 md:mt-0">
                       <a
                         href="#"
-                        className="p-2 lg:p-3 rounded-lg bg-white/90 dark:bg-gray-800/90 text-gray-600 dark:text-gray-400 hover:bg-blue-50 dark:hover:bg-blue-900/50 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300 shadow-md backdrop-blur-sm"
+                        className="p-2 rounded-lg bg-white/90 dark:bg-gray-800/90 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors backdrop-blur-md border border-blue-100/30 dark:border-blue-700/60 shadow-lg"
                       >
-                        <FaGithub className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
+                        <FaGithub className="w-4 h-4 sm:w-5 sm:h-5" />
                       </a>
                       <a
                         href="#"
-                        className="p-2 lg:p-3 rounded-lg bg-white/90 dark:bg-gray-800/90 text-gray-600 dark:text-gray-400 hover:bg-blue-50 dark:hover:bg-blue-900/50 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300 shadow-md backdrop-blur-sm"
+                        className="p-2 rounded-lg bg-white/90 dark:bg-gray-800/90 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors backdrop-blur-md border border-blue-100/30 dark:border-blue-700/60 shadow-lg"
                       >
-                        <FaTwitter className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
+                        <FaTwitter className="w-4 h-4 sm:w-5 sm:h-5" />
                       </a>
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-4">
-                    <div className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-blue-50/90 dark:bg-blue-900/30 rounded-lg backdrop-blur-sm shadow-sm">
-                      <FaGraduationCap className="text-blue-600 dark:text-blue-400 text-base sm:text-lg lg:text-xl" />
-                      <span className="text-gray-700 dark:text-gray-300 text-sm sm:text-base lg:text-lg font-medium">
-                        Intermediate
+                  <div className="flex flex-wrap justify-center md:justify-start gap-2 sm:gap-3 md:gap-4">
+                    <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 p-3 sm:px-5 sm:py-2 rounded-xl bg-gradient-to-br from-blue-50 via-blue-100 to-blue-50 dark:from-blue-900/40 dark:via-blue-800/40 dark:to-blue-900/40 backdrop-blur-md border border-blue-200/40 dark:border-blue-700/40 shadow-lg">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <FaGraduationCap className="text-blue-600 dark:text-blue-400 text-sm sm:text-base md:text-lg" />
+                        <span className="text-xs sm:text-sm md:text-base text-blue-900 dark:text-blue-100 font-medium">
+                          Intermediate
+                        </span>
+                      </div>
+                      <span className="hidden sm:inline text-gray-400 dark:text-gray-500">
+                        •
                       </span>
-                    </div>
-                    <div className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-yellow-50/90 dark:bg-yellow-900/30 rounded-lg backdrop-blur-sm shadow-sm">
-                      <FaTrophy className="text-yellow-600 dark:text-yellow-400 text-base sm:text-lg lg:text-xl" />
-                      <span className="text-gray-700 dark:text-gray-300 text-sm sm:text-base lg:text-lg font-medium">
-                        1,234 Points
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <FaTrophy className="text-yellow-600 dark:text-yellow-400 text-sm sm:text-base md:text-lg" />
+                        <span className="text-xs sm:text-sm md:text-base text-yellow-900 dark:text-yellow-100 font-medium">
+                          1,234 Points
+                        </span>
+                      </div>
+                      <span className="hidden sm:inline text-gray-400 dark:text-gray-500">
+                        •
                       </span>
-                    </div>
-                    <div className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-indigo-50/90 dark:bg-indigo-900/30 rounded-lg backdrop-blur-sm shadow-sm">
-                      <FaCode className="text-indigo-600 dark:text-indigo-400 text-base sm:text-lg lg:text-xl" />
-                      <span className="text-gray-700 dark:text-gray-300 text-sm sm:text-base lg:text-lg font-medium">
-                        12 Courses
-                      </span>
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <FaBook className="text-indigo-600 dark:text-indigo-400 text-sm sm:text-base md:text-lg" />
+                        <span className="text-xs sm:text-sm md:text-base text-indigo-900 dark:text-indigo-100 font-medium">
+                          12 Courses
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -283,42 +308,25 @@ export default function Profile() {
             </div>
 
             {/* Tabs */}
-            <div className="mt-8 sm:mt-12 lg:mt-16">
-              <nav className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-4 lg:gap-6">
+            <div className="mt-6 sm:mt-8 border-b border-gray-200/80 dark:border-gray-800/80 overflow-x-auto">
+              <nav className="flex space-x-4 sm:space-x-8 min-w-max">
                 {tabs.map((tab) => (
                   <a
                     key={tab.id}
                     href={`#${tab.id}`}
                     onClick={() => setActiveTab(tab.id)}
                     className={`
-                      relative flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-3 lg:px-6 lg:py-4 font-medium 
-                      text-xs sm:text-sm lg:text-base transition-all duration-300 min-w-[100px] sm:min-w-[120px] lg:min-w-[140px]
+                      relative pb-3 sm:pb-4 text-xs sm:text-sm font-medium transition-colors
                       ${
                         activeTab === tab.id
                           ? "text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400"
-                          : "text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:border-b-2 hover:border-blue-600 dark:hover:border-blue-400"
+                          : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
                       }
                     `}
                   >
-                    <div className="flex items-center justify-center w-full space-x-2 sm:space-x-3">
-                      <span
-                        className={`text-lg sm:text-xl lg:text-2xl ${
-                          activeTab === tab.id
-                            ? "text-blue-600 dark:text-blue-400"
-                            : "text-gray-600 dark:text-gray-400"
-                        }`}
-                      >
-                        {tab.icon}
-                      </span>
-                      <span
-                        className={`font-semibold whitespace-nowrap ${
-                          activeTab === tab.id
-                            ? "text-blue-600 dark:text-blue-400"
-                            : "text-gray-800 dark:text-gray-200"
-                        }`}
-                      >
-                        {tab.label}
-                      </span>
+                    <div className="flex items-center space-x-1.5 sm:space-x-2">
+                      <span className="text-base sm:text-lg">{tab.icon}</span>
+                      <span>{tab.label}</span>
                     </div>
                   </a>
                 ))}
@@ -326,199 +334,205 @@ export default function Profile() {
             </div>
 
             {/* Content */}
-            <div className="mt-6 sm:mt-8 lg:mt-12">
+            <div className="mt-6 sm:mt-8 lg:mt-10 xl:mt-12">
               {activeTab === "overview" && (
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                   {/* Stats & Progress */}
-                  <div className="lg:col-span-4 space-y-4 md:space-y-6 lg:space-y-8">
+                  <div className="lg:col-span-4 border-b lg:border-b-0 lg:border-r border-gray-200/80 dark:border-gray-800/80 lg:pr-6 pb-8">
+                    <div className="flex items-center gap-6 mb-8">
+                      <div className="p-3 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600">
+                        <FaChartLine className="text-xl text-white" />
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                        Progress & Stats
+                      </h3>
+                    </div>
+
                     {/* Quick Stats */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-white dark:bg-gray-900 border border-blue-100 dark:border-blue-800 rounded-lg p-4 shadow-lg">
-                        <div className="text-center">
-                          <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                            24
-                          </div>
-                          <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                            Lessons
-                          </div>
+                    <div className="grid grid-cols-2 gap-6 mb-10">
+                      <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-center">
+                        <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                          24
+                        </div>
+                        <div className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                          Lessons
                         </div>
                       </div>
-                      <div className="bg-white dark:bg-gray-900 border border-blue-100 dark:border-blue-800 rounded-lg p-4 shadow-lg">
-                        <div className="text-center">
-                          <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-                            8
-                          </div>
-                          <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                            Achievements
-                          </div>
+                      <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-center">
+                        <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                          8
+                        </div>
+                        <div className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                          Achievements
                         </div>
                       </div>
                     </div>
 
                     {/* Learning Progress */}
-                    <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-gray-900 border border-blue-100 dark:border-blue-800 backdrop-blur-xl p-6 sm:p-8 shadow-lg">
-                      <div className="relative">
-                        <h3 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent mb-6 sm:mb-8 flex items-center gap-3">
-                          <span className="p-2 rounded-lg bg-gradient-to-br from-blue-500/10 to-indigo-500/10">
-                            <FaChartLine className="text-blue-600 dark:text-blue-400" />
-                          </span>
-                          Learning Progress
-                        </h3>
-                        <div className="space-y-6 sm:space-y-8">
-                          {[
-                            {
-                              name: "JavaScript",
-                              progress: 75,
-                              color: "from-yellow-400 via-yellow-500 to-orange-500",
-                              icon: FaJs,
-                              description: "Advanced concepts & patterns",
-                            },
-                            {
-                              name: "TypeScript",
-                              progress: 45,
-                              color: "from-blue-400 via-blue-500 to-blue-600",
-                              icon: SiTypescript,
-                              description: "Types & interfaces",
-                            },
-                            {
-                              name: "React",
-                              progress: 60,
-                              color: "from-cyan-400 via-cyan-500 to-cyan-600",
-                              icon: FaReact,
-                              description: "Hooks & component patterns",
-                            },
-                          ].map((item) => (
-                            <div key={item.name} className="group">
-                              <div className="flex items-center justify-between mb-3">
-                                <div className="flex items-center gap-3 sm:gap-4">
-                                  <span className="p-2 sm:p-2.5 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 shadow-inner">
-                                    <item.icon className="text-lg sm:text-xl text-gray-700 dark:text-gray-300" />
-                                  </span>
-                                  <div>
-                                    <span className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">
-                                      {item.name}
-                                    </span>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                                      {item.description}
-                                    </p>
-                                  </div>
-                                </div>
-                                <span className="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold bg-gradient-to-r from-blue-500/10 to-indigo-500/10 dark:from-blue-500/20 dark:to-indigo-500/20 text-blue-700 dark:text-blue-300 shadow-inner">
-                                  {item.progress}%
-                                </span>
+                    <div className="space-y-6">
+                      {[
+                        {
+                          name: "JavaScript",
+                          progress: 75,
+                          color: "bg-amber-500",
+                          icon: FaJs,
+                          iconColor: "text-amber-600 dark:text-amber-400",
+                          description: "Advanced concepts & patterns",
+                        },
+                        {
+                          name: "TypeScript",
+                          progress: 45,
+                          color: "bg-blue-500",
+                          icon: SiTypescript,
+                          iconColor: "text-blue-600 dark:text-blue-400",
+                          description: "Types & interfaces",
+                        },
+                        {
+                          name: "React",
+                          progress: 60,
+                          color: "bg-cyan-500",
+                          icon: FaReact,
+                          iconColor: "text-cyan-600 dark:text-cyan-400",
+                          description: "Hooks & component patterns",
+                        },
+                      ].map((item) => (
+                        <div key={item.name} className="group">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-3">
+                              <div className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800">
+                                <item.icon
+                                  className={`text-lg ${item.iconColor}`}
+                                />
                               </div>
-                              <div className="h-2 sm:h-2.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden backdrop-blur-sm p-0.5">
-                                <div
-                                  style={{ width: `${item.progress}%` }}
-                                  className={`h-full bg-gradient-to-r ${item.color} rounded-full shadow-lg relative`}
-                                >
-                                  <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent" />
+                              <div>
+                                <div className="font-medium text-gray-900 dark:text-white">
+                                  {item.name}
                                 </div>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">
+                                  {item.description}
+                                </p>
                               </div>
                             </div>
-                          ))}
+                            <span className="text-sm font-medium text-gray-900 dark:text-white">
+                              {item.progress}%
+                            </span>
+                          </div>
+                          <div className="h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                            <div
+                              style={{ width: `${item.progress}%` }}
+                              className={`h-full ${item.color} rounded-full transition-all duration-300 ease-in-out`}
+                            />
+                          </div>
                         </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
 
                   {/* Activity Feed */}
-                  <div className="lg:col-span-8">
-                    <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-gray-900 border border-blue-100 dark:border-blue-800 backdrop-blur-xl shadow-lg">
-                      <div className="relative p-6 sm:p-8 border-b border-gray-100/20 dark:border-gray-800/20 bg-gradient-to-r from-blue-50/50 via-indigo-50/50 to-violet-50/50 dark:from-blue-900/20 dark:via-indigo-900/20 dark:to-violet-900/20">
-                        <div className="relative flex items-center justify-between">
-                          <div className="flex items-center gap-3 sm:gap-4">
-                            <div className="p-2 sm:p-3 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg">
-                              <FaHistory className="text-lg sm:text-xl text-white" />
-                            </div>
-                            <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent">
-                              Recent Activity
-                            </h3>
+                  <div className="lg:col-span-8 lg:pl-6 pb-8">
+                    <div className="pb-8 border-b border-gray-200/80 dark:border-gray-800/80">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <div className="p-3 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600">
+                            <FaHistory className="text-xl text-white" />
                           </div>
-                          <div className="hidden sm:flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                            <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                            Live Updates
-                          </div>
+                          <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                            Recent Activity
+                          </h3>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                          Live Updates
                         </div>
                       </div>
-                      <div className="divide-y divide-gray-100/20 dark:divide-gray-800/20">
+                    </div>
+                    {recentCourses.length > 0 ? (
+                      <div className="divide-y divide-gray-200/80 dark:divide-gray-800/80">
                         {recentCourses.map((course) => (
                           <div
                             key={course}
-                            className="relative p-4 sm:p-6 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors duration-200"
+                            className="p-6 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors duration-200"
                           >
-                            <div className="flex items-center gap-3 sm:gap-4">
-                              <div className="relative">
-                                <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl bg-blue-500">
-                                  <FaBook className="text-white text-lg sm:text-xl" />
+                            <div className="flex items-center gap-4">
+                              <div className="shrink-0">
+                                <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-500 to-blue-600">
+                                  <FaBook className="text-xl text-white" />
                                 </div>
                               </div>
-                              <div className="flex-1">
-                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                                  <h4 className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center justify-between gap-4">
+                                  <h4 className="font-semibold text-gray-900 dark:text-white truncate">
                                     {course}
                                   </h4>
-                                  <span className="max-w-fit text-xs sm:text-sm px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 to-indigo-500/10 dark:from-blue-500/20 dark:to-indigo-500/20 text-blue-700 dark:text-blue-300 font-medium border border-blue-200/20 dark:border-blue-700/20 backdrop-blur-sm">
+                                  <span className="shrink-0 text-sm px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400">
                                     2h ago
                                   </span>
                                 </div>
-                                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mt-2 flex items-center gap-2">
-                                  <span className="inline-flex items-center gap-1 text-emerald-500 font-semibold bg-emerald-50 dark:bg-emerald-900/20 px-2 py-0.5 rounded-full">
+                                <div className="mt-2 flex items-center gap-3 text-sm">
+                                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 font-medium">
                                     +50 XP
                                   </span>
-                                  <span className="text-gray-400">•</span>
-                                  <span className="text-blue-500 dark:text-blue-400 font-medium">
+                                  <span className="text-blue-600 dark:text-blue-400 font-medium">
                                     Completed lesson
                                   </span>
-                                </p>
+                                </div>
                               </div>
                             </div>
                           </div>
                         ))}
                       </div>
-                    </div>
+                    ) : (
+                      <div className="py-16 text-center">
+                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                          No Activity Yet
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-400">
+                          Start learning to see your activity here!
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
               {activeTab === "courses" && (
-                <div className="text-center py-12">
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <div className="text-center py-12 sm:py-16">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
                     Courses Coming Soon
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
                     We're working hard to bring you an amazing course
                     experience. Stay tuned!
                   </p>
                 </div>
               )}
               {activeTab === "projects" && (
-                <div className="text-center py-12">
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <div className="text-center py-12 sm:py-16">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
                     Projects Coming Soon
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    Project showcase features are under development. Check
-                    back soon!
+                  <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
+                    Project showcase features are under development. Check back
+                    soon!
                   </p>
                 </div>
               )}
               {activeTab === "challenges" && (
-                <div className="text-center py-12">
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <div className="text-center py-12 sm:py-16">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
                     Challenges Coming Soon
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
                     Get ready for exciting coding challenges. Coming to you
                     shortly!
                   </p>
                 </div>
               )}
               {activeTab === "achievements" && (
-                <div className="text-center py-12">
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <div className="text-center py-12 sm:py-16">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
                     Achievements Coming Soon
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
                     Your achievements and badges will be displayed here soon!
                   </p>
                 </div>
