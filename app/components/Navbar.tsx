@@ -34,7 +34,7 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { isDarkMode, toggleTheme, theme } = useTheme();
+  const { toggleTheme, theme } = useTheme();
   const isUserEmpty = !user || Object.keys(user).length === 0;
   const navigationItems = useMemo(() => getNavigationItems(), []);
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -51,17 +51,10 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
     });
   };
 
-  const toggleMenu = () => startTransition(() => setIsMenuOpen(!isMenuOpen));
-
   const changeLanguage = (lng: string) => {
     setCookie("language", lng, { path: "/", expires: "never" });
     const currentPath = window.location.pathname;
     navigate(currentPath, { replace: true });
-  };
-
-  const handleNavigation = (to: string) => {
-    toggleMenu();
-    navigate(to);
   };
 
   useEffect(() => {
@@ -140,11 +133,7 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
             </div>
           </div>
         </div>
-        <Suspense
-          fallback={
-            <div className="fixed inset-y-0 right-0 w-64 bg-gray-200 animate-pulse" />
-          }
-        >
+        <Suspense>
           <Sidebar
             isSidebarOpen={isSidebarOpen}
             sidebarRef={sidebarRef}

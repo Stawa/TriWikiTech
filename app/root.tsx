@@ -1,6 +1,5 @@
 import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import {
-  ClientLoaderFunctionArgs,
   isRouteErrorResponse,
   Links,
   Meta,
@@ -19,7 +18,6 @@ import { getCookie } from "~/utils/cookie";
 import Footer from "~/components/Footer";
 import Navbar from "~/components/Navbar";
 import ErrorPage from "~/components/404";
-import { useTheme } from "~/hooks/useTheme";
 import "~/tailwind.css";
 
 export const links: LinksFunction = () => [

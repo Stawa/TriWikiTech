@@ -1,0 +1,6 @@
+{
+  "entry": ["app/root.tsx", "app/routes/**/*.{tsx,js}"],
+  "extensions": [".tsx", ".js"],
+  "ignorePatterns": ["**/node_modules/**", "private/**"],
+  "respectGitignore": true
+}
