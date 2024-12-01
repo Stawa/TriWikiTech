@@ -30,19 +30,57 @@ export function convertToUserProfile(
       ? (jsonObject[key] as Record<string, unknown>)
       : {};
 
+  const getNumber = (key: string): number =>
+    typeof jsonObject[key] === "number" ? (jsonObject[key] as number) : 0;
+
   return {
-    badges: getArray("badges") as string[],
-    bio: getString("bio"),
-    createdAt: getDate("createdAt"),
-    displayName: getString("displayName"),
-    email: getString("email"),
-    id: getString("id"),
-    image: getString("image"),
-    lastSignIn: getDate("lastSignIn"),
-    name: getString("name"),
-    progress: getObject("progress"),
-    provider: getString("provider"),
-    providerAccountId: getString("providerAccountId"),
-    displayedBadges: getArray("displayedBadges") as string[],
+    userId: getString("id"),
+    username: getString("username"),
+    fullName: getString("fullName"),
+    emailAddress: getString("emailAddress"),
+    avatarUrl: getString("avatarUrl"),
+    userBio: getString("userBio"),
+    authProvider: getString("authProvider"),
+    authId: getString("authId"),
+    joinedAt: getDate("joinedAt"),
+    lastActive: getDate("lastActive"),
+    earnedBadges: getArray("earnedBadges") as string[],
+    activeBadges: getArray("activeBadges") as string[],
+    stats: {
+      completedLessons: getNumber("completedLessons"),
+      totalAchievements: getNumber("totalAchievements"),
+      totalScore: getNumber("totalScore"),
+      rankTitle: getString("rankTitle"),
+      enrolledCourses: Object.entries(getObject("enrolledCourses")).reduce(
+        (acc, [key, value]) => ({
+          ...acc,
+          [key]: {
+            title: ((value as Record<string, unknown>)?.title as string) || "",
+            completion:
+              ((value as Record<string, unknown>)?.completion as number) || 0,
+            themeColor:
+              ((value as Record<string, unknown>)?.themeColor as string) || "",
+            summary:
+              ((value as Record<string, unknown>)?.summary as string) || "",
+          },
+        }),
+        {}
+      ),
+      activityFeed: getArray("activityFeed").map((item) => ({
+        id: ((item as Record<string, unknown>)?.id as string) || "",
+        title: ((item as Record<string, unknown>)?.title as string) || "",
+        lesson: ((item as Record<string, unknown>)?.lesson as string) || "",
+        experiencePoints:
+          ((item as Record<string, unknown>)?.experiencePoints as number) || 0,
+        timestamp: new Date(
+          ((item as Record<string, unknown>)?.timestamp as string) ||
+            defaultDate
+        ),
+      })),
+    },
+    links: {
+      github: getString("github"),
+      twitter: getString("twitter"),
+    },
   };
 }

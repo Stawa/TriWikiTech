@@ -65,7 +65,7 @@ function Sidebar({
 
   function handleLogout() {
     submit(null, { method: "get", action: "/logout" });
-    navigate("/login");
+    navigate("/sign-in");
   }
 
   const handleNavigate = () => {
@@ -132,7 +132,7 @@ function Sidebar({
                 {user && (
                   <SidebarSection title={translations.UserMenu}>
                     <SidebarLink
-                      to={`/profile/${user.name}`}
+                      to={`/profile/${user.username}`}
                       icon={<FaUserCircle />}
                       onNavigate={handleNavigate}
                     >

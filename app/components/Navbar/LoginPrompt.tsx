@@ -29,7 +29,7 @@ function LoginPrompt({ translations, onNavigate }: LoginPromptProps) {
 
         <div className="flex flex-col gap-3">
           <Link
-            to="/login"
+            to="/sign-in"
             onClick={onNavigate}
             className="group relative overflow-hidden w-full px-4 py-2.5 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2
               bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500
@@ -43,7 +43,7 @@ function LoginPrompt({ translations, onNavigate }: LoginPromptProps) {
           </Link>
 
           <Link
-            to="/register"
+            to="/sign-up"
             onClick={onNavigate}
             className="group relative overflow-hidden w-full px-4 py-2.5 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2
               bg-gradient-to-r from-white to-gray-50 

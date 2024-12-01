@@ -23,6 +23,10 @@ body {
   }
 }
 
+input:focus {
+  outline: none;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -31,4 +35,5 @@ input:-webkit-autofill:active {
   color: var(--foreground) !important;
   caret-color: var(--foreground) !important;
   transition: background-color 5000s ease-in-out 0s;
+  background: transparent !important;
 }

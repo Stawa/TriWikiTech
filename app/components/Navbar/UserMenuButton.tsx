@@ -11,17 +11,17 @@ function UserMenuButton({ toggleSidebar, user }: UserMenuButtonProps) {
     <button
       onClick={toggleSidebar}
       className={`rounded-full ${
-        !user || (user.image === "")
+        !user || (user.avatarUrl === "")
           ? "p-2 bg-indigo-700 hover:bg-indigo-600 dark:bg-indigo-700 dark:hover:bg-indigo-600 text-white"
           : ""
       } transition-colors duration-200 shadow-md`}
       aria-label="Open User Menu"
     >
       {user ? (
-        user.image && user.image !== "" ? (
+        user.avatarUrl && user.avatarUrl !== "" ? (
           <img
-            src={user.image}
-            alt={user.name}
+            src={user.avatarUrl}
+            alt={user.fullName}
             className="w-10 h-10 rounded-full border-2 border-indigo-300 dark:border-indigo-300"
           />
         ) : (

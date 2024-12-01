@@ -29,17 +29,18 @@ import { UserProfile } from "~/types/user";
 import { SiTypescript } from "react-icons/si";
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => [
-  { title: `TriWikiTech | ${data.user.name || "Not Found"}` },
+  { title: `TriWikiTech | ${data.user.fullName || "User Not Found"}` },
   {
     name: "description",
-    content: `Check out ${data.user.displayName}'s profile on TriWikiTech! Join us to learn, code, and grow together.`,
+    content: `Check out ${
+      data.user.fullName || "this user"
+    }'s profile on TriWikiTech! Join us to learn, code, and grow together.`,
   },
 ];
 
 interface LoaderData {
   user: UserProfile;
   error?: string;
-  recentCourses: string[];
 }
 
 const Badges = {
@@ -70,14 +71,12 @@ export const loader: LoaderFunction = async ({
 
   try {
     const userData = await getUserData(username);
-
     return userData;
   } catch (error) {
     console.error("Error fetching user data:", error);
     return {
       user: {} as UserProfile,
       error: "An error occurred while fetching user data",
-      recentCourses: [],
     };
   }
 };
@@ -85,7 +84,7 @@ export const loader: LoaderFunction = async ({
 async function getUserData(username: string): Promise<LoaderData> {
   const [userData] = await firestoreService.queryCollection(
     "users",
-    "name",
+    "username",
     "==",
     username
   );
@@ -94,19 +93,17 @@ async function getUserData(username: string): Promise<LoaderData> {
     return {
       user: {} as UserProfile,
       error: "User not found",
-      recentCourses: [],
     };
   }
 
   return {
     user: userData as UserProfile,
-    recentCourses: [],
   };
 }
 
 export const action: ActionFunction = async ({ request }) => {
   const session = await getSession(request);
-  return redirect("/login", {
+  return redirect("/sign-in", {
     headers: {
       "Set-Cookie": await destroySession(session),
     },
@@ -114,8 +111,8 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Profile() {
-  const { user, error, recentCourses } = useLoaderData<LoaderData>();
   const location = useLocation();
+  const { user, error } = useLoaderData<LoaderData>();
   const [activeTab, setActiveTab] = useState("overview");
   const [isImageLoading, setIsImageLoading] = useState(true);
 
@@ -219,12 +216,12 @@ export default function Profile() {
                   {isImageLoading && (
                     <div className="absolute inset-0 animate-pulse rounded-2xl bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800" />
                   )}
-                  {user.image ? (
+                  {user.avatarUrl ? (
                     <img
-                      src={user.image}
-                      alt={`${user.displayName}'s profile picture`}
+                      src={user.avatarUrl}
+                      alt={`${user.fullName}'s profile picture`}
                       className={`w-full h-full object-cover transition-opacity duration-300 ${
-                        isImageLoading ? 'opacity-0' : 'opacity-100'
+                        isImageLoading ? "opacity-0" : "opacity-100"
                       }`}
                       onLoad={() => setIsImageLoading(false)}
                       loading="lazy"
@@ -232,7 +229,7 @@ export default function Profile() {
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-700 dark:from-blue-600 dark:to-blue-800">
                       <span className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white">
-                        {user.displayName.charAt(0).toUpperCase()}
+                        {user.fullName.charAt(0).toUpperCase()}
                       </span>
                     </div>
                   )}
@@ -245,26 +242,25 @@ export default function Profile() {
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                     <div className="text-center md:text-left">
                       <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 dark:from-white dark:via-gray-200 dark:to-gray-300">
-                        {user.displayName}
+                        {user.fullName}
                       </h1>
                       <p className="mt-2 text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-2xl">
-                        {user.bio || (
-                          <span className="italic">
-                            Passionate developer exploring web technologies and
-                            building amazing experiences.
+                        {user.userBio || (
+                          <span className="italic text-gray-500 dark:text-gray-400">
+                            This user hasn't added a bio yet
                           </span>
                         )}
                       </p>
                     </div>
                     <div className="flex justify-center md:justify-end gap-3 mt-4 md:mt-0">
                       <a
-                        href="#"
+                        href={user.links.github || "#"}
                         className="p-2 rounded-lg bg-white/90 dark:bg-gray-800/90 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors backdrop-blur-md border border-blue-100/30 dark:border-blue-700/60 shadow-lg"
                       >
                         <FaGithub className="w-4 h-4 sm:w-5 sm:h-5" />
                       </a>
                       <a
-                        href="#"
+                        href={user.links.twitter || "#"}
                         className="p-2 rounded-lg bg-white/90 dark:bg-gray-800/90 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors backdrop-blur-md border border-blue-100/30 dark:border-blue-700/60 shadow-lg"
                       >
                         <FaTwitter className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -277,7 +273,7 @@ export default function Profile() {
                       <div className="flex items-center gap-2 sm:gap-3">
                         <FaGraduationCap className="text-blue-600 dark:text-blue-400 text-sm sm:text-base md:text-lg" />
                         <span className="text-xs sm:text-sm md:text-base text-blue-900 dark:text-blue-100 font-medium">
-                          Intermediate
+                          {user.stats.rankTitle || "Beginner"}
                         </span>
                       </div>
                       <span className="hidden sm:inline text-gray-400 dark:text-gray-500">
@@ -286,7 +282,7 @@ export default function Profile() {
                       <div className="flex items-center gap-2 sm:gap-3">
                         <FaTrophy className="text-yellow-600 dark:text-yellow-400 text-sm sm:text-base md:text-lg" />
                         <span className="text-xs sm:text-sm md:text-base text-yellow-900 dark:text-yellow-100 font-medium">
-                          1,234 Points
+                          {user.stats.totalScore || 0} Points
                         </span>
                       </div>
                       <span className="hidden sm:inline text-gray-400 dark:text-gray-500">
@@ -295,7 +291,8 @@ export default function Profile() {
                       <div className="flex items-center gap-2 sm:gap-3">
                         <FaBook className="text-indigo-600 dark:text-indigo-400 text-sm sm:text-base md:text-lg" />
                         <span className="text-xs sm:text-sm md:text-base text-indigo-900 dark:text-indigo-100 font-medium">
-                          12 Courses
+                          {Object.keys(user.stats.enrolledCourses).length || 0}{" "}
+                          Courses
                         </span>
                       </div>
                     </div>
@@ -349,7 +346,7 @@ export default function Profile() {
                     <div className="grid grid-cols-2 gap-6 mb-10">
                       <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-center">
                         <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
-                          24
+                          {user.stats.completedLessons || 0}
                         </div>
                         <div className="mt-1 text-sm text-gray-600 dark:text-gray-400">
                           Lessons
@@ -357,7 +354,7 @@ export default function Profile() {
                       </div>
                       <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-center">
                         <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
-                          8
+                          {user.stats.totalAchievements || 0}
                         </div>
                         <div className="mt-1 text-sm text-gray-600 dark:text-gray-400">
                           Achievements
@@ -367,61 +364,65 @@ export default function Profile() {
 
                     {/* Learning Progress */}
                     <div className="space-y-6">
-                      {[
-                        {
-                          name: "JavaScript",
-                          progress: 75,
-                          color: "bg-amber-500",
-                          icon: FaJs,
-                          iconColor: "text-amber-600 dark:text-amber-400",
-                          description: "Advanced concepts & patterns",
-                        },
-                        {
-                          name: "TypeScript",
-                          progress: 45,
-                          color: "bg-blue-500",
-                          icon: SiTypescript,
-                          iconColor: "text-blue-600 dark:text-blue-400",
-                          description: "Types & interfaces",
-                        },
-                        {
-                          name: "React",
-                          progress: 60,
-                          color: "bg-cyan-500",
-                          icon: FaReact,
-                          iconColor: "text-cyan-600 dark:text-cyan-400",
-                          description: "Hooks & component patterns",
-                        },
-                      ].map((item) => (
-                        <div key={item.name} className="group">
-                          <div className="flex items-center justify-between mb-2">
-                            <div className="flex items-center gap-3">
-                              <div className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800">
-                                <item.icon
-                                  className={`text-lg ${item.iconColor}`}
-                                />
-                              </div>
-                              <div>
-                                <div className="font-medium text-gray-900 dark:text-white">
-                                  {item.name}
+                      {Object.keys(user.stats.enrolledCourses).map(
+                        (courseId) => (
+                          <div key={courseId} className="group">
+                            <div className="flex items-center justify-between mb-2">
+                              <div className="flex items-center gap-3">
+                                <div className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800">
+                                  {user.stats.enrolledCourses[courseId]
+                                    .themeColor === "javascript" ? (
+                                    <FaJs className="text-lg text-amber-600 dark:text-amber-400" />
+                                  ) : user.stats.enrolledCourses[courseId]
+                                      .themeColor === "typescript" ? (
+                                    <SiTypescript className="text-lg text-blue-600 dark:text-blue-400" />
+                                  ) : user.stats.enrolledCourses[courseId]
+                                      .themeColor === "react" ? (
+                                    <FaReact className="text-lg text-cyan-600 dark:text-cyan-400" />
+                                  ) : null}
                                 </div>
-                                <p className="text-xs text-gray-500 dark:text-gray-400">
-                                  {item.description}
-                                </p>
+                                <div>
+                                  <div className="font-medium text-gray-900 dark:text-white">
+                                    {user.stats.enrolledCourses[courseId].title}
+                                  </div>
+                                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                                    {
+                                      user.stats.enrolledCourses[courseId]
+                                        .summary
+                                    }
+                                  </p>
+                                </div>
                               </div>
+                              <span className="text-sm font-medium text-gray-900 dark:text-white">
+                                {
+                                  user.stats.enrolledCourses[courseId]
+                                    .completion
+                                }
+                                %
+                              </span>
                             </div>
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">
-                              {item.progress}%
-                            </span>
+                            <div className="h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                              <div
+                                style={{
+                                  width: `${user.stats.enrolledCourses[courseId].completion}%`,
+                                }}
+                                className={`h-full ${
+                                  user.stats.enrolledCourses[courseId]
+                                    .themeColor === "javascript"
+                                    ? "bg-amber-500"
+                                    : user.stats.enrolledCourses[courseId]
+                                        .themeColor === "typescript"
+                                    ? "bg-blue-500"
+                                    : user.stats.enrolledCourses[courseId]
+                                        .themeColor === "react"
+                                    ? "bg-cyan-500"
+                                    : "bg-gray-500"
+                                } rounded-full transition-all duration-300 ease-in-out`}
+                              />
+                            </div>
                           </div>
-                          <div className="h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-                            <div
-                              style={{ width: `${item.progress}%` }}
-                              className={`h-full ${item.color} rounded-full transition-all duration-300 ease-in-out`}
-                            />
-                          </div>
-                        </div>
-                      ))}
+                        )
+                      )}
                     </div>
                   </div>
 
@@ -443,11 +444,12 @@ export default function Profile() {
                         </div>
                       </div>
                     </div>
-                    {recentCourses.length > 0 ? (
+                    {user.stats.activityFeed &&
+                    user.stats.activityFeed.length > 0 ? (
                       <div className="divide-y divide-gray-200/80 dark:divide-gray-800/80">
-                        {recentCourses.map((course) => (
+                        {user.stats.activityFeed.map((activity) => (
                           <div
-                            key={course}
+                            key={activity.id}
                             className="p-6 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors duration-200"
                           >
                             <div className="flex items-center gap-4">
@@ -459,18 +461,18 @@ export default function Profile() {
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center justify-between gap-4">
                                   <h4 className="font-semibold text-gray-900 dark:text-white truncate">
-                                    {course}
+                                    {activity.title}
                                   </h4>
                                   <span className="shrink-0 text-sm px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400">
-                                    2h ago
+                                    {activity.timestamp}
                                   </span>
                                 </div>
                                 <div className="mt-2 flex items-center gap-3 text-sm">
                                   <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 font-medium">
-                                    +50 XP
+                                    +{activity.experiencePoints} XP
                                   </span>
                                   <span className="text-blue-600 dark:text-blue-400 font-medium">
-                                    Completed lesson
+                                    {activity.lesson}
                                   </span>
                                 </div>
                               </div>

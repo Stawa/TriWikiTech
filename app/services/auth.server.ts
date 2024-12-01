@@ -34,24 +34,33 @@ function createUserProfile(
   userCredential: UserCredential,
   providerName: string,
   username?: string,
-  displayName?: string
+  fullName?: string
 ): UserProfile {
   const userId = `${providerName}:${userCredential.user.uid}`;
-  return {
-    id: userId,
-    name: username || "",
-    displayName: displayName || "",
-    email: userCredential.user.email || "",
-    image: userCredential.user.photoURL || "",
-    bio: "",
-    provider: providerName,
-    providerAccountId: userCredential.user.uid,
-    createdAt: new Date(),
-    lastSignIn: new Date(),
-    badges: [],
-    progress: {},
-    displayedBadges: [],
+  const userProfile: UserProfile = {
+    userId,
+    username: username || "",
+    fullName: fullName || "",
+    emailAddress: userCredential.user.email || "",
+    avatarUrl: userCredential.user.photoURL || "",
+    userBio: "",
+    authProvider: providerName,
+    authId: userCredential.user.uid,
+    joinedAt: new Date(),
+    lastActive: new Date(),
+    earnedBadges: [],
+    activeBadges: [],
+    stats: {
+      completedLessons: 0,
+      totalAchievements: 0,
+      totalScore: 0,
+      rankTitle: "Beginner",
+      enrolledCourses: {},
+      activityFeed: [],
+    },
+    links: {},
   };
+  return userProfile;
 }
 
 async function handleAuthentication(
@@ -68,7 +77,7 @@ async function handleAuthentication(
     await firestoreService.setDocument("users", userId, userProfile);
   } else {
     await firestoreService.updateDocument("users", userId, {
-      lastSignIn: new Date(),
+      lastActive: new Date(),
     });
   }
 
@@ -81,7 +90,7 @@ async function register(
   email: string,
   password: string,
   username: string,
-  displayName: string
+  fullName: string
 ): Promise<string> {
   const userCredential = await createUserWithEmailAndPassword(
     auth,
@@ -93,10 +102,10 @@ async function register(
     userCredential,
     "credentials",
     username,
-    displayName
+    fullName
   );
 
-  await firestoreService.setDocument("users", userProfile.id, userProfile);
+  await firestoreService.setDocument("users", userProfile.userId, userProfile);
 
   return sessionCookie.serialize(token);
 }
@@ -116,7 +125,23 @@ function createSocialLoginFunction(provider: AuthProvider) {
     );
 }
 
+async function checkUsernameAvailability(username: string): Promise<boolean> {
+  const users = await firestoreService.queryCollection(
+    "users",
+    "username",
+    "==",
+    username
+  );
+  return users.length > 0;
+}
+
 const loginWithGoogle = createSocialLoginFunction(new GoogleAuthProvider());
 const loginWithGitHub = createSocialLoginFunction(new GithubAuthProvider());
 
-export { register, login, loginWithGoogle, loginWithGitHub };
+export {
+  register,
+  login,
+  loginWithGoogle,
+  loginWithGitHub,
+  checkUsernameAvailability,
+};

@@ -32,7 +32,6 @@ interface NavbarProps {
 
 function Navbar({ user, translations, currentLanguage }: NavbarProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { toggleTheme, theme } = useTheme();
   const isUserEmpty = !user || Object.keys(user).length === 0;
