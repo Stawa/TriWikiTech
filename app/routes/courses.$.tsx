@@ -22,6 +22,7 @@ interface CourseData {
 interface CourseMeta {
   title: string;
   description: string;
+  image?: string;
 }
 
 interface CourseMetaWithPaths extends CourseMeta {
@@ -59,6 +60,9 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [
     { title: metaData.title },
     { name: "description", content: metaData.description },
+    { name: "og:image", content: metaData.image },
+    { name: "og:title", content: metaData.title },
+    { name: "og:description", content: metaData.description },
   ];
 };
 

@@ -74,7 +74,7 @@ function Footer({ translations }: FooterProps) {
             <nav aria-label="Footer links">
               <ul className="space-y-3">
                 <FooterLink
-                  href="/tos"
+                  href="/terms"
                   icon={<FaFileContract />}
                   label={translations.footerLinks.termsOfService}
                   className="justify-center lg:justify-center sm:justify-end"

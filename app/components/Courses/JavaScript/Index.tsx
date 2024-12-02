@@ -5,7 +5,6 @@ import {
   FaGraduationCap,
   FaBriefcase,
   FaChevronDown,
-  FaArrowRight,
   FaSearch,
 } from "react-icons/fa";
 import { IoInfinite } from "react-icons/io5";
