@@ -41,7 +41,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   let browser: Browser | CoreBrowser;
 
   try {
-    if (process.env.NODE_ENV === "production") {
+    if (import.meta.env.VITE_NODE_ENV === "production") {
       const puppeteer = await import("puppeteer-core");
       browser = await puppeteer.launch({
         args: chromium.args,
