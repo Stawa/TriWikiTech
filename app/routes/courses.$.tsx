@@ -13,16 +13,11 @@ import {
   FirstJavaScriptCode,
   FirstCodeMetaData,
 } from "~/components/Courses/JavaScript/Start/FirstCode";
+import { CourseMeta } from "~/types/course";
 
 interface CourseData {
   courseId: string;
   coursePath: string;
-}
-
-interface CourseMeta {
-  title: string;
-  description: string;
-  image?: string;
 }
 
 interface CourseMetaWithPaths extends CourseMeta {
@@ -60,10 +55,46 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [
     { title: metaData.title },
     { name: "description", content: metaData.description },
-    { name: "og:image", content: metaData.image },
-    { name: "og:title", content: metaData.title },
-    { name: "og:description", content: metaData.description },
-  ];
+    { property: "og:type", content: "article" },
+    {
+      property: "og:url",
+      content: `https://beta.triwikitech.my.id/${metaData.url}`,
+    },
+    { property: "og:title", content: metaData.title },
+    { property: "og:description", content: metaData.description },
+    {
+      property: "og:image",
+      content: `https://beta.triwikitech.my.id${metaData.image}`,
+    },
+    {
+      property: "og:published_time",
+      content: metaData.published_time?.toISOString(),
+    },
+    {
+      property: "og:modified_time",
+      content: metaData.modified_time?.toISOString(),
+    },
+    { property: "article:section", content: metaData.section },
+    ...(metaData.tag?.map((tag) => ({
+      property: "article:tag",
+      content: tag,
+    })) || []),
+    ...(metaData.author?.map((author) => ({
+      property: "article:author",
+      content: author,
+    })) || []),
+    { property: "twitter:card", content: "summary_large_image" },
+    {
+      property: "twitter:url",
+      content: `https://beta.triwikitech.my.id/${metaData.url}`,
+    },
+    { property: "twitter:title", content: metaData.title },
+    { property: "twitter:description", content: metaData.description },
+    {
+      property: "twitter:image",
+      content: `https://beta.triwikitech.my.id${metaData.image}`,
+    },
+  ].filter((meta) => meta.content != null);
 };
 
 export async function loader({ params }: LoaderFunctionArgs) {

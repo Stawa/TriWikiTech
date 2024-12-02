@@ -2,12 +2,19 @@ import { motion } from "framer-motion";
 import { FaArrowRight, FaArrowLeft, FaGraduationCap } from "react-icons/fa";
 import { SiJavascript } from "react-icons/si";
 import { Link } from "react-router-dom";
+import { CourseMeta } from "~/types/course";
 
-export const FirstCodeMetaData = {
+export const FirstCodeMetaData: CourseMeta = {
   title: "TriWikiTech | First JavaScript Code",
   description:
     "Write your first JavaScript code and learn the basics of programming.",
   image: "/courses/og/FirstCode_JS.png",
+  url: "/courses/javascript/first-code",
+  published_time: new Date("2024-11-25"),
+  modified_time: new Date("2024-12-02"),
+  section: "JavaScript Basics",
+  tag: ["JavaScript", "Beginner", "Programming"],
+  author: ["Stawa"],
 };
 
 export function FirstJavaScriptCode() {
