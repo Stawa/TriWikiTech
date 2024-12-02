@@ -30,6 +30,9 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: "build",
       chunkSizeWarningLimit: 1000,
+      rollupOptions: {
+        external: ["puppeteer-core", "puppeteer"],
+      },
     },
   };
 });
