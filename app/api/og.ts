@@ -52,6 +52,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     const puppeteer = await import("puppeteer");
     browser = await puppeteer.launch({
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      // @ts-expect-error
       headless: "new",
     });
   }
