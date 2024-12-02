@@ -13,6 +13,13 @@ export const SetupMetaData = {
   title: "TriWikiTech | JavaScript Setup",
   description:
     "Set up your JavaScript development environment with our comprehensive guide.",
+  image: "/courses/og/Setup_JS.png",
+  url: "/courses/javascript/setup",
+  published_time: new Date("2024-11-25"),
+  modified_time: new Date("2024-11-25"),
+  section: "JavaScript Basics",
+  tag: ["JavaScript", "Beginner", "Programming"],
+  author: ["Stawa"],
 };
 
 export function JavaScriptSetup() {
