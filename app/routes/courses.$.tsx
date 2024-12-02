@@ -94,7 +94,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
       property: "twitter:image",
       content: `https://beta.triwikitech.my.id${metaData.image}`,
     },
-  ].filter((meta) => meta.content != null);
+  ];
 };
 
 export async function loader({ params }: LoaderFunctionArgs) {
