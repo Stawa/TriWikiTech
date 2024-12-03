@@ -8,7 +8,8 @@
     "build": "remix vite:build",
     "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "createOpenGraph": "bun run local/og.ts"
   },
   "dependencies": {
     "@headlessui/react": "^2.1.10",

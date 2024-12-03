@@ -17,6 +17,8 @@ export const JavaScriptCourseMeta = {
   title: "TriWikiTech | JavaScript Course",
   description:
     "Master JavaScript with our comprehensive course. Learn modern best practices, advanced concepts, and build real-world applications.",
+  image: "/courses/og/Index_JS.png",
+  url: "/courses/javascript",
 };
 
 export function JavaScriptCourse() {

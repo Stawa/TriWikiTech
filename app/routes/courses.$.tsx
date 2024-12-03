@@ -58,7 +58,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     { property: "og:type", content: "article" },
     {
       property: "og:url",
-      content: `https://beta.triwikitech.my.id/${metaData.url}`,
+      content: `https://beta.triwikitech.my.id${metaData.url}`,
     },
     { property: "og:title", content: metaData.title },
     { property: "og:description", content: metaData.description },
@@ -86,7 +86,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     { property: "twitter:card", content: "summary_large_image" },
     {
       property: "twitter:url",
-      content: `https://beta.triwikitech.my.id/${metaData.url}`,
+      content: `https://beta.triwikitech.my.id${metaData.url}`,
     },
     { property: "twitter:title", content: metaData.title },
     { property: "twitter:description", content: metaData.description },
