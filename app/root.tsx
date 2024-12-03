@@ -8,8 +8,11 @@ import {
   ScrollRestoration,
   useLoaderData,
   useRouteError,
+  useNavigation,
 } from "@remix-run/react";
+import { useEffect, useRef } from "react";
 import { useChangeLanguage } from "remix-i18next/react";
+import LoadingBar from "react-top-loading-bar";
 
 import type { UserProfile } from "~/types/user";
 import { convertToUserProfile } from "~/utils/convert";
@@ -74,8 +77,12 @@ interface FooterTranslations {
   allRightsReserved: string;
   designedBy: string;
   footerLinks: {
+    title: string;
     termsOfService: string;
     privacyPolicy: string;
+  };
+  socialLinks: {
+    title: string;
   };
 }
 
@@ -88,6 +95,17 @@ function Document({
   translations = {},
   theme = "light",
 }: DocumentProps) {
+  const navigation = useNavigation();
+  const ref = useRef<React.ElementRef<typeof LoadingBar> | null>(null);
+
+  useEffect(() => {
+    if (navigation.state === "loading") {
+      ref.current?.continuousStart();
+    } else {
+      ref.current?.complete();
+    }
+  }, [navigation.state]);
+
   return (
     <html
       lang={locale}
@@ -102,6 +120,7 @@ function Document({
         <Links />
       </head>
       <body>
+        <LoadingBar color="#f97316" ref={ref} />
         {showNavAndFooter && (
           <Navbar
             translations={translations.navbar}
