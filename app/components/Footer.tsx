@@ -8,7 +8,6 @@ import {
   FaClock,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { motion } from "framer-motion";
 import { Link } from "@remix-run/react";
 
 interface FooterProps {
@@ -17,8 +16,12 @@ interface FooterProps {
     allRightsReserved: string;
     designedBy: string;
     footerLinks: {
+      title: string;
       termsOfService: string;
       privacyPolicy: string;
+    };
+    socialLinks: {
+      title: string;
     };
   };
 }
@@ -69,7 +72,7 @@ function Footer({ translations }: FooterProps) {
 
           <div className="space-y-4 text-center lg:text-center sm:text-right">
             <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400">
-              Quick Links
+              {translations.footerLinks.title}
             </h3>
             <nav aria-label="Footer links">
               <ul className="space-y-3">
@@ -77,13 +80,11 @@ function Footer({ translations }: FooterProps) {
                   href="/terms"
                   icon={<FaFileContract />}
                   label={translations.footerLinks.termsOfService}
-                  className="justify-center lg:justify-center sm:justify-end"
                 />
                 <FooterLink
                   href="/privacy"
                   icon={<FaShieldAlt />}
                   label={translations.footerLinks.privacyPolicy}
-                  className="justify-center lg:justify-center sm:justify-end"
                 />
               </ul>
             </nav>
@@ -91,13 +92,13 @@ function Footer({ translations }: FooterProps) {
 
           <div className="space-y-4 text-center sm:col-span-2 lg:col-span-1 lg:text-right">
             <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400">
-              Connect With Us
+              {translations.socialLinks.title}
             </h3>
             <div className="flex space-x-6 justify-center lg:justify-end">
               <SocialLink
                 href="https://github.com/Stawa/TriWikiTech"
                 icon={<FaGithub />}
-                label="GitHub"
+                label="Github"
               />
               <SocialLink
                 href="https://x.com/StawaDev"
@@ -113,35 +114,28 @@ function Footer({ translations }: FooterProps) {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t-2 border-indigo-200/30 dark:border-indigo-700/30">
-          <div className="flex flex-col sm:flex-row justify-between items-center space-y-6 sm:space-y-0">
-            <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
-              <div className="flex flex-col items-center sm:items-start space-y-2">
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400 text-center sm:text-left whitespace-nowrap">
-                  © {new Date().getFullYear()} {translations.allRightsReserved}
-                </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center justify-center sm:justify-start group">
-                  <FaPencilAlt className="mr-2 text-indigo-500 dark:text-indigo-300" />
-                  {translations.designedBy}
-                  <Link
-                    to="https://github.com/Stawa"
-                    className="font-medium ml-1.5 text-indigo-600 dark:text-indigo-300 relative 
-                      after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-indigo-500 
-                      after:origin-left after:transition-all after:duration-300 after:ease-out
-                      hover:after:w-full hover:after:opacity-100
-                      hover:text-indigo-700 dark:hover:text-indigo-200
-                      transition-colors duration-300"
-                    target="_blank"
-                  >
-                    Stawa
-                  </Link>
-                </p>
-              </div>
+        <div className="mt-12 pt-8 border-t border-indigo-200 dark:border-indigo-700">
+          <div className="flex flex-wrap justify-between items-center">
+            <div className="w-full md:w-auto mb-4 md:mb-0">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                © {new Date().getFullYear()} {translations.allRightsReserved}
+              </p>
+              <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center mt-2">
+                <FaPencilAlt className="mr-2 text-indigo-500 dark:text-indigo-300" />
+                {translations.designedBy}
+                <Link
+                  to="https://github.com/Stawa"
+                  className="font-medium ml-1.5 text-indigo-600 dark:text-indigo-300 hover:text-indigo-800 dark:hover:text-indigo-100 transition-colors duration-300"
+                  target="_blank"
+                >
+                  Stawa
+                </Link>
+              </p>
             </div>
             {deploymentDate && (
-              <div className="inline-flex items-center px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-50/80 to-purple-50/80 dark:from-indigo-900/30 dark:to-purple-900/30 border border-indigo-100 dark:border-indigo-800 shadow-sm backdrop-blur-sm">
-                <FaClock className="w-4 h-4 text-indigo-500 dark:text-indigo-300 mr-2" />
-                <span className="text-sm font-medium text-indigo-700 dark:text-indigo-200">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
+                <FaClock className="w-4 h-4 mr-2" />
+                <span className="text-sm font-medium">
                   Last updated: {deploymentDate}
                 </span>
               </div>
@@ -161,31 +155,15 @@ interface SocialLinkProps {
 
 function SocialLink({ href, icon, label }: SocialLinkProps) {
   return (
-    <motion.a
+    <a
       href={href}
-      className="relative group flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-indigo-50/80 to-purple-50/80 dark:from-indigo-900/30 dark:to-purple-900/30 border border-indigo-100 dark:border-indigo-800 shadow-sm backdrop-blur-sm hover:shadow-md transition-all duration-150"
+      className="flex items-center justify-center w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors duration-300"
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Visit our ${label} page`}
-      whileHover={{ 
-        scale: 1.05,
-        rotate: [0, -5, 5, 0],
-        transition: {
-          rotate: {
-            duration: 0.15,
-            ease: "easeInOut"
-          }
-        }
-      }}
-      whileTap={{ scale: 0.95 }}
     >
-      {React.cloneElement(icon, { 
-        className: "w-5 h-5 text-indigo-600 dark:text-indigo-300 group-hover:text-indigo-700 dark:group-hover:text-indigo-200 transition-colors duration-150"
-      })}
-      <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-900 dark:bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-150">
-        {label}
-      </span>
-    </motion.a>
+      {React.cloneElement(icon, { className: "w-6 h-6" })}
+    </a>
   );
 }
 
@@ -193,22 +171,20 @@ interface FooterLinkProps {
   href: string;
   icon: React.ReactElement;
   label: string;
-  className?: string;
 }
 
-function FooterLink({ href, icon, label, className = "" }: FooterLinkProps) {
+function FooterLink({ href, icon, label }: FooterLinkProps) {
   return (
-    <li className={className}>
+    <li>
       <Link
         to={href}
-        className="group relative inline-flex items-center px-4 py-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-300 bg-gradient-to-r from-indigo-50/80 to-purple-50/80 dark:from-indigo-900/30 dark:to-purple-900/30 border border-indigo-100 dark:border-indigo-800 transition-all duration-200 ease-in-out"
+        className="group flex items-center text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors duration-300 justify-center lg:justify-center sm:justify-end"
       >
         {React.cloneElement(icon, {
           className:
-            "mr-3 w-5 h-5 text-indigo-500 dark:text-indigo-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-300 group-hover:scale-110 transform transition-all duration-200",
+            "mr-3 w-5 h-5 text-indigo-500 dark:text-indigo-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-300 transition-colors duration-300",
         })}
         <span className="text-sm font-medium">{label}</span>
-        <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-indigo-500/10 to-purple-500/10 dark:from-indigo-400/10 dark:to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
       </Link>
     </li>
   );
