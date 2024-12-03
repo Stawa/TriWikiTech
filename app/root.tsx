@@ -110,7 +110,7 @@ function Document({
     <html
       lang={locale}
       suppressHydrationWarning={true}
-      className={theme === "dark" ? "dark" : ""}
+      className={`!scroll-smooth ${theme === "dark" ? "dark" : ""}`}
     >
       <head>
         <meta charSet="utf-8" />
