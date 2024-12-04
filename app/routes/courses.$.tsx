@@ -94,6 +94,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
       property: "twitter:image",
       content: `https://beta.triwikitech.my.id${metaData.image}`,
     },
+    { rel: "icon", href: "https://beta.triwikitech.my.id/favicon.ico" },
   ];
 };
 
