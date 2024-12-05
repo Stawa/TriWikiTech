@@ -115,12 +115,12 @@ function Footer({ translations }: FooterProps) {
         </div>
 
         <div className="mt-12 pt-8 border-t border-indigo-200 dark:border-indigo-700">
-          <div className="flex flex-wrap justify-between items-center">
+          <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
             <div className="w-full md:w-auto mb-4 md:mb-0">
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 © {new Date().getFullYear()} {translations.allRightsReserved}
               </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center mt-2">
+              <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center justify-center md:justify-start mt-2">
                 <FaPencilAlt className="mr-2 text-indigo-500 dark:text-indigo-300" />
                 {translations.designedBy}
                 <Link
@@ -133,7 +133,7 @@ function Footer({ translations }: FooterProps) {
               </p>
             </div>
             {deploymentDate && (
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 mt-4 md:mt-0">
                 <FaClock className="w-4 h-4 mr-2" />
                 <span className="text-sm font-medium">
                   Last updated: {deploymentDate}

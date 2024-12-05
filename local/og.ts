@@ -72,7 +72,7 @@ async function generateOpenGraphImage(
           </style>
         </head>
         <body>
-          ${OpenGraphs[banner].og()}
+          ${OpenGraphs[banner].og}
         </body>
       </html>
     `;

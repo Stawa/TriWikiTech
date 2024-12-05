@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { FaGraduationCap } from "react-icons/fa";
 import { SiJavascript } from "react-icons/si";
 import { CourseMeta } from "~/types/course";
 import Navigation from "../../Navigation";
@@ -93,11 +92,11 @@ export function FirstJavaScriptCode() {
                 </div>
                 <div className="h-4 w-px bg-gray-300 dark:bg-gray-600"></div>
                 <time
-                  dateTime="2024-12-02"
-                  title="Written on December 2, 2024"
+                  dateTime="2024-12-05"
+                  title="Written on December 05, 2024"
                   className="text-gray-600 dark:text-gray-400 text-sm"
                 >
-                  December 2, 2024
+                  December 05, 2024
                 </time>
               </div>
             </div>
@@ -115,40 +114,29 @@ export function FirstJavaScriptCode() {
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 pb-2 border-b-2 border-blue-500 dark:border-blue-400 inline-block">
                   Table of Contents
                 </h3>
-                <nav className="space-y-4">
-                  <a
-                    href="#intro"
-                    className="group flex items-center py-3 px-4 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/50 transition-colors duration-200"
-                  >
-                    <span className="mr-3 text-blue-500 dark:text-blue-400 font-mono text-sm">
-                      00
-                    </span>
-                    <span className="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
-                      Introduction
-                    </span>
-                  </a>
-                  <a
-                    href="#first-code"
-                    className="group flex items-center py-3 px-4 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/50 transition-colors duration-200"
-                  >
-                    <span className="mr-3 text-blue-500 dark:text-blue-400 font-mono text-sm">
-                      01
-                    </span>
-                    <span className="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
-                      Creating Your First JavaScript Code
-                    </span>
-                  </a>
-                  <a
-                    href="#summary"
-                    className="group flex items-center py-3 px-4 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/50 transition-colors duration-200"
-                  >
-                    <span className="mr-3 text-blue-500 dark:text-blue-400 font-mono text-sm">
-                      02
-                    </span>
-                    <span className="text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
-                      Summary
-                    </span>
-                  </a>
+                <nav className="space-y-2">
+                  {[
+                    { id: "intro", title: "Introduction", number: "00" },
+                    {
+                      id: "first-code",
+                      title: "Creating Your First JavaScript Code",
+                      number: "01",
+                    },
+                    { id: "summary", title: "Summary", number: "02" },
+                  ].map((item) => (
+                    <a
+                      key={item.id}
+                      href={`#${item.id}`}
+                      className="flex items-center py-3 rounded-lg transition-all duration-300"
+                    >
+                      <span className="mr-3 text-blue-600 dark:text-blue-400 font-mono text-sm bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded">
+                        {item.number}
+                      </span>
+                      <span className="text-gray-800 dark:text-gray-200 font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
+                        {item.title}
+                      </span>
+                    </a>
+                  ))}
                 </nav>
               </div>
             </div>
@@ -218,7 +206,7 @@ export function FirstJavaScriptCode() {
                     JavaScript code.
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div className="rounded-b-xl overflow-hidden border border-blue-200 dark:border-blue-800">
+                    <div className="rounded-xl overflow-hidden border border-blue-200 dark:border-blue-800">
                       <img
                         src="/courses/NewFile_JS.png"
                         alt="Creating a new JavaScript file"
@@ -226,16 +214,15 @@ export function FirstJavaScriptCode() {
                       />
                       <div className="p-6">
                         <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                          Creating a New JavaScript File
+                          Create a New JavaScript File
                         </h4>
                         <p className="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-                          Start by creating a new file with a .js extension in
-                          your preferred code editor. This will be the
-                          foundation for your JavaScript code.
+                          Begin by creating a new file with the .js extension in
+                          your preferred code editor.
                         </p>
                       </div>
                     </div>
-                    <div className="rounded-b-xl overflow-hidden border border-blue-200 dark:border-blue-800">
+                    <div className="rounded-xl overflow-hidden border border-blue-200 dark:border-blue-800">
                       <img
                         src="/courses/FirstCode_JS.png"
                         alt="Writing Hello World in JavaScript"
@@ -316,13 +303,12 @@ export function FirstJavaScriptCode() {
                     Summary
                   </h2>
                   <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-                    In this chapter, we've learned to write our very first
-                    JavaScript code and execute it in the terminal. We've also
-                    introduced the concept of a text editor or code editor that
-                    supports JavaScript syntax highlighting and indentation. The
-                    console.log function is used to print a message to the
-                    console, and you can change the message to whatever you
-                    want.
+                    In this chapter, we explored how to write and execute our
+                    first JavaScript code using the terminal. We introduced the
+                    console.log function, which allows us to display messages in
+                    the console. You can customize the message by modifying the
+                    content passed to the function, making it a versatile tool
+                    for debugging and testing code.
                   </p>
                   <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                     Great job! You've successfully created your first JavaScript
@@ -335,9 +321,9 @@ export function FirstJavaScriptCode() {
               </motion.div>
             </div>
           </div>
-        </div>
-        <div className="mt-16">
-          <Navigation navigation={navigation} />
+          <div className="mt-16">
+            <Navigation navigation={navigation} />
+          </div>
         </div>
       </section>
     </div>

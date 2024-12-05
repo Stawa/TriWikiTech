@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import { SiVisualstudiocode, SiJavascript } from "react-icons/si";
 import { Link } from "react-router-dom";
+import Navigation from "../../Navigation";
 
 export const SetupMetaData = {
   title: "TriWikiTech | JavaScript Setup",
@@ -105,7 +106,7 @@ export function JavaScriptSetup() {
             <div className="inline-flex items-center mb-6 md:mb-8 px-4 py-2 md:px-6 md:py-3 rounded-full bg-blue-50/80 dark:bg-blue-900/50 shadow-lg backdrop-blur-sm">
               <SiJavascript className="text-blue-500 dark:text-blue-400 mr-2 md:mr-3 w-4 h-4 md:w-5 md:h-5" />
               <span className="text-xs md:text-sm font-medium text-blue-600 dark:text-blue-300">
-                JavaScript Environment Setup
+                Chapter 0: Environment Setup
               </span>
             </div>
 
@@ -144,11 +145,11 @@ export function JavaScriptSetup() {
                 </div>
                 <div className="h-4 w-px bg-gray-300 dark:bg-gray-600"></div>
                 <time
-                  dateTime="2024-11-25"
-                  title="Written on November 25, 2024"
+                  dateTime="2024-12-05"
+                  title="Written on December 05, 2024"
                   className="text-gray-600 dark:text-gray-400 text-sm"
                 >
-                  November 25, 2024
+                  December 05, 2024
                 </time>
               </div>
             </div>
@@ -381,46 +382,8 @@ export function JavaScriptSetup() {
             </div>
           </motion.div>
 
-          {/* Course Navigation */}
-          <div className="mt-16 md:mt-24 mb-8 md:mb-12">
-            <div className="flex flex-col md:flex-row justify-between items-stretch gap-4 md:gap-6 mx-auto">
-              <Link
-                to={navigation.previous.href}
-                className="group flex items-center p-4 md:p-6 px-6 md:px-8 rounded-2xl bg-white dark:bg-gray-900 shadow-lg border border-blue-100/20 dark:border-blue-700/50 hover:shadow-xl transition-all duration-300"
-              >
-                <div className="flex items-center space-x-4 md:space-x-6">
-                  <div className="p-2 md:p-3 rounded-xl bg-blue-500 flex items-center justify-center">
-                    <FaArrowLeft className="w-4 h-4 md:w-5 md:h-5 text-white" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                      Previous Chapter
-                    </span>
-                    <span className="text-base md:text-lg font-bold text-gray-900 dark:text-white">
-                      {navigation.previous.title}
-                    </span>
-                  </div>
-                </div>
-              </Link>
-              <Link
-                to={navigation.next.href}
-                className="group flex items-center p-4 md:p-6 px-6 md:px-8 rounded-2xl bg-white dark:bg-gray-900 shadow-lg border border-blue-100/20 dark:border-blue-700/50 hover:shadow-xl transition-all duration-300"
-              >
-                <div className="flex items-center space-x-4 md:space-x-6">
-                  <div className="flex flex-col">
-                    <span className="text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-                      Next Chapter
-                    </span>
-                    <span className="text-base md:text-lg font-bold text-gray-900 dark:text-white">
-                      {navigation.next.title}
-                    </span>
-                  </div>
-                  <div className="p-2 md:p-3 rounded-xl bg-blue-500 flex items-center justify-center">
-                    <FaArrowRight className="w-4 h-4 md:w-5 md:h-5 text-white" />
-                  </div>
-                </div>
-              </Link>
-            </div>
+          <div className="mt-16">
+            <Navigation navigation={navigation} />
           </div>
         </div>
       </section>
