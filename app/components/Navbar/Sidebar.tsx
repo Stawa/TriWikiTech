@@ -209,38 +209,45 @@ function Sidebar({
                     onSelect={(value) => setCookiePreference(value)}
                     currentValue={cookiePreference}
                   />
+                  {user && (
+                    <>
+                      <div className="my-4 border-t border-gray-200 dark:border-gray-700/50"></div>
+                      <Form method="get" action="/logout" onSubmit={handleLogout}>
+                        <button
+                          type="submit"
+                          className="w-full text-left px-5 py-3.5 text-base
+                          transition-all duration-300 ease-in-out
+                          rounded-xl
+                          bg-gradient-to-r from-red-50/90 to-red-100/90 
+                          dark:from-red-900/30 dark:to-red-800/30 
+                          hover:from-red-100/90 hover:to-red-200/90
+                          dark:hover:from-red-800/40 dark:hover:to-red-700/40
+                          hover:shadow-md hover:scale-[1.01] active:scale-[0.99]
+                          border border-red-200/70 dark:border-red-800/50 
+                          text-red-600 dark:text-red-400
+                          flex items-center justify-between group"
+                          aria-label={translations.Logout}
+                        >
+                          <div className="flex items-center">
+                            <span className="mr-4 text-xl p-2.5 rounded-xl 
+                              bg-gradient-to-br from-red-200/70 to-red-300/70 
+                              dark:from-red-800/40 dark:to-red-700/40
+                              text-red-600 dark:text-red-400 
+                              group-hover:from-red-300/70 group-hover:to-red-400/70
+                              dark:group-hover:from-red-700/40 dark:group-hover:to-red-600/40 
+                              transition-all duration-300 shadow-sm">
+                              <FaSignOutAlt />
+                            </span>
+                            <span className="font-medium">{translations.Logout}</span>
+                          </div>
+                          <FaArrowRight className="opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300 ease-out text-lg" />
+                        </button>
+                      </Form>
+                    </>
+                  )}
                 </SidebarSection>
               </div>
             </div>
-
-            {user && (
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white to-white/80 dark:from-gray-900 dark:to-gray-900/80 backdrop-blur-sm px-3 xs:px-4 sm:px-6 py-3 xs:py-4 border-t border-indigo-200/50 dark:border-indigo-500/20">
-                <Form method="get" action="/logout" onSubmit={handleLogout}>
-                  <button
-                    type="submit"
-                    className="w-full text-left px-4 xs:px-5 sm:px-6 py-3 xs:py-3.5 sm:py-4 text-sm xs:text-base sm:text-lg font-medium text-red-600 dark:text-red-400 
-                    hover:bg-gradient-to-r hover:from-red-50/90 hover:to-red-100/90 
-                    dark:hover:from-red-900/30 dark:hover:to-red-800/30 
-                    hover:text-red-700 dark:hover:text-red-300 
-                    rounded-2xl shadow-sm hover:shadow-lg
-                    border border-red-200/70 dark:border-red-800/50 
-                    transition-all duration-300 ease-out 
-                    flex items-center justify-between group"
-                    aria-label={translations.Logout}
-                  >
-                    <div className="flex items-center space-x-3 xs:space-x-4">
-                      <div className="p-2 xs:p-2.5 rounded-xl bg-gradient-to-br from-red-50 to-red-100/70 dark:from-red-900/40 dark:to-red-800/40 group-hover:from-red-100 group-hover:to-red-200/80 dark:group-hover:from-red-800/50 dark:group-hover:to-red-700/50 group-hover:scale-110 transition-all duration-300 ease-out">
-                        <FaSignOutAlt className="text-red-600 dark:text-red-400 text-lg xs:text-xl" />
-                      </div>
-                      <span className="font-semibold">
-                        {translations.Logout}
-                      </span>
-                    </div>
-                    <FaArrowRight className="opacity-0 group-hover:opacity-100 transform translate-x-3 group-hover:translate-x-0 transition-all duration-300 ease-out text-lg xs:text-xl" />
-                  </button>
-                </Form>
-              </div>
-            )}
           </motion.div>
         </div>
       )}

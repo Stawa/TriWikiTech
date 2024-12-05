@@ -90,46 +90,43 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
     }
   }, []);
 
-  const navClasses = `fixed top-0 left-0 right-0 z-50 text-gray-800 dark:text-gray-200 py-6 font-sans border-b-2 transition-all duration-300 ${
+  const navClasses = `w-full text-gray-800 dark:text-gray-200 py-4 font-sans border-b transition-all duration-300 ${
     isScrolled
-      ? "border-indigo-500/50 shadow-lg bg-gray-100/90 dark:bg-gray-900/90"
-      : "border-indigo-500 shadow-md bg-gray-100 dark:bg-gray-900"
+      ? "border-indigo-500/50 bg-gray-100/90 dark:bg-gray-900/90"
+      : "border-indigo-500 bg-gray-100 dark:bg-gray-900"
   }`;
 
   return (
-    <nav>
-      <div className="h-20" />
-      <div className={`${navClasses}`}>
-        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-24 3xl:px-32">
-          <div className="flex justify-between items-center">
-            <Logo />
-            <div className="flex items-center space-x-4">
-              <Suspense
-                fallback={
-                  <div className="h-6 w-24 bg-gray-200 animate-pulse rounded" />
-                }
+    <nav className={navClasses}>
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-24 3xl:px-32">
+        <div className="flex justify-between items-center">
+          <Logo />
+          <div className="flex items-center space-x-4">
+            <Suspense
+              fallback={
+                <div className="h-6 w-24 bg-gray-200 animate-pulse rounded" />
+              }
+            >
+              <DesktopMenu
+                navigationItems={navigationItems}
+                toggleSidebar={toggleSidebar}
+                user={isUserEmpty ? null : user}
+                translations={translations}
+              />
+            </Suspense>
+            <Suspense
+              fallback={
+                <div className="h-6 w-6 bg-gray-200 animate-pulse rounded" />
+              }
+            >
+              <button
+                onClick={toggleSidebar}
+                className="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                aria-label="Toggle menu"
               >
-                <DesktopMenu
-                  navigationItems={navigationItems}
-                  toggleSidebar={toggleSidebar}
-                  user={isUserEmpty ? null : user}
-                  translations={translations}
-                />
-              </Suspense>
-              <Suspense
-                fallback={
-                  <div className="h-6 w-6 bg-gray-200 animate-pulse rounded" />
-                }
-              >
-                <button
-                  onClick={toggleSidebar}
-                  className="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-                  aria-label="Toggle menu"
-                >
-                  <FaBars className="h-5 w-5" />
-                </button>
-              </Suspense>
-            </div>
+                <FaBars className="h-5 w-5" />
+              </button>
+            </Suspense>
           </div>
         </div>
         <Suspense>
