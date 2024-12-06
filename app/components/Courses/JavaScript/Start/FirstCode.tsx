@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { SiJavascript } from "react-icons/si";
 import { CourseMeta } from "~/types/course";
 import Navigation from "../../Navigation";
+import { Link } from "@remix-run/react";
+import { TiArrowLeftOutline } from "react-icons/ti";
 
 export const FirstCodeMetaData: CourseMeta = {
   title: "TriWikiTech | First JavaScript Code",
@@ -25,10 +27,6 @@ export function FirstJavaScriptCode() {
     next: {
       href: "/courses/javascript/variables",
       title: "Variables & Data Types",
-    },
-    overview: {
-      href: "/courses/javascript",
-      title: "JavaScript Overview",
     },
   };
 
@@ -92,11 +90,11 @@ export function FirstJavaScriptCode() {
                 </div>
                 <div className="h-4 w-px bg-gray-300 dark:bg-gray-600"></div>
                 <time
-                  dateTime="2024-12-05"
-                  title="Written on December 05, 2024"
+                  dateTime="2024-12-06"
+                  title="Written on December 06, 2024"
                   className="text-gray-600 dark:text-gray-400 text-sm"
                 >
-                  December 05, 2024
+                  December 06, 2024
                 </time>
               </div>
             </div>
@@ -137,8 +135,26 @@ export function FirstJavaScriptCode() {
                       </span>
                     </a>
                   ))}
+                  <div className="border-t-2 border-gray-200 dark:border-gray-700">
+                    <Link
+                      to="/courses/javascript"
+                      className="flex items-center py-3 rounded-lg transition-all duration-300 mt-2"
+                    >
+                      <span className="mr-3 text-green-600 dark:text-green-400 font-mono text-sm bg-green-100 dark:bg-green-900 px-2 py-1 rounded">
+                        <TiArrowLeftOutline />
+                      </span>
+                      <span className="text-gray-800 dark:text-gray-200 font-medium hover:text-green-600 dark:hover:text-green-400 transition-colors duration-300">
+                        Back to Course Overview
+                      </span>
+                    </Link>
+                  </div>
                 </nav>
               </div>
+            </div>
+
+            {/* Breakline for smaller screens */}
+            <div className="block lg:hidden w-full my-8">
+              <div className="h-px w-full bg-gray-200 dark:bg-gray-700"></div>
             </div>
 
             <div className="mt-8 lg:mt-0 lg:col-span-9">
@@ -205,58 +221,103 @@ export function FirstJavaScriptCode() {
                     indicate that it contains the main entry point of your
                     JavaScript code.
                   </p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div className="rounded-xl overflow-hidden border border-blue-200 dark:border-blue-800">
-                      <img
-                        src="/courses/NewFile_JS.png"
-                        alt="Creating a new JavaScript file"
-                        className="w-full h-48 object-cover"
-                      />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-8">
+                    <div className="group bg-white dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border-2 border-blue-100 dark:border-blue-900/40 hover:border-blue-200 dark:hover:border-blue-800/40">
+                      <div className="aspect-video overflow-hidden bg-gray-100 dark:bg-gray-800">
+                        <img
+                          src="/courses/NewFile_JS.png"
+                          alt="Creating a new JavaScript file"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
                       <div className="p-6">
-                        <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                          Create a New JavaScript File
-                        </h4>
-                        <p className="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+                        <div className="flex items-center gap-3 mb-3">
+                          <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                            Create a New JavaScript File
+                          </h4>
+                          <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-blue-100 dark:border-blue-900/40">
+                            Step 1
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                           Begin by creating a new file with the .js extension in
-                          your preferred code editor.
+                          your preferred code editor. This will be where you
+                          write your first JavaScript code.
                         </p>
                       </div>
                     </div>
-                    <div className="rounded-xl overflow-hidden border border-blue-200 dark:border-blue-800">
-                      <img
-                        src="/courses/FirstCode_JS.png"
-                        alt="Writing Hello World in JavaScript"
-                        className="w-full h-48 object-cover"
-                      />
+                    <div className="group bg-white dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border-2 border-blue-100 dark:border-blue-900/40 hover:border-blue-200 dark:hover:border-blue-800/40">
+                      <div className="aspect-video overflow-hidden bg-gray-100 dark:bg-gray-800">
+                        <img
+                          src="/courses/FirstCode_JS.png"
+                          alt="Writing Hello World in JavaScript"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
                       <div className="p-6">
-                        <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                          Writing Hello World
-                        </h4>
-                        <p className="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-                          Write a simple JavaScript program that prints "Hello,
-                          World!" to the console.
+                        <div className="flex items-center gap-3 mb-3">
+                          <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                            Writing Hello World
+                          </h4>
+                          <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-blue-100 dark:border-blue-900/40">
+                            Step 2
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                          Write your first JavaScript program that prints
+                          "Hello, World!" to the console. This is a traditional
+                          starting point for learning any programming language.
                         </p>
                       </div>
                     </div>
                   </div>
-                  <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                    Before we run the code, i'll explain what the code is doing.
-                    The code is a simple program that prints "Hello World" to
-                    the console. The "console.log" function is used to print a
-                    message to the console. In this case, "Hello World" is the
-                    message that will be printed to the console. You can change
-                    the message to whatever you want and experiment with it.
-                  </p>
-                  <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mt-6">
-                    Once you've written the code, save the file and run it in
-                    your text editor or code editor. You can run the code by
-                    pressing the "Run" button or by using a command line
-                    interface (CLI) tool like Node.js.
-                  </p>
-                  <div className="mt-6 mb-8">
-                    <div className="rounded-lg overflow-hidden shadow-md border border-blue-200 dark:border-blue-800 max-w-lg">
+
+                  <div className="mb-8 space-y-6 sm:space-y-8">
+                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-4 sm:mb-6 pb-2 border-b-2 border-blue-500 dark:border-blue-400 inline-block">
+                      Understanding the Code
+                    </h3>
+                    <div className="space-y-4 sm:space-y-6">
+                      <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center">
+                          <span className="text-blue-600 dark:text-blue-400 font-semibold">
+                            1
+                          </span>
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="text-base sm:text-lg font-medium text-gray-900 dark:text-white mb-2">
+                            console.log Function
+                          </h4>
+                          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+                            The console.log() function is used to output
+                            messages to the console. It's commonly used for
+                            debugging and learning purposes.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center">
+                          <span className="text-blue-600 dark:text-blue-400 font-semibold">
+                            2
+                          </span>
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="text-base sm:text-lg font-medium text-gray-900 dark:text-white mb-2">
+                            String Output
+                          </h4>
+                          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+                            "Hello, World!" is a string (text) that will be
+                            displayed. In JavaScript, strings are enclosed in
+                            either single ('') or double ("") quotes.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="rounded-xl overflow-hidden border-2 border-blue-100 dark:border-blue-900/40 mb-8">
+                    <div className="aspect-video">
                       <video
-                        className="w-full h-auto"
+                        className="w-full h-full object-cover"
                         controls
                         poster="/courses/Thumbnail_FirstCode_Terminal.png"
                       >
@@ -266,18 +327,39 @@ export function FirstJavaScriptCode() {
                         />
                         Your browser does not support the video tag.
                       </video>
-                      <div className="p-6 space-y-4">
-                        <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 flex items-center">
+                    </div>
+                    <div className="p-4 sm:p-6 bg-white dark:bg-gray-900">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 mb-3 sm:mb-4">
+                        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
                           Running Your First JavaScript Code
-                          <span className="ml-3 px-3 py-1 text-xs font-semibold text-blue-600 dark:text-blue-300 border border-blue-300 dark:border-blue-600 rounded-full">
-                            Local
-                          </span>
                         </h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                          Watch this video to see how to execute your code in
-                          the terminal and take your first steps in JavaScript
-                          programming.
-                        </p>
+                        <span className="inline-flex px-2 sm:px-3 py-1 text-xs font-medium text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 rounded-full">
+                          Demo
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3 sm:mb-4">
+                        Watch this demonstration to see how to execute your code
+                        in the terminal. You'll learn the basic workflow of
+                        writing and running JavaScript programs.
+                      </p>
+                      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                        <span>
+                          Tip: Make sure Node.js is installed before running the
+                          code
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -319,10 +401,11 @@ export function FirstJavaScriptCode() {
                   </p>
                 </div>
               </motion.div>
+              {/* Navigation */}
+              <div className="mt-16">
+                <Navigation navigation={navigation} />
+              </div>
             </div>
-          </div>
-          <div className="mt-16">
-            <Navigation navigation={navigation} />
           </div>
         </div>
       </section>

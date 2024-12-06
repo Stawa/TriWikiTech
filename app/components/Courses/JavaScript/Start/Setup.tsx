@@ -1,14 +1,10 @@
 import { motion } from "framer-motion";
-import {
-  FaNodeJs,
-  FaCheckCircle,
-  FaArrowRight,
-  FaArrowLeft,
-  FaCode,
-} from "react-icons/fa";
-import { SiVisualstudiocode, SiJavascript } from "react-icons/si";
-import { Link } from "react-router-dom";
+import { SiJavascript } from "react-icons/si";
+import { Highlight, themes } from "prism-react-renderer";
+
 import Navigation from "../../Navigation";
+import { Link } from "@remix-run/react";
+import { TiArrowLeftOutline } from "react-icons/ti";
 
 export const SetupMetaData = {
   title: "TriWikiTech | JavaScript Setup",
@@ -23,54 +19,246 @@ export const SetupMetaData = {
   author: ["Stawa"],
 };
 
+interface CodeBlockProps {
+  codeBlock: string;
+  language: string;
+}
+
+const CodeBlock = ({ codeBlock, language }: CodeBlockProps) => (
+  <Highlight theme={themes.vsDark} code={codeBlock} language={language}>
+    {({ className, style, tokens, getLineProps, getTokenProps }) => (
+      <pre
+        className="relative rounded-lg overflow-hidden"
+        style={{ ...style, background: "rgb(30, 30, 30)" }}
+      >
+        <div className="relative">
+          {tokens.map((line, i) => (
+            <div
+              key={i}
+              {...getLineProps({ line })}
+              className="flex hover:bg-gray-800/50 transition-colors"
+            >
+              <span className="inline-block w-12 px-3 py-1 select-none text-gray-500 text-right border-r border-gray-700">
+                {i + 1}
+              </span>
+              <span className="px-4 py-1">
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token })} />
+                ))}
+              </span>
+            </div>
+          ))}
+        </div>
+      </pre>
+    )}
+  </Highlight>
+);
+
 export function JavaScriptSetup() {
-  const setupSteps = [
-    {
-      title: "Install Node.js",
+  const setupSteps = {
+    nodejs: {
+      title: "Installing Node.js",
       description:
-        "Download and install Node.js which includes npm (Node Package Manager)",
-      icon: <FaNodeJs />,
-      link: "https://nodejs.org/",
-      image: "/courses/nodejs-install.png",
+        "Node.js is a runtime environment that allows you to execute JavaScript code outside of a web browser.",
       steps: [
-        "Visit nodejs.org and download the LTS version",
-        "Run the installer and follow the installation wizard",
-        "Verify installation by running 'node --version' in terminal",
+        {
+          title: "Download from Node.js Website",
+          description:
+            "Visit nodejs.org and locate the green LTS (Long Term Support) download button. The website will automatically detect your operating system and offer the appropriate version.",
+          image: "/courses/nodejs-website.png",
+          tip: "LTS version is recommended for better stability and long-term support.",
+        },
+        {
+          title: "Start the Setup",
+          description:
+            "Once downloaded, double-click the installer file to begin. You'll see the Node.js Setup Wizard welcome screen.",
+          image: "/courses/nodejs-setup.png",
+          tip: "Make sure to run the installer with administrator privileges if prompted.",
+        },
+        {
+          title: "Installation Progress",
+          description:
+            "Follow the installation wizard steps. The installer will show a progress bar while it installs Node.js and npm (Node Package Manager) on your system.",
+          image: "/courses/nodejs-wizard.png",
+          tip: "Keep the default settings unless you have specific requirements.",
+        },
+        {
+          title: "Verify Installation",
+          description:
+            "After installation completes, open your terminal (Command Prompt or PowerShell) and run these commands to verify everything is working:",
+          code: "// Check Node.js version\nnode --version\n\n// Verify npm installation\nnpm --version",
+          expected:
+            "You should see version numbers like v18.x.x for Node.js and 8.x.x for npm",
+          tip: "If the commands aren't recognized, try closing and reopening your terminal.",
+        },
       ],
     },
-    {
-      title: "Setup VS Code",
+    vscode: {
+      title: "Setting up Visual Studio Code",
       description:
-        "Install Visual Studio Code - a powerful and lightweight code editor",
-      icon: <SiVisualstudiocode />,
-      link: "https://code.visualstudio.com/",
-      image: "/courses/vscode-setup.png",
+        "Visual Studio Code (VS Code) is a powerful, lightweight code editor with excellent JavaScript support and a rich ecosystem of extensions.",
       steps: [
-        "Download VS Code from code.visualstudio.com",
-        "Install recommended extensions for JavaScript development",
-        "Configure your workspace settings for optimal JavaScript development",
+        {
+          title: "Download from VS Code Website",
+          description:
+            "Visit code.visualstudio.com and click the blue 'Download' button for Windows. The website will automatically detect your operating system and offer the appropriate version.",
+          image: "/courses/vscode-website.png",
+          tip: "VS Code is free and open-source, with regular updates to ensure you always have the latest features.",
+        },
+        {
+          title: "Start the Setup",
+          description:
+            "Once downloaded, launch the installer. You'll see the VS Code Setup welcome screen. Accept the license agreement to proceed.",
+          image: "/courses/vscode-setup.png",
+          tip: "Make sure to run the installer with administrator privileges if prompted.",
+        },
+        {
+          title: "Installation Options",
+          description:
+            "During installation, make sure to select these recommended options:\n- Add 'Open with Code' action to Windows Explorer file context menu\n- Add 'Open with Code' action to Windows Explorer directory context menu\n- Add to PATH (requires shell restart)\n- Register Code as an editor for supported file types",
+          image: "/courses/vscode-wizard.png",
+          tip: "These options make it easier to open files and folders directly from Windows Explorer.",
+        },
+        {
+          title: "Configure Settings",
+          description:
+            "Customize VS Code for JavaScript development with these recommended settings. Open the settings by pressing Ctrl+, (comma) or going to File > Preferences > Settings.",
+          code: '{\n  "editor.formatOnSave": true,\n  "editor.defaultFormatter": "esbenp.prettier-vscode",\n  "editor.tabSize": 2,\n  "editor.wordWrap": "on",\n  "editor.rulers": [80],\n  "files.autoSave": "onFocusChange"\n}',
+          settings: [
+            {
+              name: "editor.formatOnSave",
+              value: "true",
+              description:
+                "Automatically formats your code every time you save a file. This ensures consistent code style.",
+            },
+            {
+              name: "editor.defaultFormatter",
+              value: "esbenp.prettier-vscode",
+              description:
+                "Sets Prettier as the default formatter. Prettier is a popular code formatter that supports JavaScript.",
+            },
+            {
+              name: "editor.tabSize",
+              value: "2",
+              description:
+                "Sets the width of tab characters to 2 spaces. This is a common standard in JavaScript projects.",
+            },
+            {
+              name: "editor.wordWrap",
+              value: "on",
+              description:
+                "Automatically wraps long lines of code to improve readability.",
+            },
+            {
+              name: "editor.rulers",
+              value: "[80]",
+              description:
+                "Adds a vertical line at column 80 to help maintain consistent line lengths.",
+            },
+            {
+              name: "files.autoSave",
+              value: "onFocusChange",
+              description:
+                "Automatically saves files when you switch between files or applications.",
+            },
+          ],
+          tip: "You can paste these settings directly into your settings.json file or configure them through the UI.",
+        },
       ],
     },
-  ];
+    extensions: {
+      title: "Installing Extensions",
+      description: "Install useful extensions for JavaScript development.",
+      steps: [
+        {
+          title: "Using VS Code Extension Panel",
+          description:
+            "The easiest way to install extensions is through the VS Code Extensions panel:",
+          steps: [
+            "Click the Extensions icon in the Activity Bar on the side of VS Code or press Ctrl+Shift+X",
+            "Search for the extension name in the search box",
+            "Click the Install button next to the extension",
+            "Reload VS Code when prompted",
+          ],
+        },
+        {
+          title: "Quick Install Through Command",
+          description:
+            "You can also install extensions directly using the Quick Open command palette:",
+          code: "ext install [extension-id]",
+          tip: "Replace [extension-id] with the specific extension identifier from the marketplace.",
+        },
+        {
+          title: "Recommended Extensions for JavaScript",
+          description:
+            "Here are our recommended extensions for JavaScript development. You can install them using any of the methods above or by clicking the marketplace links:",
+          settings: [
+            {
+              name: "ESLint",
+              value: "dbaeumer.vscode-eslint",
+              description:
+                "JavaScript linting and code quality tool. Helps catch errors and enforce coding standards.",
+              url: "https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint",
+            },
+            {
+              name: "Prettier",
+              value: "esbenp.prettier-vscode",
+              description:
+                "Code formatter that automatically formats your JavaScript code for consistency.",
+              url: "https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode",
+            },
+            {
+              name: "JavaScript (ES6) Code Snippets",
+              value: "xabikos.JavaScriptSnippets",
+              description:
+                "Collection of code snippets for quick JavaScript development using modern ES6+ syntax.",
+              url: "https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets",
+            },
+          ],
+          tip: "After installing these extensions, reload VS Code to activate all new features.",
+        },
+        {
+          title: "Managing Extensions",
+          description: "Important tips for managing your VS Code extensions:",
+          steps: [
+            "Extensions can be enabled/disabled globally or for specific workspaces",
+            "Use 'Show Built-in Extensions' to view VS Code's default extensions",
+            "Check 'Extension Pack' collections for bundled related extensions",
+            "Enable 'Auto Update' for extensions to keep them current",
+          ],
+          tip: "You can export your extension list using: 'code --list-extensions > extensions.txt'",
+        },
+      ],
+    },
+  };
 
   const recommendedExtensions = [
     {
       name: "ESLint",
-      description: "JavaScript code linting utility",
+      description:
+        "JavaScript code linting utility that helps catch errors and enforce coding standards. Essential for maintaining code quality and consistency.",
       icon: "/courses/eslint.svg",
       link: "https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint",
+      id: "dbaeumer.vscode-eslint",
+      category: "Linting",
     },
     {
       name: "Prettier",
-      description: "Code formatter that ensures consistent style",
+      description:
+        "Opinionated code formatter that automatically formats your code on save, ensuring consistent style across your entire codebase.",
       icon: "/courses/prettier.png",
       link: "https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode",
+      id: "esbenp.prettier-vscode",
+      category: "Formatting",
     },
     {
       name: "JavaScript (ES6) Code Snippets",
-      description: "Snippets for quick JavaScript coding",
+      description:
+        "Rich collection of ES6+ snippets for faster JavaScript development. Includes shortcuts for common patterns and modern syntax.",
       icon: "/courses/js-snippets.png",
       link: "https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets",
+      id: "xabikos.JavaScriptSnippets",
+      category: "Productivity",
     },
   ];
 
@@ -131,7 +319,7 @@ export function JavaScriptSetup() {
                     width="460"
                     height="460"
                     decoding="async"
-                    className="rounded-full h-8 w-8 ring-2 ring-blue-500/20 dark:ring-blue-400/20"
+                    className="rounded-full h-6 w-6 sm:h-8 sm:w-8 ring-2 ring-blue-500/20 dark:ring-blue-400/20"
                     src="https://avatars.githubusercontent.com/u/69102292?v=4"
                   />
                   <a
@@ -145,11 +333,11 @@ export function JavaScriptSetup() {
                 </div>
                 <div className="h-4 w-px bg-gray-300 dark:bg-gray-600"></div>
                 <time
-                  dateTime="2024-12-05"
-                  title="Written on December 05, 2024"
+                  dateTime="2024-12-06"
+                  title="Written on December 06, 2024"
                   className="text-gray-600 dark:text-gray-400 text-sm"
                 >
-                  December 05, 2024
+                  December 06, 2024
                 </time>
               </div>
             </div>
@@ -160,230 +348,519 @@ export function JavaScriptSetup() {
       {/* Main Content */}
       <section className="w-full bg-white dark:bg-gray-900 py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Online Code Compiler Coming Soon */}
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500 bg-clip-text text-transparent drop-shadow-sm">
-              Choose Your Development Environment
-            </h2>
-            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed px-4">
-              Get started with JavaScript by choosing between our upcoming
-              online compiler or setting up your local development environment.
-            </p>
-          </div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-blue-100/20 dark:border-blue-700/50 overflow-hidden"
-          >
-            <div className="grid lg:grid-cols-2 gap-6 md:gap-8 p-4 md:p-8">
-              <div className="flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
-                    <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/50 dark:to-indigo-900/50 rounded-xl flex items-center justify-center shadow-inner">
-                      <div className="text-xl md:text-2xl text-blue-600 dark:text-blue-400">
-                        <FaCode />
-                      </div>
-                    </div>
-                    <h3 className="text-xl md:text-3xl font-bold text-gray-900 dark:text-white">
-                      Online Code Compiler
-                    </h3>
+          {/* Table of Contents */}
+          <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+            <div className="lg:col-span-3">
+              <div className="sticky top-8">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 pb-2 border-b-2 border-blue-500 dark:border-blue-400 inline-block">
+                  Table of Contents
+                </h3>
+                <nav className="space-y-2">
+                  {[
+                    { id: "intro", title: "Introduction", number: "00" },
+                    { id: "nodejs", title: "Installing Node.js", number: "01" },
+                    { id: "vscode", title: "Setting up VS Code", number: "02" },
+                    {
+                      id: "extensions",
+                      title: "Recommended Extensions",
+                      number: "03",
+                    },
+                    {
+                      id: "install-extensions",
+                      title: "Installing Extensions",
+                      number: "04",
+                    },
+                  ].map((item) => (
+                    <a
+                      key={item.id}
+                      href={`#${item.id}`}
+                      className="flex items-center py-3 rounded-lg transition-all duration-300"
+                    >
+                      <span className="mr-3 text-blue-600 dark:text-blue-400 font-mono text-sm bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded">
+                        {item.number}
+                      </span>
+                      <span className="text-gray-800 dark:text-gray-200 font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
+                        {item.title}
+                      </span>
+                    </a>
+                  ))}
+                  <div className="border-t-2 border-gray-200 dark:border-gray-700">
+                    <Link
+                      to="/courses/javascript"
+                      className="flex items-center py-3 rounded-lg transition-all duration-300 mt-2"
+                    >
+                      <span className="mr-3 text-green-600 dark:text-green-400 font-mono text-sm bg-green-100 dark:bg-green-900 px-2 py-1 rounded">
+                        <TiArrowLeftOutline />
+                      </span>
+                      <span className="text-gray-800 dark:text-gray-200 font-medium hover:text-green-600 dark:hover:text-green-400 transition-colors duration-300">
+                        Back to Course Overview
+                      </span>
+                    </Link>
                   </div>
-                  <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-6 md:mb-8 leading-relaxed">
-                    Soon you'll be able to choose between setting up your local
-                    environment or using our integrated online code compiler.
-                    Stay tuned for this exciting feature that will make your
-                    JavaScript learning journey even easier!
-                  </p>
-                  <div className="space-y-4 md:space-y-5 mb-6 md:mb-8">
-                    <div className="flex items-start gap-3 md:gap-4 group">
-                      <FaCheckCircle className="text-blue-500 mt-1 flex-shrink-0 text-base md:text-lg group-hover:scale-110 transition-transform" />
-                      <span className="text-base md:text-lg text-gray-700 dark:text-gray-300">
-                        Write and run JavaScript code directly in your browser
-                      </span>
-                    </div>
-                    <div className="flex items-start gap-3 md:gap-4 group">
-                      <FaCheckCircle className="text-blue-500 mt-1 flex-shrink-0 text-base md:text-lg group-hover:scale-110 transition-transform" />
-                      <span className="text-base md:text-lg text-gray-700 dark:text-gray-300">
-                        No installation or setup required
-                      </span>
-                    </div>
-                    <div className="flex items-start gap-3 md:gap-4 group">
-                      <FaCheckCircle className="text-blue-500 mt-1 flex-shrink-0 text-base md:text-lg group-hover:scale-110 transition-transform" />
-                      <span className="text-base md:text-lg text-gray-700 dark:text-gray-300">
-                        Built-in code editor with syntax highlighting
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <motion.button
-                  whileTap={{ scale: 0.98 }}
-                  className="inline-flex w-fit items-center px-6 py-3 md:px-8 md:py-4 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 text-white font-medium text-sm md:text-base shadow-lg transition-all duration-300 cursor-not-allowed opacity-75"
-                  disabled
-                >
-                  🚀 Coming Soon
-                  <FaArrowRight className="ml-2 md:ml-3 text-base md:text-lg" />
-                </motion.button>
-              </div>
-              <div className="relative w-full h-[250px] md:h-[300px] lg:h-[400px] rounded-xl overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-800">
-                  <div className="text-4xl">🚧</div>
-                </div>
+                </nav>
               </div>
             </div>
-          </motion.div>
 
-          <div className="text-center mt-12 md:mt-16 mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500 bg-clip-text text-transparent drop-shadow-sm">
-              Essential Setup Steps
-            </h2>
-            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed px-4">
-              Follow these key steps to create your professional JavaScript
-              development environment.
-            </p>
-          </div>
+            {/* Breakline for smaller screens */}
+            <div className="block lg:hidden w-full my-4">
+              <div className="h-px w-full bg-gray-200 dark:bg-gray-700"></div>
+            </div>
 
-          {/* Setup Steps */}
-          <div className="space-y-8 md:space-y-16">
-            {setupSteps.map((step, index) => (
+            {/* Main Content */}
+            <div className="mt-8 lg:mt-0 lg:col-span-9">
+              {/* Intro Section */}
               <motion.div
-                key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-blue-100/20 dark:border-blue-700/50 overflow-hidden"
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                id="intro"
+                className="mb-16 scroll-mt-24"
               >
-                <div className="grid lg:grid-cols-2 gap-6 md:gap-8 p-4 md:p-8">
-                  <div className="flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
-                        <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/50 dark:to-indigo-900/50 rounded-xl flex items-center justify-center shadow-inner">
-                          <div className="text-xl md:text-2xl text-blue-600 dark:text-blue-400">
-                            {step.icon}
-                          </div>
-                        </div>
-                        <h3 className="text-xl md:text-3xl font-bold text-gray-900 dark:text-white">
-                          {step.title}
-                        </h3>
-                      </div>
-                      <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-6 md:mb-8 leading-relaxed">
-                        {step.description}
-                      </p>
-                      <div className="space-y-4 md:space-y-5 mb-6 md:mb-8">
-                        {step.steps.map((substep, i) => (
-                          <div
-                            key={i}
-                            className="flex items-start gap-3 md:gap-4 group"
-                          >
-                            <FaCheckCircle className="text-blue-500 mt-1 flex-shrink-0 text-base md:text-lg group-hover:scale-110 transition-transform" />
-                            <span className="text-base md:text-lg text-gray-700 dark:text-gray-300">
-                              {substep}
+                <div className="prose prose-blue dark:prose-invert max-w-none">
+                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-gradient-to-br from-blue-400 to-blue-600 dark:from-blue-600 dark:to-blue-800">
+                      <span className="text-white font-mono text-sm font-semibold">
+                        00
+                      </span>
+                    </span>
+                    Introduction
+                  </h2>
+                  <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Before you start your JavaScript journey, it's essential to
+                    set up your development environment properly. This guide
+                    will walk you through installing the necessary tools and
+                    configuring your workspace for optimal JavaScript
+                    development.
+                  </p>
+                  <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mt-6">
+                    Whether you're a beginner or an experienced developer,
+                    following this guide will ensure a smooth and productive
+                    coding experience.{" "}
+                    <span className="font-semibold underline">
+                      You actually can skip this chapter because you could use
+                      your existing environment or online compiler.
+                    </span>
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Node.js Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                id="nodejs"
+                className="mb-16 scroll-mt-24"
+              >
+                <div className="prose prose-blue dark:prose-invert max-w-none">
+                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-gradient-to-br from-blue-400 to-blue-600 dark:from-blue-600 dark:to-blue-800">
+                      <span className="text-white font-mono text-sm font-semibold">
+                        01
+                      </span>
+                    </span>
+                    Installing Node.js
+                  </h2>
+                  <p className="text-gray-600 dark:text-gray-400 mb-8">
+                    {setupSteps.nodejs.description}
+                  </p>
+                  <div className="space-y-12">
+                    {setupSteps.nodejs.steps.map((step, index) => (
+                      <div
+                        key={index}
+                        className="relative pl-8 border-l-2 border-blue-500/20 dark:border-blue-400/20"
+                      >
+                        <div className="absolute -left-3 top-0">
+                          <div className="w-6 h-6 rounded-full bg-blue-500 dark:bg-blue-400 flex items-center justify-center">
+                            <span className="text-white text-sm font-medium">
+                              {index + 1}
                             </span>
                           </div>
-                        ))}
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                            {step.title}
+                          </h3>
+                          <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+                            {step.description}
+                          </p>
+                          {step.code && (
+                            <div className="my-6">
+                              <CodeBlock
+                                codeBlock={step.code}
+                                language={"shell"}
+                              />
+                            </div>
+                          )}
+                          {step.image && (
+                            <div className="rounded-lg overflow-hidden mb-4 border border-gray-200 dark:border-gray-700 max-w-2xl">
+                              <img
+                                src={step.image}
+                                alt={step.title}
+                                className="w-full h-auto"
+                              />
+                            </div>
+                          )}
+                          {step.tip && (
+                            <div className="flex items-start gap-2 text-sm text-blue-600 dark:text-blue-400">
+                              <span className="font-semibold">Tip:</span>
+                              <span>{step.tip}</span>
+                            </div>
+                          )}
+                          {step.expected && (
+                            <div className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
+                              <span className="font-semibold">
+                                Expected Output:
+                              </span>
+                              <span>{step.expected}</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    <motion.a
-                      whileTap={{ scale: 0.98 }}
-                      href={step.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex w-fit items-center px-6 py-3 md:px-8 md:py-4 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 text-white font-medium text-sm md:text-base shadow-lg"
-                    >
-                      Download & Install
-                      <FaArrowRight className="ml-2 md:ml-3 text-base md:text-lg" />
-                    </motion.a>
-                  </div>
-                  <div className="relative w-full h-[250px] md:h-[300px] lg:h-[400px] rounded-xl overflow-hidden group">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
-                    <picture>
-                      <source
-                        type="image/webp"
-                        srcSet={`${step.image}?w=700&fm=webp 700w, ${step.image}?w=600&fm=webp 600w, ${step.image}?w=500&fm=webp 500w`}
-                        sizes="(min-width: 1536px) 700px, (min-width: 1280px) 600px, (min-width: 1024px) 50vw, (min-width: 768px) 80vw, 100vw"
-                      />
-                      <source
-                        type="image/jpeg"
-                        srcSet={`${step.image}?w=700 700w, ${step.image}?w=600 600w, ${step.image}?w=500 500w`}
-                        sizes="(min-width: 1536px) 700px, (min-width: 1280px) 600px, (min-width: 1024px) 50vw, (min-width: 768px) 80vw, 100vw"
-                      />
-                      <img
-                        src={step.image}
-                        alt={step.title}
-                        className="absolute inset-0 w-full h-full object-contain rounded-xl shadow-lg transition-transform duration-500"
-                        loading="lazy"
-                        width={598}
-                        height={464}
-                        decoding="async"
-                      />
-                    </picture>
+                    ))}
                   </div>
                 </div>
               </motion.div>
-            ))}
-          </div>
 
-          {/* VS Code Extensions */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mt-16 md:mt-20"
-          >
-            <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500 bg-clip-text text-transparent drop-shadow-sm">
-                Essential VS Code Extensions
-              </h2>
-              <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed px-4">
-                Enhance your development experience with these recommended VS
-                Code extensions.
-              </p>
-            </div>
+              {/* VS Code Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                id="vscode"
+                className="mb-8 sm:mb-12 md:mb-16 scroll-mt-16 sm:scroll-mt-20 md:scroll-mt-24"
+              >
+                <div className="prose prose-blue dark:prose-invert max-w-none">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3">
+                    <span className="inline-flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-md bg-gradient-to-br from-blue-400 to-blue-600 dark:from-blue-600 dark:to-blue-800">
+                      <span className="text-white font-mono text-xs sm:text-sm font-semibold">
+                        02
+                      </span>
+                    </span>
+                    Setting up VS Code
+                  </h2>
+                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-6 sm:mb-8">
+                    {setupSteps.vscode.description}
+                  </p>
+                  <div className="space-y-8 sm:space-y-12">
+                    {setupSteps.vscode.steps.map((step, index) => (
+                      <div
+                        key={index}
+                        className="relative pl-6 sm:pl-8 border-l-2 border-blue-500/20 dark:border-blue-400/20"
+                      >
+                        <div className="absolute -left-2 sm:-left-3 top-0">
+                          <div className="w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-blue-500 dark:bg-blue-400 flex items-center justify-center">
+                            <span className="text-white text-xs sm:text-sm font-medium">
+                              {index + 1}
+                            </span>
+                          </div>
+                        </div>
+                        <div>
+                          <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-4">
+                            {step.title}
+                          </h3>
+                          <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-3 sm:mb-4">
+                            {step.description}
+                          </p>
+                          {step.code && (
+                            <div className="my-6">
+                              <CodeBlock
+                                codeBlock={step.code}
+                                language={"shell"}
+                              />
+                            </div>
+                          )}
+                          {step.image && (
+                            <div className="rounded-lg overflow-hidden mb-3 sm:mb-4 border border-gray-200 dark:border-gray-700 max-w-full sm:max-w-2xl">
+                              <img
+                                src={step.image}
+                                alt={step.title}
+                                className="w-full h-auto"
+                              />
+                            </div>
+                          )}
+                          {step.tip && (
+                            <div className="flex items-start gap-1 sm:gap-2 text-xs sm:text-sm text-blue-600 dark:text-blue-400">
+                              <span className="font-semibold">Tip:</span>
+                              <span>{step.tip}</span>
+                            </div>
+                          )}
+                          {step.settings && (
+                            <div className="mt-4 sm:mt-6 space-y-3 sm:space-y-4">
+                              <h4 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
+                                Settings Explained:
+                              </h4>
+                              {step.settings.map((setting, idx) => (
+                                <div
+                                  key={idx}
+                                  className="pl-3 sm:pl-4 border-l-2 border-blue-500/20 dark:border-blue-400/20"
+                                >
+                                  <div className="flex flex-wrap items-baseline gap-1 sm:gap-2">
+                                    <code className="text-xs sm:text-sm bg-gray-100 dark:bg-gray-800 px-1 sm:px-2 py-0.5 sm:py-1 rounded text-blue-600 dark:text-blue-400">
+                                      {setting.name}
+                                    </code>
+                                    <span className="text-gray-600 dark:text-gray-400">
+                                      :
+                                    </span>
+                                    <code className="text-xs sm:text-sm bg-gray-100 dark:bg-gray-800 px-1 sm:px-2 py-0.5 sm:py-1 rounded text-green-600 dark:text-green-400">
+                                      {setting.value}
+                                    </code>
+                                  </div>
+                                  <p className="mt-1 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+                                    {setting.description}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {recommendedExtensions.map((extension, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white dark:bg-gray-900 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-blue-100/20 dark:border-blue-700/50"
-                >
-                  <div className="flex items-center mb-4 md:mb-6">
-                    <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-xl">
-                      <img
-                        src={extension.icon}
-                        alt={extension.name}
-                        className="w-10 h-10 md:w-12 md:h-12 rounded"
-                        loading="lazy"
-                      />
+              {/* Extensions Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                id="extensions"
+                className="mb-16 scroll-mt-24"
+              >
+                <div className="prose prose-blue dark:prose-invert max-w-none">
+                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-gradient-to-br from-blue-400 to-blue-600 dark:from-blue-600 dark:to-blue-800">
+                      <span className="text-white font-mono text-sm font-semibold">
+                        03
+                      </span>
+                    </span>
+                    Recommended Extensions
+                  </h2>
+                  <div className="mt-8">
+                    <div className="space-y-6">
+                      <div className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                          {recommendedExtensions.map((extension, index) => (
+                            <div
+                              key={index}
+                              className="group bg-white dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border-2 border-blue-100 dark:border-blue-900/40 hover:border-blue-200 dark:hover:border-blue-800/40"
+                            >
+                              <div className="p-6 flex flex-col h-full">
+                                <div className="flex items-center mb-4">
+                                  <div className="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-800 p-2.5 mr-4 flex-shrink-0 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition-colors duration-300 border border-blue-100 dark:border-blue-900/40">
+                                    <img
+                                      src={extension.icon}
+                                      alt={extension.name}
+                                      className="w-full h-full object-contain"
+                                    />
+                                  </div>
+                                  <div>
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                                      {extension.name}
+                                    </h3>
+                                    <span className="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-blue-100 dark:border-blue-900/40">
+                                      {extension.category}
+                                    </span>
+                                  </div>
+                                </div>
+                                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-grow leading-relaxed">
+                                  {extension.description}
+                                </p>
+                                <div className="flex items-center justify-between mt-auto pt-4 border-t border-blue-100 dark:border-blue-900/40">
+                                  <code className="text-xs px-2 py-1 rounded bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 font-mono border border-blue-100 dark:border-blue-900/40">
+                                    {extension.id}
+                                  </code>
+                                  <a
+                                    href={extension.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-colors text-sm font-medium group-hover:text-gray-900 dark:group-hover:text-white border border-blue-100 dark:border-blue-900/40 hover:border-blue-200 dark:hover:border-blue-800/40"
+                                  >
+                                    Install
+                                    <svg
+                                      className="w-4 h-4"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                                      />
+                                    </svg>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
+                </div>
+              </motion.div>
 
-                  <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 text-gray-900 dark:text-white">
-                    {extension.name}
-                  </h3>
-                  <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed mb-4 min-h-[4rem] md:min-h-[4.5rem]">
-                    {extension.description}
-                  </p>
-
-                  <a
-                    href={extension.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-                  >
-                    Install Extension
-                    <FaArrowRight className="ml-2 w-3.5 h-3.5 md:w-4 md:h-4" />
-                  </a>
-                </motion.div>
-              ))}
+              {/* Install extensions */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                id="install-extensions"
+                className="mb-16 scroll-mt-24"
+              >
+                <div className="prose prose-blue dark:prose-invert max-w-none">
+                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-gradient-to-br from-blue-400 to-blue-600 dark:from-blue-600 dark:to-blue-800">
+                      <span className="text-white font-mono text-sm font-semibold">
+                        04
+                      </span>
+                    </span>
+                    Installing Extensions
+                  </h2>
+                  <div className="space-y-8">
+                    <div className="space-y-6">
+                      {[
+                        {
+                          title: "Using VS Code Extension Panel",
+                          description:
+                            "The easiest way to install extensions is through the VS Code Extensions panel:",
+                          steps: [
+                            "Click the Extensions icon in the Activity Bar on the side of VS Code or press Ctrl+Shift+X",
+                            "Search for the extension name in the search box",
+                            "Click the Install button next to the extension",
+                            "Reload VS Code when prompted",
+                          ],
+                        },
+                        {
+                          title: "Quick Install Through Command",
+                          description:
+                            "You can also install extensions directly using the Quick Open command palette:",
+                          code: "ext install [extension-id]",
+                          tip: "Replace [extension-id] with the specific extension identifier from the marketplace.",
+                        },
+                        {
+                          title: "Recommended Extensions for JavaScript",
+                          description:
+                            "Here are our recommended extensions for JavaScript development. You can install them using any of the methods above or by clicking the marketplace links:",
+                          settings: [
+                            {
+                              name: "ESLint",
+                              value: "dbaeumer.vscode-eslint",
+                              description:
+                                "JavaScript linting and code quality tool. Helps catch errors and enforce coding standards.",
+                              url: "https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint",
+                            },
+                            {
+                              name: "Prettier",
+                              value: "esbenp.prettier-vscode",
+                              description:
+                                "Code formatter that automatically formats your JavaScript code for consistency.",
+                              url: "https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode",
+                            },
+                            {
+                              name: "JavaScript (ES6) Code Snippets",
+                              value: "xabikos.JavaScriptSnippets",
+                              description:
+                                "Collection of code snippets for quick JavaScript development using modern ES6+ syntax.",
+                              url: "https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets",
+                            },
+                          ],
+                          tip: "After installing these extensions, reload VS Code to activate all new features.",
+                        },
+                        {
+                          title: "Managing Extensions",
+                          description:
+                            "Important tips for managing your VS Code extensions:",
+                          steps: [
+                            "Extensions can be enabled/disabled globally or for specific workspaces",
+                            "Use 'Show Built-in Extensions' to view VS Code's default extensions",
+                            "Check 'Extension Pack' collections for bundled related extensions",
+                            "Enable 'Auto Update' for extensions to keep them current",
+                          ],
+                          tip: "You can export your extension list using: 'code --list-extensions > extensions.txt'",
+                        },
+                      ].map((section, index) => (
+                        <div key={index} className="space-y-4">
+                          <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                            {section.title}
+                          </h3>
+                          <p className="text-gray-600 dark:text-gray-400">
+                            {section.description}
+                          </p>
+                          {section.steps && (
+                            <ul className="list-disc pl-6 space-y-2">
+                              {section.steps.map((step, idx) => (
+                                <li
+                                  key={idx}
+                                  className="text-gray-600 dark:text-gray-400"
+                                >
+                                  {step}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                          {section.code && (
+                            <div className="my-4">
+                              <CodeBlock
+                                codeBlock={section.code}
+                                language="shell"
+                              />
+                            </div>
+                          )}
+                          {section.settings && (
+                            <div className="mt-4 space-y-4">
+                              {section.settings.map((setting, idx) => (
+                                <div
+                                  key={idx}
+                                  className="pl-3 border-l-2 border-blue-500/20 dark:border-blue-400/20"
+                                >
+                                  <div className="flex flex-wrap items-baseline gap-2">
+                                    <a
+                                      href={setting.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-blue-600 dark:text-blue-400 hover:underline"
+                                    >
+                                      <code className="text-sm bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                                        {setting.name}
+                                      </code>
+                                    </a>
+                                    <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-green-600 dark:text-green-400">
+                                      {setting.value}
+                                    </code>
+                                  </div>
+                                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                                    {setting.description}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                          {section.tip && (
+                            <div className="flex items-start gap-2 text-sm text-blue-600 dark:text-blue-400 mt-4">
+                              <span className="font-semibold">Tip:</span>
+                              <span>{section.tip}</span>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+              {/* Navigation */}
+              <div className="mt-16">
+                <Navigation navigation={navigation} />
+              </div>
             </div>
-          </motion.div>
-
-          <div className="mt-16">
-            <Navigation navigation={navigation} />
           </div>
         </div>
       </section>

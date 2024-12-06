@@ -3,6 +3,8 @@ import { installGlobals } from "@remix-run/node";
 import { vercelPreset } from "@vercel/remix/vite";
 import { defineConfig, loadEnv } from "vite";
 import { envOnlyMacros } from "vite-env-only";
+import commonjs from "vite-plugin-commonjs";
+import dynamicImport from "vite-plugin-dynamic-import";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 installGlobals();
@@ -26,6 +28,8 @@ export default defineConfig(({ mode }) => {
         presets: [vercelPreset()],
       }),
       tsconfigPaths(),
+      commonjs(),
+      dynamicImport(),
     ],
     build: {
       outDir: "build",
