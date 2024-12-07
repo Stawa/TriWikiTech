@@ -270,8 +270,8 @@ export function JavaScriptSetup() {
       title: "Environment Setup",
     },
     title: {
-      main: "Setting Up",
-      sub: "Your JavaScript Environment",
+      main: "Setting Up Your",
+      sub: "JavaScript Environment",
     },
     description:
       "A comprehensive guide to setting up a professional JavaScript development environment. Follow these steps to create an optimal workspace for learning and building JavaScript applications.",
