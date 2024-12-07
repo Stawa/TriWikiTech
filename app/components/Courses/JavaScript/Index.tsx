@@ -17,7 +17,7 @@ export const JavaScriptCourseMeta = {
   title: "TriWikiTech | JavaScript Course",
   description:
     "Master JavaScript with our comprehensive course. Learn modern best practices, advanced concepts, and build real-world applications.",
-  image: "/courses/og/Index_JS.png",
+  image: "/courses/og/javascript_index_hero.png",
   url: "/courses/javascript",
 };
 
@@ -58,78 +58,78 @@ export function JavaScriptCourse() {
         },
       ],
     },
-    {
-      id: 2,
-      category: "Core Fundamentals",
-      icon: <GiAtom className="text-2xl text-blue-600 dark:text-blue-400" />,
-      modules: [
-        {
-          title: "Variables & Data Types",
-          description:
-            "Understanding variables, data types, and basic operations",
-          duration: "4 hours",
-          level: "Beginner",
-          href: "/courses/javascript/variables-data-types",
-        },
-        {
-          title: "Control Flow & Functions",
-          description:
-            "Master conditional statements, loops, and function fundamentals",
-          duration: "5 hours",
-          level: "Beginner",
-          href: "/courses/javascript/control-flow-functions",
-        },
-      ],
-    },
-    {
-      id: 3,
-      category: "Advanced Concepts",
-      icon: (
-        <FaBriefcase className="text-2xl text-blue-600 dark:text-blue-400" />
-      ),
-      modules: [
-        {
-          title: "Object-Oriented JavaScript",
-          description:
-            "Deep dive into objects, prototypes, and modern class syntax",
-          duration: "6 hours",
-          level: "Intermediate",
-          href: "/courses/javascript/object-oriented",
-        },
-        {
-          title: "Asynchronous Programming",
-          description:
-            "Master promises, async/await, and handle asynchronous operations",
-          duration: "8 hours",
-          level: "Advanced",
-          href: "/courses/javascript/asynchronous-programming",
-        },
-      ],
-    },
-    {
-      id: 4,
-      category: "Modern JavaScript",
-      icon: (
-        <IoInfinite className="text-2xl text-blue-600 dark:text-blue-400" />
-      ),
-      modules: [
-        {
-          title: "ES6+ Features",
-          description: "Learn modern JavaScript features and best practices",
-          duration: "5 hours",
-          level: "Intermediate",
-          href: "/courses/javascript/es6-features",
-        },
-        {
-          title: "Web APIs & DOM",
-          description:
-            "Interact with web pages and handle browser APIs effectively",
-          duration: "6 hours",
-          level: "Intermediate",
-          href: "/courses/javascript/web-apis-dom",
-        },
-      ],
-    },
+    // {
+    //   id: 2,
+    //   category: "Core Fundamentals",
+    //   icon: <GiAtom className="text-2xl text-blue-600 dark:text-blue-400" />,
+    //   modules: [
+    //     {
+    //       title: "Variables & Data Types",
+    //       description:
+    //         "Understanding variables, data types, and basic operations",
+    //       duration: "4 hours",
+    //       level: "Beginner",
+    //       href: "/courses/javascript/variables-data-types",
+    //     },
+    //     {
+    //       title: "Control Flow & Functions",
+    //       description:
+    //         "Master conditional statements, loops, and function fundamentals",
+    //       duration: "5 hours",
+    //       level: "Beginner",
+    //       href: "/courses/javascript/control-flow-functions",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: 3,
+    //   category: "Advanced Concepts",
+    //   icon: (
+    //     <FaBriefcase className="text-2xl text-blue-600 dark:text-blue-400" />
+    //   ),
+    //   modules: [
+    //     {
+    //       title: "Object-Oriented JavaScript",
+    //       description:
+    //         "Deep dive into objects, prototypes, and modern class syntax",
+    //       duration: "6 hours",
+    //       level: "Intermediate",
+    //       href: "/courses/javascript/object-oriented",
+    //     },
+    //     {
+    //       title: "Asynchronous Programming",
+    //       description:
+    //         "Master promises, async/await, and handle asynchronous operations",
+    //       duration: "8 hours",
+    //       level: "Advanced",
+    //       href: "/courses/javascript/asynchronous-programming",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: 4,
+    //   category: "Modern JavaScript",
+    //   icon: (
+    //     <IoInfinite className="text-2xl text-blue-600 dark:text-blue-400" />
+    //   ),
+    //   modules: [
+    //     {
+    //       title: "ES6+ Features",
+    //       description: "Learn modern JavaScript features and best practices",
+    //       duration: "5 hours",
+    //       level: "Intermediate",
+    //       href: "/courses/javascript/es6-features",
+    //     },
+    //     {
+    //       title: "Web APIs & DOM",
+    //       description:
+    //         "Interact with web pages and handle browser APIs effectively",
+    //       duration: "6 hours",
+    //       level: "Intermediate",
+    //       href: "/courses/javascript/web-apis-dom",
+    //     },
+    //   ],
+    // },
   ];
 
   const filteredModules = courseModules
@@ -153,7 +153,10 @@ export function JavaScriptCourse() {
   return (
     <div className="w-full min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       {/* Hero Section */}
-      <section className="relative w-full py-24 sm:py-32 overflow-hidden">
+      <section
+        id="hero"
+        className="relative w-full py-24 sm:py-32 overflow-hidden"
+      >
         {/* Enhanced gradient background with more vibrant colors */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-indigo-500 to-violet-500 opacity-90"></div>
 
@@ -473,7 +476,8 @@ export function JavaScriptCourse() {
                   <FaGraduationCap className="text-2xl text-blue-600 dark:text-blue-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  {filterLevel.charAt(0).toUpperCase() + filterLevel.slice(1)} Level
+                  {filterLevel.charAt(0).toUpperCase() + filterLevel.slice(1)}{" "}
+                  Level
                 </h3>
               </div>
 
@@ -492,10 +496,7 @@ export function JavaScriptCourse() {
                         transition={{ delay: index * 0.1 }}
                         className="bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-blue-900/5 rounded-xl p-5 shadow-sm border border-blue-100/20 dark:border-blue-700/30 hover:shadow-md hover:border-blue-200/30 dark:hover:border-blue-600/40 transition-all duration-200"
                       >
-                        <Link
-                          to={module.href}
-                          className="block h-full"
-                        >
+                        <Link to={module.href} className="block h-full">
                           <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                             {module.title}
                           </h4>
@@ -570,10 +571,7 @@ export function JavaScriptCourse() {
                         transition={{ delay: index * 0.1 }}
                         className="bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-blue-900/5 rounded-xl p-5 shadow-sm border border-blue-100/20 dark:border-blue-700/30 hover:shadow-md hover:border-blue-200/30 dark:hover:border-blue-600/40 transition-all duration-200"
                       >
-                        <Link
-                          to={module.href}
-                          className="block h-full"
-                        >
+                        <Link to={module.href} className="block h-full">
                           <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                             {module.title}
                           </h4>

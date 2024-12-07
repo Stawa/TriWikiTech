@@ -1,103 +1,78 @@
 import * as puppeteer from "puppeteer";
-import { Config } from "tailwindcss";
-import aspectRatio from "@tailwindcss/aspect-ratio";
 import * as fs from "fs/promises";
 import * as path from "path";
-import { OpenGraphs } from "./og/Index";
 
-const tailwindConfig: Config = {
-  content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
-  darkMode: "class",
-  theme: {
-    extend: {
-      aspectRatio: {
-        "4/3": "9 / 16",
-      },
-      fontFamily: {
-        sans: [
-          '"Inter"',
-          "ui-sans-serif",
-          "system-ui",
-          "sans-serif",
-          '"Apple Color Emoji"',
-          '"Segoe UI Emoji"',
-          '"Segoe UI Symbol"',
-          '"Noto Color Emoji"',
-        ],
-      },
-    },
+const allCourses = {
+  javascript: {
+    paths: ["", "setup", "first-code"],
   },
-  plugins: [aspectRatio],
 };
 
-async function generateOpenGraphImage(
-  banner: keyof typeof OpenGraphs,
-  type: string
+async function screenshotElement(
+  elementId: string,
+  courseName: string,
+  pathSegment: string
 ): Promise<void> {
   const browser = await puppeteer.launch({
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
     headless: true,
     executablePath: puppeteer.executablePath(),
   });
-  const outputDir = "./public/courses/og";
-  const theme = "dark";
 
   try {
     const page = await browser.newPage();
-    const htmlContent = `
-      <!DOCTYPE html>
-      <html class="${theme}">
-        <head>
-          <script src="https://cdn.tailwindcss.com"></script>
-          <script>
-            tailwind.config = ${JSON.stringify(tailwindConfig)}
-          </script>
-          <style>
-            @tailwind base;
-            @tailwind components;
-            @tailwind utilities;
-
-            :root {
-              --background: #ffffff;
-              --foreground: #171717;
-            }
-            :root.dark {
-              --background: #0a0a0a;
-              --foreground: #ededed;
-            }
-            body {
-              color: var(--foreground);
-              background: var(--background);
-            }
-          </style>
-        </head>
-        <body>
-          ${OpenGraphs[banner].og}
-        </body>
-      </html>
-    `;
-
-    await page.setContent(htmlContent, { waitUntil: "networkidle0" });
     await page.setViewport({ width: 1200, height: 630 });
 
-    const imageBuffer = await page.screenshot({ type: "png" });
+    const url =
+      pathSegment === ""
+        ? `http://localhost:5173/courses/${courseName}`
+        : `http://localhost:5173/courses/${courseName}/${pathSegment}`;
 
+    await page.goto(url, {
+      waitUntil: "networkidle0",
+    });
+
+    const element = await page.$("#" + elementId);
+    if (!element) {
+      throw new Error(`Element with id "${elementId}" not found`);
+    }
+
+    const outputDir = "./public/courses/og";
     await fs.mkdir(outputDir, { recursive: true });
-    const fileName = `${banner}_${type}.png`;
-    await fs.writeFile(path.join(outputDir, fileName), imageBuffer);
+
+    const filename =
+      pathSegment === ""
+        ? `${courseName}_index_${elementId}.png`
+        : `${courseName}_${pathSegment}_${elementId}.png`;
+
+    await element.screenshot({
+      path: path.join(outputDir, filename),
+      type: "png",
+    });
+
+    console.log(`Screenshot saved for ${url}`);
   } catch (error) {
-    console.error("Failed to generate Open Graph image:", error);
+    console.error("Failed to take screenshot:", error);
   } finally {
     await browser.close();
   }
 }
 
-async function generateAllOpenGraphImages(): Promise<void> {
-  for (const [key, value] of Object.entries(OpenGraphs)) {
-    await generateOpenGraphImage(key as keyof typeof OpenGraphs, value.type);
+async function screenshotAllCourses(): Promise<void> {
+  for (const [courseName, courseData] of Object.entries(allCourses)) {
+    for (const pathSegment of courseData.paths) {
+      await screenshotElement("hero", courseName, pathSegment).catch(
+        (error) => {
+          console.error(
+            `Failed to take screenshot for ${courseName}${
+              pathSegment ? "/" + pathSegment : ""
+            }:`,
+            error
+          );
+        }
+      );
+    }
   }
-
-  console.log("Open Graph images generated successfully.");
 }
 
-generateAllOpenGraphImages();
+screenshotAllCourses();
