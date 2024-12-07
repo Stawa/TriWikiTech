@@ -4,7 +4,7 @@ import { FaArrowLeft, FaArrowRight, FaGraduationCap } from "react-icons/fa";
 interface NavigationProps {
   navigation: {
     previous: { href: string; title: string };
-    next: { href: string; title: string };
+    next?: { href: string; title: string };
     overview?: { href: string; title: string };
   };
 }
@@ -29,13 +29,15 @@ function Navigation({ navigation }: NavigationProps) {
             title={navigation.overview.title}
           />
         )}
-        <NavigationLink
-          to={navigation.next.href}
-          icon={<FaArrowRight className="w-4 h-4 md:w-5 md:h-5 text-white" />}
-          label="Next Chapter"
-          title={navigation.next.title}
-          isNext
-        />
+        {navigation.next && (
+          <NavigationLink
+            to={navigation.next.href}
+            icon={<FaArrowRight className="w-4 h-4 md:w-5 md:h-5 text-white" />}
+            label="Next Chapter"
+            title={navigation.next.title}
+            isNext
+          />
+        )}
       </div>
     </nav>
   );

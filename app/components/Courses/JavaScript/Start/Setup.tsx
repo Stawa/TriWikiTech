@@ -1,14 +1,10 @@
-import { Link } from "@remix-run/react";
 import { motion } from "framer-motion";
-import { Highlight, themes } from "prism-react-renderer";
-import { TiArrowLeftOutline } from "react-icons/ti";
-import { BiTime } from "react-icons/bi";
-import { BiCalendar } from "react-icons/bi";
+import { useEffect, useState } from "react";
 
+import CodeBlock from "~/components/Courses/CodeBlock";
 import Navigation from "~/components/Courses/Navigation";
-import convertDate from "~/utils/convertDate";
-import calculateReadTime from "~/utils/calculateReadTime";
-import { useEffect } from "react";
+import TableOfContents from "~/components/Courses/ToC";
+import HeroSection from "~/components/Courses/Hero";
 
 export const SetupMetaData = {
   title: "TriWikiTech | JavaScript Setup",
@@ -24,42 +20,16 @@ export const SetupMetaData = {
   readTime: 7148,
 };
 
-interface CodeBlockProps {
-  codeBlock: string;
-  language: string;
-}
-
-const CodeBlock = ({ codeBlock, language }: CodeBlockProps) => (
-  <Highlight theme={themes.vsDark} code={codeBlock} language={language}>
-    {({ className, style, tokens, getLineProps, getTokenProps }) => (
-      <pre
-        className="relative rounded-lg overflow-hidden"
-        style={{ ...style, background: "rgb(30, 30, 30)" }}
-      >
-        <div className="relative">
-          {tokens.map((line, i) => (
-            <div
-              key={i}
-              {...getLineProps({ line })}
-              className="flex hover:bg-gray-800/50 transition-colors"
-            >
-              <span className="inline-block w-12 px-3 py-1 select-none text-gray-500 text-right border-r border-gray-700">
-                {i + 1}
-              </span>
-              <span className="px-4 py-1">
-                {line.map((token, key) => (
-                  <span key={key} {...getTokenProps({ token })} />
-                ))}
-              </span>
-            </div>
-          ))}
-        </div>
-      </pre>
-    )}
-  </Highlight>
-);
-
 export function JavaScriptSetup() {
+  const [readTime, setReadTime] = useState<number>(0);
+
+  // Count words
+  useEffect(() => {
+    const pageText = document.body.innerText;
+    console.log(`Total words: ${pageText.length}`);
+    setReadTime(pageText.length);
+  }, []);
+
   const setupSteps = {
     nodejs: {
       title: "Installing Node.js",
@@ -70,21 +40,21 @@ export function JavaScriptSetup() {
           title: "Download from Node.js Website",
           description:
             "Visit nodejs.org and locate the green LTS (Long Term Support) download button. The website will automatically detect your operating system and offer the appropriate version.",
-          image: "/courses/nodejs-website.png",
+          image: "/courses/javascript/nodejs-website.png",
           tip: "LTS version is recommended for better stability and long-term support.",
         },
         {
           title: "Start the Setup",
           description:
             "Once downloaded, double-click the installer file to begin. You'll see the Node.js Setup Wizard welcome screen.",
-          image: "/courses/nodejs-setup.png",
+          image: "/courses/javascript/nodejs-setup.png",
           tip: "Make sure to run the installer with administrator privileges if prompted.",
         },
         {
           title: "Installation Progress",
           description:
             "Follow the installation wizard steps. The installer will show a progress bar while it installs Node.js and npm (Node Package Manager) on your system.",
-          image: "/courses/nodejs-wizard.png",
+          image: "/courses/javascript/nodejs-wizard.png",
           tip: "Keep the default settings unless you have specific requirements.",
         },
         {
@@ -107,21 +77,21 @@ export function JavaScriptSetup() {
           title: "Download from VS Code Website",
           description:
             "Visit code.visualstudio.com and click the blue 'Download' button for Windows. The website will automatically detect your operating system and offer the appropriate version.",
-          image: "/courses/vscode-website.png",
+          image: "/courses/javascript/vscode-website.png",
           tip: "VS Code is free and open-source, with regular updates to ensure you always have the latest features.",
         },
         {
           title: "Start the Setup",
           description:
             "Once downloaded, launch the installer. You'll see the VS Code Setup welcome screen. Accept the license agreement to proceed.",
-          image: "/courses/vscode-setup.png",
+          image: "/courses/javascript/vscode-setup.png",
           tip: "Make sure to run the installer with administrator privileges if prompted.",
         },
         {
           title: "Installation Options",
           description:
             "During installation, make sure to select these recommended options:\n- Add 'Open with Code' action to Windows Explorer file context menu\n- Add 'Open with Code' action to Windows Explorer directory context menu\n- Add to PATH (requires shell restart)\n- Register Code as an editor for supported file types",
-          image: "/courses/vscode-wizard.png",
+          image: "/courses/javascript/vscode-wizard.png",
           tip: "These options make it easier to open files and folders directly from Windows Explorer.",
         },
         {
@@ -242,7 +212,7 @@ export function JavaScriptSetup() {
       name: "ESLint",
       description:
         "JavaScript code linting utility that helps catch errors and enforce coding standards. Essential for maintaining code quality and consistency.",
-      icon: "/courses/eslint.svg",
+      icon: "/courses/javascript/eslint.svg",
       link: "https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint",
       id: "dbaeumer.vscode-eslint",
       category: "Linting",
@@ -251,7 +221,7 @@ export function JavaScriptSetup() {
       name: "Prettier",
       description:
         "Opinionated code formatter that automatically formats your code on save, ensuring consistent style across your entire codebase.",
-      icon: "/courses/prettier.png",
+      icon: "/courses/javascript/prettier.png",
       link: "https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode",
       id: "esbenp.prettier-vscode",
       category: "Formatting",
@@ -260,7 +230,7 @@ export function JavaScriptSetup() {
       name: "JavaScript (ES6) Code Snippets",
       description:
         "Rich collection of ES6+ snippets for faster JavaScript development. Includes shortcuts for common patterns and modern syntax.",
-      icon: "/courses/js-snippets.png",
+      icon: "/courses/javascript/js-snippets.png",
       link: "https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets",
       id: "xabikos.JavaScriptSnippets",
       category: "Productivity",
@@ -278,268 +248,47 @@ export function JavaScriptSetup() {
     },
   };
 
-  // Count words
-  useEffect(() => {
-    const pageText = document.body.innerText;
-    console.log(`Total words: ${pageText.length}`);
-  }, []);
+  const ToCNavigation = [
+    { id: "intro", title: "Introduction", number: "00" },
+    { id: "nodejs", title: "Installing Node.js", number: "01" },
+    { id: "vscode", title: "Setting up VS Code", number: "02" },
+    {
+      id: "extensions",
+      title: "Recommended Extensions",
+      number: "03",
+    },
+    {
+      id: "install-extensions",
+      title: "Installing Extensions",
+      number: "04",
+    },
+  ];
+
+  const HeroSectionItems = {
+    badge: {
+      chapter: 0,
+      title: "Environment Setup",
+    },
+    title: {
+      main: "Setting Up",
+      sub: "Your JavaScript Environment",
+    },
+    description:
+      "A comprehensive guide to setting up a professional JavaScript development environment. Follow these steps to create an optimal workspace for learning and building JavaScript applications.",
+    readTime: readTime,
+    modified_time: SetupMetaData.modified_time,
+  };
 
   return (
     <div className="min-h-screen">
       {/* Hero Section Banner */}
-      <section
-        id="hero"
-        className="relative w-full py-16 lg:h-[630px] overflow-hidden bg-white dark:bg-gray-900"
-      >
-        {/* Clean, subtle background */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_1px,transparent_1px)] bg-[length:20px_20px]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.05)_2px,transparent_2px)] bg-[length:30px_30px] animate-pulse"></div>
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-indigo-500/10"></div>
-        </div>
-
-        <div className="container relative h-full mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto h-full flex flex-col lg:justify-center">
-            {/* Header Content */}
-            <div className="flex flex-col items-center space-y-6 lg:space-y-8">
-              {/* Title Section */}
-              <div className="text-center space-y-4 lg:space-y-6 w-full">
-                {/* Hero Badge */}
-                <div className="inline-flex items-center">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-full shadow-sm">
-                    <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">
-                      Chapter 0
-                    </span>
-                    <div className="w-1 h-4 bg-blue-300 dark:bg-blue-700 rounded-full"></div>
-                    <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
-                      Environment Setup
-                    </span>
-                  </div>
-                </div>
-
-                {/* Main Title */}
-                <div className="space-y-2 max-w-6xl mx-auto">
-                  <h1 className="text-4xl lg:text-6xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    Setting Up Your
-                  </h1>
-                  <h1 className="text-4xl lg:text-6xl font-bold tracking-tight">
-                    <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                      JavaScript Environment
-                    </span>
-                  </h1>
-                </div>
-
-                {/* Description */}
-                <p className="text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto mt-4 lg:mt-6">
-                  A comprehensive guide to setting up a professional JavaScript
-                  development environment. Follow these steps to create an
-                  optimal workspace for learning and building JavaScript
-                  applications.
-                </p>
-              </div>
-
-              {/* Meta information */}
-              <div className="flex justify-center pt-4 lg:pt-6">
-                {/* Desktop View */}
-                <div className="hidden lg:flex items-center gap-12 px-8 py-4 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
-                  {/* Author Info */}
-                  <div className="flex items-center gap-4">
-                    <div className="relative">
-                      <img
-                        src="https://avatars.githubusercontent.com/u/69102292?v=4"
-                        alt="Author avatar"
-                        className="w-12 h-12 rounded-full ring-2 ring-blue-500/20 dark:ring-blue-400/20"
-                      />
-                      <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center ring-2 ring-white dark:ring-gray-900">
-                        <svg
-                          className="w-3 h-3 text-white"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">
-                        Written by
-                      </div>
-                      <Link
-                        to="https://github.com/stawa"
-                        target="_blank"
-                        className="font-medium text-gray-900 dark:text-white text-lg hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
-                      >
-                        Stawa
-                      </Link>
-                    </div>
-                  </div>
-
-                  <div className="w-px h-12 bg-gray-200 dark:bg-gray-700"></div>
-
-                  {/* Reading Time */}
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 flex items-center justify-center">
-                      <BiTime className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                    </div>
-                    <div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">
-                        Reading time
-                      </div>
-                      <div className="text-base font-medium text-gray-900 dark:text-white">
-                        {calculateReadTime(SetupMetaData.readTime)} minutes
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="w-px h-12 bg-gray-200 dark:bg-gray-700"></div>
-
-                  {/* Last Updated */}
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 flex items-center justify-center">
-                      <BiCalendar className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                    </div>
-                    <div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">
-                        Last updated
-                      </div>
-                      <div className="text-base font-medium text-gray-900 dark:text-white">
-                        {convertDate(SetupMetaData.modified_time)}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Mobile and Medium Screen View */}
-                <div className="lg:hidden w-full px-4">
-                  <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg p-4">
-                    {/* Author Info */}
-                    <div className="flex items-center gap-3 mb-4">
-                      <img
-                        src="https://avatars.githubusercontent.com/u/69102292?v=4"
-                        alt="Author avatar"
-                        className="w-10 h-10 rounded-full ring-2 ring-blue-500/20 dark:ring-blue-400/20"
-                      />
-                      <div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
-                          Written by
-                        </div>
-                        <Link
-                          to="https://github.com/stawa"
-                          target="_blank"
-                          className="font-medium text-gray-900 dark:text-white text-base hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
-                        >
-                          Stawa
-                        </Link>
-                      </div>
-                    </div>
-
-                    <div className="h-px w-full bg-gray-200/70 dark:bg-gray-700/70 my-4"></div>
-
-                    {/* Reading Time and Last Updated */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 flex items-center justify-center">
-                          <BiTime className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                        </div>
-                        <div>
-                          <div className="text-xs text-gray-500 dark:text-gray-400">
-                            Reading time
-                          </div>
-                          <div className="text-sm font-medium text-gray-900 dark:text-white">
-                            {calculateReadTime(SetupMetaData.readTime)} minutes
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 flex items-center justify-center">
-                          <BiCalendar className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                        </div>
-                        <div>
-                          <div className="text-xs text-gray-500 dark:text-gray-400">
-                            Last updated
-                          </div>
-                          <div className="text-sm font-medium text-gray-900 dark:text-white">
-                            {convertDate(SetupMetaData.modified_time)}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <HeroSection {...HeroSectionItems} />
       {/* Main Section */}
       <section className="w-full bg-white dark:bg-gray-900 py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Table of Contents */}
           <div className="lg:grid lg:grid-cols-12 lg:gap-8">
-            <div className="lg:col-span-3">
-              <div className="sticky top-8">
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 pb-2 border-b-2 border-blue-500 dark:border-blue-400 inline-block">
-                  Table of Contents
-                </h3>
-                <nav className="space-y-2">
-                  {[
-                    { id: "intro", title: "Introduction", number: "00" },
-                    { id: "nodejs", title: "Installing Node.js", number: "01" },
-                    { id: "vscode", title: "Setting up VS Code", number: "02" },
-                    {
-                      id: "extensions",
-                      title: "Recommended Extensions",
-                      number: "03",
-                    },
-                    {
-                      id: "install-extensions",
-                      title: "Installing Extensions",
-                      number: "04",
-                    },
-                  ].map((item) => (
-                    <a
-                      key={item.id}
-                      href={`#${item.id}`}
-                      className="flex items-center py-3 rounded-lg transition-all duration-300"
-                    >
-                      <span className="mr-3 text-blue-600 dark:text-blue-400 font-mono text-sm bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded">
-                        {item.number}
-                      </span>
-                      <span className="text-gray-800 dark:text-gray-200 font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
-                        {item.title}
-                      </span>
-                    </a>
-                  ))}
-                  <div className="border-t-2 border-gray-200 dark:border-gray-700">
-                    <Link
-                      to="/courses/javascript"
-                      className="flex items-center py-3 rounded-lg transition-all duration-300 mt-2"
-                    >
-                      <span className="mr-3 text-green-600 dark:text-green-400 font-mono text-sm bg-green-100 dark:bg-green-900 px-2 py-1 rounded">
-                        <TiArrowLeftOutline />
-                      </span>
-                      <span className="text-gray-800 dark:text-gray-200 font-medium hover:text-green-600 dark:hover:text-green-400 transition-colors duration-300">
-                        Back to Course Overview
-                      </span>
-                    </Link>
-                  </div>
-                </nav>
-              </div>
-            </div>
-
-            {/* Breakline for smaller screens */}
-            <div className="block lg:hidden w-full my-4">
-              <div className="h-px w-full bg-gray-200 dark:bg-gray-700"></div>
-            </div>
-
+            <TableOfContents navigation={ToCNavigation} />
             {/* Main Content */}
             <div className="mt-8 lg:mt-0 lg:col-span-9">
               {/* Intro Section */}

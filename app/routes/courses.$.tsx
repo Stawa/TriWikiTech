@@ -13,6 +13,10 @@ import {
   FirstJavaScriptCode,
   FirstCodeMetaData,
 } from "~/components/Courses/JavaScript/Start/FirstCode";
+import {
+  JavaScriptVariableTypes,
+  JavaScriptVariableTypesMetaData,
+} from "~/components/Courses/JavaScript/Start/VariableTypes";
 import { CourseMeta } from "~/types/course";
 
 interface CourseData {
@@ -34,6 +38,7 @@ const COURSE_META: Record<string, CourseMeta | CourseMetaWithPaths> = {
     paths: {
       setup: SetupMetaData,
       "first-code": FirstCodeMetaData,
+      variables: JavaScriptVariableTypesMetaData,
     },
   },
 };
@@ -108,6 +113,7 @@ const COURSE_COMPONENTS = {
     default: JavaScriptCourse,
     setup: JavaScriptSetup,
     "first-code": FirstJavaScriptCode,
+    variables: JavaScriptVariableTypes,
   },
 };
 

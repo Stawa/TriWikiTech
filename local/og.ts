@@ -4,7 +4,7 @@ import * as path from "path";
 
 const allCourses = {
   javascript: {
-    paths: ["", "setup", "first-code"],
+    paths: ["", "setup", "first-code", "variables"],
   },
 };
 
