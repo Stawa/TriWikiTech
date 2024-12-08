@@ -16,7 +16,6 @@ export const FirstCodeMetaData = {
   section: "JavaScript Basics",
   tag: ["JavaScript", "Beginner", "Programming"],
   author: ["Stawa"],
-  readTime: 3258,
 };
 
 export function FirstJavaScriptCode() {
@@ -24,7 +23,6 @@ export function FirstJavaScriptCode() {
 
   useEffect(() => {
     const pageText = document.body.innerText;
-    console.log(`Total words: ${pageText.length}`);
     setReadTime(pageText.length);
   }, []);
 
@@ -58,7 +56,7 @@ export function FirstJavaScriptCode() {
     { id: "intro", title: "Introduction", number: "00" },
     {
       id: "first-code",
-      title: "Creating Your First JavaScript Code",
+      title: "First Code",
       number: "01",
     },
     { id: "summary", title: "Summary", number: "02" },
@@ -137,7 +135,7 @@ export function FirstJavaScriptCode() {
                         01
                       </span>
                     </span>
-                    Creating Your First JavaScript Code
+                    First Code
                   </h2>
                   <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
                     To begin, open your text editor or code editor and create a
@@ -198,7 +196,7 @@ export function FirstJavaScriptCode() {
                   </div>
 
                   <div className="mb-8 space-y-6 sm:space-y-8">
-                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-4 sm:mb-6 pb-2 border-b-2 border-blue-500 dark:border-blue-400 inline-block">
+                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white pb-2 border-b-2 border-blue-500 dark:border-blue-400 inline-block">
                       Understanding the Code
                     </h3>
                     <div className="space-y-4 sm:space-y-6">

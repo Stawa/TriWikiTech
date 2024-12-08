@@ -17,7 +17,6 @@ export const SetupMetaData = {
   section: "JavaScript Basics",
   tag: ["JavaScript", "Beginner", "Programming"],
   author: ["Stawa"],
-  readTime: 7148,
 };
 
 export function JavaScriptSetup() {
@@ -26,7 +25,6 @@ export function JavaScriptSetup() {
   // Count words
   useEffect(() => {
     const pageText = document.body.innerText;
-    console.log(`Total words: ${pageText.length}`);
     setReadTime(pageText.length);
   }, []);
 

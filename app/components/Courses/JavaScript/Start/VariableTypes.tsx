@@ -15,7 +15,6 @@ export const JavaScriptVariableTypesMetaData = {
   section: "JavaScript Basics",
   tag: ["JavaScript", "Variables", "Data Types", "Programming"],
   author: ["Stawa"],
-  readTime: 1594,
 };
 
 export function JavaScriptVariableTypes() {
@@ -23,7 +22,6 @@ export function JavaScriptVariableTypes() {
 
   useEffect(() => {
     const pageText = document.body.innerText;
-    console.log(`Total words: ${pageText.length}`);
     setReadTime(pageText.length);
   }, []);
 

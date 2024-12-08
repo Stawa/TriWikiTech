@@ -30,7 +30,8 @@ function SidebarLink({ to, icon, children, onNavigate }: SidebarLinkProps) {
       >
         <div className="flex items-center flex-grow">
           {React.cloneElement(icon, {
-            className: "mr-4 text-xl text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-300",
+            className:
+              "mr-4 text-xl text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-300",
           })}
           <span className="font-medium text-gray-800 dark:text-gray-200 group-hover:text-indigo-700 dark:group-hover:text-indigo-300 transition-colors duration-300">
             {children}

@@ -90,21 +90,21 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
     }
   }, []);
 
-  const navClasses = `w-full text-gray-800 dark:text-gray-200 py-4 font-sans border-b transition-all duration-300 ${
+  const navClasses = `fixed top-0 w-full text-gray-800 dark:text-gray-200 py-3 font-sans border-b z-50 transition-all duration-300 ${
     isScrolled
-      ? "border-indigo-500/50 bg-gray-100/90 dark:bg-gray-900/90"
+      ? "border-indigo-500/20 bg-gray-100/80 dark:bg-gray-900/80 backdrop-blur-lg"
       : "border-indigo-500 bg-gray-100 dark:bg-gray-900"
   }`;
 
   return (
     <nav className={navClasses}>
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-24 3xl:px-32">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center h-14">
           <Logo />
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-6">
             <Suspense
               fallback={
-                <div className="h-6 w-24 bg-gray-200 animate-pulse rounded" />
+                <div className="h-6 w-24 bg-gray-200 dark:bg-gray-800 animate-pulse rounded" />
               }
             >
               <DesktopMenu
@@ -116,12 +116,12 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
             </Suspense>
             <Suspense
               fallback={
-                <div className="h-6 w-6 bg-gray-200 animate-pulse rounded" />
+                <div className="h-8 w-8 bg-gray-200 dark:bg-gray-800 animate-pulse rounded-lg" />
               }
             >
               <button
                 onClick={toggleSidebar}
-                className="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                className="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 active:bg-gray-300 dark:active:bg-gray-700 transition-colors"
                 aria-label="Toggle menu"
               >
                 <FaBars className="h-5 w-5" />
