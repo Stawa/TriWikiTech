@@ -1,5 +1,5 @@
 import { UserProfile } from "~/types/user";
-import { lazy, Suspense, useState, useEffect } from "react";
+import { lazy, Suspense, useState, useEffect, useMemo, useCallback } from "react";
 import {
   FaCog,
   FaSun,
@@ -57,23 +57,43 @@ function Sidebar({
   });
 
   useEffect(() => {
-    setCookie("cookiePreference", cookiePreference, {
-      path: "/",
-      expires: "never",
-    });
+    if (cookiePreference) {
+      setCookie("cookiePreference", cookiePreference, {
+        path: "/",
+        expires: "never",
+      });
+    }
   }, [cookiePreference]);
 
-  function handleLogout() {
+  const handleLogout = useCallback(() => {
     submit(null, { method: "get", action: "/logout" });
     navigate("/sign-in");
-  }
+  }, [submit, navigate]);
 
-  const handleNavigate = () => {
+  const handleNavigate = useCallback(() => {
     toggleSidebar();
-  };
+  }, [toggleSidebar]);
+
+  const themeOptions = useMemo(() => [
+    {
+      value: "light",
+      label: translations.SwitchToLightMode,
+      icon: <FaSun />,
+    },
+    {
+      value: "dark",
+      label: translations.SwitchToDarkMode,
+      icon: <FaMoon />,
+    },
+    {
+      value: "system",
+      label: translations.SwitchToSystemMode,
+      icon: <FaDesktop />,
+    },
+  ], [translations]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isSidebarOpen && (
         <div className="fixed inset-0 z-[100] overflow-hidden">
           <motion.div
@@ -89,9 +109,8 @@ function Sidebar({
             initial={{ x: "100%", opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: "100%", opacity: 0 }}
-            transition={{ type: "spring", damping: 20, stiffness: 150 }}
-            className="fixed inset-y-0 right-0 w-full xs:w-[90%] sm:w-[400px] lg:w-[450px] xl:w-[500px] flex flex-col h-screen overflow-hidden"
-            style={{ overflowY: "auto" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-y-0 right-0 w-full xs:w-[90%] sm:w-[400px] lg:w-[450px] xl:w-[500px] flex flex-col h-screen bg-white dark:bg-gray-900 overflow-hidden"
           >
             <div className="bg-white dark:bg-gray-900 px-3 xs:px-4 sm:px-6 py-3 xs:py-4 sm:py-6 border-b border-indigo-200 dark:border-indigo-500/30">
               <div className="flex items-center justify-between">
@@ -113,7 +132,7 @@ function Sidebar({
                 <Suspense
                   fallback={
                     <div className="flex items-center justify-center h-16 xs:h-20 sm:h-24">
-                      <div className="animate-pulse w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 bg-indigo-200 dark:bg-indigo-800 rounded-full"></div>
+                      <div className="w-10 h-10 xs:w-12 xs:h-12 sm:w-16 sm:h-16 rounded-full bg-gray-200 dark:bg-gray-800 animate-pulse" />
                     </div>
                   }
                 >
@@ -151,26 +170,8 @@ function Sidebar({
                   <SidebarDropdown
                     icon={<FaMoon />}
                     label={translations.Theme}
-                    options={[
-                      {
-                        value: "light",
-                        label: translations.SwitchToLightMode,
-                        icon: <FaSun />,
-                      },
-                      {
-                        value: "dark",
-                        label: translations.SwitchToDarkMode,
-                        icon: <FaMoon />,
-                      },
-                      {
-                        value: "system",
-                        label: translations.SwitchToSystemMode,
-                        icon: <FaDesktop />,
-                      },
-                    ]}
-                    onSelect={(value) => {
-                      toggleTheme(value);
-                    }}
+                    options={themeOptions}
+                    onSelect={toggleTheme}
                     currentValue={theme}
                   />
                   <SidebarDropdown

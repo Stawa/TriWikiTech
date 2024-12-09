@@ -21,6 +21,7 @@ import { getCookie } from "~/utils/cookie";
 import Footer from "~/components/Footer";
 import Navbar from "~/components/Navbar";
 import ErrorPage from "~/components/404";
+import ScrollToTop from "~/components/ScrollToTop";
 import "~/tailwind.css";
 
 export const links: LinksFunction = () => [
@@ -120,14 +121,15 @@ function Document({
         <Links />
       </head>
       <body>
-        <LoadingBar color="#f97316" ref={ref} />
+        <LoadingBar color="#4f46e5" ref={ref} />
         {showNavAndFooter && (
           <Navbar
-            translations={translations.navbar}
             user={user}
+            translations={translations.navbar}
             currentLanguage={locale}
           />
         )}
+        <ScrollToTop />
         {children}
         {showNavAndFooter && (
           <Footer

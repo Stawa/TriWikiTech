@@ -90,7 +90,7 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
     }
   }, []);
 
-  const navClasses = `fixed top-0 w-full text-gray-800 dark:text-gray-200 py-3 font-sans border-b z-50 transition-all duration-300 ${
+  const navClasses = `w-full text-gray-800 dark:text-gray-200 py-3 font-sans border-b transition-all duration-300 ${
     isScrolled
       ? "border-indigo-500/20 bg-gray-100/80 dark:bg-gray-900/80 backdrop-blur-lg"
       : "border-indigo-500 bg-gray-100 dark:bg-gray-900"

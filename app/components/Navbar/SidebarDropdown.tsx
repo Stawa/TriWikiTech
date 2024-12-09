@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, memo } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { Transition } from "@headlessui/react";
 
@@ -11,7 +11,7 @@ interface SidebarDropdownProps {
   currentValue?: string;
 }
 
-function SidebarDropdown({
+const SidebarDropdown = memo(function SidebarDropdown({
   icon,
   label,
   options,
@@ -24,10 +24,22 @@ function SidebarDropdown({
     currentValue || currentLanguage || options[0].value
   );
 
+  const handleToggle = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
+
+  const handleSelect = useCallback((value: string) => {
+    if (value !== currentLanguage && value !== currentValue) {
+      onSelect(value);
+      setSelectedValue(value);
+      setIsOpen(false);
+    }
+  }, [currentLanguage, currentValue, onSelect]);
+
   return (
     <div className="relative mb-3 group">
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleToggle}
         className={`w-full text-left px-5 py-3.5 text-base
           transition-all duration-300 ease-in-out flex items-center
           rounded-xl
@@ -81,13 +93,7 @@ function SidebarDropdown({
             return (
               <button
                 key={option.value}
-                onClick={() => {
-                  if (!isDisabled) {
-                    onSelect(option.value);
-                    setSelectedValue(option.value);
-                    setIsOpen(false);
-                  }
-                }}
+                onClick={() => handleSelect(option.value)}
                 className={`block w-full text-left px-5 py-3.5 text-sm
                   transition-all duration-300 flex items-center
                   ${
@@ -115,6 +121,6 @@ function SidebarDropdown({
       </Transition>
     </div>
   );
-}
+});
 
 export default SidebarDropdown;
