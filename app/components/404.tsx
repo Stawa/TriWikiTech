@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaHome, FaTerminal } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 interface ErrorPageProps {
@@ -9,111 +9,154 @@ interface ErrorPageProps {
 
 function ErrorPage({ statusCode, message }: ErrorPageProps) {
   const containerVariants = {
-    hidden: { opacity: 0, y: -20 },
+    hidden: { opacity: 0, scale: 0.95 },
     visible: {
       opacity: 1,
-      y: 0,
+      scale: 1,
       transition: {
-        duration: 0.3,
+        duration: 0.4,
+        ease: "easeOut",
         when: "beforeChildren",
-        staggerChildren: 0.05,
+        staggerChildren: 0.1,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 10,
+      },
+    },
   };
 
   const gradientVariants = {
     animate: {
       background: [
         "linear-gradient(0deg, #4f46e5, #818cf8)",
-        "linear-gradient(60deg, #4f46e5, #818cf8)",
         "linear-gradient(120deg, #4f46e5, #818cf8)",
-        "linear-gradient(180deg, #4f46e5, #818cf8)",
         "linear-gradient(240deg, #4f46e5, #818cf8)",
-        "linear-gradient(300deg, #4f46e5, #818cf8)",
         "linear-gradient(360deg, #4f46e5, #818cf8)",
       ],
-      transition: { duration: 10, repeat: Infinity, ease: "linear" },
+      transition: { duration: 8, repeat: Infinity, ease: "linear" },
     },
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-indigo-200 font-sans flex items-center justify-center p-4 overflow-hidden">
+    <main
+      role="main"
+      className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans flex items-center justify-center p-6 md:p-10 lg:p-16 overflow-hidden"
+    >
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-2xl 2xl:max-w-3xl bg-gray-800 border-2 border-indigo-500 rounded-lg p-4 sm:p-6 md:p-8 lg:p-10 shadow-lg relative"
+        className="w-full max-w-3xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border border-gray-300 dark:border-gray-700 rounded-xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-xl relative"
       >
+        {/* Animated gradient background */}
         <motion.div
           variants={gradientVariants}
           animate="animate"
-          className="absolute inset-0 opacity-10 rounded-lg"
+          className="absolute inset-0 opacity-[0.02] dark:opacity-[0.07] rounded-2xl"
         />
-        <motion.div
-          variants={itemVariants}
-          className="sm:hidden mb-6 text-center"
-        >
-          <motion.h1 className="text-3xl font-bold text-indigo-400 mb-2">
-            Oops!
-          </motion.h1>
-          <motion.p className="text-lg">{"We've hit a learning curve"}</motion.p>
+
+        <header className="text-center mb-8 sm:mb-10 md:mb-12">
+          <motion.div variants={itemVariants}>
+            <span className="inline-block px-4 py-2 rounded-full text-sm font-semibold bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 mb-4">
+              Error 404
+            </span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-teal-600 dark:from-blue-400 dark:to-teal-400">
+                Oops! Page not found
+              </span>
+            </h1>
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 font-medium max-w-lg mx-auto">
+              The page you are looking for might have been removed, had its name
+              changed, or is temporarily unavailable.
+            </p>
+          </motion.div>
+        </header>
+
+        {/* Terminal Section */}
+        <motion.div variants={itemVariants} className="mb-10">
+          <div className="bg-gray-100 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+            {/* Terminal Header */}
+            <div className="flex items-center justify-between px-4 py-2 bg-gray-200 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm">
+                <FaTerminal className="mr-2" />
+                <span>terminal</span>
+              </div>
+            </div>
+            {/* Terminal Content */}
+            <div className="p-4 font-mono text-sm">
+              <p className="flex items-center text-indigo-600 dark:text-indigo-400">
+                <span className="text-green-600 dark:text-green-400 mr-2">
+                  ➜
+                </span>
+                <span className="text-yellow-600 dark:text-yellow-400 mr-2">
+                  ~
+                </span>
+                whoami
+              </p>
+              <p className="ml-4 text-gray-600 dark:text-gray-400 my-1">
+                kade.student@triwikitech
+              </p>
+              <p className="flex items-center text-indigo-600 dark:text-indigo-400">
+                <span className="text-green-600 dark:text-green-400 mr-2">
+                  ➜
+                </span>
+                <span className="text-yellow-600 dark:text-yellow-400 mr-2">
+                  ~
+                </span>
+                find /path
+              </p>
+              <p className="ml-4 text-red-500 dark:text-red-400">
+                Error: Path not found
+              </p>
+            </div>
+          </div>
         </motion.div>
+
+        {/* Action Buttons */}
         <motion.div
           variants={itemVariants}
-          className="hidden sm:flex items-center mb-4 sm:mb-6"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-pink-500 mr-2 sm:mr-3"></div>
-          <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-yellow-400 mr-2 sm:mr-3"></div>
-          <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-teal-400"></div>
-          <span className="ml-3 text-sm sm:text-base text-indigo-300">
-            error.log
-          </span>
-        </motion.div>
-        <motion.div
-          variants={itemVariants}
-          className="mb-3 sm:mb-4 text-sm sm:text-base lg:text-lg"
-        >
-          <span className="text-teal-400">student@triwikitech:~$</span> search
-          /courses/ -name requested-page
-        </motion.div>
-        <motion.div
-          variants={itemVariants}
-          className="mb-3 sm:mb-4 text-sm sm:text-base lg:text-lg break-words text-center sm:text-left"
-        >
-          {">"} Error {statusCode}: {message}
-        </motion.div>
-        <motion.div
-          variants={itemVariants}
-          className="mb-3 sm:mb-4 text-sm sm:text-base lg:text-lg"
-        >
-          <span className="text-teal-400">student@triwikitech:~$</span> return
-          /home
-        </motion.div>
-        <motion.div
-          variants={itemVariants}
-          className="flex justify-center sm:justify-start mt-4 sm:mt-6 lg:mt-8"
-        >
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          >
+          <motion.div className="w-full sm:w-auto">
             <Link
               to="/"
-              className="bg-indigo-600 text-white px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-md text-sm sm:text-base font-semibold transition-all duration-300 inline-flex items-center hover:bg-indigo-700"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-medium shadow-lg shadow-indigo-500/25 dark:shadow-indigo-900/30 transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
               prefetch="intent"
+              aria-label="Return to homepage"
             >
-              <FaArrowLeft className="mr-2" /> Back to Learning
+              <FaHome className="mr-2" />
+              <span>Return Home</span>
             </Link>
+          </motion.div>
+
+          <motion.div className="w-full sm:w-auto">
+            <button
+              onClick={() => window.history.back()}
+              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-medium transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+              aria-label="Go back to previous page"
+            >
+              <FaArrowLeft className="mr-2" />
+              <span>Go Back</span>
+            </button>
           </motion.div>
         </motion.div>
       </motion.div>
-    </div>
+    </main>
   );
 }
 

@@ -90,7 +90,6 @@ export default function Index() {
           </svg>
         </div>
       </header>
-
       <main className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="relative z-10 max-w-7xl mx-auto">
           <motion.section
@@ -124,6 +123,7 @@ export default function Index() {
                   </div>
                 }
               >
+                {/* Features */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {getFeatures({ translations: Index }).map(
                     (feature, index) => (
@@ -178,6 +178,7 @@ export default function Index() {
               transition={{ duration: 0.6, delay: 0.7 }}
               className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
             >
+              {/* Languages */}
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {getLanguages({ translations: Index }).map(
                   (language, index) => (

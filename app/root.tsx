@@ -10,7 +10,7 @@ import {
   useRouteError,
   useNavigation,
 } from "@remix-run/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useChangeLanguage } from "remix-i18next/react";
 import LoadingBar from "react-top-loading-bar";
 
@@ -97,21 +97,40 @@ function Document({
   theme = "light",
 }: DocumentProps) {
   const navigation = useNavigation();
-  const ref = useRef<React.ElementRef<typeof LoadingBar> | null>(null);
+  const loadingBarRef = useRef<React.ElementRef<typeof LoadingBar> | null>(
+    null
+  );
+  const [activeTheme, setActiveTheme] = useState<string>(theme);
+
+  useEffect(() => {
+    if (theme === "system") {
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      const updateTheme = (e: MediaQueryListEvent) => {
+        setActiveTheme(e.matches ? "dark" : "light");
+      };
+
+      setActiveTheme(mediaQuery.matches ? "dark" : "light");
+      mediaQuery.addEventListener("change", updateTheme);
+
+      return () => mediaQuery.removeEventListener("change", updateTheme);
+    }
+  }, [theme]);
 
   useEffect(() => {
     if (navigation.state === "loading") {
-      ref.current?.continuousStart();
+      loadingBarRef.current?.continuousStart();
     } else {
-      ref.current?.complete();
+      loadingBarRef.current?.complete();
     }
   }, [navigation.state]);
+
+  const finalTheme = theme === "system" ? activeTheme : theme;
 
   return (
     <html
       lang={locale}
-      suppressHydrationWarning={true}
-      className={`!scroll-smooth ${theme === "dark" ? "dark" : ""}`}
+      suppressHydrationWarning
+      className={`!scroll-smooth ${finalTheme === "dark" ? "dark" : ""}`}
     >
       <head>
         <meta charSet="utf-8" />
@@ -121,7 +140,7 @@ function Document({
         <Links />
       </head>
       <body>
-        <LoadingBar color="#4f46e5" ref={ref} />
+        <LoadingBar color="#4f46e5" ref={loadingBarRef} />
         {showNavAndFooter && (
           <Navbar
             user={user}
