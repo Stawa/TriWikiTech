@@ -1,5 +1,5 @@
 export default {
-  title: "Register",
+  title: "Sign Up",
   description:
     "Create an account to access your personalized learning experience.",
   emailAddress: {
@@ -63,7 +63,7 @@ export default {
     usernameAlreadyTaken: "Username is already taken",
   },
   form: {
-    submit: "Register",
+    submit: "Sign Up",
     processing: "Processing...",
     title: "Get Started with TriWikiTech",
     description: "Create your account to start exploring and learning",

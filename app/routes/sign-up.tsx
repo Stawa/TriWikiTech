@@ -30,11 +30,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useState, useEffect } from "react";
 
 import { UserProfile } from "~/types/user";
-import {
-  login,
-  register,
-  checkUsernameAvailability,
-} from "~/services/auth.server";
+import { register, checkUsernameAvailability } from "~/services/auth.server";
 
 import getTranslation from "~/utils/getTranslation.server";
 import { MdOutlineMail } from "react-icons/md";
@@ -53,7 +49,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 const USERNAME_REGEX = /^[a-z0-9_]{3,16}$/;
-const FULLNAME_REGEX = /^[a-zA-Z\s]{3,24}$/;
+const FULLNAME_REGEX = /^[a-zA-Z0-9\s]{3,24}$/;
 
 const ERROR_CODES: Record<string, string> = {
   "auth/email-already-in-use": "emailAlreadyInUse",
@@ -152,15 +148,7 @@ export const action: ActionFunction = async ({ request }) => {
       );
     }
 
-    const sessionToken = await login(emailAddress, password);
-
-    console.log(registerResponse);
-
-    return redirect(`/profile/${username}`, {
-      headers: {
-        "Set-Cookie": sessionToken,
-      },
-    });
+    return redirect(`/sign-in`);
   } catch (error) {
     const errorMessage =
       ERROR_CODES[(error as { code?: string }).code || "default"];
@@ -190,6 +178,15 @@ export default function Register() {
     confirmPassword: "",
     termsAndPrivacy: false,
   });
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (fetcher.state === "submitting") {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [fetcher.state]);
 
   useEffect(() => {
     if (formData.emailAddress && EMAIL_REGEX.test(formData.emailAddress)) {
@@ -611,24 +608,53 @@ export default function Register() {
                       onClick={() =>
                         step < 3 && validateStep() && setStep(step + 1)
                       }
-                      disabled={!validateStep()}
+                      disabled={!validateStep() || isLoading}
                       className={`group flex items-center justify-center w-1/2 px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 ${
-                        validateStep()
+                        validateStep() && !isLoading
                           ? "bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/20"
                           : "bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed"
                       }`}
                     >
-                      {step === 3 ? (
+                      {isLoading ? (
+                        <div className="flex items-center justify-center">
+                          <svg
+                            className="animate-spin h-5 w-5 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8z"
+                            ></path>
+                          </svg>
+                        </div>
+                      ) : step === 3 ? (
                         translations.form.submit
                       ) : (
                         <>
-                          Next
-                          <FaArrowRight className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 group-hover:translate-x-1 transition-transform duration-300" />
+                          <span className="mr-2">{translations.form.next}</span>
+                          <FaArrowRight className="h-4 w-4" />
                         </>
                       )}
                     </motion.button>
                   </div>
                 </form>
+
+                {isLoading && (
+                  <div className="loading-spinner">
+                    <p>Loading...</p>
+                  </div>
+                )}
 
                 <div className="mt-8 sm:mt-10">
                   <div className="relative">
@@ -646,6 +672,7 @@ export default function Register() {
                     <motion.button
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleSocialLogin("google")}
+                      disabled={isLoading}
                       className="bg-white text-black font-bold px-4 sm:px-6 py-3 sm:py-4 rounded-xl transition duration-300 text-sm inline-flex items-center justify-center shadow-lg group relative overflow-hidden"
                     >
                       <span className="relative z-10 flex items-center">
@@ -660,6 +687,7 @@ export default function Register() {
                     <motion.button
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleSocialLogin("github")}
+                      disabled={isLoading}
                       className="bg-[#1b1f23] text-white font-bold px-4 sm:px-6 py-3 sm:py-4 rounded-xl transition duration-300 text-sm inline-flex items-center justify-center shadow-lg group relative overflow-hidden"
                     >
                       <span className="relative z-10 flex items-center">

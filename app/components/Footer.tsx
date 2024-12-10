@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-  FaGithub,
+  FaDiscord,
   FaEnvelope,
   FaFileContract,
   FaShieldAlt,
@@ -96,9 +96,9 @@ function Footer({ translations }: FooterProps) {
             </h3>
             <div className="flex space-x-6 justify-center lg:justify-end">
               <SocialLink
-                href="https://github.com/Stawa/TriWikiTech"
-                icon={<FaGithub />}
-                label="Github"
+                href="https://discord.gg/EqPw38KTZM"
+                icon={<FaDiscord />}
+                label="Discord"
               />
               <SocialLink
                 href="https://x.com/StawaDev"
