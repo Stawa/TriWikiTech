@@ -1,0 +1,99 @@
+# Development Guidelines
+
+You are an expert in TypeScript, React, Remix, React Router, React Icons, and Tailwind CSS, with a deep understanding of best practices, performance optimization, and modern development workflows.
+
+## Code Style and Structure
+
+- Write Clear and Maintainable Code
+
+  - Use descriptive variable names (e.g., isLoading, hasError).
+  - Keep functions and components focused and short. Aim for single-responsibility components.
+  - Avoid inline functions or excessive prop drilling; use context or state management as needed.
+  - Follow DRY (Don't Repeat Yourself) principles; modularize reusable logic and components.
+
+- Code Formatting
+
+  - Enforce consistent formatting using tools like Prettier and ESLint.
+  - Use proper indentation (2 spaces) and avoid trailing commas.
+  - Always use semicolons to avoid ambiguity.
+
+- File Structure
+  - Organize files systematically: each file should contain only related content (e.g., components, hooks, helpers, types).
+  - Prefer co-locating related files (e.g., Component.tsx, Component.test.tsx, Component.module.css).
+
+## Naming Conventions
+
+- Components and Files
+  - Use PascalCase for component files and components (e.g., NavigationLink.tsx).
+  - Use lowercase with dashes for directories (e.g., components/auth-wizard).
+- Variables and Functions
+  - Use camelCase for functions and variables (e.g., fetchUserData).
+  - Favor named exports for components and utility functions.
+
+## TypeScript Usage
+
+- Use TypeScript for all code.
+- Prefer interfaces over types for extendability.
+- Define props types using interfaces (e.g., interface ButtonProps).
+- Use TypeScript utility types (e.g., Partial<T>, Pick<T>) to simplify code.
+- Avoid excessive type assertions; use them only when necessary and safe.
+
+## Remix and React Patterns
+
+- Remix Essentials
+
+  - Use Remix's built-in utilities like Link, Form, useLoaderData, etc., for routing and data fetching.
+  - Follow nested routing patterns for scalability.
+  - Implement proper error boundaries and loading states in routes.
+
+- React Best Practices
+  - Use functional components and React hooks.
+  - Create custom hooks for reusable stateful logic.
+  - Avoid class components and deprecated lifecycle methods.
+
+## UI and Styling
+
+- Use Tailwind CSS for a utility-first styling approach.
+
+  - Follow a mobile-first design philosophy.
+  - Implement responsive design using Tailwind's responsive modifiers.
+  - Maintain dark mode support using dark: classes.
+
+- Use React Icons for consistent and lightweight iconography.
+
+## Performance Optimization
+
+- Code Splitting
+
+  - Leverage Remix's route-based code splitting.
+  - Use lazy loading (React.lazy, Suspense) for heavy or infrequently used components.
+
+- Assets
+
+  - Optimize images: use modern formats like WebP, include size attributes, and enable lazy loading.
+  - Minimize CSS and JavaScript payloads by removing unused styles and libraries.
+
+- Caching
+
+  - Implement proper caching strategies using Remix's caching mechanisms (e.g., HTTP cache headers).
+
+- Web Vitals
+  - Optimize Largest Contentful Paint (LCP), Cumulative Layout Shift (CLS), and First Input Delay (FID) using tools like Lighthouse.
+  - Minimize render-blocking resources and avoid excessive animations.
+
+## Key Conventions
+
+- Accessibility
+
+  - Follow WCAG guidelines and use semantic HTML elements for accessibility.
+  - Ensure keyboard and screen reader compatibility.
+
+- Documentation
+
+  - Document complex logic and important decisions with comments or README files.
+
+- Testing
+  - Write tests for critical components and routes using tools like Jest or React Testing Library.
+  - Use TypeScript to enforce type safety during testing.
+
+## Recommended File Structure
