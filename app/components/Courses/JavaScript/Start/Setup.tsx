@@ -13,7 +13,7 @@ export const SetupMetaData = {
   image: "/courses/og/javascript_setup_hero.png",
   url: "/courses/javascript/setup",
   published_time: new Date("2024-11-25"),
-  modified_time: new Date("2024-12-07"),
+  modified_time: new Date("2024-12-31"),
   section: "JavaScript Basics",
   tag: ["JavaScript", "Beginner", "Programming"],
   author: ["Stawa"],
@@ -370,7 +370,7 @@ export function JavaScriptSetup() {
                           {step.code && (
                             <div className="my-6">
                               <CodeBlock
-                                codeBlock={step.code}
+                                code={step.code}
                                 language={"shell"}
                               />
                             </div>
@@ -449,7 +449,7 @@ export function JavaScriptSetup() {
                           {step.code && (
                             <div className="my-6">
                               <CodeBlock
-                                codeBlock={step.code}
+                                code={step.code}
                                 language={"shell"}
                               />
                             </div>
@@ -691,7 +691,7 @@ export function JavaScriptSetup() {
                           {section.code && (
                             <div className="my-4">
                               <CodeBlock
-                                codeBlock={section.code}
+                                code={section.code}
                                 language="shell"
                               />
                             </div>

@@ -22,6 +22,7 @@ import Footer from "~/components/Footer";
 import Navbar from "~/components/Navbar";
 import ErrorPage from "~/components/404";
 import ScrollToTop from "~/components/ScrollToTop";
+import { SearchProvider, useSearch } from "~/context/SearchContext";
 import "~/tailwind.css";
 
 export const links: LinksFunction = () => [
@@ -101,6 +102,7 @@ function Document({
     null
   );
   const [activeTheme, setActiveTheme] = useState<string>(theme);
+  const { isSearchOpen } = useSearch();
 
   useEffect(() => {
     if (theme === "system") {
@@ -139,7 +141,7 @@ function Document({
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="min-h-screen bg-white dark:bg-gray-900">
         <LoadingBar color="#4f46e5" ref={loadingBarRef} />
         {showNavAndFooter && (
           <Navbar
@@ -149,10 +151,13 @@ function Document({
           />
         )}
         <ScrollToTop />
-        {children}
+        <main className={`pt-16 transition-all duration-300 ${isSearchOpen ? 'blur-sm' : ''}`}>
+          {children}
+        </main>
         {showNavAndFooter && (
           <Footer
             translations={translations.footer as unknown as FooterTranslations}
+            className={isSearchOpen ? 'blur-sm' : ''}
           />
         )}
         <ScrollRestoration />
@@ -177,14 +182,16 @@ export default function App() {
   useChangeLanguage(loaderData.locale);
 
   return (
-    <Document
-      locale={loaderData.locale}
-      user={convertedUser}
-      translations={loaderData.translations}
-      theme={loaderData.theme}
-    >
-      <Outlet />
-    </Document>
+    <SearchProvider>
+      <Document
+        locale={loaderData.locale}
+        user={convertedUser}
+        translations={loaderData.translations}
+        theme={loaderData.theme}
+      >
+        <Outlet />
+      </Document>
+    </SearchProvider>
   );
 }
 

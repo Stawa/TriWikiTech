@@ -6,6 +6,9 @@ import {
   FaShieldAlt,
   FaPencilAlt,
   FaClock,
+  FaRegCopyright,
+  FaUsers,
+  FaLightbulb,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "@remix-run/react";
@@ -24,9 +27,10 @@ interface FooterProps {
       title: string;
     };
   };
+  className?: string;
 }
 
-function Footer({ translations }: FooterProps) {
+function Footer({ translations, className = "" }: FooterProps) {
   const [deploymentDate, setDeploymentDate] = useState<string>("");
 
   useEffect(() => {
@@ -35,7 +39,13 @@ function Footer({ translations }: FooterProps) {
         const response = await fetch("/api/deployment");
         const data = await response.json();
         const date = new Date(data.deploymentReadyDate);
-        setDeploymentDate(date.toLocaleDateString());
+        const formattedDate = `${(date.getMonth() + 1)
+          .toString()
+          .padStart(2, "0")}.${date
+          .getDate()
+          .toString()
+          .padStart(2, "0")}.${date.getFullYear()}`;
+        setDeploymentDate(`${formattedDate}-${data.shortSha}`);
       } catch (error) {
         console.error("Failed to fetch deployment date:", error);
       }
@@ -45,37 +55,45 @@ function Footer({ translations }: FooterProps) {
   }, []);
 
   return (
-    <footer className="bg-gray-50 dark:bg-gray-900 border-t-2 border-indigo-500/30 text-gray-800 dark:text-gray-200 font-sans">
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-24 3xl:px-32 py-12 sm:py-16 lg:py-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-          <div className="space-y-4 text-center sm:text-left">
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
-              TriWikiTech
-            </h2>
-            <p className="text-gray-700 dark:text-gray-300 flex items-center text-lg justify-center sm:justify-start">
-              {translations.learnCodeGrow}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 ml-2 text-indigo-600 dark:text-indigo-400"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </p>
+    <footer className={`bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 border-t border-gray-200 dark:border-gray-800 ${className}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
+          {/* Brand Section */}
+          <div className="lg:col-span-5 space-y-6 text-center lg:text-left">
+            <div className="space-y-4">
+              <h2 className="text-4xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent inline-block">
+                TriWikiTech
+              </h2>
+              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+                {translations.learnCodeGrow}
+              </p>
+            </div>
           </div>
 
-          <div className="space-y-4 text-center lg:text-center sm:text-right">
-            <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400">
+          {/* About Us Section */}
+          <div className="lg:col-span-2 space-y-6 text-center lg:text-left">
+            <h3 className="text-lg font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
+              About Us
+            </h3>
+            <nav aria-label="About links">
+              <ul className="space-y-4">
+                <FooterLink href="/about" icon={<FaUsers />} label="Our Team" />
+                <FooterLink
+                  href="/mission"
+                  icon={<FaLightbulb />}
+                  label="Our Mission"
+                />
+              </ul>
+            </nav>
+          </div>
+
+          {/* Links Section */}
+          <div className="lg:col-span-2 space-y-6 text-center lg:text-left">
+            <h3 className="text-lg font-semibold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
               {translations.footerLinks.title}
             </h3>
             <nav aria-label="Footer links">
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 <FooterLink
                   href="/terms"
                   icon={<FaFileContract />}
@@ -90,11 +108,12 @@ function Footer({ translations }: FooterProps) {
             </nav>
           </div>
 
-          <div className="space-y-4 text-center sm:col-span-2 lg:col-span-1 lg:text-right">
-            <h3 className="text-xl font-semibold text-indigo-600 dark:text-indigo-400">
+          {/* Social Links Section */}
+          <div className="lg:col-span-3 space-y-6 text-center lg:text-left">
+            <h3 className="text-lg font-semibold bg-gradient-to-r from-pink-600 to-rose-600 dark:from-pink-400 dark:to-rose-400 bg-clip-text text-transparent">
               {translations.socialLinks.title}
             </h3>
-            <div className="flex space-x-6 justify-center lg:justify-end">
+            <div className="flex gap-4 justify-center lg:justify-start">
               <SocialLink
                 href="https://discord.gg/EqPw38KTZM"
                 icon={<FaDiscord />}
@@ -114,30 +133,36 @@ function Footer({ translations }: FooterProps) {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-indigo-200 dark:border-indigo-700">
-          <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-            <div className="w-full md:w-auto mb-4 md:mb-0">
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                © {new Date().getFullYear()} {translations.allRightsReserved}
-              </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center justify-center md:justify-start mt-2">
-                <FaPencilAlt className="mr-2 text-indigo-500 dark:text-indigo-300" />
-                {translations.designedBy}
+        {/* Copyright Section */}
+        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
+            <div className="text-center lg:text-left space-y-3">
+              <div className="flex items-center justify-center lg:justify-start text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors duration-300">
+                <span className="p-1.5 rounded-lg bg-gray-100 dark:bg-gray-800 mr-2">
+                  <FaRegCopyright className="w-3.5 h-3.5" />
+                </span>
+                <span>
+                  2024 - {new Date().getFullYear()}{" "}
+                  {translations.allRightsReserved}
+                </span>
+              </div>
+              <div className="flex items-center justify-center lg:justify-start text-sm text-gray-600 dark:text-gray-400 group">
+                <span className="p-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-900/50 mr-2 group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900 transition-colors duration-300">
+                  <FaPencilAlt className="w-3.5 h-3.5 text-indigo-500 dark:text-indigo-400" />
+                </span>
+                <span>{translations.designedBy}</span>
                 <Link
                   to="https://github.com/Stawa"
-                  className="font-medium ml-1.5 text-indigo-600 dark:text-indigo-300 hover:text-indigo-800 dark:hover:text-indigo-100 transition-colors duration-300"
+                  className="ml-1.5 font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors duration-300"
                   target="_blank"
                 >
                   Stawa
                 </Link>
-              </p>
+              </div>
             </div>
             {deploymentDate && (
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 mt-4 md:mt-0">
-                <FaClock className="w-4 h-4 mr-2" />
-                <span className="text-sm font-medium">
-                  Last updated: {deploymentDate}
-                </span>
+              <div className="text-sm text-gray-500 dark:text-gray-500">
+                v{deploymentDate}
               </div>
             )}
           </div>
@@ -157,12 +182,15 @@ function SocialLink({ href, icon, label }: SocialLinkProps) {
   return (
     <a
       href={href}
-      className="flex items-center justify-center w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors duration-300"
+      className="group flex items-center justify-center w-12 h-12 rounded-xl bg-white dark:bg-gray-800 shadow-sm hover:shadow-md border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-200 dark:hover:border-indigo-800 transition-all duration-300"
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Visit our ${label} page`}
     >
-      {React.cloneElement(icon, { className: "w-6 h-6" })}
+      {React.cloneElement(icon, {
+        className:
+          "w-5 h-5 transform group-hover:scale-110 transition-transform duration-300",
+      })}
     </a>
   );
 }
@@ -178,13 +206,15 @@ function FooterLink({ href, icon, label }: FooterLinkProps) {
     <li>
       <Link
         to={href}
-        className="group flex items-center text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors duration-300 justify-center lg:justify-center sm:justify-end"
+        className="group flex items-center justify-center lg:justify-start text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400"
       >
         {React.cloneElement(icon, {
           className:
-            "mr-3 w-5 h-5 text-indigo-500 dark:text-indigo-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-300 transition-colors duration-300",
+            "mr-3 w-5 h-5 text-gray-400 dark:text-gray-500 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-all duration-300 transform group-hover:scale-110",
         })}
-        <span className="text-sm font-medium">{label}</span>
+        <span className="text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
+          {label}
+        </span>
       </Link>
     </li>
   );

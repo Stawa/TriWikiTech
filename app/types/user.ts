@@ -11,6 +11,7 @@ interface UserProfile {
   lastActive: Date;
   earnedBadges: string[];
   activeBadges: string[];
+  isVerified: boolean;
   stats: {
     completedLessons: number;
     totalAchievements: number;

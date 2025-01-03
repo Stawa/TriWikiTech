@@ -1,5 +1,6 @@
 import { Link } from "@remix-run/react";
-import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
+import { HiOutlineUserCircle } from "react-icons/hi";
+import { FaArrowRight } from "react-icons/fa";
 
 interface LoginPromptProps {
   translations: Record<string, string>;
@@ -8,55 +9,46 @@ interface LoginPromptProps {
 
 function LoginPrompt({ translations, onNavigate }: LoginPromptProps) {
   return (
-    <div className="relative w-full max-w-md mx-auto p-4 pt-12 rounded-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-lg shadow-lg border border-indigo-200/50 dark:border-indigo-700/50">
-      <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/3">
-        <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-[2px] shadow-md hover:shadow-indigo-500/40 dark:hover:shadow-indigo-400/40 transition-all duration-300">
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-full animate-spin-slow opacity-30"></div>
-          <div className="relative w-full h-full rounded-full bg-white dark:bg-gray-800 flex items-center justify-center">
-            <FaUserPlus className="text-2xl text-indigo-600 dark:text-indigo-400" />
+    <div className="w-full mx-auto p-6 rounded-xl bg-white dark:bg-gray-900 shadow-lg ring-1 ring-gray-900/5 dark:ring-white/10">
+      <div className="flex flex-col items-center">
+        {/* Icon */}
+        <div className="mb-4 relative">
+          <div className="w-14 h-14 rounded-full bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 flex items-center justify-center transform transition-transform hover:scale-110 hover:rotate-[360deg] duration-700">
+            <HiOutlineUserCircle className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
           </div>
+          <div className="absolute -inset-1 bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 rounded-full blur-md opacity-0 group-hover:opacity-70 transition-opacity duration-700" />
         </div>
-      </div>
 
-      <div className="mt-14 text-center">
-        <h2 className="text-xl font-bold mb-2 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+        {/* Text Content */}
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
           {translations.WelcomeBack}
         </h2>
-
-        <p className="text-sm text-gray-700 dark:text-gray-300 mb-6 max-w-sm mx-auto">
+        <p className="text-sm text-gray-600 dark:text-gray-300 text-center mb-6">
           {translations.PleaseLogIn}
         </p>
 
-        <div className="flex flex-col gap-3">
+        {/* Buttons */}
+        <div className="w-full space-y-3">
           <Link
             to="/sign-in"
             onClick={onNavigate}
-            className="group relative overflow-hidden w-full px-4 py-2.5 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2
-              bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500
-              hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600
-              text-white shadow-md hover:shadow-lg hover:shadow-indigo-500/20
-              transform hover:-translate-y-0.5 active:translate-y-0"
+            className="group relative block w-full px-6 py-3 text-base rounded-xl transition-all duration-300 ease-in-out flex items-center justify-center bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 hover:from-indigo-200 hover:to-purple-200 dark:hover:from-indigo-800/40 dark:hover:to-purple-800/40 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/25 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-            <FaSignInAlt className="text-sm flex-shrink-0" />
-            <span className="whitespace-nowrap">{translations.LogIn}</span>
+            <span className="font-medium text-gray-800 dark:text-gray-200 group-hover:text-indigo-800 dark:group-hover:text-indigo-200 transition-colors duration-300 flex items-center gap-2">
+              {translations.LogIn}
+              <FaArrowRight className="text-indigo-500 dark:text-indigo-400 transform scale-0 group-hover:scale-100 translate-x-[-10px] group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out" />
+            </span>
           </Link>
 
           <Link
             to="/sign-up"
             onClick={onNavigate}
-            className="group relative overflow-hidden w-full px-4 py-2.5 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2
-              bg-gradient-to-r from-white to-gray-50 
-              dark:from-gray-800 dark:to-gray-700
-              text-indigo-600 dark:text-indigo-300
-              border border-indigo-200 dark:border-indigo-700
-              hover:border-indigo-300 dark:hover:border-indigo-600
-              shadow hover:shadow-md hover:shadow-indigo-500/10
-              transform hover:-translate-y-0.5 active:translate-y-0"
+            className="group relative block w-full px-6 py-3 text-base rounded-xl transition-all duration-300 ease-in-out flex items-center justify-center bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900/30 dark:to-indigo-900/30 hover:from-purple-200 hover:to-indigo-200 dark:hover:from-purple-800/40 dark:hover:to-indigo-800/40 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/0 via-indigo-500/10 to-indigo-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-            <FaUserPlus className="text-sm flex-shrink-0" />
-            <span className="whitespace-nowrap">{translations.SignUp}</span>
+            <span className="font-medium text-gray-800 dark:text-gray-200 group-hover:text-indigo-800 dark:group-hover:text-indigo-200 transition-colors duration-300 flex items-center gap-2">
+              {translations.SignUp}
+              <FaArrowRight className="text-indigo-500 dark:text-indigo-400 transform scale-0 group-hover:scale-100 translate-x-[-10px] group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out" />
+            </span>
           </Link>
         </div>
       </div>

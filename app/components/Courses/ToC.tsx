@@ -14,7 +14,7 @@ function TableOfContents({ navigation }: TableOfContentsProps) {
     <>
       {/* Table of Contents */}
       <div className="lg:col-span-3">
-        <div className="sticky top-8">
+        <div className="sticky top-24">
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 pb-2 border-b-2 border-blue-500 dark:border-blue-400 inline-block">
             Table of Contents
           </h3>

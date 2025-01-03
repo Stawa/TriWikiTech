@@ -59,9 +59,28 @@ interface Pagination {
   prev: number;
 }
 
+interface DeploymentMeta {
+  githubCommitAuthorName: string;
+  githubCommitMessage: string;
+  githubCommitOrg: string;
+  githubCommitRef: string;
+  githubCommitRepo: string;
+  githubCommitSha: string;
+  githubDeployment: string;
+  githubOrg: string;
+  githubRepo: string;
+  githubRepoOwnerType: string;
+  githubCommitRepoId: string;
+  githubRepoId: string;
+  githubRepoVisibility: string;
+  githubCommitAuthorLogin: string;
+  branchAlias: string;
+}
+
 interface DeploymentResponse {
   deployments: Deployment[];
   pagination: Pagination;
+  meta: DeploymentMeta;
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -103,8 +122,10 @@ export const loader: LoaderFunction = async ({ request }) => {
     }
 
     const readyTimestamp = deploymentResponse.deployments[0].ready;
+    const shortSha =
+      deploymentResponse.deployments[0].meta.githubCommitSha.slice(0, 7);
 
-    return json({ deploymentReadyDate: readyTimestamp });
+    return json({ deploymentReadyDate: readyTimestamp, shortSha });
   } catch (error) {
     console.error("Error fetching deployment data:", error);
     return json({ error: "Internal server error" }, { status: 500 });

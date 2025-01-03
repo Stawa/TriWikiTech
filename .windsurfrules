@@ -1,99 +1,136 @@
-# Development Guidelines
+# Updated Development Guidelines
 
-You are an expert in TypeScript, React, Remix, React Router, React Icons, and Tailwind CSS, with a deep understanding of best practices, performance optimization, and modern development workflows.
+## Expertise Context
+
+You are an expert in TypeScript, React, Remix, React Router, React Icons, and Tailwind CSS. These guidelines emphasize high-quality, performant, and maintainable code while aligning with modern development trends and best practices.
 
 ## Code Style and Structure
 
-- Write Clear and Maintainable Code
+### Write Clear and Maintainable Code
 
-  - Use descriptive variable names (e.g., isLoading, hasError).
-  - Keep functions and components focused and short. Aim for single-responsibility components.
-  - Avoid inline functions or excessive prop drilling; use context or state management as needed.
-  - Follow DRY (Don't Repeat Yourself) principles; modularize reusable logic and components.
+Readable Naming: Use self-explanatory names (e.g., isLoggedIn, fetchUserDetails).
 
-- Code Formatting
+### Single Responsibility Principle: Keep functions and components focused on one task.
 
-  - Enforce consistent formatting using tools like Prettier and ESLint.
-  - Use proper indentation (2 spaces) and avoid trailing commas.
-  - Always use semicolons to avoid ambiguity.
+- State Management: Avoid excessive prop drilling by leveraging Context API, Zustand, or Redux where appropriate.
+- Reusable Logic: Extract reusable logic into hooks or utilities.
+- Minimal Inline Code: Minimize inline functions and styles to improve readability and reusability.
 
-- File Structure
-  - Organize files systematically: each file should contain only related content (e.g., components, hooks, helpers, types).
-  - Prefer co-locating related files (e.g., Component.tsx, Component.test.tsx, Component.module.css).
+## Code Formatting
+
+- Consistent Style: Use Prettier and ESLint to enforce consistent formatting.
+- Indentation: Stick to 2-space indentation.
+- Trailing Commas: Use trailing commas in multiline structures to minimize diffs.
+- Semicolons: Always use semicolons to reduce parsing ambiguity.
+
+## File Structure
+
+- Organized Files: Group files logically by feature or type (e.g., components, hooks, types).
+- Co-location: Place related files together (e.g., Component.tsx, Component.module.css, Component.test.tsx).
 
 ## Naming Conventions
 
-- Components and Files
-  - Use PascalCase for component files and components (e.g., NavigationLink.tsx).
-  - Use lowercase with dashes for directories (e.g., components/auth-wizard).
-- Variables and Functions
-  - Use camelCase for functions and variables (e.g., fetchUserData).
-  - Favor named exports for components and utility functions.
+- Components and Files: Use PascalCase for components and filenames (e.g., UserCard.tsx).
+- Variables and Functions: Use camelCase (e.g., fetchData, userList).
+- Directories: Use kebab-case (e.g., user-profile).
+- Exports: Prefer named exports for better maintainability.
 
 ## TypeScript Usage
 
-- Use TypeScript for all code.
-- Prefer interfaces over types for extendability.
-- Define props types using interfaces (e.g., interface ButtonProps).
-- Use TypeScript utility types (e.g., Partial<T>, Pick<T>) to simplify code.
-- Avoid excessive type assertions; use them only when necessary and safe.
+- Interfaces Over Types: Use interface for object shapes to allow extendability.
+- Props Validation: Define props using interface (e.g., interface ButtonProps {}).
+- Utility Types: Use utility types like Partial<T>, Pick<T>, and Record<K, T> to simplify complex types.
+- Strict Typing: Avoid using any unless necessary; prefer stricter types like unknown or generics.
 
 ## Remix and React Patterns
 
-- Remix Essentials
+### Remix Essentials
 
-  - Use Remix's built-in utilities like Link, Form, useLoaderData, etc., for routing and data fetching.
-  - Follow nested routing patterns for scalability.
-  - Implement proper error boundaries and loading states in routes.
+- Built-in Utilities: Use Remix’s Link, Form, and useLoaderData to manage routing and data fetching.
+- Error Boundaries: Implement granular error boundaries for better error recovery.
+- Optimized Data Loading: Use defer and loader functions for non-blocking data fetching.
 
-- React Best Practices
-  - Use functional components and React hooks.
-  - Create custom hooks for reusable stateful logic.
-  - Avoid class components and deprecated lifecycle methods.
+### React Best Practices
+
+- Functional Components: Stick to functional components with hooks.
+- Custom Hooks: Encapsulate reusable stateful logic in custom hooks.
+- State Management: Use React Context or libraries like Zustand for global state.
 
 ## UI and Styling
 
-- Use Tailwind CSS for a utility-first styling approach.
+### Tailwind CSS:
 
-  - Follow a mobile-first design philosophy.
-  - Implement responsive design using Tailwind's responsive modifiers.
-  - Maintain dark mode support using dark: classes.
+- Follow a mobile-first approach.
+- Use dark mode with dark: modifiers.
+- Ensure consistency with custom utility classes.
 
-- Use React Icons for consistent and lightweight iconography.
+### UI Design Tools:
+
+- Reference popular design systems like Material UI or Ant Design for inspiration.
+- Ensure color contrast and accessibility.
 
 ## Performance Optimization
 
-- Code Splitting
+- Code Splitting: Leverage route-based code splitting in Remix and lazy loading with React.lazy and Suspense.
 
-  - Leverage Remix's route-based code splitting.
-  - Use lazy loading (React.lazy, Suspense) for heavy or infrequently used components.
+### Assets:
 
-- Assets
+- Use modern formats like WebP.
+- Set appropriate size attributes and enable lazy loading for images.
 
-  - Optimize images: use modern formats like WebP, include size attributes, and enable lazy loading.
-  - Minimize CSS and JavaScript payloads by removing unused styles and libraries.
+### Caching:
 
-- Caching
+- Use HTTP caching headers via Remix loaders.
+- Implement service worker caching where feasible.
 
-  - Implement proper caching strategies using Remix's caching mechanisms (e.g., HTTP cache headers).
+### Web Vitals:
 
-- Web Vitals
-  - Optimize Largest Contentful Paint (LCP), Cumulative Layout Shift (CLS), and First Input Delay (FID) using tools like Lighthouse.
-  - Minimize render-blocking resources and avoid excessive animations.
+- Minimize render-blocking resources.
+- Optimize LCP, CLS, and FID with tools like Lighthouse.
 
-## Key Conventions
+## Accessibility
 
-- Accessibility
+- WCAG Compliance: Ensure all pages meet WCAG guidelines.
+- Keyboard Navigation: Verify keyboard accessibility for all interactive elements.
+- Screen Reader Support: Use semantic HTML and ARIA roles where necessary.
 
-  - Follow WCAG guidelines and use semantic HTML elements for accessibility.
-  - Ensure keyboard and screen reader compatibility.
+## Testing
 
-- Documentation
+- Component Testing: Use React Testing Library to verify component behavior.
+- End-to-End Testing: Use Playwright or Cypress for user flow testing.
+- Type-Safe Tests: Enforce type safety using TypeScript in tests.
 
-  - Document complex logic and important decisions with comments or README files.
+## Directory Structure
 
-- Testing
-  - Write tests for critical components and routes using tools like Jest or React Testing Library.
-  - Use TypeScript to enforce type safety during testing.
+TriWikiTech/
+├── app/
+│   ├── api/                  # API endpoints and server-side logic
+│   ├── components/           # Reusable React components
+│   │   ├── Courses/          # Course-related components
+│   │   ├── Shared/           # Shared components like buttons and modals
+│   │   └── Layout/           # Layout components (e.g., Navbar, Footer)
+│   ├── hooks/                # Custom React hooks
+│   ├── i18n/                 # Internationalization files
+│   ├── routes/               # Remix route components
+│   ├── services/             # Service layer for API calls
+│   ├── types/                # TypeScript type definitions
+│   ├── utils/                # Utility functions
+│   ├── entry.client.tsx      # Client entry point
+│   ├── entry.server.tsx      # Server entry point
+│   ├── root.tsx              # Root component
+│   └── tailwind.css          # Global styles
+├── public/                   # Static assets
+├── messages/                 # Translation messages
+├── .env                      # Environment variables
+├── .eslintrc.cjs             # ESLint configuration
+├── package.json              # Project dependencies
+├── tailwind.config.ts        # Tailwind CSS configuration
+├── tsconfig.json             # TypeScript configuration
+└── vite.config.ts            # Vite configuration
 
-## Recommended File Structure
+## Continuous Improvement
+
+- Design Inspiration: Regularly review websites like Dribbble, Awwwards, and Behance for design trends.
+- Feedback Loop: Gather user feedback to prioritize feature improvements and design updates.
+- Version Control: Maintain clear commit messages and branch naming conventions.
+

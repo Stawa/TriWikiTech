@@ -68,7 +68,7 @@ function ErrorPage({ statusCode, message }: ErrorPageProps) {
         <header className="text-center mb-8 sm:mb-10 md:mb-12">
           <motion.div variants={itemVariants}>
             <span className="inline-block px-4 py-2 rounded-full text-sm font-semibold bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 mb-4">
-              Error 404
+              Error {statusCode}
             </span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-teal-600 dark:from-blue-400 dark:to-teal-400">

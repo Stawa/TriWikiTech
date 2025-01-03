@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { FiCode, FiTerminal, FiBookmark, FiCheckCircle } from "react-icons/fi";
 
 import Navigation from "~/components/Courses/Navigation";
 import HeroSection from "~/components/Courses/Hero";
 import TableOfContents from "~/components/Courses/ToC";
+import CodeBlock from "~/components/Courses/CodeBlock";
 
 export const FirstCodeMetaData = {
   title: "TriWikiTech | First JavaScript Code",
@@ -99,23 +101,75 @@ export function FirstJavaScriptCode() {
                     </span>
                     Introduction
                   </h2>
-                  <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                    Are you ready to dive into the world of JavaScript? In this
-                    chapter, we'll introduce you to the basics of programming
-                    and provide you with the tools to write your very first
-                    JavaScript code. Whether you're a beginner or an experienced
-                    developer, this chapter is designed to help you get started
-                    in the exciting world of JavaScript programming.
+
+                  <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
+                    Hey there! 👋 Ready to write your first line of JavaScript
+                    code? You're about to embark on an exciting journey into the
+                    world of programming. Whether you're a complete beginner or
+                    coming from another programming language, JavaScript is a
+                    fantastic place to start!
                   </p>
-                  <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mt-6">
-                    Before we begin, have you prepared a text editor or a code
-                    editor that you'll use to write your JavaScript code? It's
-                    important to choose a text editor or code editor that
-                    supports JavaScript syntax highlighting and indentation to
-                    make your coding experience enjoyable and productive. You
-                    can checkout previous chapters to learn more about setting
-                    up your text editor or code editor.
-                  </p>
+
+                  <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-8 mb-10 border border-blue-100/20 dark:border-blue-700/30 shadow-sm">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-400/10 to-indigo-400/10 dark:from-blue-400/5 dark:to-indigo-400/5 rounded-full transform translate-x-16 -translate-y-16"></div>
+                    <h3 className="flex items-center gap-3 text-lg font-semibold text-blue-700 dark:text-blue-300 mb-4">
+                      <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50">
+                        🤔
+                      </span>
+                      Did You Know?
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed relative z-10">
+                      JavaScript was originally created for Netscape Navigator
+                      in 1995! It was designed to make web pages interactive,
+                      and today it's one of the most popular programming
+                      languages in the world. In fact, over 98% of websites use
+                      JavaScript in some way!
+                    </p>
+                  </div>
+
+                  <div className="relative overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-2xl p-8 mb-10 border border-amber-100/20 dark:border-amber-700/30 shadow-sm">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-amber-400/10 to-orange-400/10 dark:from-amber-400/5 dark:to-orange-400/5 rounded-full transform translate-x-16 -translate-y-16"></div>
+                    <h3 className="flex items-center gap-3 text-lg font-semibold text-amber-700 dark:text-amber-300 mb-4">
+                      <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/50">
+                        💡
+                      </span>
+                      Pro Tip!
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed relative z-10">
+                      Before we begin, make sure you have a text editor ready.
+                      While you can use any text editor, we recommend using
+                      Visual Studio Code, which comes with great JavaScript
+                      support out of the box. Don't worry about setting up a
+                      complex development environment yet - we'll start with the
+                      basics!
+                    </p>
+                  </div>
+
+                  <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-blue-900/20 rounded-xl p-8 mb-8 border border-blue-100 dark:border-blue-800 shadow-sm">
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0">
+                        <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center">
+                          <FiCode className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                          What You'll Learn
+                        </h4>
+                        <p className="text-gray-600 dark:text-gray-300 mb-0">
+                          In this chapter, you'll write your first JavaScript
+                          code using the{" "}
+                          <CodeBlock
+                            code="console.log()"
+                            language="javascript"
+                            inline={true}
+                          />{" "}
+                          function. Don't worry if that sounds complicated -
+                          we'll break it down step by step!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
 
@@ -124,7 +178,7 @@ export function FirstJavaScriptCode() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={{ duration: 0.6 }}
                 id="first-code"
                 className="mb-16 scroll-mt-24"
               >
@@ -137,13 +191,27 @@ export function FirstJavaScriptCode() {
                     </span>
                     First Code
                   </h2>
-                  <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-                    To begin, open your text editor or code editor and create a
-                    new file. You can name the file anything you like, but it's
-                    common to name it something like "index.js" or "main.js" to
-                    indicate that it contains the main entry point of your
-                    JavaScript code.
-                  </p>
+                  <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-blue-900/20 rounded-xl p-8 mb-8 border border-blue-100 dark:border-blue-800 shadow-sm">
+                    <CodeBlock
+                      code="console.log('Hello, World!');"
+                      language="javascript"
+                    />
+                    <div className="mt-4 flex items-start gap-4">
+                      <div className="flex-shrink-0">
+                        <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center">
+                          <FiCheckCircle className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 mb-0">
+                        To begin, open your text editor or code editor and
+                        create a new file. You can name the file anything you
+                        like, but it's common to name it something like
+                        "index.js" or "main.js" to indicate that it contains the
+                        main entry point of your JavaScript code.
+                      </p>
+                    </div>
+                  </div>
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-8">
                     <div className="group bg-white dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border-2 border-blue-100 dark:border-blue-900/40 hover:border-blue-200 dark:hover:border-blue-800/40">
                       <div className="aspect-video overflow-hidden bg-gray-100 dark:bg-gray-800">
@@ -288,41 +356,71 @@ export function FirstJavaScriptCode() {
                   </div>
                 </div>
               </motion.div>
+
               {/* Summary Section */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                transition={{ duration: 0.6 }}
                 id="summary"
                 className="scroll-mt-24"
               >
                 <div className="prose prose-blue dark:prose-invert max-w-none">
-                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
-                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-gradient-to-br from-blue-400 to-blue-600 dark:from-blue-600 dark:to-blue-800">
-                      <span className="text-white font-mono text-sm font-semibold">
-                        02
-                      </span>
-                    </span>
-                    Summary
-                  </h2>
-                  <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-                    In this chapter, we explored how to write and execute our
-                    first JavaScript code using the terminal. We introduced the
-                    console.log function, which allows us to display messages in
-                    the console. You can customize the message by modifying the
-                    content passed to the function, making it a versatile tool
-                    for debugging and testing code.
-                  </p>
-                  <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                    Great job! You've successfully created your first JavaScript
-                    code and executed it in the terminal. This is the first step
-                    towards mastering the world of JavaScript programming. Now,
-                    it's time to move on to the next chapter to learn more
-                    advanced topics and techniques.
-                  </p>
+                  <div className="relative overflow-hidden bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-2xl p-8 border border-purple-100/20 dark:border-purple-700/30 shadow-sm">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-purple-400/10 to-pink-400/10 dark:from-purple-400/5 dark:to-pink-400/5 rounded-full transform translate-x-32 -translate-y-32"></div>
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-purple-400/10 to-pink-400/10 dark:from-purple-400/5 dark:to-pink-400/5 rounded-full transform -translate-x-32 translate-y-32"></div>
+
+                    <div className="relative z-10">
+                      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                        <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-purple-400 to-pink-500 dark:from-purple-500 dark:to-pink-600 shadow-lg shadow-purple-500/20 dark:shadow-purple-900/30">
+                          <FiBookmark className="w-6 h-6 text-white" />
+                        </span>
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-300 dark:to-pink-300">
+                          Summary
+                        </span>
+                      </h2>
+
+                      <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                        In this chapter, we covered how to write your first
+                        JavaScript code using console.log(), learned about basic
+                        JavaScript syntax and structure, and explored how to run
+                        JavaScript code in your browser's console.
+                      </p>
+
+                      <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed mt-4">
+                        This is just the beginning of your JavaScript journey!
+                        In the next chapter, we'll dive deeper into variables
+                        and data types, which are fundamental building blocks of
+                        JavaScript programming.
+                      </p>
+
+                      <ul className="mt-6 space-y-3">
+                        <li className="flex items-start gap-3">
+                          <FiCheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                          <span className="text-gray-700 dark:text-gray-300">
+                            How to write your first JavaScript code using
+                            console.log()
+                          </span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <FiCheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                          <span className="text-gray-700 dark:text-gray-300">
+                            Understanding basic JavaScript syntax and structure
+                          </span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <FiCheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                          <span className="text-gray-700 dark:text-gray-300">
+                            How to run JavaScript code in your browser's console
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
+
               {/* Navigation */}
               <div className="mt-16">
                 <Navigation navigation={navigation} />
