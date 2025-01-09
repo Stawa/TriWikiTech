@@ -5,7 +5,6 @@ import {
   FaFileContract,
   FaShieldAlt,
   FaPencilAlt,
-  FaClock,
   FaRegCopyright,
   FaUsers,
   FaLightbulb,
@@ -77,9 +76,9 @@ function Footer({ translations, className = "" }: FooterProps) {
             </h3>
             <nav aria-label="About links">
               <ul className="space-y-4">
-                <FooterLink href="/about" icon={<FaUsers />} label="Our Team" />
+                <FooterLink href="/about#team" icon={<FaUsers />} label="Our Team" />
                 <FooterLink
-                  href="/mission"
+                  href="/about#mission"
                   icon={<FaLightbulb />}
                   label="Our Mission"
                 />

@@ -11,11 +11,9 @@ import {
   useNavigation,
 } from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
-import { useChangeLanguage } from "remix-i18next/react";
 import LoadingBar from "react-top-loading-bar";
 
 import type { UserProfile } from "~/types/user";
-import { convertToUserProfile } from "~/utils/convert";
 import { getUser } from "~/utils/getUser";
 import { getCookie } from "~/utils/cookie";
 import Footer from "~/components/Footer";
@@ -88,6 +86,11 @@ interface FooterTranslations {
   };
 }
 
+import { createContext, useContext } from "react";
+
+const SidebarContext = createContext<{ isSidebarOpen: boolean }>({ isSidebarOpen: false });
+export const useSidebar = () => useContext(SidebarContext);
+
 function Document({
   children,
   showNavAndFooter = true,
@@ -98,11 +101,10 @@ function Document({
   theme = "light",
 }: DocumentProps) {
   const navigation = useNavigation();
-  const loadingBarRef = useRef<React.ElementRef<typeof LoadingBar> | null>(
-    null
-  );
+  const loadingBarRef = useRef<React.ElementRef<typeof LoadingBar> | null>(null);
   const [activeTheme, setActiveTheme] = useState<string>(theme);
   const { isSearchOpen } = useSearch();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (theme === "system") {
@@ -143,27 +145,30 @@ function Document({
       </head>
       <body className="min-h-screen bg-white dark:bg-gray-900">
         <LoadingBar color="#4f46e5" ref={loadingBarRef} />
-        {showNavAndFooter && (
-          <Navbar
-            user={user}
-            translations={translations.navbar}
-            currentLanguage={locale}
-          />
-        )}
-        <ScrollToTop />
-        <main
-          className={`pt-16 transition-all duration-300 ${
-            isSearchOpen ? "blur-sm" : ""
-          }`}
-        >
-          {children}
-        </main>
-        {showNavAndFooter && (
-          <Footer
-            translations={translations.footer as unknown as FooterTranslations}
-            className={isSearchOpen ? "blur-sm" : ""}
-          />
-        )}
+        <SidebarContext.Provider value={{ isSidebarOpen }}>
+          {showNavAndFooter && (
+            <Navbar
+              user={user}
+              translations={translations.navbar}
+              currentLanguage={locale}
+              onSidebarChange={setIsSidebarOpen}
+            />
+          )}
+          <ScrollToTop />
+          <main
+            className={`pt-16 transition-all duration-300 ${
+              isSearchOpen || isSidebarOpen ? "blur-sm brightness-50" : ""
+            }`}
+          >
+            {children}
+          </main>
+          {showNavAndFooter && (
+            <Footer
+              translations={translations.footer as unknown as FooterTranslations}
+              className={isSearchOpen || isSidebarOpen ? "blur-sm brightness-50" : ""}
+            />
+          )}
+        </SidebarContext.Provider>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -191,22 +196,37 @@ export default function App() {
 
 export function ErrorBoundary() {
   const error = useRouteError();
+  const navigation = useNavigation();
+  const loadingBarRef = useRef<any>(null);
 
-  const errorDetails = isRouteErrorResponse(error)
-    ? {
-        statusCode: error.status,
-        message: error.status === 404 ? "Page not found" : error.statusText,
-      }
-    : { statusCode: 500, message: "An unexpected error occurred" };
+  useEffect(() => {
+    if (navigation.state === "loading") {
+      loadingBarRef.current?.continuousStart();
+    } else {
+      loadingBarRef.current?.complete();
+    }
+  }, [navigation.state]);
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <SearchProvider>
+        <Document showNavAndFooter={false} is404 user={null} theme="system">
+          <LoadingBar color="#4f46e5" ref={loadingBarRef} />
+          <ErrorPage statusCode={error.status} message={error.data} />
+        </Document>
+      </SearchProvider>
+    );
+  }
 
   return (
-    <Document
-      showNavAndFooter={false}
-      is404={errorDetails.statusCode === 404}
-      user={null}
-      theme="system"
-    >
-      <ErrorPage {...errorDetails} />
-    </Document>
+    <SearchProvider>
+      <Document showNavAndFooter={false} is404 user={null} theme="system">
+        <LoadingBar color="#4f46e5" ref={loadingBarRef} />
+        <ErrorPage
+          statusCode={500}
+          message="Something went wrong. Please try again later."
+        />
+      </Document>
+    </SearchProvider>
   );
 }

@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
   useMemo,
+  useCallback,
 } from "react";
 import { UserProfile } from "~/types/user";
 import { setCookie } from "~/utils/cookie";
@@ -31,9 +32,10 @@ interface NavbarProps {
   user: UserProfile | null;
   translations: Record<string, string>;
   currentLanguage: string;
+  onSidebarChange: (isOpen: boolean) => void;
 }
 
-function Navbar({ user, translations, currentLanguage }: NavbarProps) {
+function Navbar({ user, translations, currentLanguage, onSidebarChange }: NavbarProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -45,16 +47,16 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
-  const toggleSidebar = () => {
-    startTransition(() => {
-      setIsSidebarOpen(!isSidebarOpen);
-      if (!isSidebarOpen) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "auto";
-      }
-    });
-  };
+  const toggleSidebar = useCallback(() => {
+    const newState = !isSidebarOpen;
+    setIsSidebarOpen(newState);
+    onSidebarChange(newState);
+    if (!newState) {
+      document.body.style.overflow = "auto";
+    } else {
+      document.body.style.overflow = "hidden";
+    }
+  }, [isSidebarOpen, onSidebarChange]);
 
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
@@ -93,6 +95,7 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
         ) {
           startTransition(() => {
             setIsSidebarOpen(false);
+            onSidebarChange(false);
             document.body.style.overflow = "auto";
           });
         }
@@ -104,7 +107,7 @@ function Navbar({ user, translations, currentLanguage }: NavbarProps) {
         document.body.style.overflow = "auto";
       };
     }
-  }, []);
+  }, [onSidebarChange]);
 
   const navClasses = `fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
     isScrolled
