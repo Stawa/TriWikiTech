@@ -4,9 +4,8 @@ import {
   FaLock,
   FaUserShield,
   FaChevronRight,
-  FaEye,
-  FaCheckCircle,
-  FaArrowRight,
+  FaFileContract,
+  FaInfoCircle,
 } from "react-icons/fa";
 import { IoShieldCheckmark } from "react-icons/io5";
 import { MetaFunction } from "@remix-run/react";
@@ -20,294 +19,9 @@ export const meta: MetaFunction = () => [
   },
 ];
 
-export default function Privacy() {
-  return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      {/* Hero Section */}
-      <section className="relative w-full py-32 overflow-hidden">
-        {/* Animated background pattern */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_1px,transparent_1px)] bg-[length:20px_20px]"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.05)_2px,transparent_2px)] bg-[length:30px_30px] animate-pulse"></div>
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-indigo-500/10"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center relative z-10"
-          >
-            <div className="inline-flex items-center mb-8 px-6 py-3 rounded-full bg-blue-50/80 dark:bg-blue-900/50 shadow-lg backdrop-blur-sm">
-              <FaLock className="text-blue-500 dark:text-blue-400 mr-3" />
-              <span className="text-sm font-medium text-blue-600 dark:text-blue-300">
-                Our Privacy Commitment
-              </span>
-            </div>
-
-            <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">
-              Your Privacy,
-              <span className="block bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent drop-shadow-sm">
-                Our Priority
-              </span>
-            </h1>
-
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-              We believe in transparency and giving you control over your data.
-              Learn how we protect your privacy at every step.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Features Grid */}
-      <section className="w-full bg-white dark:bg-gray-900 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
-              Privacy Features
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              We employ industry-leading security measures and give you complete
-              control over your data. Learn about our comprehensive privacy
-              features.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: FaShieldAlt,
-                title: "Enterprise-Grade Security",
-                description:
-                  "Bank-level encryption and security protocols to protect your data",
-                color: "from-blue-500 to-blue-600",
-              },
-              {
-                icon: FaUserShield,
-                title: "You're in Control",
-                description:
-                  "Manage your data preferences with intuitive controls",
-                color: "from-indigo-500 to-indigo-600",
-              },
-              {
-                icon: IoShieldCheckmark,
-                title: "Global Compliance",
-                description:
-                  "Adherence to GDPR, CCPA and other privacy regulations",
-                color: "from-violet-500 to-violet-600",
-              },
-            ].map((feature, index) => (
-              <motion.div
-                key={index}
-                whileHover={{ y: -10 }}
-                className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg border border-blue-100/20 dark:border-blue-700/50"
-              >
-                <div
-                  className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-gradient-to-r ${feature.color}`}
-                >
-                  <feature.icon className="text-2xl text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Policy Content */}
-      <section className="w-full bg-white dark:bg-gray-900 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
-              Our Privacy Commitment
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              We believe in complete transparency about how we handle your data.
-              Learn about our comprehensive privacy practices and how we protect
-              your information.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-3 space-y-8">
-              {policyDetails.map((section, index) => (
-                <motion.article
-                  key={section.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
-                  className="bg-white dark:bg-gray-900 rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-blue-100/20 dark:border-blue-700/50"
-                >
-                  <div className="p-6">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/50 dark:to-indigo-900/50 rounded-xl flex items-center justify-center">
-                        <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                          {index + 1}
-                        </span>
-                      </div>
-                      <h3 className="text-2xl font-bold dark:text-white">
-                        {section.title}
-                      </h3>
-                    </div>
-                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-                      {section.description}
-                    </p>
-
-                    {section.items && (
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        {section.items.map((item, i) => (
-                          <motion.div
-                            key={i}
-                            whileHover={{ x: 8 }}
-                            className="flex items-center p-4 rounded-xl bg-blue-50/50 dark:bg-blue-900/20 border border-blue-100/20 dark:border-blue-700/50 group hover:border-blue-200 dark:hover:border-blue-500 transition-all"
-                          >
-                            <FaChevronRight className="text-blue-500 dark:text-blue-400 mr-3 group-hover:translate-x-1 transition-transform" />
-                            <span className="text-gray-700 dark:text-gray-300">
-                              {item}
-                            </span>
-                          </motion.div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </motion.article>
-              ))}
-            </div>
-          </div>
-
-          <motion.aside
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mt-12 bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-blue-900/10 rounded-2xl shadow-lg p-8 border border-blue-100/20 dark:border-blue-700/50 backdrop-blur-sm"
-          >
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-violet-500 rounded-xl flex items-center justify-center">
-                <FaShieldAlt className="text-2xl text-white" />
-              </div>
-              <h3 className="text-2xl font-bold dark:text-white">
-                Privacy Highlights
-              </h3>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-6">
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="p-5 rounded-xl bg-white/80 dark:bg-gray-800/50 border border-blue-100/30 dark:border-blue-700/30 shadow-sm hover:shadow-md transition-all duration-300"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center">
-                    <FaLock className="text-blue-500 dark:text-blue-400" />
-                  </div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white">
-                    Data Protection
-                  </h4>
-                </div>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                  Industry-leading security measures to keep your data safe and
-                  encrypted
-                </p>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="p-5 rounded-xl bg-white/80 dark:bg-gray-800/50 border border-blue-100/30 dark:border-blue-700/30 shadow-sm hover:shadow-md transition-all duration-300"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/50 flex items-center justify-center">
-                    <FaUserShield className="text-green-500 dark:text-green-400" />
-                  </div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white">
-                    User Control
-                  </h4>
-                </div>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                  Full control over your data and privacy preferences at any
-                  time
-                </p>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="p-5 rounded-xl bg-white/80 dark:bg-gray-800/50 border border-blue-100/30 dark:border-blue-700/30 shadow-sm hover:shadow-md transition-all duration-300"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/50 flex items-center justify-center">
-                    <FaEye className="text-purple-500 dark:text-purple-400" />
-                  </div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white">
-                    Transparency
-                  </h4>
-                </div>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                  Clear communication about how we handle your information
-                </p>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="p-5 rounded-xl bg-white/80 dark:bg-gray-800/50 border border-blue-100/30 dark:border-blue-700/30 shadow-sm hover:shadow-md transition-all duration-300"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-8 h-8 rounded-lg bg-yellow-100 dark:bg-yellow-900/50 flex items-center justify-center">
-                    <FaCheckCircle className="text-yellow-500 dark:text-yellow-400" />
-                  </div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white">
-                    Compliance
-                  </h4>
-                </div>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                  Full compliance with GDPR, CCPA and other global privacy
-                  regulations
-                </p>
-              </motion.div>
-            </div>
-          </motion.aside>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mt-20 p-10 rounded-2xl bg-white dark:bg-gray-900 shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-blue-100/20 dark:border-blue-700/50"
-          >
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/50 rounded-xl flex items-center justify-center mb-6">
-                <FaLock className="text-3xl text-blue-600 dark:text-blue-400" />
-              </div>
-
-              <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
-                Questions? We're Here to Help
-              </h2>
-
-              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed mb-8">
-                Our privacy team is dedicated to protecting your data and
-                answering any questions you may have about our privacy
-                practices.
-              </p>
-
-              <motion.a
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                href="mailto:stawa@admin.triwikitech.my.id"
-                className="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                Contact Privacy Team
-                <FaArrowRight className="ml-2" />
-              </motion.a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-    </div>
-  );
-}
-
-const policyDetails = [
+const privacyDetails = [
   {
+    icon: <FaLock className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />,
     title: "Information We Collect",
     description:
       "We collect information that you provide directly to us, including:",
@@ -317,8 +31,10 @@ const policyDetails = [
       "Payment information",
       "Communication preferences",
     ],
+    iconBg: "bg-indigo-50 dark:bg-indigo-900/20",
   },
   {
+    icon: <FaShieldAlt className="w-8 h-8 text-teal-600 dark:text-teal-400" />,
     title: "How We Use Your Information",
     description: "We use the information we collect to:",
     items: [
@@ -327,13 +43,22 @@ const policyDetails = [
       "Send you important updates and notifications",
       "Improve our services and user experience",
     ],
+    iconBg: "bg-teal-50 dark:bg-teal-900/20",
   },
   {
+    icon: <IoShieldCheckmark className="w-8 h-8 text-rose-600 dark:text-rose-400" />,
     title: "Data Security",
-    description:
-      "We implement appropriate technical and organizational measures to protect your personal data against unauthorized or unlawful processing, accidental loss, destruction, or damage.",
+    description: "We implement robust security measures to protect your data:",
+    items: [
+      "End-to-end encryption",
+      "Regular security audits",
+      "Secure data storage",
+      "Access controls and monitoring",
+    ],
+    iconBg: "bg-rose-50 dark:bg-rose-900/20",
   },
   {
+    icon: <FaUserShield className="w-8 h-8 text-amber-600 dark:text-amber-400" />,
     title: "Your Rights",
     description: "You have the right to:",
     items: [
@@ -343,5 +68,193 @@ const policyDetails = [
       "Object to data processing",
       "Data portability",
     ],
+    iconBg: "bg-amber-50 dark:bg-amber-900/20",
   },
 ];
+
+export default function Privacy() {
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Hero Section */}
+      <section className="relative w-full py-32 overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_1px,transparent_1px)] bg-[length:20px_20px]"></div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "reverse",
+            }}
+            className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-rose-500/10 to-amber-500/10"
+          />
+          {/* Fixed positions for floating shapes */}
+          <div className="absolute inset-0 overflow-hidden">
+            {[
+              { x: 20, y: 30 },
+              { x: 40, y: 60 },
+              { x: 70, y: 40 },
+              { x: 80, y: 70 },
+              { x: 30, y: 80 },
+            ].map((pos, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-64 h-64 bg-gradient-to-br from-indigo-500/10 to-rose-500/10 rounded-full"
+                initial={{
+                  x: `${pos.x}vw`,
+                  y: `${pos.y}vh`,
+                }}
+                animate={{
+                  x: `${pos.x + 5}vw`,
+                  y: `${pos.y + 5}vh`,
+                  rotate: 360,
+                }}
+                transition={{
+                  duration: 20 + i * 2,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mb-6"
+            >
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="inline-flex items-center space-x-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm shadow-lg rounded-full py-2 px-6 border border-gray-200/50 dark:border-gray-700/50"
+              >
+                <FaLock className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                <span className="text-base font-semibold text-indigo-600 dark:text-indigo-400">
+                  Privacy Policy
+                </span>
+              </motion.div>
+            </motion.div>
+            <h1 className="text-5xl sm:text-6xl font-bold mb-6 leading-tight">
+              <span className="text-indigo-700 dark:text-indigo-300">Your Privacy,</span>
+              <span className="block text-rose-600 dark:text-rose-400">
+                Our Priority
+              </span>
+            </h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed"
+            >
+              We believe in transparency and protecting your data at every step.
+              Learn how we safeguard your privacy while providing the best
+              learning experience.
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Privacy Details Section */}
+      <section className="w-full py-16 bg-white dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold mb-4 text-indigo-700 dark:text-indigo-300">
+              Privacy Features
+            </h2>
+            <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
+              We employ industry-leading security measures to protect your data
+              and ensure your privacy.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+            {privacyDetails.map((section, index) => (
+              <motion.div
+                key={section.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="group relative bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden"
+              >
+                {/* Background Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-50/90 to-white/50 dark:from-gray-800/90 dark:to-gray-900/50 rounded-2xl" />
+
+                {/* Decorative Elements */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-gray-200/20 to-gray-100/20 dark:from-gray-700/20 dark:to-gray-800/20 rounded-full -mr-16 -mt-16" />
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-gray-200/20 to-gray-100/20 dark:from-gray-700/20 dark:to-gray-800/20 rounded-full -ml-16 -mb-16" />
+
+                {/* Content */}
+                <div className="relative z-10">
+                  {/* Icon and Title */}
+                  <div className="flex items-center space-x-4 mb-8">
+                    <div
+                      className={`p-4 rounded-2xl bg-white dark:bg-gray-900 shadow-lg ring-1 ring-gray-200 dark:ring-gray-700 ${section.iconBg}`}
+                    >
+                      {section.icon}
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                        {section.title}
+                      </h3>
+                      <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">
+                        {section.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* List Items */}
+                  <ul className="space-y-4">
+                    {section.items.map((item, itemIndex) => (
+                      <motion.li
+                        key={itemIndex}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 + itemIndex * 0.05 }}
+                        className="flex items-start group"
+                      >
+                        <div className="bg-white dark:bg-gray-900 p-2 rounded-xl shadow-md ring-1 ring-gray-200 dark:ring-gray-700 mr-4">
+                          <FaChevronRight className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                        </div>
+                        <span className="text-gray-700 dark:text-gray-300 leading-relaxed pt-1.5">
+                          {item}
+                        </span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Contact Section */}
+          <div className="mt-16 py-8 text-center border-t border-gray-200 dark:border-gray-700">
+            <p className="text-gray-700 dark:text-gray-300">
+              Have questions about our privacy policy?{" "}
+              <a
+                href="/contact"
+                className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium"
+              >
+                Contact our support team
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

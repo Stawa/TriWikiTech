@@ -11,7 +11,7 @@ function UserMenuButton({ toggleSidebar, user }: UserMenuButtonProps) {
     <button
       onClick={toggleSidebar}
       className={`rounded-full ${
-        !user || (user.avatarUrl === "")
+        !user || user.avatarUrl === null || user.avatarUrl === ""
           ? "p-2 bg-indigo-700 hover:bg-indigo-600 dark:bg-indigo-700 dark:hover:bg-indigo-600 text-white"
           : ""
       } transition-colors duration-200 shadow-md`}

@@ -36,8 +36,8 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => [
 ];
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const loginTranslations = await getTranslation(request, "login");
-  return loginTranslations;
+  const signInTranslations = await getTranslation(request, "sign-in");
+  return signInTranslations;
 };
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -45,7 +45,7 @@ const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 export const action: ActionFunction = async ({ request }) => {
-  const fetchTranslations = await getTranslation(request, "login");
+  const fetchTranslations = await getTranslation(request, "sign-in");
   const translations = await fetchTranslations.json();
   const formData = await request.formData();
   const emailAddress = formData.get("emailAddress") as string;
@@ -145,194 +145,226 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
-      <section className="relative w-full py-8 sm:py-12 md:py-16 lg:py-20">
-        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-white/95 dark:bg-gray-900 rounded-3xl shadow-2xl border border-gray-100 dark:border-blue-500"
-            >
-              <div className="p-6 sm:p-8 md:p-10">
-                <div className="text-center mb-6 sm:mb-8">
-                  <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                    {translations.form.title}
-                  </h1>
-                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-                    {translations.form.description}
-                  </p>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-900 flex flex-col items-center justify-center p-4 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-0 -left-4 w-72 h-72 bg-blue-500 dark:bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 dark:opacity-20 animate-blob"></div>
+        <div className="absolute top-0 -right-4 w-72 h-72 bg-purple-500 dark:bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 dark:opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 dark:opacity-20 animate-blob animation-delay-4000"></div>
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNjB2NjBIMHoiLz48cGF0aCBkPSJNNjAgMEgwdjYwaDYwVjB6TTIgMmg1NnY1NkgyVjJ6IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz48L2c+PC9zdmc+')] opacity-[0.02] dark:opacity-30"></div>
+      </div>
+
+      {/* Card Container */}
+      <div className="w-full max-w-2xl mx-auto z-10">
+        {/* Main Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative backdrop-blur-lg bg-white/80 dark:bg-white/[0.02] rounded-2xl shadow-lg dark:shadow-[0_8px_32px_0_rgba(31,38,135,0.2)] border border-gray-200/50 dark:border-white/[0.05] p-8 overflow-hidden"
+        >
+          {/* Card background decoration */}
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 via-white/50 to-gray-50/50 dark:from-blue-500/[0.02] dark:via-purple-500/[0.02] dark:to-pink-500/[0.02]"></div>
+          <div className="absolute inset-0 bg-grid-gray-500/[0.02] dark:bg-grid-white/[0.01]"></div>
+
+          <div className="relative space-y-8 mx-6">
+            {/* Error Message */}
+            {actionData?.error && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-4 rounded-xl bg-red-500/10 dark:bg-red-500/20 border border-red-500/20 dark:border-red-500/30 backdrop-blur-sm"
+              >
+                <div className="flex items-center text-red-400 dark:text-red-500">
+                  <FaExclamationCircle className="h-4 w-4 mr-2 flex-shrink-0" />
+                  <span className="text-sm font-medium">
+                    {actionData.error}
+                  </span>
                 </div>
+              </motion.div>
+            )}
 
-                {actionData?.error && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mb-4 sm:mb-6 p-3 sm:p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800"
-                  >
-                    <div className="flex items-center text-red-600 dark:text-red-400">
-                      <FaExclamationCircle className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
-                      <span className="text-xs sm:text-sm font-medium">
-                        {actionData.error}
-                      </span>
-                    </div>
-                  </motion.div>
-                )}
-
-                <form
-                  onSubmit={(e) => handleSubmit(e, "credentials")}
-                  className="space-y-6"
-                >
-                  <div>
-                    <label
-                      htmlFor="emailAddress"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2"
-                    >
-                      <MdOutlineMail className="h-5 w-5 text-gray-400" />
-                      {translations.email.label}
-                      <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative group">
-                      <input
-                        id="emailAddress"
-                        type="email"
-                        name="emailAddress"
-                        autoComplete="email"
-                        required
-                        className="block w-full py-3.5 bg-white dark:bg-gray-900
-                        border-b-2 border-gray-200 dark:border-gray-700
-                        text-base transition-all duration-200
-                        text-gray-900 dark:text-white
-                        placeholder:text-gray-400 dark:placeholder:text-gray-500
-                        focus:border-blue-500 dark:focus:border-blue-400
-                        hover:border-gray-300 dark:hover:border-gray-600
-                        focus:ring-0"
-                        placeholder="name@example.com"
-                        aria-label={translations.email.label}
-                      />
-                    </div>
+            {/* Logo Section */}
+            <div className="text-center space-y-4">
+              <div className="relative inline-block">
+                <div className="relative p-4 bg-gradient-to-br from-white/50 to-white/30 dark:from-white/[0.03] dark:to-transparent rounded-2xl backdrop-blur-sm border border-gray-200/50 dark:border-white/[0.05] shadow-xl">
+                  <div className="flex items-center justify-center space-x-3">
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-200 dark:via-purple-200 dark:to-pink-200 bg-clip-text text-transparent">
+                      TriWikiTech
+                    </h1>
                   </div>
-
-                  <div>
-                    <label
-                      htmlFor="password"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2"
-                    >
-                      <MdOutlineVpnKey className="h-5 w-5 text-gray-400" />
-                      {translations.password.label}
-                      <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative group">
-                      <input
-                        id="password"
-                        type={showPassword ? "text" : "password"}
-                        name="password"
-                        autoComplete="current-password"
-                        required
-                        minLength={8}
-                        className="block w-full py-3.5 bg-white dark:bg-gray-900
-                        border-b-2 border-gray-200 dark:border-gray-700
-                        text-base transition-all duration-200
-                        text-gray-900 dark:text-white
-                        placeholder:text-gray-400 dark:placeholder:text-gray-500
-                        focus:border-blue-500 dark:focus:border-blue-400
-                        hover:border-gray-300 dark:hover:border-gray-600
-                        focus:ring-0"
-                        placeholder="••••••••"
-                        aria-label={translations.password.label}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 
-                        hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200"
-                        aria-label={
-                          showPassword ? "Hide password" : "Show password"
-                        }
-                      >
-                        {showPassword ? (
-                          <FaEyeSlash className="h-5 w-5" />
-                        ) : (
-                          <FaEye className="h-5 w-5" />
-                        )}
-                      </button>
-                    </div>
-                  </div>
-
-                  <motion.button
-                    type="submit"
-                    className="w-full px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-xl text-sm sm:text-base font-medium
-                    bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 
-                    text-white shadow-lg shadow-blue-500/20
-                    focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900
-                    outline-none transition-all duration-300"
-                  >
-                    {translations.form.submit}
-                  </motion.button>
-                </form>
-
-                <div className="mt-8 sm:mt-10">
-                  <div className="relative">
-                    <div className="absolute inset-0 flex items-center">
-                      <div className="w-full border-t border-gray-200 dark:border-gray-700"></div>
-                    </div>
-                    <div className="relative flex justify-center text-sm">
-                      <span className="px-4 bg-white/95 dark:bg-gray-900 text-gray-500 dark:text-gray-400 font-medium">
-                        {translations.socialLogin.or}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 sm:mt-8 grid grid-cols-2 gap-4">
-                    <motion.button
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => handleSocialLogin("google")}
-                      className="bg-white text-black font-bold px-4 sm:px-6 py-3 sm:py-4 rounded-xl transition duration-300 text-sm inline-flex items-center justify-center shadow-lg group relative overflow-hidden"
-                    >
-                      <span className="relative z-10 flex items-center">
-                        <FcGoogle className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
-                        <span className="text-sm sm:text-base font-medium">
-                          {translations.socialLogin.google.label}
-                        </span>
-                      </span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-gray-100 to-gray-200 transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></div>
-                    </motion.button>
-
-                    <motion.button
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => handleSocialLogin("github")}
-                      className="bg-[#1b1f23] text-white font-bold px-4 sm:px-6 py-3 sm:py-4 rounded-xl transition duration-300 text-sm inline-flex items-center justify-center shadow-lg group relative overflow-hidden"
-                    >
-                      <span className="relative z-10 flex items-center">
-                        <FaGithub className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
-                        <span className="text-sm sm:text-base font-medium">
-                          {translations.socialLogin.github.label}
-                        </span>
-                      </span>
-                      <div className="absolute inset-0 bg-[#24292e] transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></div>
-                    </motion.button>
-                  </div>
-                </div>
-
-                <div className="mt-8 sm:mt-10 text-center">
-                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-                    {translations.dontHaveAccount}{" "}
-                    <Link
-                      to="/sign-up"
-                      className="font-semibold text-blue-600 dark:text-blue-400 
-                      hover:text-blue-700 dark:hover:text-blue-300 
-                      transition-colors duration-300 hover:underline"
-                    >
-                      {translations.signUp}
-                    </Link>
-                  </p>
                 </div>
               </div>
-            </motion.div>
+              <p className="text-gray-600/90 dark:text-gray-400/60 text-sm max-w-sm mx-auto">
+                {translations.form.description}
+              </p>
+            </div>
+
+            {/* Email/Password Form */}
+            <form
+              onSubmit={(e) => handleSubmit(e, "credentials")}
+              className="space-y-6"
+            >
+              <div className="space-y-5">
+                <div>
+                  <label
+                    htmlFor="emailAddress"
+                    className="block text-sm font-medium text-gray-600 dark:text-gray-400/70 mb-2"
+                  >
+                    Email
+                  </label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <MdOutlineMail className="h-5 w-5 text-gray-400 dark:text-gray-500 group-hover:text-blue-400 transition-colors duration-200" />
+                    </div>
+                    <input
+                      id="emailAddress"
+                      type="email"
+                      name="emailAddress"
+                      autoComplete="email"
+                      required
+                      className="block w-full pl-10 pr-3 py-3 border-0 bg-white/80 dark:bg-white/[0.02] backdrop-blur-sm text-gray-600 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white/90 dark:focus:bg-white/[0.03] transition-all duration-200 placeholder-gray-500 dark:placeholder-gray-400/70 hover:bg-white/90 dark:hover:bg-white/[0.03]"
+                      placeholder="name@example.com"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-gray-600 dark:text-gray-400/70 mb-2"
+                  >
+                    Password
+                  </label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <MdOutlineVpnKey className="h-5 w-5 text-gray-400 dark:text-gray-500 group-hover:text-blue-400 transition-colors duration-200" />
+                    </div>
+                    <input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      autoComplete="current-password"
+                      required
+                      className="block w-full pl-10 pr-10 py-3 border-0 bg-white/80 dark:bg-white/[0.02] backdrop-blur-sm text-gray-600 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white/90 dark:focus:bg-white/[0.03] transition-all duration-200 placeholder-gray-500 dark:placeholder-gray-400/70 hover:bg-white/90 dark:hover:bg-white/[0.03]"
+                      placeholder="••••••••"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    >
+                      {showPassword ? (
+                        <FaEyeSlash className="h-5 w-5 text-gray-400 dark:text-gray-500 hover:text-blue-400 transition-colors duration-200" />
+                      ) : (
+                        <FaEye className="h-5 w-5 text-gray-400 dark:text-gray-500 hover:text-blue-400 transition-colors duration-200" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end text-sm text-gray-500 dark:text-gray-400/70">
+                Forgot Password?
+                <Link
+                  to="/forgot-password"
+                  className="ml-1 font-medium text-blue-400 dark:text-blue-500 hover:text-blue-300 dark:hover:text-blue-400 transition-colors duration-200"
+                >
+                  Reset Password
+                </Link>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full relative flex justify-center py-3 px-4 rounded-xl text-sm font-medium text-gray-600 dark:text-white overflow-hidden group"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-500 transition-all duration-300 group-hover:from-blue-500 group-hover:to-blue-400"></div>
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent transition-all duration-500"></div>
+                <span className="relative flex items-center gap-2">
+                  Sign In
+                  <svg
+                    className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    />
+                  </svg>
+                </span>
+              </button>
+
+              {/* Sign Up Link */}
+              <div className="mt-6 text-center">
+                <p className="text-sm text-gray-500">
+                  Don't have an account?{" "}
+                  <Link
+                    to="/sign-up"
+                    className="font-medium text-blue-400 dark:text-blue-500 hover:text-blue-500 dark:hover:text-blue-300"
+                  >
+                    Sign up
+                  </Link>
+                </p>
+              </div>
+
+              {/* Divider */}
+              <div className="relative flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-[30%] border-t border-gray-200/50 dark:border-white/[0.05]"></div>
+                  <div className="w-[40%]"></div>
+                  <div className="w-[30%] border-t border-gray-200/50 dark:border-white/[0.05]"></div>
+                </div>
+                <div className="relative">
+                  <div className="relative inline-block">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 dark:from-blue-500/20 dark:via-purple-500/20 dark:to-pink-500/20 rounded-full blur-md opacity-30 dark:opacity-50"></div>
+                    <span className="relative px-6 py-1.5 bg-gradient-to-r from-transparent via-white/80 to-transparent dark:via-white/[0.02] text-gray-500 dark:text-gray-400/70 backdrop-blur-sm rounded-full border border-gray-200/50 dark:border-white/[0.05] shadow-sm">
+                      or continue with
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Social Login Buttons */}
+              <div className="grid grid-cols-1 gap-4">
+                <button
+                  type="button"
+                  onClick={() => handleSocialLogin("google")}
+                  className="group relative flex items-center justify-center px-6 py-3 rounded-xl text-sm font-medium text-gray-700 dark:text-white overflow-hidden transition-all duration-300 bg-gray-50 dark:bg-transparent border border-gray-200 dark:border-white/[0.05] hover:bg-white dark:hover:bg-white/[0.02]"
+                >
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gray-50 dark:from-white/20 via-transparent to-transparent transition-all duration-500"></div>
+                  <span className="relative flex items-center gap-3">
+                    <div className="p-1.5 bg-white rounded-lg shadow-sm">
+                      <FcGoogle className="h-5 w-5 transform group-hover:scale-110 transition-transform duration-300" />
+                    </div>
+                    <span className="border-l border-gray-200 dark:border-white/10 pl-3">
+                      Sign in with Google
+                    </span>
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSocialLogin("github")}
+                  className="group relative flex items-center justify-center px-6 py-3 rounded-xl text-sm font-medium text-gray-700 dark:text-white overflow-hidden transition-all duration-300 bg-gray-50 dark:bg-transparent border border-gray-200 dark:border-white/[0.05] hover:bg-white dark:hover:bg-white/[0.02]"
+                >
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gray-50 dark:from-white/20 via-transparent to-transparent transition-all duration-500"></div>
+                  <span className="relative flex items-center gap-3">
+                    <div className="p-1.5 bg-gray-800 dark:bg-white/10 rounded-lg">
+                      <FaGithub className="h-5 w-5 text-white transform group-hover:scale-110 transition-transform duration-300" />
+                    </div>
+                    <span className="border-l border-gray-200 dark:border-white/10 pl-3">
+                      Sign in with Github
+                    </span>
+                  </span>
+                </button>
+              </div>
+            </form>
           </div>
-        </div>
-      </section>
+        </motion.div>
+      </div>
     </div>
   );
 }

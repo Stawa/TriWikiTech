@@ -151,13 +151,17 @@ function Document({
           />
         )}
         <ScrollToTop />
-        <main className={`pt-16 transition-all duration-300 ${isSearchOpen ? 'blur-sm' : ''}`}>
+        <main
+          className={`pt-16 transition-all duration-300 ${
+            isSearchOpen ? "blur-sm" : ""
+          }`}
+        >
           {children}
         </main>
         {showNavAndFooter && (
           <Footer
             translations={translations.footer as unknown as FooterTranslations}
-            className={isSearchOpen ? 'blur-sm' : ''}
+            className={isSearchOpen ? "blur-sm" : ""}
           />
         )}
         <ScrollRestoration />
@@ -168,26 +172,16 @@ function Document({
 }
 
 export default function App() {
-  const loaderData = useLoaderData<{
-    user: Record<string, unknown> | undefined;
-    translations: Record<string, Record<string, string>>;
-    locale: string;
-    theme: string;
-  }>();
-  const convertedUser =
-    loaderData?.user?.user && Object.keys(loaderData.user.user).length > 0
-      ? convertToUserProfile(loaderData.user.user as Record<string, unknown>)
-      : null;
-
-  useChangeLanguage(loaderData.locale);
+  const { locale, user, translations, theme } = useLoaderData<typeof loader>();
 
   return (
     <SearchProvider>
       <Document
-        locale={loaderData.locale}
-        user={convertedUser}
-        translations={loaderData.translations}
-        theme={loaderData.theme}
+        showNavAndFooter={true}
+        locale={locale}
+        user={user.user}
+        translations={translations}
+        theme={theme}
       >
         <Outlet />
       </Document>

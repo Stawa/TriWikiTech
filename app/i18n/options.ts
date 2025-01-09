@@ -9,8 +9,8 @@ import idNavbarTranslation from "~/i18n/locales/id/navbar";
 import enFooterTranslation from "~/i18n/locales/en/footer";
 import idFooterTranslation from "~/i18n/locales/id/footer";
 
-import enLoginTranslation from "~/i18n/locales/en/login";
-import idLoginTranslation from "~/i18n/locales/id/login";
+import enSignInTranslation from "~/i18n/locales/en/sign-in";
+import idSignInTranslation from "~/i18n/locales/id/sign-in";
 
 import enRegisterTranslation from "~/i18n/locales/en/register";
 import idRegisterTranslation from "~/i18n/locales/id/register";
@@ -24,14 +24,14 @@ export const resources = serverOnly$({
     home: enTranslation,
     navbar: enNavbarTranslation,
     footer: enFooterTranslation,
-    login: enLoginTranslation,
+    "sign-in": enSignInTranslation,
     register: enRegisterTranslation,
   },
   id: {
     home: idTranslation,
     navbar: idNavbarTranslation,
     footer: idFooterTranslation,
-    login: idLoginTranslation,
+    "sign-in": idSignInTranslation,
     register: idRegisterTranslation,
   },
 });
