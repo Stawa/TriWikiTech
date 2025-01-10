@@ -18,7 +18,7 @@ import { getUser } from "~/utils/getUser";
 import { getCookie } from "~/utils/cookie";
 import Footer from "~/components/Footer";
 import Navbar from "~/components/Navbar";
-import ErrorPage from "~/components/404";
+import ErrorPage from "~/components/Error";
 import ScrollToTop from "~/components/ScrollToTop";
 import { SearchProvider, useSearch } from "~/context/SearchContext";
 import "~/tailwind.css";
@@ -88,7 +88,9 @@ interface FooterTranslations {
 
 import { createContext, useContext } from "react";
 
-const SidebarContext = createContext<{ isSidebarOpen: boolean }>({ isSidebarOpen: false });
+const SidebarContext = createContext<{ isSidebarOpen: boolean }>({
+  isSidebarOpen: false,
+});
 export const useSidebar = () => useContext(SidebarContext);
 
 function Document({
@@ -101,7 +103,9 @@ function Document({
   theme = "light",
 }: DocumentProps) {
   const navigation = useNavigation();
-  const loadingBarRef = useRef<React.ElementRef<typeof LoadingBar> | null>(null);
+  const loadingBarRef = useRef<React.ElementRef<typeof LoadingBar> | null>(
+    null
+  );
   const [activeTheme, setActiveTheme] = useState<string>(theme);
   const { isSearchOpen } = useSearch();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -164,8 +168,12 @@ function Document({
           </main>
           {showNavAndFooter && (
             <Footer
-              translations={translations.footer as unknown as FooterTranslations}
-              className={isSearchOpen || isSidebarOpen ? "blur-sm brightness-50" : ""}
+              translations={
+                translations.footer as unknown as FooterTranslations
+              }
+              className={
+                isSearchOpen || isSidebarOpen ? "blur-sm brightness-50" : ""
+              }
             />
           )}
         </SidebarContext.Provider>
@@ -212,7 +220,12 @@ export function ErrorBoundary() {
       <SearchProvider>
         <Document showNavAndFooter={false} is404 user={null} theme="system">
           <LoadingBar color="#4f46e5" ref={loadingBarRef} />
-          <ErrorPage statusCode={error.status} message={error.data} />
+          <ErrorPage
+            statusCode={error.status}
+            message={
+              "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable."
+            }
+          />
         </Document>
       </SearchProvider>
     );

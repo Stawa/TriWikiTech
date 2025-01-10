@@ -47,6 +47,8 @@ function ErrorPage({ statusCode, message }: ErrorPageProps) {
     },
   };
 
+  const timestamp = new Date("2024-03-16T14:30:00.000Z").toISOString();
+
   return (
     <main
       role="main"
@@ -72,12 +74,13 @@ function ErrorPage({ statusCode, message }: ErrorPageProps) {
             </span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-teal-600 dark:from-blue-400 dark:to-teal-400">
-                Oops! Page not found
+                {statusCode === 404
+                  ? "Oops! Page not found"
+                  : "Something went wrong"}
               </span>
             </h1>
             <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 font-medium max-w-lg mx-auto">
-              The page you are looking for might have been removed, had its name
-              changed, or is temporarily unavailable.
+              {message}
             </p>
           </motion.div>
         </header>
@@ -99,30 +102,59 @@ function ErrorPage({ statusCode, message }: ErrorPageProps) {
             </div>
             {/* Terminal Content */}
             <div className="p-4 font-mono text-sm">
-              <p className="flex items-center text-indigo-600 dark:text-indigo-400">
-                <span className="text-green-600 dark:text-green-400 mr-2">
-                  ➜
+              <div className="flex items-start mb-2">
+                <span className="text-green-600 dark:text-green-500 mr-2">
+                  $
                 </span>
-                <span className="text-yellow-600 dark:text-yellow-400 mr-2">
-                  ~
+                <span className="text-gray-800 dark:text-gray-200">whoami</span>
+              </div>
+              <div className="flex items-start mb-4">
+                <span className="text-blue-600 dark:text-blue-400 mr-2">
+                  {">"}
                 </span>
-                whoami
-              </p>
-              <p className="ml-4 text-gray-600 dark:text-gray-400 my-1">
-                kade.student@triwikitech
-              </p>
-              <p className="flex items-center text-indigo-600 dark:text-indigo-400">
-                <span className="text-green-600 dark:text-green-400 mr-2">
-                  ➜
+                <span className="text-gray-600 dark:text-gray-400">
+                  kade.student@triwikitech
                 </span>
-                <span className="text-yellow-600 dark:text-yellow-400 mr-2">
-                  ~
-                </span>
-                find /path
-              </p>
-              <p className="ml-4 text-red-500 dark:text-red-400">
-                Error: Path not found
-              </p>
+              </div>
+              {statusCode === 404 ? (
+                <>
+                  <div className="flex items-start mb-2">
+                    <span className="text-green-600 dark:text-green-500 mr-2">
+                      $
+                    </span>
+                    <span className="text-gray-800 dark:text-gray-200">
+                      cd /requested/path
+                    </span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="text-red-600 dark:text-red-500 mr-2">
+                      {">"}{" "}
+                    </span>
+                    <span className="text-red-500 dark:text-red-400">
+                      Error: No such file or directory
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex items-start mb-2">
+                    <span className="text-green-600 dark:text-green-500 mr-2">
+                      $
+                    </span>
+                    <span className="text-red-500 dark:text-red-400">
+                      Error: {statusCode} encountered
+                    </span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="text-yellow-600 dark:text-yellow-500 mr-2">
+                      {">"}{" "}
+                    </span>
+                    <span className="text-red-500 dark:text-red-400">
+                      {message}
+                    </span>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </motion.div>
