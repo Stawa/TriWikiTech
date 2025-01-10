@@ -4,8 +4,6 @@ import {
   FaLock,
   FaUserShield,
   FaChevronRight,
-  FaFileContract,
-  FaInfoCircle,
 } from "react-icons/fa";
 import { IoShieldCheckmark } from "react-icons/io5";
 import { MetaFunction } from "@remix-run/react";
@@ -46,7 +44,9 @@ const privacyDetails = [
     iconBg: "bg-teal-50 dark:bg-teal-900/20",
   },
   {
-    icon: <IoShieldCheckmark className="w-8 h-8 text-rose-600 dark:text-rose-400" />,
+    icon: (
+      <IoShieldCheckmark className="w-8 h-8 text-rose-600 dark:text-rose-400" />
+    ),
     title: "Data Security",
     description: "We implement robust security measures to protect your data:",
     items: [
@@ -58,7 +58,9 @@ const privacyDetails = [
     iconBg: "bg-rose-50 dark:bg-rose-900/20",
   },
   {
-    icon: <FaUserShield className="w-8 h-8 text-amber-600 dark:text-amber-400" />,
+    icon: (
+      <FaUserShield className="w-8 h-8 text-amber-600 dark:text-amber-400" />
+    ),
     title: "Your Rights",
     description: "You have the right to:",
     items: [
@@ -145,7 +147,9 @@ export default function Privacy() {
               </motion.div>
             </motion.div>
             <h1 className="text-5xl sm:text-6xl font-bold mb-6 leading-tight">
-              <span className="text-indigo-700 dark:text-indigo-300">Your Privacy,</span>
+              <span className="text-indigo-700 dark:text-indigo-300">
+                Your Privacy,
+              </span>
               <span className="block text-rose-600 dark:text-rose-400">
                 Our Priority
               </span>

@@ -79,7 +79,11 @@ function Footer({ translations, className = "" }: FooterProps) {
             </h3>
             <nav aria-label="About links">
               <ul className="space-y-4">
-                <FooterLink href="/about" icon={<FaFlag />} label="Our Goals" />
+                <FooterLink
+                  href="/about#goals"
+                  icon={<FaFlag />}
+                  label="Our Goals"
+                />
                 <FooterLink
                   href="/about#team"
                   icon={<FaUsers />}
@@ -89,6 +93,11 @@ function Footer({ translations, className = "" }: FooterProps) {
                   href="/about#mission"
                   icon={<FaLightbulb />}
                   label="Our Mission"
+                />
+                <FooterLink
+                  href="/contact"
+                  icon={<FaEnvelope />}
+                  label="Contact Us"
                 />
               </ul>
             </nav>
@@ -130,11 +139,6 @@ function Footer({ translations, className = "" }: FooterProps) {
                 href="https://x.com/StawaDev"
                 icon={<FaXTwitter />}
                 label="Twitter"
-              />
-              <SocialLink
-                href="mailto:stawa@admin.triwikitech.my.id"
-                icon={<FaEnvelope />}
-                label="Email"
               />
             </div>
           </div>
