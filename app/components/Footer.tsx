@@ -8,6 +8,7 @@ import {
   FaRegCopyright,
   FaUsers,
   FaLightbulb,
+  FaFlag,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "@remix-run/react";
@@ -54,7 +55,9 @@ function Footer({ translations, className = "" }: FooterProps) {
   }, []);
 
   return (
-    <footer className={`bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 border-t border-gray-200 dark:border-gray-800 ${className}`}>
+    <footer
+      className={`bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 border-t border-gray-200 dark:border-gray-800 ${className}`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Brand Section */}
@@ -76,7 +79,12 @@ function Footer({ translations, className = "" }: FooterProps) {
             </h3>
             <nav aria-label="About links">
               <ul className="space-y-4">
-                <FooterLink href="/about#team" icon={<FaUsers />} label="Our Team" />
+                <FooterLink href="/about" icon={<FaFlag />} label="Our Goals" />
+                <FooterLink
+                  href="/about#team"
+                  icon={<FaUsers />}
+                  label="Our Team"
+                />
                 <FooterLink
                   href="/about#mission"
                   icon={<FaLightbulb />}

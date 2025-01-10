@@ -40,6 +40,18 @@ export default {
         'spin-slow': {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(360deg)' },
+        },
+        shimmer: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' }
+        },
+        shine: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' }
+        },
+        gradient: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
         }
       },
       animation: {
@@ -52,6 +64,9 @@ export default {
         'bounce-subtle': 'bounce-subtle 3s ease-in-out infinite',
         'spin-slow': 'spin-slow 8s linear infinite',
         'pulse-slow': 'pulse 4s ease-in-out infinite',
+        shimmer: 'shimmer 2s infinite',
+        shine: 'shine 2s ease-in-out infinite',
+        gradient: 'gradient 2s ease-in-out infinite',
       },
       dropShadow: {
         'glow-yellow': '0 0 8px rgba(250, 204, 21, 0.5)',
