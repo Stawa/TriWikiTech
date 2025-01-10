@@ -83,7 +83,7 @@ function ErrorPage({ statusCode, message }: ErrorPageProps) {
         </header>
 
         {/* Terminal Section */}
-        <motion.div variants={itemVariants} className="mb-10">
+        <motion.div variants={itemVariants} className="mb-10 relative z-0">
           <div className="bg-gray-100 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
             {/* Terminal Header */}
             <div className="flex items-center justify-between px-4 py-2 bg-gray-200 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600">
@@ -130,30 +130,22 @@ function ErrorPage({ statusCode, message }: ErrorPageProps) {
         {/* Action Buttons */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10"
         >
-          <motion.div className="w-full sm:w-auto">
-            <Link
-              to="/"
-              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-medium shadow-lg shadow-indigo-500/25 dark:shadow-indigo-900/30 transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-              prefetch="intent"
-              aria-label="Return to homepage"
-            >
-              <FaHome className="mr-2" />
-              <span>Return Home</span>
-            </Link>
-          </motion.div>
-
-          <motion.div className="w-full sm:w-auto">
-            <button
-              onClick={() => window.history.back()}
-              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-medium transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-              aria-label="Go back to previous page"
-            >
-              <FaArrowLeft className="mr-2" />
-              <span>Go Back</span>
-            </button>
-          </motion.div>
+          <Link
+            to="/"
+            className="flex items-center justify-center gap-2 px-6 py-3 w-full sm:w-auto text-white font-semibold rounded-lg bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 dark:from-indigo-500 dark:to-violet-500 dark:hover:from-indigo-600 dark:hover:to-violet-600 transition-all duration-200 shadow-lg shadow-indigo-500/25 dark:shadow-indigo-900/30"
+          >
+            <FaHome className="text-lg" />
+            <span>Go Home</span>
+          </Link>
+          <Link
+            to=".."
+            className="flex items-center justify-center gap-2 px-6 py-3 w-full sm:w-auto text-gray-700 dark:text-gray-200 font-semibold rounded-lg border-2 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-all duration-200"
+          >
+            <FaArrowLeft className="text-lg" />
+            <span>Go Back</span>
+          </Link>
         </motion.div>
       </motion.div>
     </main>
