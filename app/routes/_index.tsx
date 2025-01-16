@@ -29,65 +29,124 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
-      <header className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <header className="bg-gradient-to-br from-blue-600 via-indigo-600 to-violet-600 text-white py-20 sm:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Animated circles */}
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/30 rounded-full mix-blend-multiply filter blur-xl animate-blob" />
+          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-violet-500/30 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000" />
+          <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-indigo-500/30 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000" />
+
+          {/* Noise texture */}
+          <div className="absolute inset-0 opacity-[0.15] mix-blend-soft-light">
+            <div
+              className="h-full w-full"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
+                filter: "contrast(320%) brightness(1000%)",
+              }}
+            />
+          </div>
+
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/30 via-indigo-600/30 to-violet-600/30 backdrop-blur-3xl" />
+        </div>
+
         <div className="max-w-7xl mx-auto relative z-10">
-          <motion.h1
+          {/* Floating elements */}
+          <div className="absolute -top-16 left-10 w-20 h-20 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-xl rotate-12 opacity-20 animate-float" />
+          <div className="absolute top-32 right-12 w-16 h-16 bg-gradient-to-br from-violet-400 to-indigo-400 rounded-lg -rotate-12 opacity-20 animate-float-delay" />
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+            aria-hidden="true"
+          >
+            <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-blue-400 to-violet-400 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" />
+          </motion.div>
+
+          <motion.div
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
-            className="text-4xl sm:text-5xl lg:text-7xl font-extrabold mb-6 sm:mb-8 leading-tight tracking-tight text-center bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100 drop-shadow-lg"
+            className="flex flex-col items-center"
           >
-            {Index.title}
-          </motion.h1>
+            <div className="relative">
+              <span className="px-4 py-1.5 bg-white/10 backdrop-blur-lg text-sm font-medium rounded-full mb-6 border border-white/20 inline-flex items-center gap-2">
+                <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+                Welcome to TriWikiTech
+              </span>
+            </div>
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold mb-6 sm:mb-8 leading-tight tracking-tight text-center">
+              <span className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100 drop-shadow-lg">
+                {Index.title}
+              </span>
+            </h1>
+          </motion.div>
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-lg sm:text-xl lg:text-2xl text-blue-50 mb-10 sm:mb-12 max-w-3xl mx-auto text-center leading-relaxed font-medium"
+            className="text-lg sm:text-xl lg:text-2xl text-blue-50/90 mb-12 sm:mb-14 max-w-3xl mx-auto text-center leading-relaxed font-medium"
           >
             {Index.subtitle}
           </motion.p>
+
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-5 sm:gap-8 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-5 sm:gap-8 justify-center items-center max-w-2xl mx-auto"
           >
             <Link
               to="/#featured-languages"
-              className="bg-white text-blue-600 font-bold py-4 px-8 rounded-2xl transition-all duration-300 text-lg inline-flex items-center justify-center shadow-xl hover:shadow-blue-500/30 group relative overflow-hidden transform hover:-translate-y-1 w-full sm:w-auto min-w-[200px]"
+              className="group relative w-full sm:w-auto"
             >
-              <span className="relative z-10 transition-colors duration-300 group-hover:text-indigo-600">
-                {Index.startJourney}
-              </span>
-              <IoNavigateOutline className="ml-3 relative z-10 w-6 h-6 transition-all duration-300 group-hover:hidden text-blue-600" />
-              <IoNavigateSharp className="ml-3 relative z-10 w-6 h-6 transition-all duration-300 hidden group-hover:block text-indigo-600" />
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-indigo-50 transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></div>
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-violet-500 rounded-2xl blur opacity-30 group-hover:opacity-100 transition duration-500"></div>
+              <button className="relative w-full bg-white px-8 py-4 rounded-2xl text-blue-600 font-bold transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center space-x-3 min-w-[200px]">
+                <span className="transition-colors duration-300 group-hover:text-indigo-600">
+                  {Index.startJourney}
+                </span>
+                <IoNavigateOutline className="w-6 h-6 transition-all duration-300 group-hover:hidden text-blue-600" />
+                <IoNavigateSharp className="w-6 h-6 transition-all duration-300 hidden group-hover:block text-indigo-600" />
+              </button>
             </Link>
-            <Link
-              to="#learn-more"
-              className="bg-transparent backdrop-blur-sm border-2 border-blue-300/50 text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 text-lg inline-flex items-center justify-center hover:border-white group relative overflow-hidden transform hover:-translate-y-1 hover:shadow-lg hover:shadow-white/20 w-full sm:w-auto min-w-[200px]"
-            >
-              <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
-                {Index.exploreFeatures}
-              </span>
-              <FaArrowRight className="ml-3 relative z-10 w-5 h-5 transition-all duration-300 group-hover:translate-x-2 group-hover:text-white" />
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 transform scale-y-0 origin-bottom transition-transform duration-300 group-hover:scale-y-100"></div>
+
+            <Link to="#learn-more" className="group relative w-full sm:w-auto">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/50 to-violet-500/50 rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500"></div>
+              <button className="relative w-full backdrop-blur-sm border-2 border-white/20 px-8 py-4 rounded-2xl text-white font-bold transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center space-x-3 min-w-[200px] hover:bg-white/10">
+                <span>{Index.exploreFeatures}</span>
+                <FaArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-2" />
+              </button>
             </Link>
           </motion.div>
         </div>
-        <div className="absolute inset-x-0 bottom-0 opacity-20">
-          <svg
-            className="h-full w-full"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1440 320"
-          >
-            <path
-              fill="#ffffff"
-              fillOpacity="1"
-              d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-            ></path>
-          </svg>
+
+        {/* Decorative bottom wave */}
+        <div className="absolute inset-x-0 bottom-0">
+          <div className="relative h-[4rem] sm:h-[6rem]">
+            <svg
+              className="absolute h-full w-full"
+              preserveAspectRatio="none"
+              viewBox="0 0 1440 54"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 27L48 24.7C96 22.3 192 17.7 288 22.3C384 27 480 41 576 43.3C672 45.7 768 36.3 864 27C960 17.7 1056 8.3 1152 11.7C1248 15 1344 31 1392 39L1440 47V54H1392C1344 54 1248 54 1152 54C1056 54 960 54 864 54C768 54 672 54 576 54C480 54 384 54 288 54C192 54 96 54 48 54H0V27Z"
+                fill="currentColor"
+                className="text-white/5"
+              />
+              <path
+                d="M0 27L48 24.7C96 22.3 192 17.7 288 22.3C384 27 480 41 576 43.3C672 45.7 768 36.3 864 27C960 17.7 1056 8.3 1152 11.7C1248 15 1344 31 1392 39L1440 47V54H1392C1344 54 1248 54 1152 54C1056 54 960 54 864 54C768 54 672 54 576 54C480 54 384 54 288 54C192 54 96 54 48 54H0V27Z"
+                fill="currentColor"
+                className="text-white/10"
+                transform="translate(0, 3)"
+              />
+            </svg>
+          </div>
         </div>
       </header>
       <main className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden">

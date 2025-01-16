@@ -12,8 +12,8 @@ import idFooterTranslation from "~/i18n/locales/id/footer";
 import enSignInTranslation from "~/i18n/locales/en/sign-in";
 import idSignInTranslation from "~/i18n/locales/id/sign-in";
 
-import enRegisterTranslation from "~/i18n/locales/en/register";
-import idRegisterTranslation from "~/i18n/locales/id/register";
+import enRegisterTranslation from "~/i18n/locales/en/sign-up";
+import idRegisterTranslation from "~/i18n/locales/id/sign-up";
 
 export const supportedLngs = ["id", "en"];
 export const fallbackLng = "id";
@@ -25,13 +25,13 @@ export const resources = serverOnly$({
     navbar: enNavbarTranslation,
     footer: enFooterTranslation,
     "sign-in": enSignInTranslation,
-    register: enRegisterTranslation,
+    "sign-up": enRegisterTranslation,
   },
   id: {
     home: idTranslation,
     navbar: idNavbarTranslation,
     footer: idFooterTranslation,
     "sign-in": idSignInTranslation,
-    register: idRegisterTranslation,
+    "sign-up": idRegisterTranslation,
   },
 });

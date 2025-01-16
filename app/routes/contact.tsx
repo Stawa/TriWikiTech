@@ -1,6 +1,11 @@
-import { json, type ActionFunction } from "@remix-run/node";
-import { Form, useActionData, useNavigation } from "@remix-run/react";
-import { useState } from "react";
+import { json, LoaderFunction, type ActionFunction } from "@remix-run/node";
+import {
+  Form,
+  useActionData,
+  useNavigation,
+  useLoaderData,
+} from "@remix-run/react";
+import { useState, useRef } from "react";
 import {
   FaBug,
   FaEnvelope,
@@ -8,13 +13,14 @@ import {
   FaTrash,
   FaUser,
   FaComment,
-  FaInfoCircle,
   FaPaperPlane,
+  FaInfoCircle,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { ContactTypeCard } from "~/components/Shared/ContactTypeCard";
 import { FormInput } from "~/components/Shared/FormInput";
 import { MetaFunction } from "@remix-run/react";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 export const meta: MetaFunction = () => [
   { title: "TriWikiTech | Contact Us" },
@@ -36,12 +42,19 @@ interface ActionData {
   };
 }
 
+export const loader: LoaderFunction = async ({ request }) => {
+  return json({
+    hcaptchaSiteKey: process.env.VITE_HCAPTCHA_SITE_KEY,
+  });
+};
+
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const name = formData.get("name");
   const email = formData.get("email");
   const type = formData.get("type");
   const message = formData.get("message");
+  const hcaptchaToken = formData.get("h-captcha-response") as string;
 
   // Validate fields
   if (!name || typeof name !== "string" || name.length < 2) {
@@ -92,6 +105,42 @@ export const action: ActionFunction = async ({ request }) => {
     });
   }
 
+  if (!hcaptchaToken) {
+    return json<ActionData>({
+      error: "Please complete the CAPTCHA verification",
+      fields: {
+        name: name?.toString(),
+        email: email?.toString(),
+        type: type?.toString(),
+        message: message?.toString(),
+      },
+    });
+  }
+
+  const verifyResponse = await fetch("https://hcaptcha.com/siteverify", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      secret: process.env.VITE_HCAPTCHA_SECRET as string,
+      response: hcaptchaToken,
+    }),
+  });
+
+  const verifyResult = await verifyResponse.json();
+  if (!verifyResult.success) {
+    return json<ActionData>({
+      error: "CAPTCHA verification failed. Please try again.",
+      fields: {
+        name: name?.toString(),
+        email: email?.toString(),
+        type: type?.toString(),
+        message: message?.toString(),
+      },
+    });
+  }
+
   // TODO: Implement actual email sending logic here
   // For now, we'll just simulate a successful submission
   return json<ActionData>({ success: true });
@@ -101,6 +150,9 @@ export default function Contact() {
   const actionData = useActionData<ActionData>();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
+  const { hcaptchaSiteKey } = useLoaderData<typeof loader>();
+  const [hcaptchaToken, setHcaptchaToken] = useState<string | null>(null);
+  const hcaptchaRef = useRef<HCaptcha>(null);
 
   const [selectedType, setSelectedType] = useState(
     actionData?.fields?.type || ""
@@ -256,7 +308,7 @@ export default function Contact() {
                   name="name"
                   label="Your Name"
                   icon={FaUser}
-                  placeholder="John Doe"
+                  placeholder="Name"
                   defaultValue={actionData?.fields?.name}
                   required
                 />
@@ -267,7 +319,7 @@ export default function Contact() {
                   type="email"
                   label="Email Address"
                   icon={FaEnvelope}
-                  placeholder="john@example.com"
+                  placeholder="kade@example.com"
                   defaultValue={actionData?.fields?.email}
                   required
                 />
@@ -285,52 +337,46 @@ export default function Contact() {
                 rows={6}
               />
 
-              <div className="flex items-center justify-between pt-6 border-t border-indigo-100/30 dark:border-indigo-500/20">
+              <HCaptcha
+                ref={hcaptchaRef}
+                sitekey={hcaptchaSiteKey}
+                onVerify={(token) => setHcaptchaToken(token)}
+              />
+
+              <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2 text-sm text-indigo-600/70 dark:text-indigo-300/70">
                   <FaInfoCircle className="w-4 h-4" />
                   <span>
                     <span className="text-red-500/90">*</span> Required fields
                   </span>
                 </div>
+
                 <button
                   type="submit"
-                  disabled={isSubmitting || !selectedType}
-                  className={`
-                    group relative px-8 py-4 rounded-xl text-base font-semibold
-                    transition-all duration-300 flex items-center space-x-3
-                    ${
-                      isSubmitting || !selectedType
-                        ? "bg-gray-400/90 text-gray-200 cursor-not-allowed"
-                        : "bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 hover:from-indigo-500 hover:via-indigo-400 hover:to-indigo-500 text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-[1.02] dark:from-indigo-400 dark:via-indigo-500 dark:to-indigo-400 dark:hover:from-indigo-300 dark:hover:via-indigo-400 dark:hover:to-indigo-300"
-                    }
-                  `}
+                  disabled={isSubmitting || !hcaptchaToken}
+                  className={`relative flex items-center justify-center px-6 py-3 text-sm font-medium rounded-xl overflow-hidden transition-all duration-300 ${
+                    isSubmitting || !hcaptchaToken
+                      ? "bg-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-700 dark:text-gray-400"
+                      : "bg-indigo-600 text-white hover:bg-indigo-500"
+                  }`}
                 >
-                  {isSubmitting ? (
-                    <>
-                      <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                          fill="none"
+                  <div className="relative flex items-center gap-2">
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-5 h-5 border-t-2 border-white rounded-full animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <FaPaperPlane
+                          className={`transition-transform duration-300 ${
+                            hcaptchaToken ? "group-hover:translate-x-1" : ""
+                          }`}
                         />
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        />
-                      </svg>
-                      <span>Sending...</span>
-                    </>
-                  ) : (
-                    <>
-                      <FaPaperPlane className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                      <span>Send Message</span>
-                    </>
-                  )}
+                        Send Message
+                      </>
+                    )}
+                  </div>
                 </button>
               </div>
             </div>

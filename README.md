@@ -1,95 +1,53 @@
-# TriWikiTech
+# 🌐 TriWikiTech
 
-[![CodeFactor](https://www.codefactor.io/repository/github/stawa/triwikitech/badge)](https://www.codefactor.io/repository/github/stawa/triwikitech)
-![GitHub branch status](https://img.shields.io/github/checks-status/stawa/TriWikiTech/dev?logo=github)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/stawa/TriWikiTech?logo=github)
+(logo unavailable)
 
-TriWikiTech is a website currently in development. Visit the live version at [TriWikiTech](https://triwikitech.my.id). For any issues, please open a GitHub issue.
+## 🚀 Overview
+
+TriWikiTech is a modern web platform designed to provide comprehensive tech education and resources. Visit the live version at [TriWikiTech](https://triwikitech.my.id).
+
+**Launch Date:** February 15, 2025
+
+## ✨ Features
+
+- 📚 Comprehensive Tech Tutorials
+- 🔒 Secure Authentication System
+- 💬 Interactive Community Forums (Planned)
+- 📱 Responsive Design
+- 🌙 Dark/Light Mode Support
+- 🌍 Internationalization Ready
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React, Remix, TypeScript
+- **Styling:** Tailwind CSS, Framer Motion
+- **Security:** hCaptcha Integration
+- **UI Components:** Headless UI
+- **Icons:** React Icons
 
 ## 📋 Project Status
 
-### 🐛 Known Issues
+### Current Development Phase
 
-- ✅ Login rewrite over existing data (Resolved)
-- ✅ Register page missing data (Resolved)
-- ✅ Navbar issues with Root (Resolved)
-- ✅ Focus Sidebar when Opened (Resolved)
-
-### 🚀 Upcoming Features
-
-#### Profile
-
-- [x] User profile with unique ID (/profile/123)
-- [ ] Customizable profile settings
-- [ ] Design profile page
-
-#### Localization
-
-- [ ] Implement translations for:
-  - [x] Main Page
-  - [ ] Profile Page
-  - [x] Login Page
-  - [x] Register Page
-  - [ ] Settings Page
-
-#### Courses
-
-- [ ] Implement courses page
-
-#### Code Compiler
-
-- [ ] Implement code compiler
-- [ ] Add language switching feature (e.g., switch between C and C++)
-- [ ] Implement file system for code compiler (e.g., app.py, app.c)
-- [ ] Integrate xterm.js for live output/input of the code compiler
-
-#### Design and User Experience
-
-- [ ] Create a logo for the website
-- [ ] Design and implement Open Graph metadata for improved social media sharing
-- [ ] Create a sitemap for the website
-- [ ] Create a robots.txt file for the website
-- [ ] Create a manifest.json file for the website
-- [ ] Implement cookie consent banner
-- [x] Switch Themes
-  - [x] Light Mode
-  - [x] Dark Mode
-
-#### Privacy and Compliance
-
-- [ ] Develop and implement a cookie consent mechanism
-- [ ] Create a privacy policy page
-- [ ] Ensure GDPR compliance for EU users
-
-## 🏎️ Performance Metrics
-
-Performance metrics obtained using local Lighthouse in Chrome DevTools extension on desktop mode only:
-
-| Page | Performance | Accessibility | Best Practices | SEO | PWA |
-| ---- | ----------- | ------------- | -------------- | --- | --- |
-| /    | 100         | 100           | 100            | 100 | N/A |
-
-These scores demonstrate the website's excellent performance across key areas: fast and smooth performance, accessibility for all users, adherence to best practices for reliability and maintainability, and strong SEO for improved search visibility. While we're proud of these achievements, we're continuously working to enhance the experience, with a particular focus on improving mobile responsiveness and Progressive Web App (PWA) features.
-
-## 🚨 Production Environment
-
-### Known Issues
-
-- No known issues at this time
-
-### 📦 Build Size
-
-The following table presents the build sizes for the production version v0.1.1 of the TriWikiTech website. These metrics provide insight into the overall size of the application and its compressed footprint:
-
-| Metric  | Size        |
-| ------- | ----------- |
-| Total   | 4,207.77 kB |
-| Gzipped | 1,401.41 kB |
-
-## 🤝 Contributing
-
-This project is currently not open for external contributions. However, you are welcome to use this code for personal, non-commercial purposes. Please note that commercial use is not permitted at this time.
+- 🏗️ Beta Testing
+- 📅 Launch Preparation (Target: February 15, 2025)
 
 ## 📄 License
 
-This project is licensed under the [GNU General Public License v3.0](LICENSE.md).
+This project is licensed under the GNU GENERAL PUBLIC LICENSE v3 - see the [LICENSE](LICENSE) file for details.
+
+## 📞 Contact
+
+For support or inquiries:
+
+- 📧 Email: stawa@admin.triwikitech.my.id
+- 🌐 Website: https://triwikitech.my.id
+- 🧪 Beta Version: https://beta.triwikitech.my.id
+
+## ⭐ Support the Project
+
+If you find TriWikiTech helpful, please consider:
+
+- Starring our GitHub repository
+- Sharing the project with others
+- Contributing to the codebase
