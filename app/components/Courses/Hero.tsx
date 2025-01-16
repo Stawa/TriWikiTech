@@ -111,7 +111,7 @@ function HeroSection({
                       <Link
                         to="https://github.com/stawa"
                         target="_blank"
-                        className="font-medium text-gray-900 dark:text-white text-lg hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                        className="font-medium text-gray-900 dark:text-white text-lg hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200" rel="noreferrer"
                       >
                         Stawa
                       </Link>
@@ -170,7 +170,7 @@ function HeroSection({
                         <Link
                           to="https://github.com/stawa"
                           target="_blank"
-                          className="font-medium text-gray-900 dark:text-white text-base hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                          className="font-medium text-gray-900 dark:text-white text-base hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200" rel="noreferrer"
                         >
                           Stawa
                         </Link>

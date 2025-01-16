@@ -1,8 +1,14 @@
 import type { MetaFunction } from "@remix-run/node";
 import { ClientOnly } from "remix-utils/client-only";
-import { FaGithub, FaTwitter } from "react-icons/fa";
+import {
+  FaGithub,
+  FaTwitter,
+  FaGraduationCap,
+  FaCode,
+  FaUsers,
+  FaCheck,
+} from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaGraduationCap, FaCode, FaUsers, FaCheck } from "react-icons/fa";
 
 export const meta: MetaFunction = () => {
   return [

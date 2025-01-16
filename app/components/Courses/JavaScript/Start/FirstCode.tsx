@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { FiCode, FiTerminal, FiBookmark, FiCheckCircle } from "react-icons/fi";
+import { FiCode, FiBookmark, FiCheckCircle } from "react-icons/fi";
 
 import Navigation from "~/components/Courses/Navigation";
 import HeroSection from "~/components/Courses/Hero";

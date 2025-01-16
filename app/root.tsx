@@ -10,7 +10,7 @@ import {
   useRouteError,
   useNavigation,
 } from "@remix-run/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, createContext, useContext } from "react";
 import LoadingBar from "react-top-loading-bar";
 
 import type { UserProfile } from "~/types/user";
@@ -85,8 +85,6 @@ interface FooterTranslations {
     title: string;
   };
 }
-
-import { createContext, useContext } from "react";
 
 const SidebarContext = createContext<{ isSidebarOpen: boolean }>({
   isSidebarOpen: false,

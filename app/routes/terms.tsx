@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   FaUserShield,
   FaChevronRight,
@@ -9,7 +9,6 @@ import {
   FaInfoCircle,
 } from "react-icons/fa";
 import { MetaFunction } from "@remix-run/react";
-import { useState } from "react";
 
 export const meta: MetaFunction = () => [
   { title: "TriWikiTech | Terms of Service" },

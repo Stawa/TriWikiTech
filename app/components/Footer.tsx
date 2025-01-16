@@ -165,7 +165,7 @@ function Footer({ translations, className = "" }: FooterProps) {
                 <Link
                   to="https://github.com/Stawa"
                   className="ml-1.5 font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors duration-300"
-                  target="_blank"
+                  target="_blank" rel="noreferrer"
                 >
                   Stawa
                 </Link>

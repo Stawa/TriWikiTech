@@ -47,8 +47,6 @@ function ErrorPage({ statusCode, message }: ErrorPageProps) {
     },
   };
 
-  const timestamp = new Date("2024-03-16T14:30:00.000Z").toISOString();
-
   return (
     <main
       role="main"

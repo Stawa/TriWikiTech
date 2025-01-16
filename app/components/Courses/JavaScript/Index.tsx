@@ -8,14 +8,16 @@ import {
   FaArrowDown,
 } from "react-icons/fa";
 import { IoInfinite } from "react-icons/io5";
-import { GiScrollUnfurled } from "react-icons/gi";
-import { GiAtom } from "react-icons/gi";
+import { GiScrollUnfurled, GiAtom } from "react-icons/gi";
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FiBook, FiSearch } from "react-icons/fi";
-import { FiCode } from "react-icons/fi";
-import { FiBookOpen } from "react-icons/fi";
-import { FiArrowRight } from "react-icons/fi";
+import {
+  FiBook,
+  FiSearch,
+  FiArrowRight,
+  FiBookOpen,
+  FiCode,
+} from "react-icons/fi";
 import { PiBrainDuotone, PiMonitorFill } from "react-icons/pi";
 import { MdWeb } from "react-icons/md";
 import { FaMobileScreen } from "react-icons/fa6";

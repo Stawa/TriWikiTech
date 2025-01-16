@@ -4,6 +4,7 @@ import {
   useActionData,
   useNavigation,
   useLoaderData,
+  MetaFunction
 } from "@remix-run/react";
 import { useState, useRef } from "react";
 import {
@@ -19,7 +20,6 @@ import {
 import { motion } from "framer-motion";
 import { ContactTypeCard } from "~/components/Shared/ContactTypeCard";
 import { FormInput } from "~/components/Shared/FormInput";
-import { MetaFunction } from "@remix-run/react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 export const meta: MetaFunction = () => [

@@ -1,12 +1,5 @@
 import { UserProfile } from "~/types/user";
-import {
-  lazy,
-  Suspense,
-  useState,
-  useEffect,
-  useMemo,
-  useCallback,
-} from "react";
+import { lazy, Suspense } from "react";
 import {
   FaCog,
   FaSun,

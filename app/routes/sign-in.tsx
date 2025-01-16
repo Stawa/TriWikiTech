@@ -18,8 +18,7 @@ import {
   FaEyeSlash,
   FaExclamationCircle,
 } from "react-icons/fa";
-import { MdOutlineVpnKey } from "react-icons/md";
-import { MdOutlineMail } from "react-icons/md";
+import { MdOutlineVpnKey, MdOutlineMail } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import { useState, useRef } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
