@@ -9,6 +9,7 @@ import {
   FaUsers,
   FaLightbulb,
   FaFlag,
+  FaGithub,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "@remix-run/react";
@@ -140,6 +141,11 @@ function Footer({ translations, className = "" }: FooterProps) {
                 icon={<FaXTwitter />}
                 label="Twitter"
               />
+              <SocialLink
+                href="https://github.com/Stawa"
+                icon={<FaGithub />}
+                label="GitHub"
+              />
             </div>
           </div>
         </div>
@@ -163,9 +169,10 @@ function Footer({ translations, className = "" }: FooterProps) {
                 </span>
                 <span>{translations.designedBy}</span>
                 <Link
-                  to="https://github.com/Stawa"
+                  to="/profile/stawa"
                   className="ml-1.5 font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors duration-300"
-                  target="_blank" rel="noreferrer"
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   Stawa
                 </Link>

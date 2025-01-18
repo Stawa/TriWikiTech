@@ -115,7 +115,7 @@ function Sidebar({
                       <SidebarLink
                         to={`/profile/${user.username}`}
                         icon={<FaUserCircle />}
-                        onNavigate={() => navigate("/profile")}
+                        onNavigate={() => navigate(`/profile/${user.username}`)}
                       >
                         {translations.ViewProfile}
                       </SidebarLink>
